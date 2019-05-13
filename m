@@ -1,70 +1,59 @@
 Return-Path: <linux-nfc-bounces@lists.01.org>
 X-Original-To: lists+linux-nfc@lfdr.de
 Delivered-To: lists+linux-nfc@lfdr.de
-Received: from ml01.01.org (ml01.01.org [198.145.21.10])
-	by mail.lfdr.de (Postfix) with ESMTPS id ADA351BE4D
-	for <lists+linux-nfc@lfdr.de>; Mon, 13 May 2019 22:03:17 +0200 (CEST)
+Received: from ml01.01.org (ml01.01.org [IPv6:2001:19d0:306:5::1])
+	by mail.lfdr.de (Postfix) with ESMTPS id 79D191BE7B
+	for <lists+linux-nfc@lfdr.de>; Mon, 13 May 2019 22:15:20 +0200 (CEST)
 Received: from [127.0.0.1] (localhost [IPv6:::1])
-	by ml01.01.org (Postfix) with ESMTP id D7023212741E2;
-	Mon, 13 May 2019 13:03:15 -0700 (PDT)
+	by ml01.01.org (Postfix) with ESMTP id DE121212741E1;
+	Mon, 13 May 2019 13:15:18 -0700 (PDT)
 X-Original-To: linux-nfc@lists.01.org
 Delivered-To: linux-nfc@lists.01.org
 Received-SPF: Pass (sender SPF authorized) identity=mailfrom;
- client-ip=2a00:1450:4864:20::344; helo=mail-wm1-x344.google.com;
+ client-ip=2a00:1450:4864:20::442; helo=mail-wr1-x442.google.com;
  envelope-from=sedat.dilek@gmail.com; receiver=linux-nfc@lists.01.org 
-Received: from mail-wm1-x344.google.com (mail-wm1-x344.google.com
- [IPv6:2a00:1450:4864:20::344])
+Received: from mail-wr1-x442.google.com (mail-wr1-x442.google.com
+ [IPv6:2a00:1450:4864:20::442])
  (using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
  (No client certificate requested)
- by ml01.01.org (Postfix) with ESMTPS id A92912122CAB4
- for <linux-nfc@lists.01.org>; Mon, 13 May 2019 13:03:13 -0700 (PDT)
-Received: by mail-wm1-x344.google.com with SMTP id y3so564370wmm.2
- for <linux-nfc@lists.01.org>; Mon, 13 May 2019 13:03:13 -0700 (PDT)
+ by ml01.01.org (Postfix) with ESMTPS id 11148212735CE
+ for <linux-nfc@lists.01.org>; Mon, 13 May 2019 13:15:16 -0700 (PDT)
+Received: by mail-wr1-x442.google.com with SMTP id h4so16701989wre.7
+ for <linux-nfc@lists.01.org>; Mon, 13 May 2019 13:15:16 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20161025;
  h=mime-version:references:in-reply-to:reply-to:from:date:message-id
  :subject:to:cc;
- bh=U2V70HHgq1G8IBAe48iadiBr2eJH/xQZxJnZViWgA4s=;
- b=K0R9v5xEBOGo+2EQkGypkZFNd0TDfuRi9yYCnpmXT7M0vEVkcTVDCdPBlKkCW3mJg4
- mnIk0wni/j+eYSK+aZ7Q0n/Ka9pBjL89QEO1+yQ46b014uPLRjiHN4N8aKtLDUVpM2BE
- BvTHJ04iUsZh3YTo1uabjy+ToOz6dpcFH1p/sOQpkNmy+yp7qhz4AgkVZA6+EPQf4SxM
- xstucGBmq5NpGiKiK+omtA6jY2yDL6cAWb3Z9dkRudfWXj1JkX9Lxkn8ffvRU/HoGRJ9
- JN1PE506ShT+OKs1XRljJVRZIB2SkuNDQgoEUsB6TWERyy8MFTS8xWyS2HpDXSORE1u1
- cO7Q==
+ bh=WseHiS737oljtnoWHZSGwODZuVgoSFVRNVAi+JX4ZKo=;
+ b=LJuQoAeG9sNoH/rt3nDFVsTOoqMD2S/rAlTereAb9m5ZdXNBxki+1340Ey0bpj6Q08
+ T8gXC2cO2bKz1OygbTDe5CF7xxiEAqNvRFM8+/JMrFmGtU0bwztoydMt+0jFmLLrEyRF
+ 70VSlNeCGzzVGG5ltH5xbQ4uLjD0SleKxDVx8qpCVArxhz9VfIjA5UFhsjjybWDZkVxi
+ uV1TKARmgNbDusa2QRQBFyZN62vvKj9Fq+s3hjncJOJIDz8AY5uLEBNcMVoZSNi8SUBv
+ KRDyiRjhdl/B2PTLSYhiJx+kM8bXDLLj0sf4YSDruj0I8xXbsADPGJYE3Kd3S7qqG3/X
+ IoKw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20161025;
  h=x-gm-message-state:mime-version:references:in-reply-to:reply-to
  :from:date:message-id:subject:to:cc;
- bh=U2V70HHgq1G8IBAe48iadiBr2eJH/xQZxJnZViWgA4s=;
- b=cH7HtA0OwgkTt5lPptqCdsAF+bhG9TlGs7/lU7RVHs+EeUcipagaNRMWnG31aZCJi7
- rtjGqK2VPQQVAiWvWyOi4ty9UZOAM5qvAIDvTVftxRJ7GMOEEGbqAh7Tl444Ocx6HCZ7
- QhPtCu4GFuc1zPBzIUo32LOuAOuKO45uKkm85XHzgZNi5+owJkh6zBz7bfTJfYCatIuc
- 7fKZfoXF3NjW+9/nRVSVyx41OAuhCIAjH4YNTONykXtj9mrdcMwiTwnL0/OyNk9bWTSC
- WUmR4j7SRwXUhJTSeBeAIWB0evDIrf0UGLiVFWW2d198fUvr+73d+xDfCuCmYrTN9gET
- X0cA==
-X-Gm-Message-State: APjAAAWzmROu0YZEPPDidkMiXAWW4C0JHOsZH/PQm89gm8tfjAV7ShG/
- 28Covnhz2IAs86SKCr1IHbXhr2gqS9CZkL8YCc4=
-X-Google-Smtp-Source: APXvYqwzoneKL8ojrC8BcmjTUH07XF4Mv3gYTVaF4KZr9FLK0iqIm2jBeLxloXRciUvL1G8pSRlFZuhvHPDxW0PfwM8=
-X-Received: by 2002:a1c:9616:: with SMTP id y22mr6079303wmd.73.1557777792012; 
- Mon, 13 May 2019 13:03:12 -0700 (PDT)
+ bh=WseHiS737oljtnoWHZSGwODZuVgoSFVRNVAi+JX4ZKo=;
+ b=GlTxz6aKJXbZ2QwC3f7ZSufjgnNu1ocUTkqgtG85QU0zOVgBrw4/S320WdYo3rBKEP
+ YAJBVc87WTb9iO063Mkb/yySYGZ6oBChgih+gDb1aKcqgJ3i/zhgKIlKu4JH1kBxFBpJ
+ Tzn3js7Rlx/U1ZAg36tx4mRG9Q8K+KYs2nr3wPIDDplzabc0RNYcBw7XV3tIAnTJMRGs
+ pXEBYMoDZfEc247Hfd1zi0ou6OZ4T5auH0Myr+YtqeLaXy8gGqygBcxS9RrpHZytqfIU
+ D+94UhYawWrD8j8P6jvrDhGPZEaEvYvvCDxI3P3OFAzWk7CtvbC/Yzm6062vSXCCRB70
+ bI7w==
+X-Gm-Message-State: APjAAAVrTcWjoP8YSe4GmE7ztBfuz9RDoie/6ECvKH0H0cBh6rdHgJ5o
+ SNYzdLgj4RmYs54nSO6J5t2GOXIOuhuTR/BrlY0=
+X-Google-Smtp-Source: APXvYqyJ3LBZ1Vw7Zu4BUBw+/9RMxuP8SjrM9N+MIHZuAlAgWc9U5uueDq7nfKIHhqBwMRWboqaP+x1l+vloSFw6QGI=
+X-Received: by 2002:adf:9e46:: with SMTP id v6mr7193558wre.141.1557778515522; 
+ Mon, 13 May 2019 13:15:15 -0700 (PDT)
 MIME-Version: 1.0
-References: <154e3e74-38b5-850b-5993-295f9db8fe3c@intel.com>
- <CA+icZUWhBeup95PTP_k58xs8Lf2Ofqb0S_gkdBfbuc0-wdpF-w@mail.gmail.com>
- <06fbacb5-7739-1ca1-3bf4-8049a3ef019b@intel.com>
- <CA+icZUWJ0kZSqogg18LdP2YkNXk=_SNnT7-ufkd_Xp1ak7uchg@mail.gmail.com>
- <20190513095059.GN9224@smile.fi.intel.com>
- <CA+icZUWXSup0BfXNZXxcrAAbu-b9KCiBU++OkC+eFqacMrTwRg@mail.gmail.com>
- <20190513105745.GR9224@smile.fi.intel.com>
- <CA+icZUVDTx_ZUuOgHVDmg5_a4tgrRkPp880+0KPaRJ1d=zF5VQ@mail.gmail.com>
- <20190513124049.GT9224@smile.fi.intel.com>
- <CA+icZUWU2OQszOYi1Jzp7yW+gB-TmhkBfmqaLAvy3WEOn9Rh8g@mail.gmail.com>
- <20190513141128.GY9224@smile.fi.intel.com>
- <CA+icZUUsutHt1NXLNFd17J3QK-LtFCuUUEw4qqp9urJ++dDaKA@mail.gmail.com>
-In-Reply-To: <CA+icZUUsutHt1NXLNFd17J3QK-LtFCuUUEw4qqp9urJ++dDaKA@mail.gmail.com>
+References: <c2d0d19f-d814-8f41-4860-77b9cc7f9d26@linaro.org>
+In-Reply-To: <c2d0d19f-d814-8f41-4860-77b9cc7f9d26@linaro.org>
 From: Sedat Dilek <sedat.dilek@gmail.com>
-Date: Mon, 13 May 2019 22:02:58 +0200
-Message-ID: <CA+icZUXrJieuF8DLVbce=sTVa_2Wc+sgjzh0z3d2Zw91cC9kXw@mail.gmail.com>
-To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-Subject: Re: [linux-nfc] ThinkPad T470 and NXP PN5xx (PN547 or PN548)
+Date: Mon, 13 May 2019 22:15:02 +0200
+Message-ID: <CA+icZUVz7sB6hv4fhL_rqhR_D8RePBJFXk1PaUy5tMw2z4xC_Q@mail.gmail.com>
+To: Daniel Lezcano <daniel.lezcano@linaro.org>
+Subject: Re: [linux-nfc] NXP NFC version and ACPI
 X-BeenThere: linux-nfc@lists.01.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,68 +66,67 @@ List-Help: <mailto:linux-nfc-request@lists.01.org?subject=help>
 List-Subscribe: <https://lists.01.org/mailman/listinfo/linux-nfc>,
  <mailto:linux-nfc-request@lists.01.org?subject=subscribe>
 Reply-To: sedat.dilek@gmail.com
-Cc: linux-wireless@vger.kernel.org, linux-nfc@lists.01.org
+Cc: robert.dolca@intel.com, linux-nfc@lists.01.org,
+ linux-wireless@vger.kernel.org, charles.gorand@effinnov.com,
+ Andy Shevchenko <andriy.shevchenko@linux.intel.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 Errors-To: linux-nfc-bounces@lists.01.org
 Sender: "Linux-nfc" <linux-nfc-bounces@lists.01.org>
 
-On Mon, May 13, 2019 at 9:46 PM Sedat Dilek <sedat.dilek@gmail.com> wrote:
+On Wed, Dec 5, 2018 at 8:38 AM Daniel Lezcano <daniel.lezcano@linaro.org> wrote:
 >
-> On Mon, May 13, 2019 at 4:11 PM Andy Shevchenko
-> <andriy.shevchenko@linux.intel.com> wrote:
-> >
-> > On Mon, May 13, 2019 at 03:32:52PM +0200, Sedat Dilek wrote:
-> > > BTW, which Linux Kconfig setting are minimum?
-> > >
-> > > scripts/config -m NFC_NCI -m NFC_NXP_NCI -m NFC_NXP_NCI_I2C
-> > >
-> > > What about?
-> > >
-> > > scripts/config -m NFC_NCI_SPI -m NFC_NCI_UART -m I2C_GPIO -m SPI_GPIO
-> > >
-> > > Required?
-> > > Not needed?
-> >
-> > I2C_GPIO and SPI_GPIO has nothing to do with all this. What indeed is needed is
-> > the pin control of the actual Intel SoC (unfortunately I don't know what
-> > exactly you have, so, you better to check yourself), something like
-> > CONFIG_PINCTRL_SKYLAKE=y.
-> >
 >
-> I played a bit with the Kconfigs...
+> Hi,
 >
-> scripts/config -m NFC_NCI -m NFC_NXP_NCI -m NFC_NXP_NCI_I2C
+> the discussion reference is on github [1].
 >
-> ...is sufficient.
+> I acquired a Lenovo x280 with a NFC chip. It is unclear what chip is it
+> really, it is called NXP NPC300 which could be a PN7xxx chip range.
 >
-> I don't know which CONFIG_PINCTRL_XXX is needed.
+> A hacked version of an old deprecated out-of-tree module made the PN5xxx
+> to work with my laptop but I suspect it brought some subtle instability
+> on my system.
+>
+> Now it would be nice to have this correctly supported upstream.
+>
+> I dumped the ACPI DSDT table and got the id NXP1001. This one is not
+> listed in the match table of the nxp-nci driver.
+>
+>  - is the driver missing for the so called NXP NPC300 ?
+>  - should the NXP1001 matching string to be added to nxp-nci?
+>  - is my firmware sending me garbage ?
+>
+> Thanks in advance for any input
 >
 
-I looked at lspci output and I see a lot of "Intel Corporation Sunrise
-Point-LP", especially...
+[ CC Andy ]
 
-00:15.0 Signal processing controller: Intel Corporation Sunrise
-Point-LP Serial IO I2C Controller #0 (rev 21)
+Hi Daniel,
 
-I have set...
+I was able to get a NXP NPC300 NFC device run on Lenovo ThinkPad T470.
 
-CONFIG_PINCTRL_SUNRISEPOINT=y
+Look at the patchset "[PATCH v2 00/12] NFC: nxp-nci: clean up and
+support new ID".
+I have tested on top of Linux v5.1.1.
 
-From [1]:
+Here I have set...
 
-config PINCTRL_SUNRISEPOINT
-tristate "Intel Sunrisepoint pinctrl and GPIO driver"
-depends on ACPI
-select PINCTRL_INTEL
-help
-Sunrisepoint is the PCH of Intel Skylake. This pinctrl driver
-provides an interface that allows configuring of PCH pins and
-using them as GPIOs.
+scripts/config -m NFC_NCI -m NFC_NXP_NCI -m NFC_NXP_NCI_I2C -e
+PINCTRL_SUNRISEPOINT
 
+Please give this a try and report.
+
+For details see the below references.
+
+Thanks.
+
+Regards,
 - Sedat -
 
-[1] https://github.com/torvalds/linux/blob/master/drivers/pinctrl/intel/Kconfig#L109
+[1] https://patchwork.kernel.org/project/linux-wireless/list/?submitter=33142
+[2] https://marc.info/?t=155740978400003&r=1&w=2
+[3] https://marc.info/?t=155774435600001&r=1&w=2
 _______________________________________________
 Linux-nfc mailing list
 Linux-nfc@lists.01.org
