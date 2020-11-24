@@ -1,65 +1,61 @@
 Return-Path: <linux-nfc-bounces@lists.01.org>
 X-Original-To: lists+linux-nfc@lfdr.de
 Delivered-To: lists+linux-nfc@lfdr.de
-Received: from ml01.01.org (ml01.01.org [198.145.21.10])
-	by mail.lfdr.de (Postfix) with ESMTPS id 84D052C254B
-	for <lists+linux-nfc@lfdr.de>; Tue, 24 Nov 2020 13:06:11 +0100 (CET)
+Received: from ml01.01.org (ml01.01.org [IPv6:2001:19d0:306:5::1])
+	by mail.lfdr.de (Postfix) with ESMTPS id 691442C2924
+	for <lists+linux-nfc@lfdr.de>; Tue, 24 Nov 2020 15:15:58 +0100 (CET)
 Received: from ml01.vlan13.01.org (localhost [IPv6:::1])
-	by ml01.01.org (Postfix) with ESMTP id C9505100EBB86;
-	Tue, 24 Nov 2020 04:06:09 -0800 (PST)
-Received-SPF: Pass (mailfrom) identity=mailfrom; client-ip=2a00:1450:4864:20::143; helo=mail-lf1-x143.google.com; envelope-from=bongsu.jeon2@gmail.com; receiver=<UNKNOWN> 
-Received: from mail-lf1-x143.google.com (mail-lf1-x143.google.com [IPv6:2a00:1450:4864:20::143])
+	by ml01.01.org (Postfix) with ESMTP id CF814100EBB88;
+	Tue, 24 Nov 2020 06:15:56 -0800 (PST)
+Received-SPF: Pass (mailfrom) identity=mailfrom; client-ip=209.85.208.67; helo=mail-ed1-f67.google.com; envelope-from=k.kozlowski.k@gmail.com; receiver=<UNKNOWN> 
+Received: from mail-ed1-f67.google.com (mail-ed1-f67.google.com [209.85.208.67])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits))
 	(No client certificate requested)
-	by ml01.01.org (Postfix) with ESMTPS id 0AA71100EBB7A
-	for <linux-nfc@lists.01.org>; Tue, 24 Nov 2020 04:06:06 -0800 (PST)
-Received: by mail-lf1-x143.google.com with SMTP id z21so28478050lfe.12
-        for <linux-nfc@lists.01.org>; Tue, 24 Nov 2020 04:06:06 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
-         :cc;
-        bh=X1gWKsLM8WhU8BIYUm/PDJ+UEVUdceUwgZGfwp9Tdo4=;
-        b=mbyD0ZxA9b9ZriZi2hg1urENNnACQ15IfL2TRhb7ZJzmJJgLI0vyIx67W6QaGyvM7O
-         Pz8KBLZly6Gnn4ma0i1cx0yWJQNQ6AZhWoun7xCT/xCDt580Ii0VUNdzU152Vs8KWRGS
-         0ekXa8dymW51DkW/spUp5dWtJ9ac2y4kmuq3+L2gcpXNUi4r2ohpx/zOGr6EVQgr0twd
-         Ho/twtCOUFelLXuoIwrQBf7/jrJa10nWaTS0S4c7us+XoMsRq3qYCyG5pRLHyZLB6WyV
-         IlqeXrKyJpKHhxvBE6yIOyrDyt3cd6JbcBCiKPGOr8bh3702auWLDraqcQo6htXO8pVJ
-         SIsw==
+	by ml01.01.org (Postfix) with ESMTPS id F0C93100EBBD6
+	for <linux-nfc@lists.01.org>; Tue, 24 Nov 2020 06:15:52 -0800 (PST)
+Received: by mail-ed1-f67.google.com with SMTP id l5so21011931edq.11
+        for <linux-nfc@lists.01.org>; Tue, 24 Nov 2020 06:15:52 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
-         :message-id:subject:to:cc;
-        bh=X1gWKsLM8WhU8BIYUm/PDJ+UEVUdceUwgZGfwp9Tdo4=;
-        b=iEoaylh7XmqQw4mulbcoRNQw3bXNYZ6X3Kf8OnHevD5gAVeY3KjuFBlrs9jTZA9lwa
-         89FED1oW1FgPhC4LpahAF5xkPLgL9wSNuO+7VG+OCxkWxqPkVUaClZzUXbedCi04hqY5
-         C9K6SIIqBX7bIhbP9+e5CcA6W+zZMeTFLwC6srtxirIOYvLM9XZ05RUW/LsdiRHsyX5U
-         hzveliFaZTo1ynvueBYPdE8BdNwwfXUfjwGu8rdT1LUcObbe82zIokOULnhPf4AAD3Vj
-         vLi8jkrn3HiLo6E2Kj+Z59Ds/n0oZ7VmgDWKwW+ZNHi8yXSGLfQSVC9ES1fjLg8Py5ot
-         bheQ==
-X-Gm-Message-State: AOAM532v7a8ETZ6vgkjG3tOq0PC5ofIY8n6Gzdi9vv7QNkIlMoq6vnUR
-	k/RDhA64EYgZD2nSDQYM+lPg92qf6TPipIa+h1g=
-X-Google-Smtp-Source: ABdhPJwgdnxMDfraL0+FptbpHyQAQ3ebsJdjgdLIkFQ1dbTCVc569vD1l13vWGfyZYOauxMvXw0ZmSdD6xiblQU3Xks=
-X-Received: by 2002:ac2:5e91:: with SMTP id b17mr1562721lfq.442.1606219564293;
- Tue, 24 Nov 2020 04:06:04 -0800 (PST)
-MIME-Version: 1.0
+        h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+         :mime-version:content-disposition:in-reply-to;
+        bh=UV5dAkTriHZWlO3RZNeKzyPFwM32bAdjh6TvkdygNLU=;
+        b=opzODd/3TErtYkcoMZyukM5mQ8RMkXv++CxzVQkjvTD80ulPRPM4A6Y/TNKJj0fc2O
+         7SeJqMgBFlij0kZ4Z6oshfyyqsJPRwzJDM8ikCFTNk4i0Di/vjYXzEGiLpb0t3jXroB3
+         75ZLw2Dkq3dOrlnkGhuxzBtGYSA0yT1V1GTMpFfUP6gL0BqeHOvFYc3uFH4/b3/6XlLK
+         8pnEB55gwjI/hG7THfAVNgYbj7v0DY3JjifoSRbFfIpeqgEHa2N3BR3cQE2tv5+9LkKK
+         0oI2I8+FDTNhbFMWCrrW4OCVwTQw9C5UdTY8N8ulGNq1jZaPZFSKMPSVoQEFkT5A+udf
+         o0UA==
+X-Gm-Message-State: AOAM531VVnDSrxVkANI4Znt0jux4OqzZ08L+oMsAw9G9ElCIQGX+YluI
+	QAAyXsnzruCDReI0w2b2KCc=
+X-Google-Smtp-Source: ABdhPJwCPOnZBHCBRyU2XlZnrELUeUs/gXWwVcObQOhu4EYr+lV+0kodGtKSo/qsdsRfC8kU2V0qZA==
+X-Received: by 2002:a05:6402:32c:: with SMTP id q12mr4192496edw.85.1606227350694;
+        Tue, 24 Nov 2020 06:15:50 -0800 (PST)
+Received: from kozik-lap (adsl-84-226-167-205.adslplus.ch. [84.226.167.205])
+        by smtp.googlemail.com with ESMTPSA id m3sm7039993edj.22.2020.11.24.06.15.49
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 24 Nov 2020 06:15:49 -0800 (PST)
+Date: Tue, 24 Nov 2020 15:15:47 +0100
+From: "krzk@kernel.org" <krzk@kernel.org>
+To: Bongsu Jeon <bongsu.jeon2@gmail.com>
+Message-ID: <20201124141547.GA3316@kozik-lap>
 References: <CGME20201123075658epcms2p5a6237314f7a72a2556545d3f96261c93@epcms2p5>
- <20201123075658epcms2p5a6237314f7a72a2556545d3f96261c93@epcms2p5> <20201123081940.GA9323@kozik-lap>
-In-Reply-To: <20201123081940.GA9323@kozik-lap>
-From: Bongsu Jeon <bongsu.jeon2@gmail.com>
-Date: Tue, 24 Nov 2020 21:05:52 +0900
-Message-ID: <CACwDmQDOm6PAyphMiUFizueENMdW3Bo5PvdP_VC_sfBEHc9pMQ@mail.gmail.com>
-To: "krzk@kernel.org" <krzk@kernel.org>
-Message-ID-Hash: OK2KCMV7RTYSIJXJ7YUHH7NYW6AOLXP4
-X-Message-ID-Hash: OK2KCMV7RTYSIJXJ7YUHH7NYW6AOLXP4
-X-MailFrom: bongsu.jeon2@gmail.com
+ <20201123075658epcms2p5a6237314f7a72a2556545d3f96261c93@epcms2p5>
+ <20201123081940.GA9323@kozik-lap>
+ <CACwDmQDOm6PAyphMiUFizueENMdW3Bo5PvdP_VC_sfBEHc9pMQ@mail.gmail.com>
+MIME-Version: 1.0
+Content-Disposition: inline
+In-Reply-To: <CACwDmQDOm6PAyphMiUFizueENMdW3Bo5PvdP_VC_sfBEHc9pMQ@mail.gmail.com>
+Message-ID-Hash: X3VD4F6HNXQTOSZGKIIYINU6ZEPEI47L
+X-Message-ID-Hash: X3VD4F6HNXQTOSZGKIIYINU6ZEPEI47L
+X-MailFrom: k.kozlowski.k@gmail.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency; loop; banned-address; member-moderation; nonmember-moderation; administrivia; implicit-dest; max-recipients; max-size; news-moderation; no-subject; suspicious-header
 CC: Bongsu Jeon <bongsu.jeon@samsung.com>, "kuba@kernel.org" <kuba@kernel.org>, "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, "linux-nfc@lists.01.org" <linux-nfc@lists.01.org>, "netdev@vger.kernel.org" <netdev@vger.kernel.org>
 X-Mailman-Version: 3.1.1
 Precedence: list
 Subject: [linux-nfc] Re: [PATCH net-next 2/2] net: nfc: s3fwrn5: Support a UART interface
 List-Id: NFC on Linux <linux-nfc.lists.01.org>
-Archived-At: <https://lists.01.org/hyperkitty/list/linux-nfc@lists.01.org/message/OK2KCMV7RTYSIJXJ7YUHH7NYW6AOLXP4/>
+Archived-At: <https://lists.01.org/hyperkitty/list/linux-nfc@lists.01.org/message/X3VD4F6HNXQTOSZGKIIYINU6ZEPEI47L/>
 List-Archive: <https://lists.01.org/hyperkitty/list/linux-nfc@lists.01.org/>
 List-Help: <mailto:linux-nfc-request@lists.01.org?subject=help>
 List-Post: <mailto:linux-nfc@lists.01.org>
@@ -68,374 +64,277 @@ List-Unsubscribe: <mailto:linux-nfc-leave@lists.01.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-On Mon, Nov 23, 2020 at 5:55 PM krzk@kernel.org <krzk@kernel.org> wrote:
->
-> On Mon, Nov 23, 2020 at 04:56:58PM +0900, Bongsu Jeon wrote:
-> > Since S3FWRN82 NFC Chip, The UART interface can be used.
-> > S3FWRN82 uses NCI protocol and supports I2C and UART interface.
+On Tue, Nov 24, 2020 at 09:05:52PM +0900, Bongsu Jeon wrote:
+> On Mon, Nov 23, 2020 at 5:55 PM krzk@kernel.org <krzk@kernel.org> wrote:
+> > > +static enum s3fwrn5_mode s3fwrn82_uart_get_mode(void *phy_id)
+> > > +{
+> > > +     struct s3fwrn82_uart_phy *phy = phy_id;
+> > > +     enum s3fwrn5_mode mode;
+> > > +
+> > > +     mutex_lock(&phy->mutex);
+> > > +     mode = phy->mode;
+> > > +     mutex_unlock(&phy->mutex);
+> > > +     return mode;
+> > > +}
 > >
-> > Signed-off-by: Bongsu Jeon <bongsu.jeon@samsung.com>
->
-> Please start sending emails properly, e.g. with git send-email, so all
-> your patches in the patchset are referencing the first patch.
->
-Ok. I will do that.
-
-> > ---
-> >  drivers/nfc/s3fwrn5/Kconfig  |  12 ++
-> >  drivers/nfc/s3fwrn5/Makefile |   2 +
-> >  drivers/nfc/s3fwrn5/uart.c   | 250 +++++++++++++++++++++++++++++++++++
-> >  3 files changed, 264 insertions(+)
-> >  create mode 100644 drivers/nfc/s3fwrn5/uart.c
+> > All this duplicates I2C version. You need to start either reusing common
+> > blocks.
 > >
-> > diff --git a/drivers/nfc/s3fwrn5/Kconfig b/drivers/nfc/s3fwrn5/Kconfig
-> > index 3f8b6da58280..6f88737769e1 100644
-> > --- a/drivers/nfc/s3fwrn5/Kconfig
-> > +++ b/drivers/nfc/s3fwrn5/Kconfig
-> > @@ -20,3 +20,15 @@ config NFC_S3FWRN5_I2C
-> >         To compile this driver as a module, choose m here. The module will
-> >         be called s3fwrn5_i2c.ko.
-> >         Say N if unsure.
-> > +
-> > +config NFC_S3FWRN82_UART
-> > +     tristate "Samsung S3FWRN82 UART support"
-> > +     depends on NFC_NCI && SERIAL_DEV_BUS
->
-> What about SERIAL_DEV_BUS as module? Shouldn't this be
-> SERIAL_DEV_BUS || !SERIAL_DEV_BUS?
->
+> 
+> Okay. I will do refactoring on i2c.c and uart.c to make common blocks.
+>  is it okay to separate a patch for it?
 
-SERIAL_DEV_BUS is okay even if SERIAL_DEV_BUS is defined as module.
+Yes, that would be the best - refactor the driver to split some common
+methods and then in next patch add new s3fwrn82 UART driver.
 
-> > +     select NFC_S3FWRN5
-> > +     help
-> > +       This module adds support for a UART interface to the S3FWRN82 chip.
-> > +       Select this if your platform is using the UART bus.
-> > +
-> > +       To compile this driver as a module, choose m here. The module will
-> > +       be called s3fwrn82_uart.ko.
-> > +       Say N if unsure.
-> > diff --git a/drivers/nfc/s3fwrn5/Makefile b/drivers/nfc/s3fwrn5/Makefile
-> > index d0ffa35f50e8..d1902102060b 100644
-> > --- a/drivers/nfc/s3fwrn5/Makefile
-> > +++ b/drivers/nfc/s3fwrn5/Makefile
-> > @@ -5,6 +5,8 @@
+> > > +
+> > > +static int s3fwrn82_uart_write(void *phy_id, struct sk_buff *out)
+> > > +{
+> > > +     struct s3fwrn82_uart_phy *phy = phy_id;
+> > > +     int err;
+> > > +
+> > > +     err = serdev_device_write(phy->ser_dev,
+> > > +                               out->data, out->len,
+> > > +                               MAX_SCHEDULE_TIMEOUT);
+> > > +     if (err < 0)
+> > > +             return err;
+> > > +
+> > > +     return 0;
+> > > +}
+> > > +
+> > > +static const struct s3fwrn5_phy_ops uart_phy_ops = {
+> > > +     .set_wake = s3fwrn82_uart_set_wake,
+> > > +     .set_mode = s3fwrn82_uart_set_mode,
+> > > +     .get_mode = s3fwrn82_uart_get_mode,
+> > > +     .write = s3fwrn82_uart_write,
+> > > +};
+> > > +
+> > > +static int s3fwrn82_uart_read(struct serdev_device *serdev,
+> > > +                           const unsigned char *data,
+> > > +                           size_t count)
+> > > +{
+> > > +     struct s3fwrn82_uart_phy *phy = serdev_device_get_drvdata(serdev);
+> > > +     size_t i;
+> > > +
+> > > +     for (i = 0; i < count; i++) {
+> > > +             skb_put_u8(phy->recv_skb, *data++);
+> > > +
+> > > +             if (phy->recv_skb->len < S3FWRN82_NCI_HEADER)
+> > > +                     continue;
+> > > +
+> > > +             if ((phy->recv_skb->len - S3FWRN82_NCI_HEADER)
+> > > +                             < phy->recv_skb->data[S3FWRN82_NCI_IDX])
+> > > +                     continue;
+> > > +
+> > > +             s3fwrn5_recv_frame(phy->ndev, phy->recv_skb, phy->mode);
+> > > +             phy->recv_skb = alloc_skb(NCI_SKB_BUFF_LEN, GFP_KERNEL);
+> > > +             if (!phy->recv_skb)
+> > > +                     return 0;
+> > > +     }
+> > > +
+> > > +     return i;
+> > > +}
+> > > +
+> > > +static struct serdev_device_ops s3fwrn82_serdev_ops = {
 > >
-> >  s3fwrn5-objs = core.o firmware.o nci.o
-> >  s3fwrn5_i2c-objs = i2c.o
-> > +s3fwrn82_uart-objs = uart.o
+> > const
 > >
-> >  obj-$(CONFIG_NFC_S3FWRN5) += s3fwrn5.o
-> >  obj-$(CONFIG_NFC_S3FWRN5_I2C) += s3fwrn5_i2c.o
-> > +obj-$(CONFIG_NFC_S3FWRN82_UART) += s3fwrn82_uart.o
-> > diff --git a/drivers/nfc/s3fwrn5/uart.c b/drivers/nfc/s3fwrn5/uart.c
-> > new file mode 100644
-> > index 000000000000..b3c36a5b28d3
-> > --- /dev/null
-> > +++ b/drivers/nfc/s3fwrn5/uart.c
-> > @@ -0,0 +1,250 @@
-> > +// SPDX-License-Identifier: GPL-2.0+
-> > +/*
-> > + * UART Link Layer for S3FWRN82 NCI based Driver
-> > + *
-> > + * Copyright (C) 2020 Samsung Electronics
-> > + * Author: Bongsu Jeon <bongsu.jeon@samsung.com>
->
-> You copied a lot from existing i2c.c. Please keep also the original
-> copyrights.
->
+> > > +     .receive_buf = s3fwrn82_uart_read,
+> > > +     .write_wakeup = serdev_device_write_wakeup,
+> > > +};
+> > > +
+> > > +static const struct of_device_id s3fwrn82_uart_of_match[] = {
+> > > +     { .compatible = "samsung,s3fwrn82-uart", },
+> > > +     {},
+> > > +};
+> > > +MODULE_DEVICE_TABLE(of, s3fwrn82_uart_of_match);
+> > > +
+> > > +static int s3fwrn82_uart_parse_dt(struct serdev_device *serdev)
+> > > +{
+> > > +     struct s3fwrn82_uart_phy *phy = serdev_device_get_drvdata(serdev);
+> > > +     struct device_node *np = serdev->dev.of_node;
+> > > +
+> > > +     if (!np)
+> > > +             return -ENODEV;
+> > > +
+> > > +     phy->gpio_en = of_get_named_gpio(np, "en-gpios", 0);
+> > > +     if (!gpio_is_valid(phy->gpio_en))
+> > > +             return -ENODEV;
+> > > +
+> > > +     phy->gpio_fw_wake = of_get_named_gpio(np, "wake-gpios", 0);
+> >
+> > You should not cast it it unsigned int. I'll fix the s3fwrn5 from which
+> > you copied this apparently.
+> >
+> 
+> Okay. I will fix it.
+> 
+> > > +     if (!gpio_is_valid(phy->gpio_fw_wake))
+> > > +             return -ENODEV;
+> > > +
+> > > +     return 0;
+> > > +}
+> > > +
+> > > +static int s3fwrn82_uart_probe(struct serdev_device *serdev)
+> > > +{
+> > > +     struct s3fwrn82_uart_phy *phy;
+> > > +     int ret = -ENOMEM;
+> > > +
+> > > +     phy = devm_kzalloc(&serdev->dev, sizeof(*phy), GFP_KERNEL);
+> > > +     if (!phy)
+> > > +             goto err_exit;
+> > > +
+> > > +     phy->recv_skb = alloc_skb(NCI_SKB_BUFF_LEN, GFP_KERNEL);
+> > > +     if (!phy->recv_skb)
+> > > +             goto err_free;
+> > > +
+> > > +     mutex_init(&phy->mutex);
+> > > +     phy->mode = S3FWRN5_MODE_COLD;
+> > > +
+> > > +     phy->ser_dev = serdev;
+> > > +     serdev_device_set_drvdata(serdev, phy);
+> > > +     serdev_device_set_client_ops(serdev, &s3fwrn82_serdev_ops);
+> > > +     ret = serdev_device_open(serdev);
+> > > +     if (ret) {
+> > > +             dev_err(&serdev->dev, "Unable to open device\n");
+> > > +             goto err_skb;
+> > > +     }
+> > > +
+> > > +     ret = serdev_device_set_baudrate(serdev, 115200);
+> >
+> > Why baudrate is fixed?
+> >
+> 
+> RN82 NFC chip only supports 115200 baudrate for UART.
 
-Okay. I will keep also the original copyrights.
+OK, I guess it could be extended in the future for other frequencies, if
+needed.
 
-> > + * All rights reserved.
-> > + */
-> > +
-> > +#include <linux/device.h>
-> > +#include <linux/kernel.h>
-> > +#include <linux/module.h>
-> > +#include <linux/nfc.h>
-> > +#include <linux/netdevice.h>
-> > +#include <linux/of.h>
-> > +#include <linux/serdev.h>
-> > +#include <linux/gpio.h>
-> > +#include <linux/of_gpio.h>
-> > +
-> > +#include "s3fwrn5.h"
-> > +
-> > +#define S3FWRN82_UART_DRIVER_NAME "s3fwrn82_uart"
->
-> Remove the define, it is used only once.
->
-> > +#define S3FWRN82_NCI_HEADER 3
-> > +#define S3FWRN82_NCI_IDX 2
-> > +#define S3FWRN82_EN_WAIT_TIME 20
-> > +#define NCI_SKB_BUFF_LEN 258
-> > +
-> > +struct s3fwrn82_uart_phy {
-> > +     struct serdev_device *ser_dev;
-> > +     struct nci_dev *ndev;
-> > +     struct sk_buff *recv_skb;
-> > +
-> > +     unsigned int gpio_en;
-> > +     unsigned int gpio_fw_wake;
-> > +
-> > +     /* mutex is used to synchronize */
->
-> Please do not write obvious comments. Mutex is always used to
-> synchronize, what else is it for? Instead you must describe what exactly
-> is protected with mutex.
->
+> 
+> > > +     if (ret != 115200) {
+> > > +             ret = -EINVAL;
+> > > +             goto err_serdev;
+> > > +     }
+> > > +
+> > > +     serdev_device_set_flow_control(serdev, false);
+> > > +
+> > > +     ret = s3fwrn82_uart_parse_dt(serdev);
+> > > +     if (ret < 0)
+> > > +             goto err_serdev;
+> > > +
+> > > +     ret = devm_gpio_request_one(&phy->ser_dev->dev,
+> > > +                                 phy->gpio_en,
+> > > +                                 GPIOF_OUT_INIT_HIGH,
+> > > +                                 "s3fwrn82_en");
+> >
+> > This is weirdly wrapped.
+> >
+> 
+> Did you ask about devem_gpio_request_one function's parenthesis and parameters?
+> If it is right, I changed it after i ran the checkpatch.pl --strict and
+> i saw message like the alignment should match open parenthesis.
 
-I understand it. I will fix it.
+Yeah, but it does not mean to wrap after each argument. It should be
+something like:
 
-> > +     struct mutex mutex;
-> > +     enum s3fwrn5_mode mode;
-> > +};
-> > +
-> > +static void s3fwrn82_uart_set_wake(void *phy_id, bool wake)
-> > +{
-> > +     struct s3fwrn82_uart_phy *phy = phy_id;
-> > +
-> > +     mutex_lock(&phy->mutex);
-> > +     gpio_set_value(phy->gpio_fw_wake, wake);
-> > +     msleep(S3FWRN82_EN_WAIT_TIME);
-> > +     mutex_unlock(&phy->mutex);
-> > +}
-> > +
-> > +static void s3fwrn82_uart_set_mode(void *phy_id, enum s3fwrn5_mode mode)
-> > +{
-> > +     struct s3fwrn82_uart_phy *phy = phy_id;
-> > +
-> > +     mutex_lock(&phy->mutex);
-> > +     if (phy->mode == mode)
-> > +             goto out;
-> > +     phy->mode = mode;
-> > +     gpio_set_value(phy->gpio_en, 1);
-> > +     gpio_set_value(phy->gpio_fw_wake, 0);
-> > +     if (mode == S3FWRN5_MODE_FW)
-> > +             gpio_set_value(phy->gpio_fw_wake, 1);
-> > +     if (mode != S3FWRN5_MODE_COLD) {
-> > +             msleep(S3FWRN82_EN_WAIT_TIME);
-> > +             gpio_set_value(phy->gpio_en, 0);
-> > +             msleep(S3FWRN82_EN_WAIT_TIME);
-> > +     }
-> > +out:
-> > +     mutex_unlock(&phy->mutex);
-> > +}
-> > +
-> > +static enum s3fwrn5_mode s3fwrn82_uart_get_mode(void *phy_id)
-> > +{
-> > +     struct s3fwrn82_uart_phy *phy = phy_id;
-> > +     enum s3fwrn5_mode mode;
-> > +
-> > +     mutex_lock(&phy->mutex);
-> > +     mode = phy->mode;
-> > +     mutex_unlock(&phy->mutex);
-> > +     return mode;
-> > +}
->
-> All this duplicates I2C version. You need to start either reusing common
-> blocks.
->
+        ret = devm_gpio_request_one(&phy->ser_dev->dev, phy->gpio_en,
+                                    GPIOF_OUT_INIT_HIGH, "s3fwrn82_en");
 
-Okay. I will do refactoring on i2c.c and uart.c to make common blocks.
- is it okay to separate a patch for it?
+> 
+> > > +     if (ret < 0)
+> > > +             goto err_serdev;
+> > > +
+> > > +     ret = devm_gpio_request_one(&phy->ser_dev->dev,
+> > > +                                 phy->gpio_fw_wake,
+> > > +                                 GPIOF_OUT_INIT_LOW,
+> > > +                                 "s3fwrn82_fw_wake");
+> > > +     if (ret < 0)
+> > > +             goto err_serdev;
+> > > +
+> > > +     ret = s3fwrn5_probe(&phy->ndev, phy, &phy->ser_dev->dev, &uart_phy_ops);
+> > > +     if (ret < 0)
+> > > +             goto err_serdev;
+> > > +
+> > > +     return ret;
+> > > +
+> > > +err_serdev:
+> > > +     serdev_device_close(serdev);
+> > > +err_skb:
+> > > +     kfree_skb(phy->recv_skb);
+> > > +err_free:
+> > > +     kfree(phy);
+> >
+> > Eee.... why? Did you test this code?
+> >
+> 
+> I didn't test this code. i just added this code as defense code.
+> If the error happens, then allocated memory and device will be free
+> according to the fail case.
 
-> > +
-> > +static int s3fwrn82_uart_write(void *phy_id, struct sk_buff *out)
-> > +{
-> > +     struct s3fwrn82_uart_phy *phy = phy_id;
-> > +     int err;
-> > +
-> > +     err = serdev_device_write(phy->ser_dev,
-> > +                               out->data, out->len,
-> > +                               MAX_SCHEDULE_TIMEOUT);
-> > +     if (err < 0)
-> > +             return err;
-> > +
-> > +     return 0;
-> > +}
-> > +
-> > +static const struct s3fwrn5_phy_ops uart_phy_ops = {
-> > +     .set_wake = s3fwrn82_uart_set_wake,
-> > +     .set_mode = s3fwrn82_uart_set_mode,
-> > +     .get_mode = s3fwrn82_uart_get_mode,
-> > +     .write = s3fwrn82_uart_write,
-> > +};
-> > +
-> > +static int s3fwrn82_uart_read(struct serdev_device *serdev,
-> > +                           const unsigned char *data,
-> > +                           size_t count)
-> > +{
-> > +     struct s3fwrn82_uart_phy *phy = serdev_device_get_drvdata(serdev);
-> > +     size_t i;
-> > +
-> > +     for (i = 0; i < count; i++) {
-> > +             skb_put_u8(phy->recv_skb, *data++);
-> > +
-> > +             if (phy->recv_skb->len < S3FWRN82_NCI_HEADER)
-> > +                     continue;
-> > +
-> > +             if ((phy->recv_skb->len - S3FWRN82_NCI_HEADER)
-> > +                             < phy->recv_skb->data[S3FWRN82_NCI_IDX])
-> > +                     continue;
-> > +
-> > +             s3fwrn5_recv_frame(phy->ndev, phy->recv_skb, phy->mode);
-> > +             phy->recv_skb = alloc_skb(NCI_SKB_BUFF_LEN, GFP_KERNEL);
-> > +             if (!phy->recv_skb)
-> > +                     return 0;
-> > +     }
-> > +
-> > +     return i;
-> > +}
-> > +
-> > +static struct serdev_device_ops s3fwrn82_serdev_ops = {
->
-> const
->
-> > +     .receive_buf = s3fwrn82_uart_read,
-> > +     .write_wakeup = serdev_device_write_wakeup,
-> > +};
-> > +
-> > +static const struct of_device_id s3fwrn82_uart_of_match[] = {
-> > +     { .compatible = "samsung,s3fwrn82-uart", },
-> > +     {},
-> > +};
-> > +MODULE_DEVICE_TABLE(of, s3fwrn82_uart_of_match);
-> > +
-> > +static int s3fwrn82_uart_parse_dt(struct serdev_device *serdev)
-> > +{
-> > +     struct s3fwrn82_uart_phy *phy = serdev_device_get_drvdata(serdev);
-> > +     struct device_node *np = serdev->dev.of_node;
-> > +
-> > +     if (!np)
-> > +             return -ENODEV;
-> > +
-> > +     phy->gpio_en = of_get_named_gpio(np, "en-gpios", 0);
-> > +     if (!gpio_is_valid(phy->gpio_en))
-> > +             return -ENODEV;
-> > +
-> > +     phy->gpio_fw_wake = of_get_named_gpio(np, "wake-gpios", 0);
->
-> You should not cast it it unsigned int. I'll fix the s3fwrn5 from which
-> you copied this apparently.
->
+Really, this won't work. It's kind of obvious why... You cannot use
+kfree() on memory which is not allocated with kzalloc(). Or IOW, you
+cannot use it if it is being freed by devm.
 
-Okay. I will fix it.
+I doubt that you tested either this or the remove callback because if
+you did test it, you would see easily:
 
-> > +     if (!gpio_is_valid(phy->gpio_fw_wake))
-> > +             return -ENODEV;
-> > +
-> > +     return 0;
-> > +}
-> > +
-> > +static int s3fwrn82_uart_probe(struct serdev_device *serdev)
-> > +{
-> > +     struct s3fwrn82_uart_phy *phy;
-> > +     int ret = -ENOMEM;
-> > +
-> > +     phy = devm_kzalloc(&serdev->dev, sizeof(*phy), GFP_KERNEL);
-> > +     if (!phy)
-> > +             goto err_exit;
-> > +
-> > +     phy->recv_skb = alloc_skb(NCI_SKB_BUFF_LEN, GFP_KERNEL);
-> > +     if (!phy->recv_skb)
-> > +             goto err_free;
-> > +
-> > +     mutex_init(&phy->mutex);
-> > +     phy->mode = S3FWRN5_MODE_COLD;
-> > +
-> > +     phy->ser_dev = serdev;
-> > +     serdev_device_set_drvdata(serdev, phy);
-> > +     serdev_device_set_client_ops(serdev, &s3fwrn82_serdev_ops);
-> > +     ret = serdev_device_open(serdev);
-> > +     if (ret) {
-> > +             dev_err(&serdev->dev, "Unable to open device\n");
-> > +             goto err_skb;
-> > +     }
-> > +
-> > +     ret = serdev_device_set_baudrate(serdev, 115200);
->
-> Why baudrate is fixed?
->
+[  145.018200] Unable to handle kernel paging request at virtual address ffffffed
+[  145.025428] pgd = 67e71ef8
+[  145.027774] [ffffffed] *pgd=6fffd861, *pte=00000000, *ppte=00000000
+[  145.034052] Internal error: Oops: 837 [#1] PREEMPT SMP ARM
+[  145.039278] Modules linked in: s5p_mfc exynos_gsc s5p_jpeg v4l2_mem2mem videobuf2_dma_contig videobuf2_memops videobuf2_v4l2 videobuf2_common videodev mc
+[  145.052987] CPU: 2 PID: 325 Comm: bash Tainted: G        W         5.10.0-rc3-next-20201113-00008-g62dd0da04641-dirty #79
+[  145.063883] Hardware name: Samsung Exynos (Flattened Device Tree)
+[  145.069971] PC is at devres_remove+0x9c/0xb4
+[  145.074180] LR is at devres_remove+0x78/0xb4
+[  145.078418] pc : [<c06a6134>]    lr : [<c06a6110>]    psr: a0010093
+[  145.084666] sp : c6af7de0  ip : 00000001  fp : c2dd16e4
+[  145.089861] r10: c2dd16c0  r9 : 60010013  r8 : c05894a8
+[  145.095060] r7 : c058b128  r6 : c4bbc100  r5 : c2dd1410  r4 : c440d5c0
+[  145.101564] r3 : ffffffed  r2 : c4bbc100  r1 : 60010013  r0 : c2dd16c0
+[  145.108068] Flags: NzCv  IRQs off  FIQs on  Mode SVC_32  ISA ARM  Segment none
+[  145.115260] Control: 10c5387d  Table: 46aa006a  DAC: 00000051
+[  145.120979] Process bash (pid: 325, stack limit = 0x97d30bf6)
+[  145.126696] Stack: (0xc6af7de0 to 0xc6af8000)
+[  145.131039] 7de0: c4bbc100 c2dd1410 c058b128 c2dd1410 c440d5c0 c39a3400 c1305f08 c1348d28
+[  145.139185] 7e00: 0000002b c06a6a54 c2dd1410 00000000 c440d5c0 c058ab94 c2dd1410 c06ccd04
+[  145.147333] 7e20: c2dd1410 c19ab618 00000000 c19ab620 c39a3400 c06a1ff8 00000000 c2dd1524
+[  145.155476] 7e40: c1c16800 c2dd1410 c1305f08 c1305f08 c1348d28 c39a3400 c6af7f78 c39a3410
+[  145.163621] 7e60: c1c16800 c06a2624 c1305f08 c1305f08 0000000c c2dd1410 00000000 c1305f08
+[  145.171769] 7e80: 0000000c c39a3400 c6af7f78 c39a3410 c1c16800 c06a29ec c2dd1410 c1305f08
+[  145.179914] 7ea0: c12f0410 c06a0728 0000000c c4bbc140 00000000 00000000 c39a3400 c0381968
+[  145.188058] 7ec0: 00000000 00000000 00000000 c5164640 0000000c 005e0da0 c6af7f78 c02d6120
+[  145.196202] 7ee0: c038185c c02d5b70 00000001 00000000 c02d6120 00000000 00000000 c133c27a
+[  145.204353] 7f00: c39f5690 c127b15c c116e588 c0b40ef0 c133c14f c3af4450 c39f5670 00000000
+[  145.212497] 7f20: c3af4450 c018ea90 c120958c c39f5670 c3af4450 c116e588 c02f9988 c0197a00
+[  145.220639] 7f40: c116e588 c0b40ef0 00000003 c1208ec8 00000000 c5164640 c5164640 00000000
+[  145.228784] 7f60: 00000000 005e0da0 0000000c 00000004 00000000 c02d6120 00000000 00000000
+[  145.236931] 7f80: 00000006 c1208ec8 c5164640 0000000c 005e0da0 b6fec680 00000004 c0100244
+[  145.245077] 7fa0: c6af6000 c0100060 0000000c 005e0da0 00000001 005e0da0 0000000c 00000000
+[  145.253222] 7fc0: 0000000c 005e0da0 b6fec680 00000004 b6f6310c b6f62c74 00000000 00000000
+[  145.261370] 7fe0: 00000498 bef78290 b6e84ea4 b6ee2300 60010010 00000001 00000000 00000000
+[  145.269555] [<c06a6134>] (devres_remove) from [<c06a6a54>] (devres_release+0x10/0x3c)
+[  145.277340] [<c06a6a54>] (devres_release) from [<c058ab94>] (devm_pinctrl_put+0x20/0x44)
+[  145.285388] [<c058ab94>] (devm_pinctrl_put) from [<c06ccd04>] (pinctrl_bind_pins+0xd0/0x27c)
+[  145.293786] [<c06ccd04>] (pinctrl_bind_pins) from [<c06a1ff8>] (really_probe+0x90/0x4f0)
+[  145.301842] [<c06a1ff8>] (really_probe) from [<c06a2624>] (driver_probe_device+0x78/0x1e0)
+[  145.310069] [<c06a2624>] (driver_probe_device) from [<c06a29ec>] (device_driver_attach+0x58/0x60)
+[  145.318936] [<c06a29ec>] (device_driver_attach) from [<c06a0728>] (bind_store+0x8c/0x100)
+[  145.327074] [<c06a0728>] (bind_store) from [<c0381968>] (kernfs_fop_write+0x10c/0x230)
+[  145.334960] [<c0381968>] (kernfs_fop_write) from [<c02d5b70>] (vfs_write+0xcc/0x524)
+[  145.342658] [<c02d5b70>] (vfs_write) from [<c02d6120>] (ksys_write+0x64/0xf0)
+[  145.349759] [<c02d6120>] (ksys_write) from [<c0100060>] (ret_fast_syscall+0x0/0x2c)
+[  145.357377] Exception stack(0xc6af7fa8 to 0xc6af7ff0)
+[  145.362395] 7fa0:                   0000000c 005e0da0 00000001 005e0da0 0000000c 00000000
+[  145.370551] 7fc0: 0000000c 005e0da0 b6fec680 00000004 b6f6310c b6f62c74 00000000 00000000
+[  145.378699] 7fe0: 00000498 bef78290 b6e84ea4 b6ee2300
+[  145.383719] Code: e1a0000a e5942000 e1a01009 e5823004 (e5832000)
+[  145.389795] ---[ end trace 769f050185612ec3 ]---
 
-RN82 NFC chip only supports 115200 baudrate for UART.
+Please fix the double-free.
 
-> > +     if (ret != 115200) {
-> > +             ret = -EINVAL;
-> > +             goto err_serdev;
-> > +     }
-> > +
-> > +     serdev_device_set_flow_control(serdev, false);
-> > +
-> > +     ret = s3fwrn82_uart_parse_dt(serdev);
-> > +     if (ret < 0)
-> > +             goto err_serdev;
-> > +
-> > +     ret = devm_gpio_request_one(&phy->ser_dev->dev,
-> > +                                 phy->gpio_en,
-> > +                                 GPIOF_OUT_INIT_HIGH,
-> > +                                 "s3fwrn82_en");
->
-> This is weirdly wrapped.
->
-
-Did you ask about devem_gpio_request_one function's parenthesis and parameters?
-If it is right, I changed it after i ran the checkpatch.pl --strict and
-i saw message like the alignment should match open parenthesis.
-
-> > +     if (ret < 0)
-> > +             goto err_serdev;
-> > +
-> > +     ret = devm_gpio_request_one(&phy->ser_dev->dev,
-> > +                                 phy->gpio_fw_wake,
-> > +                                 GPIOF_OUT_INIT_LOW,
-> > +                                 "s3fwrn82_fw_wake");
-> > +     if (ret < 0)
-> > +             goto err_serdev;
-> > +
-> > +     ret = s3fwrn5_probe(&phy->ndev, phy, &phy->ser_dev->dev, &uart_phy_ops);
-> > +     if (ret < 0)
-> > +             goto err_serdev;
-> > +
-> > +     return ret;
-> > +
-> > +err_serdev:
-> > +     serdev_device_close(serdev);
-> > +err_skb:
-> > +     kfree_skb(phy->recv_skb);
-> > +err_free:
-> > +     kfree(phy);
->
-> Eee.... why? Did you test this code?
->
-
-I didn't test this code. i just added this code as defense code.
-If the error happens, then allocated memory and device will be free
-according to the fail case.
-
-> > +err_exit:
-> > +     return ret;
-> > +}
-> > +
-> > +static void s3fwrn82_uart_remove(struct serdev_device *serdev)
-> > +{
-> > +     struct s3fwrn82_uart_phy *phy = serdev_device_get_drvdata(serdev);
-> > +
-> > +     s3fwrn5_remove(phy->ndev);
-> > +     serdev_device_close(serdev);
-> > +     kfree_skb(phy->recv_skb);
-> > +     kfree(phy);
->
-> This does not look like tested...
->
-
-I tested this code using unbind of the serial device.
-It worked and I saw the debugging log that i added for checking the
-code to be sure.
-
-> Best regards,
-> Krzysztof
+Best regards,
+Krzysztof
 _______________________________________________
 Linux-nfc mailing list -- linux-nfc@lists.01.org
 To unsubscribe send an email to linux-nfc-leave@lists.01.org
