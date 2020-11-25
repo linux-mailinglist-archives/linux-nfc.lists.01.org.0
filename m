@@ -2,57 +2,64 @@ Return-Path: <linux-nfc-bounces@lists.01.org>
 X-Original-To: lists+linux-nfc@lfdr.de
 Delivered-To: lists+linux-nfc@lfdr.de
 Received: from ml01.01.org (ml01.01.org [IPv6:2001:19d0:306:5::1])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0F7EA2C3A33
-	for <lists+linux-nfc@lfdr.de>; Wed, 25 Nov 2020 08:37:41 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9E3102C403E
+	for <lists+linux-nfc@lfdr.de>; Wed, 25 Nov 2020 13:34:06 +0100 (CET)
 Received: from ml01.vlan13.01.org (localhost [IPv6:::1])
-	by ml01.01.org (Postfix) with ESMTP id 717E3100EF24B;
-	Tue, 24 Nov 2020 23:37:36 -0800 (PST)
-Received-SPF: Pass (mailfrom) identity=mailfrom; client-ip=198.145.29.99; helo=mail.kernel.org; envelope-from=krzk@kernel.org; receiver=<UNKNOWN> 
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by ml01.01.org (Postfix) with ESMTP id 53136100ED489;
+	Wed, 25 Nov 2020 04:34:04 -0800 (PST)
+Received-SPF: Pass (mailfrom) identity=mailfrom; client-ip=2a00:1450:4864:20::242; helo=mail-lj1-x242.google.com; envelope-from=bongsu.jeon2@gmail.com; receiver=<UNKNOWN> 
+Received: from mail-lj1-x242.google.com (mail-lj1-x242.google.com [IPv6:2a00:1450:4864:20::242])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits))
 	(No client certificate requested)
-	by ml01.01.org (Postfix) with ESMTPS id 0B06F100EF24A
-	for <linux-nfc@lists.01.org>; Tue, 24 Nov 2020 23:37:33 -0800 (PST)
-Received: from mail-ed1-f51.google.com (mail-ed1-f51.google.com [209.85.208.51])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by mail.kernel.org (Postfix) with ESMTPSA id E041C20B1F
-	for <linux-nfc@lists.01.org>; Wed, 25 Nov 2020 07:37:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=default; t=1606289853;
-	bh=pfubf2Eam/M4OwhA361SdUjqP5Jpv5yEhn0hQW/qEXM=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc:From;
-	b=t1ilZtQl84DIdUr/Ndzh2aOEoxPNsNOyqAs7YwWNxFOl4LZqMrxDzTxTLVGwV/ARZ
-	 5aMRl7wAttYA+TX0jAvo+IgqvlbpsuyYEN2a6trloHLJYgVsExhLbnlcjOQSpjKNr0
-	 0tlBSE7OqbHnbe4fyyRNmWOx2CXBLCX3nLHFn8kY=
-Received: by mail-ed1-f51.google.com with SMTP id d18so1473770edt.7
-        for <linux-nfc@lists.01.org>; Tue, 24 Nov 2020 23:37:32 -0800 (PST)
-X-Gm-Message-State: AOAM531uvKFYT2GPj24uma2JaJBlHgHWEtdRy4eD3YHJXA7wRDLtKWe6
-	btShrZ4x5dkh1rNBouHZs5fzO1EUGAkOW1TLW3M=
-X-Google-Smtp-Source: ABdhPJwuArKsAqTsBCAJDIDSansjrfy5FPVUgH9SvGi2jdhaUnKWI21oZXoXdA3HGRZkIUlEqhKaZTPWEalobRnY4l8=
-X-Received: by 2002:a05:6402:2218:: with SMTP id cq24mr2305279edb.246.1606289851348;
- Tue, 24 Nov 2020 23:37:31 -0800 (PST)
+	by ml01.01.org (Postfix) with ESMTPS id E6917100ED484
+	for <linux-nfc@lists.01.org>; Wed, 25 Nov 2020 04:34:01 -0800 (PST)
+Received: by mail-lj1-x242.google.com with SMTP id o24so2097550ljj.6
+        for <linux-nfc@lists.01.org>; Wed, 25 Nov 2020 04:34:01 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20161025;
+        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
+         :cc;
+        bh=EVe5POv3aa7dU3vUuog57QbOZrixAdov9pVP3eydeoo=;
+        b=Ck94bbY1W+pkNSnAX3vx03SXp8N3MtZaykkN05t2hLTXxMwTHVH4sB/LxBHLH6AZS9
+         oQL/18hH9tVyHJFtmvkP8+oVmZBB4cPa53+dxZoN/wSanLjll1mtJcCYJTPg4Gm8N80X
+         Y2vZkB8MjfJfWO03ZJeN+/xkyVeFKAXdF/T3ypAMmqCrggPdhYj8AP/GHfeeyLqSqQ2k
+         D/3XFKnUgghljTkJNB6obDycku6SGRsG8Ou9eRBgYGhRwmSQnUSLSa9ubJQwqbUhgnyB
+         KKTUnxUcjrtGjrprY1dJQyzJGhMpUt6+i4kh1UNl8reZoMiCHpERnM2MUOdieZP2oHU1
+         f/Pg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+         :message-id:subject:to:cc;
+        bh=EVe5POv3aa7dU3vUuog57QbOZrixAdov9pVP3eydeoo=;
+        b=cU5LMM5ZuwPfhYowdwHGvRhuo5/W26k2RLCtDynA6bwt2eYfwpzHMgP6QcRGsUncvV
+         wOLEmxaXjIGZEomO1WJ6mS+qQn+AaZ09Pz2SZ88ZrDbK8hr/Xuy5bHUa4mriX9WNOoHK
+         yf0ELkAGKy47gAgB8lYmP2pYcMBHO2Qd+2s4YFaH1alqrc0YsztRvu61HaKiaf7VMDzW
+         6GKqGYn1FZONvfb0fQQfqAskByTQ6WfiMnGVeqATZyj0X5PumkCeNTjCz4LbUAosLccr
+         zoqune+HASSZN/3MP9BTGZpuHWNlbCaJzPD9OXS0nC4Uohqs2erfkUJgxcO7NUv0fhK5
+         xirA==
+X-Gm-Message-State: AOAM533ZM324uhRw94Aum4sXhpAc51612NN5rbA+1c4lKhoTSi5ZxEGA
+	U6VSit+3+GT5Nfon8bV1Ksn8oaQrNkTJR8zwp6ZUpmAJ
+X-Google-Smtp-Source: ABdhPJzOriSnYKwSvxwLxgmL/BdKHWLv0aU/RWxvb68hF8AtjeQzog70BmohNuchgsRmSD0LtBU9eWGSO1YzEeKTzFM=
+X-Received: by 2002:a2e:9346:: with SMTP id m6mr1022377ljh.195.1606307639998;
+ Wed, 25 Nov 2020 04:33:59 -0800 (PST)
 MIME-Version: 1.0
-References: <CGME20201123075526epcms2p59410a8ba942f8942f53a593d9df764d0@epcms2p5>
- <20201123075526epcms2p59410a8ba942f8942f53a593d9df764d0@epcms2p5>
- <20201123080123.GA5656@kozik-lap> <CACwDmQBh77pqivk=bBv3SJ14HLucY42jZyEaKAX+n=yS3TSqFw@mail.gmail.com>
- <20201124114151.GA32873@kozik-lap> <CACwDmQDWtfa8tXkG8W+EQxjdYJ6rkVgN9PjOVQdK8CwUXAURMg@mail.gmail.com>
-In-Reply-To: <CACwDmQDWtfa8tXkG8W+EQxjdYJ6rkVgN9PjOVQdK8CwUXAURMg@mail.gmail.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Date: Wed, 25 Nov 2020 08:37:19 +0100
-X-Gmail-Original-Message-ID: <CAJKOXPc1sBvuZACRM_4fjiSJECg7eRqWB+c2aQPDE1iPWHbdmA@mail.gmail.com>
-Message-ID: <CAJKOXPc1sBvuZACRM_4fjiSJECg7eRqWB+c2aQPDE1iPWHbdmA@mail.gmail.com>
-To: Bongsu Jeon <bongsu.jeon2@gmail.com>
-Message-ID-Hash: RBQPYYLYWNQPZSIHTCATIU33EI6MMKV3
-X-Message-ID-Hash: RBQPYYLYWNQPZSIHTCATIU33EI6MMKV3
-X-MailFrom: krzk@kernel.org
+References: <CGME20201123101208epcms2p71d4c8d66f08fb7a2e10ae422abde3389@epcms2p7>
+ <20201123101208epcms2p71d4c8d66f08fb7a2e10ae422abde3389@epcms2p7> <20201124144353.7c759cae@kicinski-fedora-pc1c0hjn.dhcp.thefacebook.com>
+In-Reply-To: <20201124144353.7c759cae@kicinski-fedora-pc1c0hjn.dhcp.thefacebook.com>
+From: Bongsu Jeon <bongsu.jeon2@gmail.com>
+Date: Wed, 25 Nov 2020 21:33:48 +0900
+Message-ID: <CACwDmQAZ48JrM3AuiKwuSdhcpfo_d2_P0B+mtd4Mshfa3WUVpA@mail.gmail.com>
+To: Jakub Kicinski <kuba@kernel.org>
+Message-ID-Hash: SHVJNWSCM7AHJHLZ7SDMCP2SV5R3XDE2
+X-Message-ID-Hash: SHVJNWSCM7AHJHLZ7SDMCP2SV5R3XDE2
+X-MailFrom: bongsu.jeon2@gmail.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency; loop; banned-address; member-moderation; nonmember-moderation; administrivia; implicit-dest; max-recipients; max-size; news-moderation; no-subject; suspicious-header
-CC: Bongsu Jeon <bongsu.jeon@samsung.com>, "kuba@kernel.org" <kuba@kernel.org>, "linux-nfc@lists.01.org" <linux-nfc@lists.01.org>, "netdev@vger.kernel.org" <netdev@vger.kernel.org>, "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>, "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+CC: Bongsu Jeon <bongsu.jeon@samsung.com>, "davem@davemloft.net" <davem@davemloft.net>, "netdev@vger.kernel.org" <netdev@vger.kernel.org>, linux-nfc@lists.01.org
 X-Mailman-Version: 3.1.1
 Precedence: list
-Subject: [linux-nfc] Re: [PATCH net-next 1/2] dt-bindings: net: nfc: s3fwrn5: Support a UART interface
+Subject: [linux-nfc] Re: [PATCH net-next v2] net/nfc/nci: Support NCI 2.x initial sequence
 List-Id: NFC on Linux <linux-nfc.lists.01.org>
-Archived-At: <https://lists.01.org/hyperkitty/list/linux-nfc@lists.01.org/message/RBQPYYLYWNQPZSIHTCATIU33EI6MMKV3/>
+Archived-At: <https://lists.01.org/hyperkitty/list/linux-nfc@lists.01.org/message/SHVJNWSCM7AHJHLZ7SDMCP2SV5R3XDE2/>
 List-Archive: <https://lists.01.org/hyperkitty/list/linux-nfc@lists.01.org/>
 List-Help: <mailto:linux-nfc-request@lists.01.org?subject=help>
 List-Post: <mailto:linux-nfc@lists.01.org>
@@ -61,43 +68,200 @@ List-Unsubscribe: <mailto:linux-nfc-leave@lists.01.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-On Wed, 25 Nov 2020 at 04:08, Bongsu Jeon <bongsu.jeon2@gmail.com> wrote:
+On Wed, Nov 25, 2020 at 9:03 AM Jakub Kicinski <kuba@kernel.org> wrote:
 >
-> On 11/24/20, krzk@kernel.org <krzk@kernel.org> wrote:
-> > On Tue, Nov 24, 2020 at 08:39:40PM +0900, Bongsu Jeon wrote:
-> >> On Mon, Nov 23, 2020 at 5:02 PM krzk@kernel.org <krzk@kernel.org> wrote:
-> >> >
-> >> > On Mon, Nov 23, 2020 at 04:55:26PM +0900, Bongsu Jeon wrote:
-> >  > >  examples:
-> >> > >    - |
-> >> > >      #include <dt-bindings/gpio/gpio.h>
-> >> > > @@ -71,3 +81,17 @@ examples:
-> >> > >              wake-gpios = <&gpj0 2 GPIO_ACTIVE_HIGH>;
-> >> > >          };
-> >> > >      };
-> >> > > +  # UART example on Raspberry Pi
-> >> > > +  - |
-> >> > > +    &uart0 {
-> >> > > +        status = "okay";
-> >> > > +
-> >> > > +        s3fwrn82_uart {
-> >> >
-> >> > Just "bluetooth" to follow Devicetree specification.
-> >> Sorry. I don't understand this comment.
-> >> Could you explain it?
-> >> Does it mean i need to refer to the net/broadcom-bluetooth.txt?
+> On Mon, 23 Nov 2020 19:12:08 +0900 Bongsu Jeon wrote:
+> > implement the NCI 2.x initial sequence to support NCI 2.x NFCC.
+> > Since NCI 2.0, CORE_RESET and CORE_INIT sequence have been changed.
+> > If NFCEE supports NCI 2.x, then NCI 2.x initial sequence will work.
 > >
-> > The node name should be "bluetooth", not "s3fwrn82_uart", because of
-> > Devicetree naming convention - node names should represent generic class
-> > of a device.
+> > In NCI 1.0, Initial sequence and payloads are as below:
+> > (DH)                     (NFCC)
+> >  |  -- CORE_RESET_CMD --> |
+> >  |  <-- CORE_RESET_RSP -- |
+> >  |  -- CORE_INIT_CMD -->  |
+> >  |  <-- CORE_INIT_RSP --  |
+> >  CORE_RESET_RSP payloads are Status, NCI version, Configuration Status.
+> >  CORE_INIT_CMD payloads are empty.
+> >  CORE_INIT_RSP payloads are Status, NFCC Features,
+> >     Number of Supported RF Interfaces, Supported RF Interface,
+> >     Max Logical Connections, Max Routing table Size,
+> >     Max Control Packet Payload Size, Max Size for Large Parameters,
+> >     Manufacturer ID, Manufacturer Specific Information.
 > >
-> Actually, RN82 is the nfc device.
-> So, is it okay to use the name as nfc instead of Bluetooth?
+> > In NCI 2.0, Initial Sequence and Parameters are as below:
+> > (DH)                     (NFCC)
+> >  |  -- CORE_RESET_CMD --> |
+> >  |  <-- CORE_RESET_RSP -- |
+> >  |  <-- CORE_RESET_NTF -- |
+> >  |  -- CORE_INIT_CMD -->  |
+> >  |  <-- CORE_INIT_RSP --  |
+> >  CORE_RESET_RSP payloads are Status.
+> >  CORE_RESET_NTF payloads are Reset Trigger,
+> >     Configuration Status, NCI Version, Manufacturer ID,
+> >     Manufacturer Specific Information Length,
+> >     Manufacturer Specific Information.
+> >  CORE_INIT_CMD payloads are Feature1, Feature2.
+> >  CORE_INIT_RSP payloads are Status, NFCC Features,
+> >     Max Logical Connections, Max Routing Table Size,
+> >     Max Control Packet Payload Size,
+> >     Max Data Packet Payload Size of the Static HCI Connection,
+> >     Number of Credits of the Static HCI Connection,
+> >     Max NFC-V RF Frame Size, Number of Supported RF Interfaces,
+> >     Supported RF Interfaces.
+> >
+> > Signed-off-by: Bongsu Jeon <bongsu.jeon@samsung.com>
+>
+> NFC folks, looks like when the NFC core got orphaned it lost all links
+> in MAINTAINERS. Should we add the L: linux-nfc@lists.01.org so that
+> there is a better chance that someone knowledgeable will provide
+> reviews?
+>
+> Also if anyone is up for it feel free to add your M: or R: entries!
+>
 
-Oops, of course, nfc, I don't know why the Bluetooth stuck in my mind.
+Okay. It's better. I will add linux-nfc@lists.01.org when I resend the
+new version.
 
-Best regards,
-Krzysztof
+> >  #define NCI_OP_CORE_INIT_CMD         nci_opcode_pack(NCI_GID_CORE, 0x01)
+> > +/* To support NCI 2.x */
+> > +struct nci_core_init_v2_cmd {
+> > +     unsigned char   feature1;
+> > +     unsigned char   feature2;
+> > +} __packed;
+>
+> No need for this to be packed.
+>
+> >  #define NCI_OP_CORE_SET_CONFIG_CMD   nci_opcode_pack(NCI_GID_CORE, 0x02)
+> >  struct set_config_param {
+> > @@ -316,6 +326,11 @@ struct nci_core_reset_rsp {
+> >       __u8    config_status;
+> >  } __packed;
+> >
+> > +/* To support NCI ver 2.x */
+> > +struct nci_core_reset_rsp_nci_ver2 {
+> > +     unsigned char   status;
+> > +} __packed;
+>
+> ditto
+>
+
+Okay I will fix it.
+
+> >  #define NCI_OP_CORE_INIT_RSP         nci_opcode_pack(NCI_GID_CORE, 0x01)
+> >  struct nci_core_init_rsp_1 {
+> >       __u8    status;
+> > @@ -334,6 +349,20 @@ struct nci_core_init_rsp_2 {
+> >       __le32  manufact_specific_info;
+> >  } __packed;
+> >
+> > +/* To support NCI ver 2.x */
+> > +struct nci_core_init_rsp_nci_ver2 {
+> > +     unsigned char   status;
+> > +     __le32  nfcc_features;
+> > +     unsigned char   max_logical_connections;
+> > +     __le16  max_routing_table_size;
+> > +     unsigned char   max_ctrl_pkt_payload_len;
+> > +     unsigned char   max_data_pkt_hci_payload_len;
+> > +     unsigned char   number_of_hci_credit;
+> > +     __le16  max_nfc_v_frame_size;
+> > +     unsigned char   num_supported_rf_interfaces;
+> > +     unsigned char   supported_rf_interfaces[];
+> > +} __packed;
+> > +
+> >  #define NCI_OP_CORE_SET_CONFIG_RSP   nci_opcode_pack(NCI_GID_CORE, 0x02)
+> >  struct nci_core_set_config_rsp {
+> >       __u8    status;
+> > @@ -372,6 +401,16 @@ struct nci_nfcee_discover_rsp {
+> >  /* --------------------------- */
+> >  /* ---- NCI Notifications ---- */
+> >  /* --------------------------- */
+> > +#define NCI_OP_CORE_RESET_NTF                nci_opcode_pack(NCI_GID_CORE, 0x00)
+> > +struct nci_core_reset_ntf {
+> > +     unsigned char   reset_trigger;
+> > +     unsigned char   config_status;
+> > +     unsigned char   nci_ver;
+> > +     unsigned char   manufact_id;
+> > +     unsigned char   manufacturer_specific_len;
+> > +     __le32  manufact_specific_info;
+> > +} __packed;
+> > +
+> >  #define NCI_OP_CORE_CONN_CREDITS_NTF nci_opcode_pack(NCI_GID_CORE, 0x06)
+> >  struct conn_credit_entry {
+> >       __u8    conn
+> > diff --git a/net/nfc/nci/core.c b/net/nfc/nci/core.c
+> > index 4953ee5146e1..68889faadda2 100644
+> > --- a/net/nfc/nci/core.c
+> > +++ b/net/nfc/nci/core.c
+> > @@ -165,7 +165,14 @@ static void nci_reset_req(struct nci_dev *ndev, unsigned long opt)
+> >
+> >  static void nci_init_req(struct nci_dev *ndev, unsigned long opt)
+> >  {
+> > -     nci_send_cmd(ndev, NCI_OP_CORE_INIT_CMD, 0, NULL);
+> > +     struct nci_core_init_v2_cmd *cmd = (struct nci_core_init_v2_cmd *)opt;
+> > +
+> > +     if (!cmd) {
+> > +             nci_send_cmd(ndev, NCI_OP_CORE_INIT_CMD, 0, NULL);
+> > +     } else {
+> > +             /* if nci version is 2.0, then use the feature parameters */
+> > +             nci_send_cmd(ndev, NCI_OP_CORE_INIT_CMD, sizeof(struct nci_core_init_v2_cmd), cmd);
+>
+> Please wrap this line.
+>
+
+Sorry, Could you explain it in detail?
+
+> > +     }
+>
+> Parenthesis unnecessary.
+>
+
+Ok. I will fix it.
+
+> >  }
+> >
+> >  static void nci_init_complete_req(struct nci_dev *ndev, unsigned long opt)
+>
+> > +static unsigned char nci_core_init_rsp_packet_v2(struct nci_dev *ndev, struct sk_buff *skb)
+> > +{
+> > +     struct nci_core_init_rsp_nci_ver2 *rsp = (void *)skb->data;
+> > +     unsigned char rf_interface_idx = 0;
+> > +     unsigned char rf_extension_cnt = 0;
+> > +     unsigned char *supported_rf_interface = rsp->supported_rf_interfaces;
+> > +
+> > +     pr_debug("status %x\n", rsp->status);
+> > +
+> > +     if (rsp->status != NCI_STATUS_OK)
+> > +             return rsp->status;
+> > +
+> > +     ndev->nfcc_features = __le32_to_cpu(rsp->nfcc_features);
+> > +     ndev->num_supported_rf_interfaces = rsp->num_supported_rf_interfaces;
+> > +
+> > +     if (ndev->num_supported_rf_interfaces >
+> > +         NCI_MAX_SUPPORTED_RF_INTERFACES) {
+> > +             ndev->num_supported_rf_interfaces =
+> > +                     NCI_MAX_SUPPORTED_RF_INTERFACES;
+> > +     }
+>
+> brackets unnecessary unnecessary
+>
+> also:
+>
+>         ndev->num_supported_rf_interfaces =
+>                 min(ndev->num_supported_rf_interfaces,
+>                     NCI_MAX_SUPPORTED_RF_INTERFACES);
+>
+
+Okay. I will fix it.
+Thanks for reviewing this code.
+
+> > +     while (rf_interface_idx < ndev->num_supported_rf_interfaces) {
+> > +             ndev->supported_rf_interfaces[rf_interface_idx++] = *supported_rf_interface++;
+> > +
+> > +             /* skip rf extension parameters */
+> > +             rf_extension_cnt = *supported_rf_interface++;
+> > +             supported_rf_interface += rf_extension_cnt;
+> > +     }
 _______________________________________________
 Linux-nfc mailing list -- linux-nfc@lists.01.org
 To unsubscribe send an email to linux-nfc-leave@lists.01.org
