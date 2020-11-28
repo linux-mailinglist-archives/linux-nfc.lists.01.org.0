@@ -1,410 +1,387 @@
 Return-Path: <linux-nfc-bounces@lists.01.org>
 X-Original-To: lists+linux-nfc@lfdr.de
 Delivered-To: lists+linux-nfc@lfdr.de
-Received: from ml01.01.org (ml01.01.org [IPv6:2001:19d0:306:5::1])
-	by mail.lfdr.de (Postfix) with ESMTPS id DDA7F2C66EA
-	for <lists+linux-nfc@lfdr.de>; Fri, 27 Nov 2020 14:36:48 +0100 (CET)
+Received: from ml01.01.org (ml01.01.org [198.145.21.10])
+	by mail.lfdr.de (Postfix) with ESMTPS id B13572C6F7A
+	for <lists+linux-nfc@lfdr.de>; Sat, 28 Nov 2020 12:46:04 +0100 (CET)
 Received: from ml01.vlan13.01.org (localhost [IPv6:::1])
-	by ml01.01.org (Postfix) with ESMTP id 1DC18100ED4A0;
-	Fri, 27 Nov 2020 05:36:47 -0800 (PST)
-Received-SPF: Pass (mailfrom) identity=mailfrom; client-ip=2607:f8b0:4864:20::541; helo=mail-pg1-x541.google.com; envelope-from=bongsu.jeon2@gmail.com; receiver=<UNKNOWN> 
-Received: from mail-pg1-x541.google.com (mail-pg1-x541.google.com [IPv6:2607:f8b0:4864:20::541])
+	by ml01.01.org (Postfix) with ESMTP id 0EF6B100EC1FD;
+	Sat, 28 Nov 2020 03:46:03 -0800 (PST)
+Received-SPF: Pass (mailfrom) identity=mailfrom; client-ip=209.85.208.65; helo=mail-ed1-f65.google.com; envelope-from=k.kozlowski.k@gmail.com; receiver=<UNKNOWN> 
+Received: from mail-ed1-f65.google.com (mail-ed1-f65.google.com [209.85.208.65])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits))
 	(No client certificate requested)
-	by ml01.01.org (Postfix) with ESMTPS id 90C01100ED491
-	for <linux-nfc@lists.01.org>; Fri, 27 Nov 2020 05:36:45 -0800 (PST)
-Received: by mail-pg1-x541.google.com with SMTP id o4so2105063pgj.0
-        for <linux-nfc@lists.01.org>; Fri, 27 Nov 2020 05:36:45 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=message-id:from:to:cc:subject:date;
-        bh=+5xvuHx9xFZP0w6JZXyPvv5kaP3Y+SZFb5tatXkOPiE=;
-        b=SubS628TLmKjZLZrVGX550O5mHeqxbAusVZ0WZGTGtdFXKCEoTsFiv2ak90Zw3Mj5D
-         0LJTyeQWC3AthsnQSaHJ3TywvWlGeozGa7tOibcWmD2dXcQ77TeE0OtwD17Y3YUulLfw
-         kOcRXmcxvbLAkD6Oqhnqp2xwMCtz1C6eEfiSau9hORTqAY0qUQz+mXslOzEGQdXrWuMO
-         qx+uRBsWNXaRGTCt2L4tOmMXXN1Sq7G2aSGonwuMI9h34ywzxaDiYOpBmbyLlYheMcld
-         7J5as+M1WXcLeITG8tbDk9dg76kFKbVllx4m5zlXfScEWIXI2qdldP576JLrj67h2/3U
-         wATQ==
+	by ml01.01.org (Postfix) with ESMTPS id E89B5100EC1DE
+	for <linux-nfc@lists.01.org>; Sat, 28 Nov 2020 03:45:59 -0800 (PST)
+Received: by mail-ed1-f65.google.com with SMTP id c7so665377edv.6
+        for <linux-nfc@lists.01.org>; Sat, 28 Nov 2020 03:45:59 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:message-id:from:to:cc:subject:date;
-        bh=+5xvuHx9xFZP0w6JZXyPvv5kaP3Y+SZFb5tatXkOPiE=;
-        b=PSgRoUZsxwTV5pKc+STIrxCPqynF1/sAuHRKEx3WMYIlMqxQW8Ov9d/HdWPxAieO3L
-         fxzq18HX6WFO0IQaPfeuO9QAsLorFmUdFNivNaBG2Idubz2GoHTmvDNpIEfixX/s8xOd
-         Tbj3uzy7g/8VrNoCbv/tEEqBXei66tLrH2ACnqbbcUK9ToBfRkutAUFkiX33m3rPbNAx
-         3CYBmQ6DpJFKfj3A0+qQueGgNz4kqrcv+wfa0kaA/4YzJOYMqhAftQHneOI9+uqErtNU
-         WuqbKPTxan8pB419ADoJ9ndmzF6nIJj7IUXVqC7nzr/74JOtaCml2L2/UuKa9XIoxb5Q
-         MNbA==
-X-Gm-Message-State: AOAM530Kt5T+tAhm345J2LP1dHUj2w7Apwx3i0VGhaQqPCQupnuOp330
-	BWUpLnEnPWCT4Gg7JarFeBTldNZy9Dc=
-X-Google-Smtp-Source: ABdhPJzR+bw8M+Wf/aokO2yVHP8li/tSZy8bwH9lW7wrGbR1ErRkNulR6//yde8OrpfO/foxpCJNoA==
-X-Received: by 2002:a62:1c96:0:b029:198:1cb6:26bd with SMTP id c144-20020a621c960000b02901981cb626bdmr7102563pfc.33.1606484205004;
-        Fri, 27 Nov 2020 05:36:45 -0800 (PST)
-Received: from localhost.localdomain ([182.226.226.37])
-        by smtp.googlemail.com with ESMTPSA id p127sm7846980pfp.93.2020.11.27.05.36.42
-        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-        Fri, 27 Nov 2020 05:36:44 -0800 (PST)
-Message-ID: <5fc100ec.1c69fb81.58b7b.2dee@mx.google.com>
-X-Google-Original-Message-ID: <1606484191-6069-1-git-send-email-Bongsu.Jeon>
-From: bongsu.jeon2@gmail.com
-X-Google-Original-From: Bongsu.Jeon
-To: kuba@kernel.org
-Date: Fri, 27 Nov 2020 22:36:31 +0900
-X-Mailer: git-send-email 1.9.1
-Message-ID-Hash: 7CZ4S5XEE4PUIHE55K5FVDZBH6BQNGZH
-X-Message-ID-Hash: 7CZ4S5XEE4PUIHE55K5FVDZBH6BQNGZH
-X-MailFrom: bongsu.jeon2@gmail.com
+        h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+         :mime-version:content-disposition:in-reply-to;
+        bh=yusIMZ2Y3C0T1nr2J+PHt7ilVpsQQ+TaY1wBN9Xc7yY=;
+        b=qm3UxqN6ql6r8kA0Mstur9ChocpUM4quSFpjmkRWlndTTJVZ31KcPFjzyO32neCqq8
+         NERKlkbOXU5WiC+Wl2v1LtGrgrpSzRy1K6SD4m137aPsJlf24zBV0yimlFCsKqpxCSOl
+         xXKS4rcYMqsu4pJKG6H7YYEL11R7ctvPntOPlEItImPm7rsYWCKCTixdvXw4Jt4U5LwS
+         2NyNQaJMVviquhTMV8pF1yD7/s9aOQV2/fa/BM/S9fASOK4iAA23YW4QZurtecSy5Fcf
+         LyICSXwrgfqZO1SwPgV+j3tjMuTkigpfus6JeRzntzzXtzFbYTRkePePFElil3gruuMa
+         CPVw==
+X-Gm-Message-State: AOAM533AecGhTBaXUHEnkAMgFXBOr9OCkraPX0c3XjxIiFfVv7vdNefs
+	mlpQEGMewhGawe5uhyUk/9I=
+X-Google-Smtp-Source: ABdhPJz8cXwM86QOXd98OGFI+SYT7WpBOhgx7KR7daHRAzVETjTOjLJuzF9P0ho183Rd1ulVJkC94g==
+X-Received: by 2002:a50:ab07:: with SMTP id s7mr12827539edc.374.1606563957702;
+        Sat, 28 Nov 2020 03:45:57 -0800 (PST)
+Received: from kozik-lap (adsl-84-226-167-205.adslplus.ch. [84.226.167.205])
+        by smtp.googlemail.com with ESMTPSA id p20sm6081276ejd.78.2020.11.28.03.45.56
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 28 Nov 2020 03:45:56 -0800 (PST)
+Date: Sat, 28 Nov 2020 12:45:55 +0100
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Bongsu Jeon <bongsu.jeon2@gmail.com>
+Message-ID: <20201128114555.GA6313@kozik-lap>
+References: <1606404819-30647-1-git-send-email-bongsu.jeon@samsung.com>
+ <1606404819-30647-3-git-send-email-bongsu.jeon@samsung.com>
+ <20201126171257.GC4978@kozik-lap>
+ <CACwDmQAi+DfjWSzrWQd+EFDy+6Jk8VVCigpCcCC=OBg0m-PbXg@mail.gmail.com>
+MIME-Version: 1.0
+Content-Disposition: inline
+In-Reply-To: <CACwDmQAi+DfjWSzrWQd+EFDy+6Jk8VVCigpCcCC=OBg0m-PbXg@mail.gmail.com>
+Message-ID-Hash: WXKGESWC22GB3JK6KNB6XO6W6SOPH4FS
+X-Message-ID-Hash: WXKGESWC22GB3JK6KNB6XO6W6SOPH4FS
+X-MailFrom: k.kozlowski.k@gmail.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency; loop; banned-address; member-moderation; nonmember-moderation; administrivia; implicit-dest; max-recipients; max-size; news-moderation; no-subject; suspicious-header
-CC: linux-nfc@lists.01.org, linux-kernel@vger.kernel.org, netdev@vger.kernel.org, Bongsu Jeon <bongsu.jeon@samsung.com>
+CC: linux-nfc@lists.01.org, netdev@vger.kernel.org, linux-kernel@vger.kernel.org, Bongsu Jeon <bongsu.jeon@samsung.com>
 X-Mailman-Version: 3.1.1
 Precedence: list
-Subject: [linux-nfc] [PATCH net-next v3] net/nfc/nci: Support NCI 2.x initial sequence
+Subject: [linux-nfc] Re: [PATCH net-next 3/3] nfc: s3fwrn5: extract the common phy blocks
 List-Id: NFC on Linux <linux-nfc.lists.01.org>
-Archived-At: <https://lists.01.org/hyperkitty/list/linux-nfc@lists.01.org/message/7CZ4S5XEE4PUIHE55K5FVDZBH6BQNGZH/>
+Archived-At: <https://lists.01.org/hyperkitty/list/linux-nfc@lists.01.org/message/WXKGESWC22GB3JK6KNB6XO6W6SOPH4FS/>
 List-Archive: <https://lists.01.org/hyperkitty/list/linux-nfc@lists.01.org/>
 List-Help: <mailto:linux-nfc-request@lists.01.org?subject=help>
 List-Post: <mailto:linux-nfc@lists.01.org>
 List-Subscribe: <mailto:linux-nfc-join@lists.01.org>
 List-Unsubscribe: <mailto:linux-nfc-leave@lists.01.org>
-MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-From: Bongsu Jeon <bongsu.jeon@samsung.com>
+On Fri, Nov 27, 2020 at 08:09:24AM +0900, Bongsu Jeon wrote:
+> On Fri, Nov 27, 2020 at 2:13 AM Krzysztof Kozlowski <krzk@kernel.org> wrote:
+> >
+> > On Fri, Nov 27, 2020 at 12:33:39AM +0900, bongsu.jeon2@gmail.com wrote:
+> > > From: Bongsu Jeon <bongsu.jeon@samsung.com>
+> > >
+> > > Extract the common phy blocks to reuse it.
+> > > The UART module will use the common blocks.
+> >
+> >
+> > Hi,
+> >
+> > Thanks for the patch. Few comments below.
+> >
+> > > Signed-off-by: Bongsu Jeon <bongsu.jeon@samsung.com>
+> > > ---
+> > >  drivers/nfc/s3fwrn5/i2c.c        | 111 ++++++++++++---------------------------
+> > >  drivers/nfc/s3fwrn5/phy_common.h |  86 ++++++++++++++++++++++++++++++
+> > >  2 files changed, 119 insertions(+), 78 deletions(-)
+> > >  create mode 100644 drivers/nfc/s3fwrn5/phy_common.h
+> > >
+> > > diff --git a/drivers/nfc/s3fwrn5/i2c.c b/drivers/nfc/s3fwrn5/i2c.c
+> > > index 9a64eea..cd1b2a7 100644
+> > > --- a/drivers/nfc/s3fwrn5/i2c.c
+> > > +++ b/drivers/nfc/s3fwrn5/i2c.c
+> > > @@ -15,75 +15,30 @@
+> > >
+> > >  #include <net/nfc/nfc.h>
+> > >
+> > > -#include "s3fwrn5.h"
+> > > +#include "phy_common.h"
+> > >
+> > >  #define S3FWRN5_I2C_DRIVER_NAME "s3fwrn5_i2c"
+> > >
+> > > -#define S3FWRN5_EN_WAIT_TIME 20
+> > > -
+> > >  struct s3fwrn5_i2c_phy {
+> > > +     struct phy_common common;
+> > >       struct i2c_client *i2c_dev;
+> > > -     struct nci_dev *ndev;
+> > > -
+> > > -     int gpio_en;
+> > > -     int gpio_fw_wake;
+> > > -
+> > > -     struct mutex mutex;
+> > >
+> > > -     enum s3fwrn5_mode mode;
+> > >       unsigned int irq_skip:1;
+> > >  };
+> > >
+> > > -static void s3fwrn5_i2c_set_wake(void *phy_id, bool wake)
+> > > -{
+> > > -     struct s3fwrn5_i2c_phy *phy = phy_id;
+> > > -
+> > > -     mutex_lock(&phy->mutex);
+> > > -     gpio_set_value(phy->gpio_fw_wake, wake);
+> > > -     msleep(S3FWRN5_EN_WAIT_TIME);
+> > > -     mutex_unlock(&phy->mutex);
+> > > -}
+> > > -
+> > >  static void s3fwrn5_i2c_set_mode(void *phy_id, enum s3fwrn5_mode mode)
+> > >  {
+> > >       struct s3fwrn5_i2c_phy *phy = phy_id;
+> > >
+> > > -     mutex_lock(&phy->mutex);
+> > > +     mutex_lock(&phy->common.mutex);
+> > >
+> > > -     if (phy->mode == mode)
+> > > +     if (s3fwrn5_phy_power_ctrl(&phy->common, mode) == false)
+> > >               goto out;
+> > >
+> > > -     phy->mode = mode;
+> > > -
+> > > -     gpio_set_value(phy->gpio_en, 1);
+> > > -     gpio_set_value(phy->gpio_fw_wake, 0);
+> > > -     if (mode == S3FWRN5_MODE_FW)
+> > > -             gpio_set_value(phy->gpio_fw_wake, 1);
+> > > -
+> > > -     if (mode != S3FWRN5_MODE_COLD) {
+> > > -             msleep(S3FWRN5_EN_WAIT_TIME);
+> > > -             gpio_set_value(phy->gpio_en, 0);
+> > > -             msleep(S3FWRN5_EN_WAIT_TIME);
+> > > -     }
+> > > -
+> > >       phy->irq_skip = true;
+> > >
+> > >  out:
+> > > -     mutex_unlock(&phy->mutex);
+> > > -}
+> > > -
+> > > -static enum s3fwrn5_mode s3fwrn5_i2c_get_mode(void *phy_id)
+> > > -{
+> > > -     struct s3fwrn5_i2c_phy *phy = phy_id;
+> > > -     enum s3fwrn5_mode mode;
+> > > -
+> > > -     mutex_lock(&phy->mutex);
+> > > -
+> > > -     mode = phy->mode;
+> > > -
+> > > -     mutex_unlock(&phy->mutex);
+> > > -
+> > > -     return mode;
+> > > +     mutex_unlock(&phy->common.mutex);
+> > >  }
+> > >
+> > >  static int s3fwrn5_i2c_write(void *phy_id, struct sk_buff *skb)
+> > > @@ -91,7 +46,7 @@ static int s3fwrn5_i2c_write(void *phy_id, struct sk_buff *skb)
+> > >       struct s3fwrn5_i2c_phy *phy = phy_id;
+> > >       int ret;
+> > >
+> > > -     mutex_lock(&phy->mutex);
+> > > +     mutex_lock(&phy->common.mutex);
+> > >
+> > >       phy->irq_skip = false;
+> > >
+> > > @@ -102,7 +57,7 @@ static int s3fwrn5_i2c_write(void *phy_id, struct sk_buff *skb)
+> > >               ret  = i2c_master_send(phy->i2c_dev, skb->data, skb->len);
+> > >       }
+> > >
+> > > -     mutex_unlock(&phy->mutex);
+> > > +     mutex_unlock(&phy->common.mutex);
+> > >
+> > >       if (ret < 0)
+> > >               return ret;
+> > > @@ -114,9 +69,9 @@ static int s3fwrn5_i2c_write(void *phy_id, struct sk_buff *skb)
+> > >  }
+> > >
+> > >  static const struct s3fwrn5_phy_ops i2c_phy_ops = {
+> > > -     .set_wake = s3fwrn5_i2c_set_wake,
+> > > +     .set_wake = s3fwrn5_phy_set_wake,
+> > >       .set_mode = s3fwrn5_i2c_set_mode,
+> > > -     .get_mode = s3fwrn5_i2c_get_mode,
+> > > +     .get_mode = s3fwrn5_phy_get_mode,
+> > >       .write = s3fwrn5_i2c_write,
+> > >  };
+> > >
+> > > @@ -128,7 +83,7 @@ static int s3fwrn5_i2c_read(struct s3fwrn5_i2c_phy *phy)
+> > >       char hdr[4];
+> > >       int ret;
+> > >
+> > > -     hdr_size = (phy->mode == S3FWRN5_MODE_NCI) ?
+> > > +     hdr_size = (phy->common.mode == S3FWRN5_MODE_NCI) ?
+> > >               NCI_CTRL_HDR_SIZE : S3FWRN5_FW_HDR_SIZE;
+> > >       ret = i2c_master_recv(phy->i2c_dev, hdr, hdr_size);
+> > >       if (ret < 0)
+> > > @@ -137,7 +92,7 @@ static int s3fwrn5_i2c_read(struct s3fwrn5_i2c_phy *phy)
+> > >       if (ret < hdr_size)
+> > >               return -EBADMSG;
+> > >
+> > > -     data_len = (phy->mode == S3FWRN5_MODE_NCI) ?
+> > > +     data_len = (phy->common.mode == S3FWRN5_MODE_NCI) ?
+> > >               ((struct nci_ctrl_hdr *)hdr)->plen :
+> > >               ((struct s3fwrn5_fw_header *)hdr)->len;
+> > >
+> > > @@ -157,24 +112,24 @@ static int s3fwrn5_i2c_read(struct s3fwrn5_i2c_phy *phy)
+> > >       }
+> > >
+> > >  out:
+> > > -     return s3fwrn5_recv_frame(phy->ndev, skb, phy->mode);
+> > > +     return s3fwrn5_recv_frame(phy->common.ndev, skb, phy->common.mode);
+> > >  }
+> > >
+> > >  static irqreturn_t s3fwrn5_i2c_irq_thread_fn(int irq, void *phy_id)
+> > >  {
+> > >       struct s3fwrn5_i2c_phy *phy = phy_id;
+> > >
+> > > -     if (!phy || !phy->ndev) {
+> > > +     if (!phy || !phy->common.ndev) {
+> > >               WARN_ON_ONCE(1);
+> > >               return IRQ_NONE;
+> > >       }
+> > >
+> > > -     mutex_lock(&phy->mutex);
+> > > +     mutex_lock(&phy->common.mutex);
+> > >
+> > >       if (phy->irq_skip)
+> > >               goto out;
+> > >
+> > > -     switch (phy->mode) {
+> > > +     switch (phy->common.mode) {
+> > >       case S3FWRN5_MODE_NCI:
+> > >       case S3FWRN5_MODE_FW:
+> > >               s3fwrn5_i2c_read(phy);
+> > > @@ -184,7 +139,7 @@ static irqreturn_t s3fwrn5_i2c_irq_thread_fn(int irq, void *phy_id)
+> > >       }
+> > >
+> > >  out:
+> > > -     mutex_unlock(&phy->mutex);
+> > > +     mutex_unlock(&phy->common.mutex);
+> > >
+> > >       return IRQ_HANDLED;
+> > >  }
+> > > @@ -197,19 +152,19 @@ static int s3fwrn5_i2c_parse_dt(struct i2c_client *client)
+> > >       if (!np)
+> > >               return -ENODEV;
+> > >
+> > > -     phy->gpio_en = of_get_named_gpio(np, "en-gpios", 0);
+> > > -     if (!gpio_is_valid(phy->gpio_en)) {
+> > > +     phy->common.gpio_en = of_get_named_gpio(np, "en-gpios", 0);
+> > > +     if (!gpio_is_valid(phy->common.gpio_en)) {
+> > >               /* Support also deprecated property */
+> > > -             phy->gpio_en = of_get_named_gpio(np, "s3fwrn5,en-gpios", 0);
+> > > -             if (!gpio_is_valid(phy->gpio_en))
+> > > +             phy->common.gpio_en = of_get_named_gpio(np, "s3fwrn5,en-gpios", 0);
+> > > +             if (!gpio_is_valid(phy->common.gpio_en))
+> > >                       return -ENODEV;
+> > >       }
+> > >
+> > > -     phy->gpio_fw_wake = of_get_named_gpio(np, "wake-gpios", 0);
+> > > -     if (!gpio_is_valid(phy->gpio_fw_wake)) {
+> > > +     phy->common.gpio_fw_wake = of_get_named_gpio(np, "wake-gpios", 0);
+> > > +     if (!gpio_is_valid(phy->common.gpio_fw_wake)) {
+> > >               /* Support also deprecated property */
+> > > -             phy->gpio_fw_wake = of_get_named_gpio(np, "s3fwrn5,fw-gpios", 0);
+> > > -             if (!gpio_is_valid(phy->gpio_fw_wake))
+> > > +             phy->common.gpio_fw_wake = of_get_named_gpio(np, "s3fwrn5,fw-gpios", 0);
+> >
+> > The lines here should wrap at 80 character.
+> >
+> > > +             if (!gpio_is_valid(phy->common.gpio_fw_wake))
+> > >                       return -ENODEV;
+> > >       }
+> > >
+> > > @@ -226,8 +181,8 @@ static int s3fwrn5_i2c_probe(struct i2c_client *client,
+> > >       if (!phy)
+> > >               return -ENOMEM;
+> > >
+> > > -     mutex_init(&phy->mutex);
+> > > -     phy->mode = S3FWRN5_MODE_COLD;
+> > > +     mutex_init(&phy->common.mutex);
+> > > +     phy->common.mode = S3FWRN5_MODE_COLD;
+> > >       phy->irq_skip = true;
+> > >
+> > >       phy->i2c_dev = client;
+> > > @@ -237,17 +192,17 @@ static int s3fwrn5_i2c_probe(struct i2c_client *client,
+> > >       if (ret < 0)
+> > >               return ret;
+> > >
+> > > -     ret = devm_gpio_request_one(&phy->i2c_dev->dev, phy->gpio_en,
+> > > -             GPIOF_OUT_INIT_HIGH, "s3fwrn5_en");
+> > > +     ret = devm_gpio_request_one(&phy->i2c_dev->dev, phy->common.gpio_en,
+> > > +                                 GPIOF_OUT_INIT_HIGH, "s3fwrn5_en");
+> > >       if (ret < 0)
+> > >               return ret;
+> > >
+> > > -     ret = devm_gpio_request_one(&phy->i2c_dev->dev, phy->gpio_fw_wake,
+> > > -             GPIOF_OUT_INIT_LOW, "s3fwrn5_fw_wake");
+> > > +     ret = devm_gpio_request_one(&phy->i2c_dev->dev, phy->common.gpio_fw_wake,
+> > > +                                 GPIOF_OUT_INIT_LOW, "s3fwrn5_fw_wake");
+> > >       if (ret < 0)
+> > >               return ret;
+> > >
+> > > -     ret = s3fwrn5_probe(&phy->ndev, phy, &phy->i2c_dev->dev, &i2c_phy_ops);
+> > > +     ret = s3fwrn5_probe(&phy->common.ndev, phy, &phy->i2c_dev->dev, &i2c_phy_ops);
+> >
+> > Please wrap the lines.
+> >
+> > >       if (ret < 0)
+> > >               return ret;
+> > >
+> > > @@ -255,7 +210,7 @@ static int s3fwrn5_i2c_probe(struct i2c_client *client,
+> > >               s3fwrn5_i2c_irq_thread_fn, IRQF_TRIGGER_HIGH | IRQF_ONESHOT,
+> > >               S3FWRN5_I2C_DRIVER_NAME, phy);
+> > >       if (ret)
+> > > -             s3fwrn5_remove(phy->ndev);
+> > > +             s3fwrn5_remove(phy->common.ndev);
+> > >
+> > >       return ret;
+> > >  }
+> > > @@ -264,7 +219,7 @@ static int s3fwrn5_i2c_remove(struct i2c_client *client)
+> > >  {
+> > >       struct s3fwrn5_i2c_phy *phy = i2c_get_clientdata(client);
+> > >
+> > > -     s3fwrn5_remove(phy->ndev);
+> > > +     s3fwrn5_remove(phy->common.ndev);
+> > >
+> > >       return 0;
+> > >  }
+> > > diff --git a/drivers/nfc/s3fwrn5/phy_common.h b/drivers/nfc/s3fwrn5/phy_common.h
+> > > new file mode 100644
+> > > index 0000000..14f7690
+> > > --- /dev/null
+> > > +++ b/drivers/nfc/s3fwrn5/phy_common.h
+> > > @@ -0,0 +1,86 @@
+> > > +/* SPDX-License-Identifier: GPL-2.0-or-later
+> > > + *
+> > > + * Link Layer for Samsung S3FWRN5 NCI based Driver
+> > > + *
+> > > + * Copyright (C) 2015 Samsung Electrnoics
+> > > + * Robert Baldyga <r.baldyga@samsung.com>
+> > > + * Copyright (C) 2020 Samsung Electrnoics
+> > > + * Bongsu Jeon <bongsu.jeon@samsung.com>
+> > > + */
+> > > +
+> > > +#ifndef __LOCAL_PHY_COMMON_H
+> > > +#define __LOCAL_PHY_COMMON_H
+> >
+> > Header guard: __NFC_S3FWRN5_PHY_COMMON_H
+> >
+> > > +
+> > > +#include "s3fwrn5.h"
+> >
+> > This include should not be needed.
+> >
+> 
+> Actually, I included this because of enum s3fwrn5_mode.
+> Do you think the following structure is good?
+> 
+> 0. remove the '#include "s3fwrn5.h" and the common function's
+> definition in phy_common.h.
+> 1. make phy_common.c that includes the common function's definition
+> and "s3fwrn5.h , phy_common.h".
+> 2. i2c.c includes "s3fwrn5.h , phy_common.h".
 
-implement the NCI 2.x initial sequence to support NCI 2.x NFCC.
-Since NCI 2.0, CORE_RESET and CORE_INIT sequence have been changed.
-If NFCEE supports NCI 2.x, then NCI 2.x initial sequence will work.
+It looks like you already sent v2... I'll skip answering here then.
 
-In NCI 1.0, Initial sequence and payloads are as below:
-(DH)                     (NFCC)
- |  -- CORE_RESET_CMD --> |
- |  <-- CORE_RESET_RSP -- |
- |  -- CORE_INIT_CMD -->  |
- |  <-- CORE_INIT_RSP --  |
- CORE_RESET_RSP payloads are Status, NCI version, Configuration Status.
- CORE_INIT_CMD payloads are empty.
- CORE_INIT_RSP payloads are Status, NFCC Features,
-    Number of Supported RF Interfaces, Supported RF Interface,
-    Max Logical Connections, Max Routing table Size,
-    Max Control Packet Payload Size, Max Size for Large Parameters,
-    Manufacturer ID, Manufacturer Specific Information.
-
-In NCI 2.0, Initial Sequence and Parameters are as below:
-(DH)                     (NFCC)
- |  -- CORE_RESET_CMD --> |
- |  <-- CORE_RESET_RSP -- |
- |  <-- CORE_RESET_NTF -- |
- |  -- CORE_INIT_CMD -->  |
- |  <-- CORE_INIT_RSP --  |
- CORE_RESET_RSP payloads are Status.
- CORE_RESET_NTF payloads are Reset Trigger,
-    Configuration Status, NCI Version, Manufacturer ID,
-    Manufacturer Specific Information Length,
-    Manufacturer Specific Information.
- CORE_INIT_CMD payloads are Feature1, Feature2.
- CORE_INIT_RSP payloads are Status, NFCC Features,
-    Max Logical Connections, Max Routing Table Size,
-    Max Control Packet Payload Size,
-    Max Data Packet Payload Size of the Static HCI Connection,
-    Number of Credits of the Static HCI Connection,
-    Max NFC-V RF Frame Size, Number of Supported RF Interfaces,
-    Supported RF Interfaces.
-
-Signed-off-by: Bongsu Jeon <bongsu.jeon@samsung.com>
----
- Changes in v3:
-  - remove the unused struct nci_core_reset_rsp_nci_ver2.
-  - remove the __packed because of no need.
-  - remove the unnecessary brackets.
-  - change the asignment code for ndev->num_supported_rf_interfaces.
-
- Changes in v2:
-  - fix the warning of type casting.
-  - changed the __u8 type to unsigned char.
-
- include/net/nfc/nci.h | 34 +++++++++++++++++++++
- net/nfc/nci/core.c    | 24 +++++++++++++--
- net/nfc/nci/ntf.c     | 21 +++++++++++++
- net/nfc/nci/rsp.c     | 81 ++++++++++++++++++++++++++++++++++++++++++---------
- 4 files changed, 143 insertions(+), 17 deletions(-)
-
-diff --git a/include/net/nfc/nci.h b/include/net/nfc/nci.h
-index 0550e0380..825c6d2 100644
---- a/include/net/nfc/nci.h
-+++ b/include/net/nfc/nci.h
-@@ -25,6 +25,8 @@
- #define NCI_MAX_PARAM_LEN					251
- #define NCI_MAX_PAYLOAD_SIZE					255
- #define NCI_MAX_PACKET_SIZE					258
-+#define NCI_MAX_LARGE_PARAMS_NCI_v2				15
-+#define NCI_VER_2_MASK						0x20
- 
- /* NCI Status Codes */
- #define NCI_STATUS_OK						0x00
-@@ -131,6 +133,9 @@
- #define NCI_LF_CON_BITR_F_212					0x02
- #define NCI_LF_CON_BITR_F_424					0x04
- 
-+/* NCI 2.x Feature Enable Bit */
-+#define NCI_FEATURE_DISABLE					0x00
-+
- /* NCI Reset types */
- #define NCI_RESET_TYPE_KEEP_CONFIG				0x00
- #define NCI_RESET_TYPE_RESET_CONFIG				0x01
-@@ -220,6 +225,11 @@ struct nci_core_reset_cmd {
- } __packed;
- 
- #define NCI_OP_CORE_INIT_CMD		nci_opcode_pack(NCI_GID_CORE, 0x01)
-+/* To support NCI 2.x */
-+struct nci_core_init_v2_cmd {
-+	unsigned char	feature1;
-+	unsigned char	feature2;
-+};
- 
- #define NCI_OP_CORE_SET_CONFIG_CMD	nci_opcode_pack(NCI_GID_CORE, 0x02)
- struct set_config_param {
-@@ -334,6 +344,20 @@ struct nci_core_init_rsp_2 {
- 	__le32	manufact_specific_info;
- } __packed;
- 
-+/* To support NCI ver 2.x */
-+struct nci_core_init_rsp_nci_ver2 {
-+	unsigned char	status;
-+	__le32	nfcc_features;
-+	unsigned char	max_logical_connections;
-+	__le16	max_routing_table_size;
-+	unsigned char	max_ctrl_pkt_payload_len;
-+	unsigned char	max_data_pkt_hci_payload_len;
-+	unsigned char	number_of_hci_credit;
-+	__le16	max_nfc_v_frame_size;
-+	unsigned char	num_supported_rf_interfaces;
-+	unsigned char	supported_rf_interfaces[];
-+} __packed;
-+
- #define NCI_OP_CORE_SET_CONFIG_RSP	nci_opcode_pack(NCI_GID_CORE, 0x02)
- struct nci_core_set_config_rsp {
- 	__u8	status;
-@@ -372,6 +396,16 @@ struct nci_nfcee_discover_rsp {
- /* --------------------------- */
- /* ---- NCI Notifications ---- */
- /* --------------------------- */
-+#define NCI_OP_CORE_RESET_NTF		nci_opcode_pack(NCI_GID_CORE, 0x00)
-+struct nci_core_reset_ntf {
-+	unsigned char	reset_trigger;
-+	unsigned char	config_status;
-+	unsigned char	nci_ver;
-+	unsigned char	manufact_id;
-+	unsigned char	manufacturer_specific_len;
-+	__le32	manufact_specific_info;
-+} __packed;
-+
- #define NCI_OP_CORE_CONN_CREDITS_NTF	nci_opcode_pack(NCI_GID_CORE, 0x06)
- struct conn_credit_entry {
- 	__u8	conn_id;
-diff --git a/net/nfc/nci/core.c b/net/nfc/nci/core.c
-index 4953ee5..b1ad276 100644
---- a/net/nfc/nci/core.c
-+++ b/net/nfc/nci/core.c
-@@ -165,7 +165,15 @@ static void nci_reset_req(struct nci_dev *ndev, unsigned long opt)
- 
- static void nci_init_req(struct nci_dev *ndev, unsigned long opt)
- {
--	nci_send_cmd(ndev, NCI_OP_CORE_INIT_CMD, 0, NULL);
-+	struct nci_core_init_v2_cmd *cmd = (struct nci_core_init_v2_cmd *)opt;
-+
-+	if (!cmd)
-+		nci_send_cmd(ndev, NCI_OP_CORE_INIT_CMD, 0, NULL);
-+	else
-+		/* if nci version is 2.0, then use the feature parameters */
-+		nci_send_cmd(ndev, NCI_OP_CORE_INIT_CMD,
-+			     sizeof(struct nci_core_init_v2_cmd), cmd);
-+
- }
- 
- static void nci_init_complete_req(struct nci_dev *ndev, unsigned long opt)
-@@ -497,8 +505,18 @@ static int nci_open_device(struct nci_dev *ndev)
- 	}
- 
- 	if (!rc) {
--		rc = __nci_request(ndev, nci_init_req, 0,
--				   msecs_to_jiffies(NCI_INIT_TIMEOUT));
-+		if (!(ndev->nci_ver & NCI_VER_2_MASK)) {
-+			rc = __nci_request(ndev, nci_init_req, 0,
-+					   msecs_to_jiffies(NCI_INIT_TIMEOUT));
-+		} else {
-+			struct nci_core_init_v2_cmd nci_init_v2_cmd;
-+
-+			nci_init_v2_cmd.feature1 = NCI_FEATURE_DISABLE;
-+			nci_init_v2_cmd.feature2 = NCI_FEATURE_DISABLE;
-+
-+			rc = __nci_request(ndev, nci_init_req, (unsigned long)&nci_init_v2_cmd,
-+					   msecs_to_jiffies(NCI_INIT_TIMEOUT));
-+		}
- 	}
- 
- 	if (!rc && ndev->ops->post_setup)
-diff --git a/net/nfc/nci/ntf.c b/net/nfc/nci/ntf.c
-index 33e1170..98af04c 100644
---- a/net/nfc/nci/ntf.c
-+++ b/net/nfc/nci/ntf.c
-@@ -27,6 +27,23 @@
- 
- /* Handle NCI Notification packets */
- 
-+static void nci_core_reset_ntf_packet(struct nci_dev *ndev,
-+				      struct sk_buff *skb)
-+{
-+	/* Handle NCI 2.x core reset notification */
-+	struct nci_core_reset_ntf *ntf = (void *)skb->data;
-+
-+	ndev->nci_ver = ntf->nci_ver;
-+	pr_debug("nci_ver 0x%x, config_status 0x%x\n",
-+		 ntf->nci_ver, ntf->config_status);
-+
-+	ndev->manufact_id = ntf->manufact_id;
-+	ndev->manufact_specific_info =
-+		__le32_to_cpu(ntf->manufact_specific_info);
-+
-+	nci_req_complete(ndev, NCI_STATUS_OK);
-+}
-+
- static void nci_core_conn_credits_ntf_packet(struct nci_dev *ndev,
- 					     struct sk_buff *skb)
- {
-@@ -756,6 +773,10 @@ void nci_ntf_packet(struct nci_dev *ndev, struct sk_buff *skb)
- 	}
- 
- 	switch (ntf_opcode) {
-+	case NCI_OP_CORE_RESET_NTF:
-+		nci_core_reset_ntf_packet(ndev, skb);
-+		break;
-+
- 	case NCI_OP_CORE_CONN_CREDITS_NTF:
- 		nci_core_conn_credits_ntf_packet(ndev, skb);
- 		break;
-diff --git a/net/nfc/nci/rsp.c b/net/nfc/nci/rsp.c
-index a48297b..ea9e603 100644
---- a/net/nfc/nci/rsp.c
-+++ b/net/nfc/nci/rsp.c
-@@ -31,16 +31,19 @@ static void nci_core_reset_rsp_packet(struct nci_dev *ndev, struct sk_buff *skb)
- 
- 	pr_debug("status 0x%x\n", rsp->status);
- 
--	if (rsp->status == NCI_STATUS_OK) {
--		ndev->nci_ver = rsp->nci_ver;
--		pr_debug("nci_ver 0x%x, config_status 0x%x\n",
--			 rsp->nci_ver, rsp->config_status);
--	}
-+	/* Handle NCI 1.x ver */
-+	if (skb->len != 1) {
-+		if (rsp->status == NCI_STATUS_OK) {
-+			ndev->nci_ver = rsp->nci_ver;
-+			pr_debug("nci_ver 0x%x, config_status 0x%x\n",
-+				 rsp->nci_ver, rsp->config_status);
-+		}
- 
--	nci_req_complete(ndev, rsp->status);
-+		nci_req_complete(ndev, rsp->status);
-+	}
- }
- 
--static void nci_core_init_rsp_packet(struct nci_dev *ndev, struct sk_buff *skb)
-+static unsigned char nci_core_init_rsp_packet_v1(struct nci_dev *ndev, struct sk_buff *skb)
- {
- 	struct nci_core_init_rsp_1 *rsp_1 = (void *) skb->data;
- 	struct nci_core_init_rsp_2 *rsp_2;
-@@ -48,16 +51,14 @@ static void nci_core_init_rsp_packet(struct nci_dev *ndev, struct sk_buff *skb)
- 	pr_debug("status 0x%x\n", rsp_1->status);
- 
- 	if (rsp_1->status != NCI_STATUS_OK)
--		goto exit;
-+		return rsp_1->status;
- 
- 	ndev->nfcc_features = __le32_to_cpu(rsp_1->nfcc_features);
- 	ndev->num_supported_rf_interfaces = rsp_1->num_supported_rf_interfaces;
- 
--	if (ndev->num_supported_rf_interfaces >
--	    NCI_MAX_SUPPORTED_RF_INTERFACES) {
--		ndev->num_supported_rf_interfaces =
--			NCI_MAX_SUPPORTED_RF_INTERFACES;
--	}
-+	ndev->num_supported_rf_interfaces =
-+		min((int)ndev->num_supported_rf_interfaces,
-+		    NCI_MAX_SUPPORTED_RF_INTERFACES);
- 
- 	memcpy(ndev->supported_rf_interfaces,
- 	       rsp_1->supported_rf_interfaces,
-@@ -77,6 +78,58 @@ static void nci_core_init_rsp_packet(struct nci_dev *ndev, struct sk_buff *skb)
- 	ndev->manufact_specific_info =
- 		__le32_to_cpu(rsp_2->manufact_specific_info);
- 
-+	return NCI_STATUS_OK;
-+}
-+
-+static unsigned char nci_core_init_rsp_packet_v2(struct nci_dev *ndev, struct sk_buff *skb)
-+{
-+	struct nci_core_init_rsp_nci_ver2 *rsp = (void *)skb->data;
-+	unsigned char rf_interface_idx = 0;
-+	unsigned char rf_extension_cnt = 0;
-+	unsigned char *supported_rf_interface = rsp->supported_rf_interfaces;
-+
-+	pr_debug("status %x\n", rsp->status);
-+
-+	if (rsp->status != NCI_STATUS_OK)
-+		return rsp->status;
-+
-+	ndev->nfcc_features = __le32_to_cpu(rsp->nfcc_features);
-+	ndev->num_supported_rf_interfaces = rsp->num_supported_rf_interfaces;
-+
-+	ndev->num_supported_rf_interfaces =
-+		min((int)ndev->num_supported_rf_interfaces,
-+		    NCI_MAX_SUPPORTED_RF_INTERFACES);
-+
-+	while (rf_interface_idx < ndev->num_supported_rf_interfaces) {
-+		ndev->supported_rf_interfaces[rf_interface_idx++] = *supported_rf_interface++;
-+
-+		/* skip rf extension parameters */
-+		rf_extension_cnt = *supported_rf_interface++;
-+		supported_rf_interface += rf_extension_cnt;
-+	}
-+
-+	ndev->max_logical_connections = rsp->max_logical_connections;
-+	ndev->max_routing_table_size =
-+			__le16_to_cpu(rsp->max_routing_table_size);
-+	ndev->max_ctrl_pkt_payload_len =
-+			rsp->max_ctrl_pkt_payload_len;
-+	ndev->max_size_for_large_params = NCI_MAX_LARGE_PARAMS_NCI_v2;
-+
-+	return NCI_STATUS_OK;
-+}
-+
-+static void nci_core_init_rsp_packet(struct nci_dev *ndev, struct sk_buff *skb)
-+{
-+	unsigned char status = 0;
-+
-+	if (!(ndev->nci_ver & NCI_VER_2_MASK))
-+		status = nci_core_init_rsp_packet_v1(ndev, skb);
-+	else
-+		status = nci_core_init_rsp_packet_v2(ndev, skb);
-+
-+	if (status != NCI_STATUS_OK)
-+		goto exit;
-+
- 	pr_debug("nfcc_features 0x%x\n",
- 		 ndev->nfcc_features);
- 	pr_debug("num_supported_rf_interfaces %d\n",
-@@ -103,7 +156,7 @@ static void nci_core_init_rsp_packet(struct nci_dev *ndev, struct sk_buff *skb)
- 		 ndev->manufact_specific_info);
- 
- exit:
--	nci_req_complete(ndev, rsp_1->status);
-+	nci_req_complete(ndev, status);
- }
- 
- static void nci_core_set_config_rsp_packet(struct nci_dev *ndev,
--- 
-1.9.1
+Best regards,
+Krzysztof
 _______________________________________________
 Linux-nfc mailing list -- linux-nfc@lists.01.org
 To unsubscribe send an email to linux-nfc-leave@lists.01.org
