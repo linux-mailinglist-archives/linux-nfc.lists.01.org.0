@@ -2,67 +2,67 @@ Return-Path: <linux-nfc-bounces@lists.01.org>
 X-Original-To: lists+linux-nfc@lfdr.de
 Delivered-To: lists+linux-nfc@lfdr.de
 Received: from ml01.01.org (ml01.01.org [IPv6:2001:19d0:306:5::1])
-	by mail.lfdr.de (Postfix) with ESMTPS id C747F2CA44C
-	for <lists+linux-nfc@lfdr.de>; Tue,  1 Dec 2020 14:51:11 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id DCA8B2CA44D
+	for <lists+linux-nfc@lfdr.de>; Tue,  1 Dec 2020 14:51:19 +0100 (CET)
 Received: from ml01.vlan13.01.org (localhost [IPv6:::1])
-	by ml01.01.org (Postfix) with ESMTP id 9B8D5100EC1E1;
-	Tue,  1 Dec 2020 05:51:10 -0800 (PST)
-Received-SPF: None (no SPF record) identity=no SPF record; client-ip=2607:f8b0:4864:20::642; helo=mail-pl1-x642.google.com; envelope-from=<>; receiver=<UNKNOWN> 
-Received: from mail-pl1-x642.google.com (mail-pl1-x642.google.com [IPv6:2607:f8b0:4864:20::642])
+	by ml01.01.org (Postfix) with ESMTP id B0032100EC1E8;
+	Tue,  1 Dec 2020 05:51:18 -0800 (PST)
+Received-SPF: None (no SPF record) identity=no SPF record; client-ip=2607:f8b0:4864:20::1042; helo=mail-pj1-x1042.google.com; envelope-from=<>; receiver=<UNKNOWN> 
+Received: from mail-pj1-x1042.google.com (mail-pj1-x1042.google.com [IPv6:2607:f8b0:4864:20::1042])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits))
 	(No client certificate requested)
-	by ml01.01.org (Postfix) with ESMTPS id DFC32100EC1E3
-	for <linux-nfc@lists.01.org>; Tue,  1 Dec 2020 05:51:08 -0800 (PST)
-Received: by mail-pl1-x642.google.com with SMTP id p6so1159634plr.7
-        for <linux-nfc@lists.01.org>; Tue, 01 Dec 2020 05:51:08 -0800 (PST)
+	by ml01.01.org (Postfix) with ESMTPS id CDC74100EC1E3
+	for <linux-nfc@lists.01.org>; Tue,  1 Dec 2020 05:51:16 -0800 (PST)
+Received: by mail-pj1-x1042.google.com with SMTP id j13so1271461pjz.3
+        for <linux-nfc@lists.01.org>; Tue, 01 Dec 2020 05:51:16 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=from:to:cc:subject:date:message-id:in-reply-to:references;
-        bh=6615kzoe5jKV8EYHaChLE8OAf7+pns9kTW6Yur3HXZU=;
-        b=NGcJTYvmtwIBCDio8bmQzhsWhY5QzOoVkDoSA00zZIgB8xoEEs5EyuTOm7wmgXokek
-         b/fs+Jx9TLbnuiyfLTVQSjpt9jJPFE48CRkcPIk0dPBOWnX9HLA7KCx15cECdhhRPEa1
-         LQzUVdyVIWuxlbhxooLw4FJGXgoMPechVoBkIlEOsKjdfJCX80if/b639M6iPHux+G3R
-         dXTvgW4rBbc/KKtbYRJBYYlYCdQDC9ZYZNDm1p5Ney8Aru1ItsTk4cL0tN4iB3jUM+5l
-         EygBIiKaT3lcqsqPQf9SgjC/K7wXsql2S4QxmI1jNGxm95UYPK35lVmteQgN9zEJXCTS
-         p14Q==
+        bh=vFAjt0Td72sO7ptEv+X075oaFipYTY8EyRS2yMR9YTM=;
+        b=tJk6GaJhp51YrKMI15gFZm38aA0AEa/hBp+GQfP2sExI/CDMRLAjgeDI6kuU4YEA9T
+         60cA8skJlYb/xRFbzO0HCmuEhu6lKuBS/o0ewaD8/4N47Vkmvi6UuPCMxdv76H/fa/St
+         uRruhVohiKLmIZmahyfka3aLUBDjtxzf8jcBuWueGdmJ7hl3eZkuteG3ydlqBHXYiwog
+         m2xXFrCQKMJ4lc5JTuS7htol4sTV/Uw2XIDTs5AiavwQeVTuMk6PE8EVlnEo1GS1szE2
+         bv9SGJY4yg56FeOhxLIOTFoE5LfCMjPEbD7/fz3aUVgEKwhgo/UokhWsgoZspauAvBVZ
+         Un2A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
          :references;
-        bh=6615kzoe5jKV8EYHaChLE8OAf7+pns9kTW6Yur3HXZU=;
-        b=AptLujBqZhF8AXNq+tKjmb1loWjZ835ykItJUQeh0JWlE5s6QJd0RbuLLczVIm29Ao
-         11wtpDp3JG4ykptZuyTK1yFuibs+PgE2n8qlVaU8J+uyduelIiBbzfCT7WgLRKBwuUzw
-         Y9xbtl+B3PC9PWHd20dXZcEu2Wh9YZlLLl33HhwSRK0WD1fpS4/F3LcbnfGQCIAKHvlk
-         pu0i3hCKQZ8aq1XNcobYAY6ANOlO9PQYxDYvkXTHV1FXRJWZ+wAYgjEKNu5CjsZUzwI3
-         vFef4xUnAL0YuyjGuXdU8PteCZ2vGqBtZdXeWyoA3R916MvbwGLvneTMw5OdeGsX8bNg
-         wJqw==
-X-Gm-Message-State: AOAM532QV/UlSEx6fzCprIEMFD3mAjr4oS/C5udYr3ElpyxgmASVmFYl
-	bkm1dsjnC8WM0//pXb+kX8g=
-X-Google-Smtp-Source: ABdhPJyQDOKWVtpcQPZmk6TfMepferWPF3DHSFtPBlVVbBVI9HMmTVXBkjk2rpsaC70Q6x1fNsR2OQ==
-X-Received: by 2002:a17:90a:488f:: with SMTP id b15mr2710634pjh.99.1606830667604;
-        Tue, 01 Dec 2020 05:51:07 -0800 (PST)
+        bh=vFAjt0Td72sO7ptEv+X075oaFipYTY8EyRS2yMR9YTM=;
+        b=tQAoWyA1nJyPMKEp/gg66j5KVlDgGb6Zbe8S+yjbe28Bqbkqy29X71GFdHvbNeN8ZW
+         G7EUZJspCA7RkItp0RbSbPaf3sGPA+noc57Ev+JGB6p+oNlrdTa7E2gECtnPvC6kqdpU
+         mvxHJyBcdE+B5tPexJKcG+BzxedrFtqSezxlvY4NQy8gFzrfGkJnBOw8LY8S9xc3aUJN
+         on718DoqDY8GezyXBcNqd5J2lUstyfO5aJFprpGBFl1XDvBkXmR4OBUBaTmmmOy9z0zD
+         TV9+q0z31INsAJgF1+dOW4gf61tP6S7IPn2w/haNYPSDY7pSINmeWzQwkXrHlAlixV//
+         pvLQ==
+X-Gm-Message-State: AOAM531qu3YD3PYLYiCbA4juWtHwbysc6RjTbg8p1m/0Ae2ZxDMZyv+c
+	FC7BvaQ0f4dH6G9yeT4jqGM=
+X-Google-Smtp-Source: ABdhPJwCr4UyKRdvt7pr28Ar1SSeym3Vk1swLm90oaHyk2ngvN/57V4Dps2eegHakDn9Pj/y98cSvg==
+X-Received: by 2002:a17:90a:68c3:: with SMTP id q3mr2817394pjj.135.1606830671522;
+        Tue, 01 Dec 2020 05:51:11 -0800 (PST)
 Received: from localhost.localdomain ([182.226.226.37])
-        by smtp.googlemail.com with ESMTPSA id z22sm3134111pfn.153.2020.12.01.05.51.05
+        by smtp.googlemail.com with ESMTPSA id z22sm3134111pfn.153.2020.12.01.05.51.09
         (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-        Tue, 01 Dec 2020 05:51:06 -0800 (PST)
+        Tue, 01 Dec 2020 05:51:10 -0800 (PST)
 From: Bongsu Jeon <bongsu.jeon2@gmail.com>
 X-Google-Original-From: Bongsu Jeon
 To: krzk@kernel.org
-Date: Tue,  1 Dec 2020 22:50:25 +0900
-Message-Id: <1606830628-10236-2-git-send-email-bongsu.jeon@samsung.com>
+Date: Tue,  1 Dec 2020 22:50:26 +0900
+Message-Id: <1606830628-10236-3-git-send-email-bongsu.jeon@samsung.com>
 X-Mailer: git-send-email 1.9.1
 In-Reply-To: <1606830628-10236-1-git-send-email-bongsu.jeon@samsung.com>
 References: <1606830628-10236-1-git-send-email-bongsu.jeon@samsung.com>
-Message-ID-Hash: UM3OGB3OVSIRWIDLNDHAZL4EMSQNI7JJ
-X-Message-ID-Hash: UM3OGB3OVSIRWIDLNDHAZL4EMSQNI7JJ
+Message-ID-Hash: 6IXB4EJ2EWIRFOZCTCSTFZ2O4MJOZ2QJ
+X-Message-ID-Hash: 6IXB4EJ2EWIRFOZCTCSTFZ2O4MJOZ2QJ
 X-MailFrom: <>
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency; loop; banned-address; member-moderation; nonmember-moderation; administrivia; implicit-dest; max-recipients; max-size; news-moderation; no-subject; suspicious-header
 CC: linux-nfc@lists.01.org, netdev@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, Bongsu Jeon <bongsu.jeon@samsung.com>
 X-Mailman-Version: 3.1.1
 Precedence: list
-Subject: [linux-nfc] [PATCH v4 net-next 1/4] dt-bindings: net: nfc: s3fwrn5: Support a UART interface
+Subject: [linux-nfc] [PATCH v4 net-next 2/4] nfc: s3fwrn5: reduce the EN_WAIT_TIME
 List-Id: NFC on Linux <linux-nfc.lists.01.org>
-Archived-At: <https://lists.01.org/hyperkitty/list/linux-nfc@lists.01.org/message/UM3OGB3OVSIRWIDLNDHAZL4EMSQNI7JJ/>
+Archived-At: <https://lists.01.org/hyperkitty/list/linux-nfc@lists.01.org/message/6IXB4EJ2EWIRFOZCTCSTFZ2O4MJOZ2QJ/>
 List-Archive: <https://lists.01.org/hyperkitty/list/linux-nfc@lists.01.org/>
 List-Help: <mailto:linux-nfc-request@lists.01.org?subject=help>
 List-Post: <mailto:linux-nfc@lists.01.org>
@@ -74,70 +74,46 @@ Content-Transfer-Encoding: 7bit
 
 From: Bongsu Jeon <bongsu.jeon@samsung.com>
 
-Since S3FWRN82 NFC Chip, The UART interface can be used.
-S3FWRN82 supports I2C and UART interface.
+The delay of 20ms is enough to enable and
+wake up the Samsung's nfc chip.
 
+Acked-by: Krzysztof Kozlowski <krzk@kernel.org>
 Signed-off-by: Bongsu Jeon <bongsu.jeon@samsung.com>
 ---
- .../bindings/net/nfc/samsung,s3fwrn5.yaml          | 32 ++++++++++++++++++++--
- 1 file changed, 29 insertions(+), 3 deletions(-)
+ drivers/nfc/s3fwrn5/i2c.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
-diff --git a/Documentation/devicetree/bindings/net/nfc/samsung,s3fwrn5.yaml b/Documentation/devicetree/bindings/net/nfc/samsung,s3fwrn5.yaml
-index cb0b8a5..cc5f9a1 100644
---- a/Documentation/devicetree/bindings/net/nfc/samsung,s3fwrn5.yaml
-+++ b/Documentation/devicetree/bindings/net/nfc/samsung,s3fwrn5.yaml
-@@ -12,7 +12,10 @@ maintainers:
+diff --git a/drivers/nfc/s3fwrn5/i2c.c b/drivers/nfc/s3fwrn5/i2c.c
+index ae26594..9a64eea 100644
+--- a/drivers/nfc/s3fwrn5/i2c.c
++++ b/drivers/nfc/s3fwrn5/i2c.c
+@@ -19,7 +19,7 @@
  
- properties:
-   compatible:
--    const: samsung,s3fwrn5-i2c
-+    items:
-+      - enum:
-+          - samsung,s3fwrn5-i2c
-+          - samsung,s3fwrn82
+ #define S3FWRN5_I2C_DRIVER_NAME "s3fwrn5_i2c"
  
-   en-gpios:
-     maxItems: 1
-@@ -47,10 +50,19 @@ additionalProperties: false
- required:
-   - compatible
-   - en-gpios
--  - interrupts
--  - reg
-   - wake-gpios
+-#define S3FWRN5_EN_WAIT_TIME 150
++#define S3FWRN5_EN_WAIT_TIME 20
  
-+allOf:
-+  - if:
-+      properties:
-+        compatible:
-+          contains:
-+            const: samsung,s3fwrn5-i2c
-+    then:
-+      required:
-+        - interrupts
-+        - reg
-+
- examples:
-   - |
-     #include <dt-bindings/gpio/gpio.h>
-@@ -71,3 +83,17 @@ examples:
-             wake-gpios = <&gpj0 2 GPIO_ACTIVE_HIGH>;
-         };
-     };
-+  # UART example on Raspberry Pi
-+  - |
-+    uart0 {
-+        status = "okay";
-+
-+        nfc {
-+            compatible = "samsung,s3fwrn82";
-+
-+            en-gpios = <&gpio 20 0>;
-+            wake-gpios = <&gpio 16 0>;
-+
-+            status = "okay";
-+        };
-+    };
+ struct s3fwrn5_i2c_phy {
+ 	struct i2c_client *i2c_dev;
+@@ -40,7 +40,7 @@ static void s3fwrn5_i2c_set_wake(void *phy_id, bool wake)
+ 
+ 	mutex_lock(&phy->mutex);
+ 	gpio_set_value(phy->gpio_fw_wake, wake);
+-	msleep(S3FWRN5_EN_WAIT_TIME/2);
++	msleep(S3FWRN5_EN_WAIT_TIME);
+ 	mutex_unlock(&phy->mutex);
+ }
+ 
+@@ -63,7 +63,7 @@ static void s3fwrn5_i2c_set_mode(void *phy_id, enum s3fwrn5_mode mode)
+ 	if (mode != S3FWRN5_MODE_COLD) {
+ 		msleep(S3FWRN5_EN_WAIT_TIME);
+ 		gpio_set_value(phy->gpio_en, 0);
+-		msleep(S3FWRN5_EN_WAIT_TIME/2);
++		msleep(S3FWRN5_EN_WAIT_TIME);
+ 	}
+ 
+ 	phy->irq_skip = true;
 -- 
 1.9.1
 _______________________________________________
