@@ -2,91 +2,98 @@ Return-Path: <linux-nfc-bounces@lists.01.org>
 X-Original-To: lists+linux-nfc@lfdr.de
 Delivered-To: lists+linux-nfc@lfdr.de
 Received: from ml01.01.org (ml01.01.org [IPv6:2001:19d0:306:5::1])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4C81D2CE9F3
-	for <lists+linux-nfc@lfdr.de>; Fri,  4 Dec 2020 09:38:02 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 14BCB2D0F89
+	for <lists+linux-nfc@lfdr.de>; Mon,  7 Dec 2020 12:38:58 +0100 (CET)
 Received: from ml01.vlan13.01.org (localhost [IPv6:::1])
-	by ml01.01.org (Postfix) with ESMTP id A7795100EBBAF;
-	Fri,  4 Dec 2020 00:38:00 -0800 (PST)
-Received-SPF: Pass (mailfrom) identity=mailfrom; client-ip=209.85.208.68; helo=mail-ed1-f68.google.com; envelope-from=k.kozlowski.k@gmail.com; receiver=<UNKNOWN> 
-Received: from mail-ed1-f68.google.com (mail-ed1-f68.google.com [209.85.208.68])
+	by ml01.01.org (Postfix) with ESMTP id 03799100EBBDE;
+	Mon,  7 Dec 2020 03:38:56 -0800 (PST)
+Received-SPF: None (no SPF record) identity=no SPF record; client-ip=2607:f8b0:4864:20::543; helo=mail-pg1-x543.google.com; envelope-from=<>; receiver=<UNKNOWN> 
+Received: from mail-pg1-x543.google.com (mail-pg1-x543.google.com [IPv6:2607:f8b0:4864:20::543])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits))
 	(No client certificate requested)
-	by ml01.01.org (Postfix) with ESMTPS id 16CBB100EBBAB
-	for <linux-nfc@lists.01.org>; Fri,  4 Dec 2020 00:37:58 -0800 (PST)
-Received: by mail-ed1-f68.google.com with SMTP id r5so4937647eda.12
-        for <linux-nfc@lists.01.org>; Fri, 04 Dec 2020 00:37:57 -0800 (PST)
+	by ml01.01.org (Postfix) with ESMTPS id 086C1100EBBDD
+	for <linux-nfc@lists.01.org>; Mon,  7 Dec 2020 03:38:50 -0800 (PST)
+Received: by mail-pg1-x543.google.com with SMTP id 69so813516pgg.8
+        for <linux-nfc@lists.01.org>; Mon, 07 Dec 2020 03:38:50 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20161025;
+        h=from:to:cc:subject:date:message-id;
+        bh=XxtvTDPqeKzw9+arch/biJr3gHkzLW6Sc6rv2JJ52og=;
+        b=GnXaRsOBlcVJUCF6XZaheOLdwpQ1sHcjNRiMo5X3Gzh+1LK7Xr6QxnnivrArLZf39L
+         ni/jLzLcicSny/FaLremq2uY3Cv+6NAmidBRI+2q2COxMqajrmk4vObo9uPXKyj5kF/d
+         S6Ipmec4HHEyozpu5QqOzl+P24iAkqZ4maHllbT4oNlgqINEc7y5tkX9KglbCS3De04f
+         2elj0ztJRz7Z7gpoiFh5ZB2IPKNyPF88dRWAjqNUp/XeKsugCkIM78hxWJ+tt2W7Kpdg
+         EfbbQUAc/spsk3Cw9MASuAR84NnUU6XoqkyhATEn/udNappWmOyMeebJmI5Yf16u/IuG
+         IMCg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:date:from:to:cc:subject:message-id:references
-         :mime-version:content-disposition:in-reply-to;
-        bh=eAUgRhiSnZxN+OGD6Xc3OKsBy+RlXxdYJUYaOeKp06I=;
-        b=d3lCAD+5Rp8mHJrcTM9T5iFiammAbcg1MbaMzMK3BdYleQWI+0A7SXG/SehQD+EMFm
-         80H/2VvQkGWBHpWQ2SiJ/FugyLduG74J/hiqsJphViNUGaT5zyX59izNUTazIWCm5kpd
-         7E5Rr0sUHLP0f6RX02x3Wot8OVFgbC0PdAJEbuFTShbrBCWBJfQ36R5HzPmXfanUqnvm
-         gCH9zAX3MGwbFL5Q/mMXppu3q74ObNLIBv0N460xykbHMdu9SBBrHP/+6TDnnhuzRpRg
-         AyXUAmffr/4Qa5+w8t43oVSmHYcpByeniuu9l3ndAVXcJFbZkJKTpUKf81JQD6dxPkSa
-         O3Rw==
-X-Gm-Message-State: AOAM533clh1JFBxQkxKFb27CrQmSqlx/CCVPG/+FalbZd2Qvz3fNCLfl
-	7RwXLK6GvVJkOnrJWT4344E=
-X-Google-Smtp-Source: ABdhPJwoeQ7DRUewSq/Xsuh/+Aqe+eXqWEbDCW2HM2O2CWaN5JIHQ73iQJSmCs5B/CGsVPM+2/ZnhA==
-X-Received: by 2002:a05:6402:2059:: with SMTP id bc25mr6528472edb.13.1607071076163;
-        Fri, 04 Dec 2020 00:37:56 -0800 (PST)
-Received: from kozik-lap (adsl-84-226-167-205.adslplus.ch. [84.226.167.205])
-        by smtp.googlemail.com with ESMTPSA id s26sm2891210edc.33.2020.12.04.00.37.55
+        h=x-gm-message-state:from:to:cc:subject:date:message-id;
+        bh=XxtvTDPqeKzw9+arch/biJr3gHkzLW6Sc6rv2JJ52og=;
+        b=CqJlApAgVlFcDWo/jC1fH5cAxGkUcx0dzjimVrN0c6xlaHLXbN6SsPlGkzQxZ9NGaq
+         oVCm+oIMWH20Bmp0ybf8m7brnay6E0eUOdUOLK65M27fIS7zVsAXH6+Ygji9aqox8eqL
+         /qeJAIqaXQcndJ7rTgo1WqNHtH8INdavzgxOoRIJgxNMhMyGSyB5IfwhdsZQYiKwOXMU
+         I0VtLTz4sX913O+Hn/hQkYn3IXUv0gCX6Zoc2ySAyV/i0rFpMAuogLcwS7c6CUTtub8B
+         Oe8R7tHOHpNNiTzKAGzW053dUTEhwBAKASlrmS4Kpkze4bCeFQPdcPhJIHCARSoPPnob
+         J0sA==
+X-Gm-Message-State: AOAM532UyKGp2jLKce00Qooju8Yz3l7mULTIMLDzB01hfjY/14l2ZDjN
+	jUizXrhkZgWYD/d5W3B+u4E=
+X-Google-Smtp-Source: ABdhPJxKgvPb+FJSDg5yPGAALaN/5kFXVqrSWJzfpR/lSjPFM6sHEN5a2k0MdSFj9/7Vu8Ig9YJhrg==
+X-Received: by 2002:a17:902:b7c3:b029:da:74c3:427 with SMTP id v3-20020a170902b7c3b02900da74c30427mr16073149plz.38.1607341130166;
+        Mon, 07 Dec 2020 03:38:50 -0800 (PST)
+Received: from localhost.localdomain ([182.226.226.37])
+        by smtp.googlemail.com with ESMTPSA id w191sm10219436pfd.145.2020.12.07.03.38.47
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 04 Dec 2020 00:37:55 -0800 (PST)
-Date: Fri, 4 Dec 2020 10:37:53 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Bongsu Jeon <bongsu.jeon2@gmail.com>
-Message-ID: <20201204083753.GB5418@kozik-lap>
-References: <20201203225257.2446-1-bongsu.jeon@samsung.com>
-MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20201203225257.2446-1-bongsu.jeon@samsung.com>
-Message-ID-Hash: 7LNNJ6GPMSLRIXYFH7ORDQ5GOEZQ5GKS
-X-Message-ID-Hash: 7LNNJ6GPMSLRIXYFH7ORDQ5GOEZQ5GKS
-X-MailFrom: k.kozlowski.k@gmail.com
+        Mon, 07 Dec 2020 03:38:49 -0800 (PST)
+From: Bongsu Jeon <bongsu.jeon2@gmail.com>
+X-Google-Original-From: Bongsu Jeon
+To: krzk@kernel.org
+Date: Mon,  7 Dec 2020 20:38:27 +0900
+Message-Id: <20201207113827.2902-1-bongsu.jeon@samsung.com>
+X-Mailer: git-send-email 2.17.1
+Message-ID-Hash: X3XEB445KBZ6R6BNCQZULSGDZPQNCPES
+X-Message-ID-Hash: X3XEB445KBZ6R6BNCQZULSGDZPQNCPES
+X-MailFrom: <>
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency; loop; banned-address; member-moderation; nonmember-moderation; administrivia; implicit-dest; max-recipients; max-size; news-moderation; no-subject; suspicious-header
 CC: linux-nfc@lists.01.org, netdev@vger.kernel.org, linux-kernel@vger.kernel.org, Bongsu Jeon <bongsu.jeon@samsung.com>
 X-Mailman-Version: 3.1.1
 Precedence: list
-Subject: [linux-nfc] Re: [PATCH v2 net-next] nfc: s3fwrn5: skip the NFC bootloader mode
+Subject: [linux-nfc] [PATCH net-next] nfc: s3fwrn5: Change irqflags
 List-Id: NFC on Linux <linux-nfc.lists.01.org>
-Archived-At: <https://lists.01.org/hyperkitty/list/linux-nfc@lists.01.org/message/7LNNJ6GPMSLRIXYFH7ORDQ5GOEZQ5GKS/>
+Archived-At: <https://lists.01.org/hyperkitty/list/linux-nfc@lists.01.org/message/X3XEB445KBZ6R6BNCQZULSGDZPQNCPES/>
 List-Archive: <https://lists.01.org/hyperkitty/list/linux-nfc@lists.01.org/>
 List-Help: <mailto:linux-nfc-request@lists.01.org?subject=help>
 List-Post: <mailto:linux-nfc@lists.01.org>
 List-Subscribe: <mailto:linux-nfc-join@lists.01.org>
 List-Unsubscribe: <mailto:linux-nfc-leave@lists.01.org>
+MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-On Fri, Dec 04, 2020 at 07:52:57AM +0900, Bongsu Jeon wrote:
-> From: Bongsu Jeon <bongsu.jeon@samsung.com>
-> 
-> If there isn't a proper NFC firmware image, Bootloader mode will be
-> skipped.
-> 
-> Signed-off-by: Bongsu Jeon <bongsu.jeon@samsung.com>
-> ---
-> 
->  ChangeLog:
->   v2:
->    - change the commit message.
->    - change the skip handling code.
+From: Bongsu Jeon <bongsu.jeon@samsung.com>
 
-Patch is now much cleaner and smaller. Thanks.
+change irqflags from IRQF_TRIGGER_HIGH to IRQF_TRIGGER_RISING for stable
+Samsung's nfc interrupt handling.
 
-Reviewed-by: Krzysztof Kozlowski <krzk@kernel.org>
+Signed-off-by: Bongsu Jeon <bongsu.jeon@samsung.com>
+---
+ drivers/nfc/s3fwrn5/i2c.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-Best regards,
-Krzysztof
-
-> 
->  drivers/nfc/s3fwrn5/core.c     | 23 +++++++++++++++++++++--
->  drivers/nfc/s3fwrn5/firmware.c | 11 +----------
->  drivers/nfc/s3fwrn5/firmware.h |  1 +
->  3 files changed, 23 insertions(+), 12 deletions(-)
+diff --git a/drivers/nfc/s3fwrn5/i2c.c b/drivers/nfc/s3fwrn5/i2c.c
+index e1bdde105f24..016f6b6df849 100644
+--- a/drivers/nfc/s3fwrn5/i2c.c
++++ b/drivers/nfc/s3fwrn5/i2c.c
+@@ -213,7 +213,7 @@ static int s3fwrn5_i2c_probe(struct i2c_client *client,
+ 		return ret;
+ 
+ 	ret = devm_request_threaded_irq(&client->dev, phy->i2c_dev->irq, NULL,
+-		s3fwrn5_i2c_irq_thread_fn, IRQF_TRIGGER_HIGH | IRQF_ONESHOT,
++		s3fwrn5_i2c_irq_thread_fn, IRQF_TRIGGER_RISING | IRQF_ONESHOT,
+ 		S3FWRN5_I2C_DRIVER_NAME, phy);
+ 	if (ret)
+ 		s3fwrn5_remove(phy->common.ndev);
+-- 
+2.17.1
 _______________________________________________
 Linux-nfc mailing list -- linux-nfc@lists.01.org
 To unsubscribe send an email to linux-nfc-leave@lists.01.org
