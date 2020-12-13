@@ -2,83 +2,101 @@ Return-Path: <linux-nfc-bounces@lists.01.org>
 X-Original-To: lists+linux-nfc@lfdr.de
 Delivered-To: lists+linux-nfc@lfdr.de
 Received: from ml01.01.org (ml01.01.org [198.145.21.10])
-	by mail.lfdr.de (Postfix) with ESMTPS id 10DC42D698E
-	for <lists+linux-nfc@lfdr.de>; Thu, 10 Dec 2020 22:18:38 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id B4B972D8C93
+	for <lists+linux-nfc@lfdr.de>; Sun, 13 Dec 2020 10:59:11 +0100 (CET)
 Received: from ml01.vlan13.01.org (localhost [IPv6:::1])
-	by ml01.01.org (Postfix) with ESMTP id 07C89100EB32D;
-	Thu, 10 Dec 2020 13:18:36 -0800 (PST)
-Received-SPF: Pass (mailfrom) identity=mailfrom; client-ip=198.145.29.99; helo=mail.kernel.org; envelope-from=krzk@kernel.org; receiver=<UNKNOWN> 
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	by ml01.01.org (Postfix) with ESMTP id D8AE4100EF252;
+	Sun, 13 Dec 2020 01:59:09 -0800 (PST)
+Received-SPF: None (no SPF record) identity=no SPF record; client-ip=2607:f8b0:4864:20::442; helo=mail-pf1-x442.google.com; envelope-from=<>; receiver=<UNKNOWN> 
+Received: from mail-pf1-x442.google.com (mail-pf1-x442.google.com [IPv6:2607:f8b0:4864:20::442])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits))
 	(No client certificate requested)
-	by ml01.01.org (Postfix) with ESMTPS id 3C24F100EB32B
-	for <linux-nfc@lists.01.org>; Thu, 10 Dec 2020 13:18:34 -0800 (PST)
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Authentication-Results: mail.kernel.org; dkim=permerror (bad message/signature format)
-To: Krzysztof Kozlowski <krzk@kernel.org>,
-	Krzysztof Opasiak <k.opasiak@samsung.com>,
-	linux-nfc@lists.01.org,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Date: Thu, 10 Dec 2020 22:18:24 +0100
-Message-Id: <20201210211824.214949-1-krzk@kernel.org>
-X-Mailer: git-send-email 2.25.1
-MIME-Version: 1.0
-Message-ID-Hash: LUHEANJMBX7PT4LTWZNE4M5XC7DV4NCP
-X-Message-ID-Hash: LUHEANJMBX7PT4LTWZNE4M5XC7DV4NCP
-X-MailFrom: krzk@kernel.org
+	by ml01.01.org (Postfix) with ESMTPS id 305DE100EF250
+	for <linux-nfc@lists.01.org>; Sun, 13 Dec 2020 01:59:07 -0800 (PST)
+Received: by mail-pf1-x442.google.com with SMTP id c79so10129776pfc.2
+        for <linux-nfc@lists.01.org>; Sun, 13 Dec 2020 01:59:07 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20161025;
+        h=from:to:cc:subject:date:message-id;
+        bh=GcYqAxa7HBVYr8n7CS85HqGq6N68fJds4hOplQbYKsg=;
+        b=Vjwbz522pakplgONpLFHWgfZJ59AIzMmlDXrek+QZE2K98kDQhZJ8z7RTr2JX8/CK7
+         fT4tUtVu6QJnK6dbgZ7ObF2g9H8NJWaYl9RN3DcfnkeYlawKKW/rPTe0WVOAh6DNyDPu
+         ylOb0FowlyYviFan12yM2LVYVzZWn5t+d0CYRqoQ0AaKe8KWtom+TxDV+eufaOFhYzsR
+         BlPLU8Hr8VAIMaE+mcEQheCA3dbb/Jv/P9QL8maQAs2x1DQpFi5VBM+e834LTAjiCEYM
+         MHR5Uk7EoDPCuSwJKxTkAPGSTdfotKpoe05b0AwYjqEfGNzWNlF9NrFdc//xWayFBD7K
+         oM3A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:from:to:cc:subject:date:message-id;
+        bh=GcYqAxa7HBVYr8n7CS85HqGq6N68fJds4hOplQbYKsg=;
+        b=edukbjbAbS0aURPgkWIBrtbu8s2Tkd+U2bUWy/axC2qjuy+3K3dsnuZXF2iyNeZ5I4
+         C0NiEZ/XdugyuR16ZA9ZsBZimf5E7rllaI6zZD2j4zlxDe6E90Tf743ckyryaGVI4XGP
+         1UG51D1eAwTBNGcK4Wcb2Cvq6I1iqeBd94QQgoks1VUWzn1Ra3ZBcRNfGKetz2kA5y+E
+         c/DPhan8os8sxXc27055rpDYwsTst2so1ScNQZ173VBfa6NHA45oKmeAsSQuhC+wTDo0
+         Ovzd7Eybi5MU1JaE/PYHInsqAUIVHJZSI1KCWYYJUOnPdIXFgc0sqzEiKf+Mjy28NhqM
+         h3Sw==
+X-Gm-Message-State: AOAM5333JErbax9fewyXFsInvcg0r22eMeXcnAOuNdAOtXTdcn1uzeOX
+	BWCXGcrsbNJjVuMKZdWMXAw=
+X-Google-Smtp-Source: ABdhPJwE2chr88YKB9xmTS0NpoFNPDDbiETaYCL/vy1IZd/FodrArloKAP4/O04GMCErdBIgDvjECQ==
+X-Received: by 2002:a63:6f4c:: with SMTP id k73mr19049038pgc.319.1607853546046;
+        Sun, 13 Dec 2020 01:59:06 -0800 (PST)
+Received: from localhost.localdomain ([182.226.226.37])
+        by smtp.googlemail.com with ESMTPSA id w73sm15805958pfd.203.2020.12.13.01.59.03
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 13 Dec 2020 01:59:04 -0800 (PST)
+From: Bongsu Jeon <bongsu.jeon2@gmail.com>
+X-Google-Original-From: Bongsu Jeon
+To: krzk@kernel.org
+Date: Sun, 13 Dec 2020 18:58:50 +0900
+Message-Id: <20201213095850.28169-1-bongsu.jeon@samsung.com>
+X-Mailer: git-send-email 2.17.1
+Message-ID-Hash: QAG3H5IKI2ALB2LHYKCJ27KBELI7RSZ4
+X-Message-ID-Hash: QAG3H5IKI2ALB2LHYKCJ27KBELI7RSZ4
+X-MailFrom: <>
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency; loop; banned-address; member-moderation; nonmember-moderation; administrivia; implicit-dest; max-recipients; max-size; news-moderation; no-subject; suspicious-header
-CC: Bongsu Jeon <bongsu.jeon@samsung.com>, "David S . Miller" <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>
+CC: linux-nfc@lists.01.org, netdev@vger.kernel.org, linux-kernel@vger.kernel.org, Bongsu Jeon <bongsu.jeon@samsung.com>
 X-Mailman-Version: 3.1.1
 Precedence: list
-Subject: [linux-nfc] [PATCH] nfc: s3fwrn5: let core configure the interrupt trigger
+Subject: [linux-nfc] [PATCH net-next] nfc: s3fwrn5: Release the nfc firmware
 List-Id: NFC on Linux <linux-nfc.lists.01.org>
-Archived-At: <https://lists.01.org/hyperkitty/list/linux-nfc@lists.01.org/message/LUHEANJMBX7PT4LTWZNE4M5XC7DV4NCP/>
+Archived-At: <https://lists.01.org/hyperkitty/list/linux-nfc@lists.01.org/message/QAG3H5IKI2ALB2LHYKCJ27KBELI7RSZ4/>
 List-Archive: <https://lists.01.org/hyperkitty/list/linux-nfc@lists.01.org/>
 List-Help: <mailto:linux-nfc-request@lists.01.org?subject=help>
 List-Post: <mailto:linux-nfc@lists.01.org>
 List-Subscribe: <mailto:linux-nfc-join@lists.01.org>
 List-Unsubscribe: <mailto:linux-nfc-leave@lists.01.org>
+MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-If interrupt trigger is not set when requesting the interrupt, the core
-will take care of reading trigger type from Devicetree.  There is no
-point to do it in the driver.
+From: Bongsu Jeon <bongsu.jeon@samsung.com>
 
-Signed-off-by: Krzysztof Kozlowski <krzk@kernel.org>
+add the code to release the nfc firmware when the firmware image size is
+wrong.
+
+Signed-off-by: Bongsu Jeon <bongsu.jeon@samsung.com>
 ---
- drivers/nfc/s3fwrn5/i2c.c | 7 +------
- 1 file changed, 1 insertion(+), 6 deletions(-)
+ drivers/nfc/s3fwrn5/firmware.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/nfc/s3fwrn5/i2c.c b/drivers/nfc/s3fwrn5/i2c.c
-index 42f1f610ac2c..897394167522 100644
---- a/drivers/nfc/s3fwrn5/i2c.c
-+++ b/drivers/nfc/s3fwrn5/i2c.c
-@@ -179,8 +179,6 @@ static int s3fwrn5_i2c_probe(struct i2c_client *client,
- 				  const struct i2c_device_id *id)
- {
- 	struct s3fwrn5_i2c_phy *phy;
--	struct irq_data *irq_data;
--	unsigned long irqflags;
- 	int ret;
- 
- 	phy = devm_kzalloc(&client->dev, sizeof(*phy), GFP_KERNEL);
-@@ -214,11 +212,8 @@ static int s3fwrn5_i2c_probe(struct i2c_client *client,
+diff --git a/drivers/nfc/s3fwrn5/firmware.c b/drivers/nfc/s3fwrn5/firmware.c
+index 4b5352e2b915..b70737b3070e 100644
+--- a/drivers/nfc/s3fwrn5/firmware.c
++++ b/drivers/nfc/s3fwrn5/firmware.c
+@@ -293,8 +293,10 @@ int s3fwrn5_fw_request_firmware(struct s3fwrn5_fw_info *fw_info)
  	if (ret < 0)
  		return ret;
  
--	irq_data = irq_get_irq_data(client->irq);
--	irqflags = irqd_get_trigger_type(irq_data) | IRQF_ONESHOT;
--
- 	ret = devm_request_threaded_irq(&client->dev, phy->i2c_dev->irq, NULL,
--		s3fwrn5_i2c_irq_thread_fn, irqflags,
-+		s3fwrn5_i2c_irq_thread_fn, IRQF_ONESHOT,
- 		S3FWRN5_I2C_DRIVER_NAME, phy);
- 	if (ret)
- 		s3fwrn5_remove(phy->common.ndev);
+-	if (fw->fw->size < S3FWRN5_FW_IMAGE_HEADER_SIZE)
++	if (fw->fw->size < S3FWRN5_FW_IMAGE_HEADER_SIZE) {
++		release_firmware(fw->fw);
+ 		return -EINVAL;
++	}
+ 
+ 	memcpy(fw->date, fw->fw->data + 0x00, 12);
+ 	fw->date[12] = '\0';
 -- 
-2.25.1
+2.17.1
 _______________________________________________
 Linux-nfc mailing list -- linux-nfc@lists.01.org
 To unsubscribe send an email to linux-nfc-leave@lists.01.org
