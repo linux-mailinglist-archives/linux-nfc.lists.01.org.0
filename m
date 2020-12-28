@@ -2,82 +2,104 @@ Return-Path: <linux-nfc-bounces@lists.01.org>
 X-Original-To: lists+linux-nfc@lfdr.de
 Delivered-To: lists+linux-nfc@lfdr.de
 Received: from ml01.01.org (ml01.01.org [IPv6:2001:19d0:306:5::1])
-	by mail.lfdr.de (Postfix) with ESMTPS id E6F3F2DA9D7
-	for <lists+linux-nfc@lfdr.de>; Tue, 15 Dec 2020 10:13:17 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2AACF2E337E
+	for <lists+linux-nfc@lfdr.de>; Mon, 28 Dec 2020 02:46:49 +0100 (CET)
 Received: from ml01.vlan13.01.org (localhost [IPv6:::1])
-	by ml01.01.org (Postfix) with ESMTP id 8FEDD100EBBB7;
-	Tue, 15 Dec 2020 01:13:16 -0800 (PST)
-Received-SPF: Pass (mailfrom) identity=mailfrom; client-ip=209.85.218.68; helo=mail-ej1-f68.google.com; envelope-from=k.kozlowski.k@gmail.com; receiver=<UNKNOWN> 
-Received: from mail-ej1-f68.google.com (mail-ej1-f68.google.com [209.85.218.68])
+	by ml01.01.org (Postfix) with ESMTP id 43459100ED4BA;
+	Sun, 27 Dec 2020 17:46:47 -0800 (PST)
+Received-SPF: None (no SPF record) identity=no SPF record; client-ip=2607:f8b0:4864:20::1036; helo=mail-pj1-x1036.google.com; envelope-from=<>; receiver=<UNKNOWN> 
+Received: from mail-pj1-x1036.google.com (mail-pj1-x1036.google.com [IPv6:2607:f8b0:4864:20::1036])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits))
 	(No client certificate requested)
-	by ml01.01.org (Postfix) with ESMTPS id 7CC0A100EBBB4
-	for <linux-nfc@lists.01.org>; Tue, 15 Dec 2020 01:13:14 -0800 (PST)
-Received: by mail-ej1-f68.google.com with SMTP id n26so26586635eju.6
-        for <linux-nfc@lists.01.org>; Tue, 15 Dec 2020 01:13:14 -0800 (PST)
+	by ml01.01.org (Postfix) with ESMTPS id 47ED6100ED4AC
+	for <linux-nfc@lists.01.org>; Sun, 27 Dec 2020 17:46:45 -0800 (PST)
+Received: by mail-pj1-x1036.google.com with SMTP id v1so5177957pjr.2
+        for <linux-nfc@lists.01.org>; Sun, 27 Dec 2020 17:46:45 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20161025;
+        h=from:to:cc:subject:date:message-id;
+        bh=M7WvI72wl4WUEMHOhb+lrKhfdYvvrF6GMV1dg1VMpQc=;
+        b=d27FTPDqa40m8Gq0jAM0JQ21hyBIelFtGhpLuyYUu3Un4u30e5R7gBFiCVfb0n0E/N
+         +3lw67S6Ztfi5pDuQjaB5MeLNnidR1bUWtX9bWln+Q1yH+5yo9DlKhKiVMr+Tsy4GhIP
+         f4O7RwPnp2We+Iq38rrpr5A4Njo/R2DnYNAl/HOWKqhXN90xnmpDHpH0n0t9ponbKZSk
+         tQsZpX517b2fNx5vYUgQOM47Z1HJO2TVd5K0N57KHQcY1U/SQ/e96l4WI44ft9bkOJ7u
+         Qmtl1qA8O8wMYkA136FfPp+9DmxPOANrs1KJNUGVPPxovMB/Y+xuVCpR980uKMIpP8/v
+         rpJw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:date:from:to:cc:subject:message-id:references
-         :mime-version:content-disposition:in-reply-to;
-        bh=rFnb5r44Hk5DXz0JFCpBQMfmXkX1W5NDEIgxSLGBVvc=;
-        b=oAqpcjvCfutdESQTFnc+GArv0QH3soJw93EY7kBVrSvzmzODf/ASmlI5uXqUpPr+Y5
-         YbeVgkJkmJ1Fn4cxyWD3+EnTptc7Jbzo4TcJ4e6hAz5DJ1iJLuASVA2qrFMIhkYkzl3Y
-         ODMiYZNDszu1tb00BDaEKFoS7zp/Za1e1gSWHmknbahkK9/C7wY4Chtf9j/XYzNw4PfM
-         lxwmpBckX2AVGWdqGd7g6eft/mnklhll8K2rg7JbyFHEnpRDjYQqscbNxxjmAehJVbco
-         XYKOEjwCI1rEVE+ppdP/NFUjteQBtI0vsJhLQgH8QPk1rw86ne2pw54CrC7n4gSeyIOM
-         vHFw==
-X-Gm-Message-State: AOAM531XVYLdhI+MP3EdRTiQslTj7KZQ42Z0YXUaU8GRwLzM8tWYIG/4
-	SpezaY+wj+4bxbmHXrag4rs=
-X-Google-Smtp-Source: ABdhPJySndnJVgRCwyOzhjXag8LQ6zc060SR5W9nuHFoSB3ubPvN06jFqCe666TP9S/Bczfzm8o0ug==
-X-Received: by 2002:a17:906:195a:: with SMTP id b26mr13930796eje.4.1608023592858;
-        Tue, 15 Dec 2020 01:13:12 -0800 (PST)
-Received: from kozik-lap (adsl-84-226-167-205.adslplus.ch. [84.226.167.205])
-        by smtp.googlemail.com with ESMTPSA id n13sm904902ejr.93.2020.12.15.01.13.11
+        h=x-gm-message-state:from:to:cc:subject:date:message-id;
+        bh=M7WvI72wl4WUEMHOhb+lrKhfdYvvrF6GMV1dg1VMpQc=;
+        b=hM+qkz4zv6vhMoUZTQQbVDlVRjFZbdzrM8vkL/tWZxkjF10Vq9DY7ZvJboenyEmcw3
+         I5m8aASVZzwJ2gwpd1p/bWkVGBDA/XS/heWoGpLwnbjqiwYgMMENCY7kN7tBCeghIxy4
+         BlhJzeJNzO1/+n7HQ8UbxQ5JIICC/UySbt87MxZWncMwgrKEh6VuU86ayLzCfzFnzNMZ
+         W65WZRPy3qNSCqk98N7cM6UC/2fiimMMJ2JVt7fGiir1QOfVaJ+fzdxHBphtHg8kk16t
+         Bgwrc6NEZggr4JKEQMQKphjnr0c9Izc9ywclnspNc4C9JI3qzW5p7Gorm8nSAMHBW1ou
+         52xw==
+X-Gm-Message-State: AOAM532XdHPkbgISzKAgca41l9RubXtsjCF0gLcR02ma5qFBzAq2urry
+	fr8oVUQhNTfGf+y88E6MvOo=
+X-Google-Smtp-Source: ABdhPJzXnMa13lXrovP0yhARfbP6Y1l2a0JaHzpYO7B2/f2mEt/w9mo26TYEkenv4zix1BXI+y65cA==
+X-Received: by 2002:a17:90a:1bc7:: with SMTP id r7mr19379497pjr.33.1609120004569;
+        Sun, 27 Dec 2020 17:46:44 -0800 (PST)
+Received: from localhost.localdomain ([182.226.226.37])
+        by smtp.googlemail.com with ESMTPSA id q4sm10145896pgr.39.2020.12.27.17.46.41
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 15 Dec 2020 01:13:11 -0800 (PST)
-Date: Tue, 15 Dec 2020 10:13:10 +0100
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Bongsu Jeon <bongsu.jeon2@gmail.com>
-Message-ID: <20201215091310.GB29321@kozik-lap>
-References: <20201215065401.3220-1-bongsu.jeon@samsung.com>
- <20201215065401.3220-3-bongsu.jeon@samsung.com>
-MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20201215065401.3220-3-bongsu.jeon@samsung.com>
-Message-ID-Hash: 5RZ65BE55BHAI6PVTKDW2Q66EM76FWDY
-X-Message-ID-Hash: 5RZ65BE55BHAI6PVTKDW2Q66EM76FWDY
-X-MailFrom: k.kozlowski.k@gmail.com
+        Sun, 27 Dec 2020 17:46:43 -0800 (PST)
+From: Bongsu Jeon <bongsu.jeon2@gmail.com>
+X-Google-Original-From: Bongsu Jeon
+To: davem@davemloft.net,
+	kuba@kernel.org
+Date: Mon, 28 Dec 2020 10:46:31 +0900
+Message-Id: <20201228014631.5557-1-bongsu.jeon@samsung.com>
+X-Mailer: git-send-email 2.17.1
+Message-ID-Hash: LOGSXCMFKD36YEH3IVFY7NTIQJIIUWD2
+X-Message-ID-Hash: LOGSXCMFKD36YEH3IVFY7NTIQJIIUWD2
+X-MailFrom: <>
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency; loop; banned-address; member-moderation; nonmember-moderation; administrivia; implicit-dest; max-recipients; max-size; news-moderation; no-subject; suspicious-header
-CC: linux-nfc@lists.01.org, netdev@vger.kernel.org, linux-kernel@vger.kernel.org, Bongsu Jeon <bongsu.jeon@samsung.com>
+CC: netdev@vger.kernel.org, linux-kernel@vger.kernel.org, linux-nfc@lists.01.org, Bongsu Jeon <bongsu.jeon@samsung.com>
 X-Mailman-Version: 3.1.1
 Precedence: list
-Subject: [linux-nfc] Re: [PATCH v2 net-next 2/2] nfc: s3fwrn5: Remove unused NCI prop commands
+Subject: [linux-nfc] [PATCH net-next] net: nfc: nci: Change the NCI close sequence
 List-Id: NFC on Linux <linux-nfc.lists.01.org>
-Archived-At: <https://lists.01.org/hyperkitty/list/linux-nfc@lists.01.org/message/5RZ65BE55BHAI6PVTKDW2Q66EM76FWDY/>
+Archived-At: <https://lists.01.org/hyperkitty/list/linux-nfc@lists.01.org/message/LOGSXCMFKD36YEH3IVFY7NTIQJIIUWD2/>
 List-Archive: <https://lists.01.org/hyperkitty/list/linux-nfc@lists.01.org/>
 List-Help: <mailto:linux-nfc-request@lists.01.org?subject=help>
 List-Post: <mailto:linux-nfc@lists.01.org>
 List-Subscribe: <mailto:linux-nfc-join@lists.01.org>
 List-Unsubscribe: <mailto:linux-nfc-leave@lists.01.org>
+MIME-Version: 1.0
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-On Tue, Dec 15, 2020 at 03:54:01PM +0900, Bongsu Jeon wrote:
-> From: Bongsu Jeon <bongsu.jeon@samsung.com>
-> 
-> Remove the unused NCI prop commands that s3fwrn5 driver doesn't use.
-> 
-> Signed-off-by: Bongsu Jeon <bongsu.jeon@samsung.com>
-> ---
->  drivers/nfc/s3fwrn5/nci.c | 25 -------------------------
->  drivers/nfc/s3fwrn5/nci.h | 22 ----------------------
->  2 files changed, 47 deletions(-)
-> 
+From: Bongsu Jeon <bongsu.jeon@samsung.com>
 
-Reviewed-by: Krzysztof Kozlowski <krzk@kernel.org>
+Change the NCI close sequence because the NCI Command timer should be
+deleted after flushing the NCI command work queue.
 
-Best regards,
-Krzysztof
+Signed-off-by: Bongsu Jeon <bongsu.jeon@samsung.com>
+---
+ net/nfc/nci/core.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/net/nfc/nci/core.c b/net/nfc/nci/core.c
+index e64727e1a72f..79bebf4b0796 100644
+--- a/net/nfc/nci/core.c
++++ b/net/nfc/nci/core.c
+@@ -579,11 +579,11 @@ static int nci_close_device(struct nci_dev *ndev)
+ 
+ 	clear_bit(NCI_INIT, &ndev->flags);
+ 
+-	del_timer_sync(&ndev->cmd_timer);
+-
+ 	/* Flush cmd wq */
+ 	flush_workqueue(ndev->cmd_wq);
+ 
++	del_timer_sync(&ndev->cmd_timer);
++
+ 	/* Clear flags */
+ 	ndev->flags = 0;
+ 
+-- 
+2.17.1
 _______________________________________________
 Linux-nfc mailing list -- linux-nfc@lists.01.org
 To unsubscribe send an email to linux-nfc-leave@lists.01.org
