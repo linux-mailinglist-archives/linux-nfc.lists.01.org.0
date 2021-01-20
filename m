@@ -1,64 +1,69 @@
 Return-Path: <linux-nfc-bounces@lists.01.org>
 X-Original-To: lists+linux-nfc@lfdr.de
 Delivered-To: lists+linux-nfc@lfdr.de
-Received: from ml01.01.org (ml01.01.org [198.145.21.10])
-	by mail.lfdr.de (Postfix) with ESMTPS id B9F0D2FCD92
-	for <lists+linux-nfc@lfdr.de>; Wed, 20 Jan 2021 10:54:33 +0100 (CET)
+Received: from ml01.01.org (ml01.01.org [IPv6:2001:19d0:306:5::1])
+	by mail.lfdr.de (Postfix) with ESMTPS id 398D02FCF33
+	for <lists+linux-nfc@lfdr.de>; Wed, 20 Jan 2021 12:57:02 +0100 (CET)
 Received: from ml01.vlan13.01.org (localhost [IPv6:::1])
-	by ml01.01.org (Postfix) with ESMTP id 47D32100EC1C4;
-	Wed, 20 Jan 2021 01:54:32 -0800 (PST)
-Received-SPF: Pass (mailfrom) identity=mailfrom; client-ip=2a00:1450:4864:20::233; helo=mail-lj1-x233.google.com; envelope-from=bongsu.jeon2@gmail.com; receiver=<UNKNOWN> 
-Received: from mail-lj1-x233.google.com (mail-lj1-x233.google.com [IPv6:2a00:1450:4864:20::233])
+	by ml01.01.org (Postfix) with ESMTP id C9B23100EB831;
+	Wed, 20 Jan 2021 03:57:00 -0800 (PST)
+Received-SPF: None (no SPF record) identity=no SPF record; client-ip=2607:f8b0:4864:20::630; helo=mail-pl1-x630.google.com; envelope-from=<>; receiver=<UNKNOWN> 
+Received: from mail-pl1-x630.google.com (mail-pl1-x630.google.com [IPv6:2607:f8b0:4864:20::630])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits))
 	(No client certificate requested)
-	by ml01.01.org (Postfix) with ESMTPS id 08705100ED49F
-	for <linux-nfc@lists.01.org>; Wed, 20 Jan 2021 01:54:30 -0800 (PST)
-Received: by mail-lj1-x233.google.com with SMTP id x23so25288926lji.7
-        for <linux-nfc@lists.01.org>; Wed, 20 Jan 2021 01:54:30 -0800 (PST)
+	by ml01.01.org (Postfix) with ESMTPS id 8CC01100EB82F
+	for <linux-nfc@lists.01.org>; Wed, 20 Jan 2021 03:56:59 -0800 (PST)
+Received: by mail-pl1-x630.google.com with SMTP id s15so12386251plr.9
+        for <linux-nfc@lists.01.org>; Wed, 20 Jan 2021 03:56:59 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
-        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
-         :cc;
-        bh=1Dzgt9eOErv7DRncKnAq6YJRbBsHovoN+K2WQNL3Z+8=;
-        b=i4L+8exRf8lZaHTBzZPCPFSzSc+e00vaZuS4BnMHCc5zLodWr1iZ3wAYs11U8kBWDx
-         Ql6TFIOJbwSFm2uj9IBHnVmfV+wN94OZ2XezIkgDorrGD43fsxSJUUMQFhwHtM6zM670
-         RBcCKg8s964NGEL+12NSQamZqWozbLnwsJmNTUrpm4HTrvgt29zioadEOhGUgScFoxI6
-         XI8YR1CgfbPAxLAmq43FmO/1nkYF/Ycm3m+EkiKvV8mjlveoDtrBZqzoF5kSEdMYbooG
-         xoypAOB2q3SaksfogjIGkMoLn0Ym0MkofVA2IqCZB6MEfHfKi8ynpRDAZNt6oK1fbLeQ
-         J+dw==
+        h=from:to:cc:subject:date:message-id:mime-version
+         :content-transfer-encoding;
+        bh=5ciqHBudDYdod/bIfnJXN6ERypUAQCsPz7yvk11/qRw=;
+        b=uVwQiXgYFpdw5DuHGtXhBVumDJ8YggqHu3QzSnWvDTWZpOdQbzav8hSlzIEnbUv6sR
+         Z8dg3RF+LGJJIHT18PXELaPHFcHVFInDsqcQarTcBcpezUAKJE9Wxx4amTN3qnQzTN79
+         v2Z4J/z7vvL4Eu4RYV9VvcbaHrvfby8AhAhx4x5GIuZ6bT/PAVmjoE9+zigrFmT/3EHP
+         rr8Wtoyd0QlprjhJcceQdvR9B/PepF3zHJ+wqh5T8jm47YjT0w146mcpLWR8vicsPcBX
+         k6gK4TALdiElcqEzWeIz5+cZlA1rRLv9RRgrOo3hE7FfjJKZuFUJGwMCsZE1t3Uo+xDu
+         0m8w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
-         :message-id:subject:to:cc;
-        bh=1Dzgt9eOErv7DRncKnAq6YJRbBsHovoN+K2WQNL3Z+8=;
-        b=nhneSnE4sflQvBytt5NU/JFGDiF+5AxbJYNq7oGLhabQMU/xv+H/zs99ksPC/BHIkl
-         L/ZFg+yvdZ8H+U9NKtlre2nfo1Nc0L2rrUzlxUp+PebSg9JLWyZdVGMF44WplmFZbAB3
-         UwhsP0K42XD79YJV7/qz7kel1koBFxqwo4l3FQ6sVfFkwpjNqx3cxWxWxOqScYAdtPpX
-         FiyT5lsaWQRIAbQpZTkaXD4ytYJ0ki+N2NcjLUP3MdUxel+KFxZGxlwz7vkpjLXFaxh5
-         5xrjJPmUhm8DUcVUvIPlXBpnQVrEaNqz6414KwkMJSr6zYVcX9IdorDhFvpIJ/9+HSHK
-         5q3g==
-X-Gm-Message-State: AOAM530oWG3PpoSOp4VxCOG5F0yl2O10qAFNnZzTmXIkaKSmYjqlkRYB
-	A4RFqgDoVknX28hYbPQthf2DouGjOilcNkk2EPCyIuyd
-X-Google-Smtp-Source: ABdhPJwvMiO84gkALjBZYV/Z8117B5Fi5UzzquECd8v/xmJfuxLrV4PrxacoLeKawiqrEkSVrrKWWYw6Pxw4PasRCAU=
-X-Received: by 2002:a2e:bc1e:: with SMTP id b30mr4263478ljf.18.1611136468818;
- Wed, 20 Jan 2021 01:54:28 -0800 (PST)
-MIME-Version: 1.0
-References: <20210118205522.317087-1-bongsu.jeon@samsung.com> <161110440860.4771.13780876306648585886.git-patchwork-notify@kernel.org>
-In-Reply-To: <161110440860.4771.13780876306648585886.git-patchwork-notify@kernel.org>
+        h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+         :content-transfer-encoding;
+        bh=5ciqHBudDYdod/bIfnJXN6ERypUAQCsPz7yvk11/qRw=;
+        b=L1xDEL2mV5BTe+EL9ogass6Z3gq2ZMFPLSQxzDRyXFjuMTiaRGWqiySL3Q3jY1flh9
+         tvhcCGR3oomuMqVprb9Y0IcGPLnKOza56/7JiPG1At5Hi1GiSCSd9PTZ7ojuAahUVX6B
+         79Ysy2e8UjbDhaQSn3TqAIIG4ry5c4aUJCxeKiNdK66NtsWY0KIWonrwrADrB0Wbvyg2
+         m58RhbVQibTh8XGu0vkMBEeVe6WR2OHBR2SJYjBrG+VCbJ++NvR3ZjYE0NTDAHQ06Tmr
+         ghCy+RPLmCNWbF3YiTvJn8Fv/tdqGffeCwuxNP6cR2v+JQKhDHicISFvI15TNf4pYtr+
+         28sw==
+X-Gm-Message-State: AOAM532muggFLqEGIHl5ZCMzc9N2fBIBEZZP0nT4H9a7AbbiGEVS4Jwm
+	1+iit2JXuRqSaQxBK3xbd8k=
+X-Google-Smtp-Source: ABdhPJzVxazGkkCUGipHSo0jA8aEZJjv987UI+W41slbgRHxGIC80Q39eIuDbNaCE6MtdJqHAXnbWw==
+X-Received: by 2002:a17:902:9005:b029:da:f580:c5f7 with SMTP id a5-20020a1709029005b02900daf580c5f7mr9633007plp.85.1611143819037;
+        Wed, 20 Jan 2021 03:56:59 -0800 (PST)
+Received: from localhost.localdomain ([182.226.226.37])
+        by smtp.googlemail.com with ESMTPSA id f13sm6487856pjj.1.2021.01.20.03.56.56
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 20 Jan 2021 03:56:58 -0800 (PST)
 From: Bongsu Jeon <bongsu.jeon2@gmail.com>
-Date: Wed, 20 Jan 2021 18:54:17 +0900
-Message-ID: <CACwDmQBZ-LVursCYmtngyv3yFCQ9_Jkip03VZ8cd1auNu86V8A@mail.gmail.com>
-To: patchwork-bot+netdevbpf@kernel.org
-Message-ID-Hash: KPCUTC7D52EQF26MFSIMSBMBDLCNZ3AI
-X-Message-ID-Hash: KPCUTC7D52EQF26MFSIMSBMBDLCNZ3AI
-X-MailFrom: bongsu.jeon2@gmail.com
+X-Google-Original-From: Bongsu Jeon
+To: kuba@kernel.org,
+	shuah@kernel.org
+Date: Wed, 20 Jan 2021 20:56:43 +0900
+Message-Id: <20210120115645.32798-1-bongsu.jeon@samsung.com>
+X-Mailer: git-send-email 2.25.1
+MIME-Version: 1.0
+Message-ID-Hash: MCRYAIQ7D73HWVRR2JQBEPPFGEHH6SQI
+X-Message-ID-Hash: MCRYAIQ7D73HWVRR2JQBEPPFGEHH6SQI
+X-MailFrom: <>
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency; loop; banned-address; member-moderation; nonmember-moderation; administrivia; implicit-dest; max-recipients; max-size; news-moderation; no-subject; suspicious-header
-CC: davem@davemloft.net, Jakub Kicinski <kuba@kernel.org>, netdev@vger.kernel.org, linux-kernel@vger.kernel.org, linux-nfc@lists.01.org, Bongsu Jeon <bongsu.jeon@samsung.com>
+CC: netdev@vger.kernel.org, linux-nfc@lists.01.org, linux-kselftest@vger.kernel.org, Bongsu Jeon <bongsu.jeon@samsung.com>
 X-Mailman-Version: 3.1.1
 Precedence: list
-Subject: [linux-nfc] Re: [PATCH net] net: nfc: nci: fix the wrong NCI_CORE_INIT parameters
+Subject: [linux-nfc] [PATCH net-next v2 0/2] Add nci suit and virtual nci device driver
 List-Id: NFC on Linux <linux-nfc.lists.01.org>
-Archived-At: <https://lists.01.org/hyperkitty/list/linux-nfc@lists.01.org/message/KPCUTC7D52EQF26MFSIMSBMBDLCNZ3AI/>
+Archived-At: <https://lists.01.org/hyperkitty/list/linux-nfc@lists.01.org/message/MCRYAIQ7D73HWVRR2JQBEPPFGEHH6SQI/>
 List-Archive: <https://lists.01.org/hyperkitty/list/linux-nfc@lists.01.org/>
 List-Help: <mailto:linux-nfc-request@lists.01.org?subject=help>
 List-Post: <mailto:linux-nfc@lists.01.org>
@@ -67,35 +72,45 @@ List-Unsubscribe: <mailto:linux-nfc-leave@lists.01.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-On Wed, Jan 20, 2021 at 10:00 AM <patchwork-bot+netdevbpf@kernel.org> wrote:
->
-> Hello:
->
-> This patch was applied to netdev/net.git (refs/heads/master):
->
-> On Tue, 19 Jan 2021 05:55:22 +0900 you wrote:
-> > From: Bongsu Jeon <bongsu.jeon@samsung.com>
-> >
-> > Fix the code because NCI_CORE_INIT_CMD includes two parameters in NCI2.0
-> > but there is no parameters in NCI1.x.
-> >
-> > Signed-off-by: Bongsu Jeon <bongsu.jeon@samsung.com>
-> >
-> > [...]
->
-> Here is the summary with links:
->   - [net] net: nfc: nci: fix the wrong NCI_CORE_INIT parameters
->     https://git.kernel.org/netdev/net/c/4964e5a1e080
->
-> You are awesome, thank you!
-> --
-> Deet-doot-dot, I am a bot.
-> https://korg.docs.kernel.org/patchwork/pwbot.html
->
->
+From: Bongsu Jeon <bongsu.jeon@samsung.com>
 
-Could you merge this patch to net-next repo??
-NCI selftest that i will send will fail if this patch isn't merged.
+A NCI virtual device can be made to simulate a NCI device in user space.
+Using the virtual NCI device, The NCI module and application can be
+validated. This driver supports to communicate between the virtual NCI
+device and NCI module. To test the basic features of NCI module, selftest
+for NCI is added. Test cases consist of making the virtual NCI device
+on/off and controlling the device's polling for NCI1.0 and NCI2.0 version.
+
+1/2 is the Virtual NCI device driver.
+2/2 is the NCI selftest suite
+
+v2:
+ 1/2
+ - change the permission of the Virtual NCI device.
+ - add the ioctl to find the nci device index.
+ 2/2
+ - add the NCI selftest suite.
+
+Bongsu Jeon (2):
+  nfc: Add a virtual nci device driver
+  selftests: Add nci suite
+
+ MAINTAINERS                           |   8 +
+ drivers/nfc/Kconfig                   |  11 +
+ drivers/nfc/Makefile                  |   1 +
+ drivers/nfc/virtual_ncidev.c          | 235 ++++++++++
+ tools/testing/selftests/Makefile      |   1 +
+ tools/testing/selftests/nci/Makefile  |   6 +
+ tools/testing/selftests/nci/config    |   3 +
+ tools/testing/selftests/nci/nci_dev.c | 599 ++++++++++++++++++++++++++
+ 8 files changed, 864 insertions(+)
+ create mode 100644 drivers/nfc/virtual_ncidev.c
+ create mode 100644 tools/testing/selftests/nci/Makefile
+ create mode 100644 tools/testing/selftests/nci/config
+ create mode 100644 tools/testing/selftests/nci/nci_dev.c
+
+-- 
+2.25.1
 _______________________________________________
 Linux-nfc mailing list -- linux-nfc@lists.01.org
 To unsubscribe send an email to linux-nfc-leave@lists.01.org
