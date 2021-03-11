@@ -2,70 +2,114 @@ Return-Path: <linux-nfc-bounces@lists.01.org>
 X-Original-To: lists+linux-nfc@lfdr.de
 Delivered-To: lists+linux-nfc@lfdr.de
 Received: from ml01.01.org (ml01.01.org [198.145.21.10])
-	by mail.lfdr.de (Postfix) with ESMTPS id 61310305C85
-	for <lists+linux-nfc@lfdr.de>; Wed, 27 Jan 2021 14:09:09 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 168C6336E3B
+	for <lists+linux-nfc@lfdr.de>; Thu, 11 Mar 2021 09:51:19 +0100 (CET)
 Received: from ml01.vlan13.01.org (localhost [IPv6:::1])
-	by ml01.01.org (Postfix) with ESMTP id 3698C100EB32A;
-	Wed, 27 Jan 2021 05:09:08 -0800 (PST)
-Received-SPF: None (no SPF record) identity=no SPF record; client-ip=2607:f8b0:4864:20::431; helo=mail-pf1-x431.google.com; envelope-from=<>; receiver=<UNKNOWN> 
-Received: from mail-pf1-x431.google.com (mail-pf1-x431.google.com [IPv6:2607:f8b0:4864:20::431])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits))
+	by ml01.01.org (Postfix) with ESMTP id 565B2100F2268;
+	Thu, 11 Mar 2021 00:51:17 -0800 (PST)
+Received-SPF: Pass (mailfrom) identity=mailfrom; client-ip=40.107.7.113; helo=eur04-he1-obe.outbound.protection.outlook.com; envelope-from=frieder.schrempf@kontron.de; receiver=<UNKNOWN> 
+Received: from EUR04-HE1-obe.outbound.protection.outlook.com (mail-eopbgr70113.outbound.protection.outlook.com [40.107.7.113])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by ml01.01.org (Postfix) with ESMTPS id 7B96A100EB323
-	for <linux-nfc@lists.01.org>; Wed, 27 Jan 2021 05:09:06 -0800 (PST)
-Received: by mail-pf1-x431.google.com with SMTP id f63so1140326pfa.13
-        for <linux-nfc@lists.01.org>; Wed, 27 Jan 2021 05:09:06 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=from:to:cc:subject:date:message-id:in-reply-to:references
-         :mime-version:content-transfer-encoding;
-        bh=tdr1vTjH34h/VYtvH3qpG6TP7zun3Pkb4XYsF/4HLgM=;
-        b=SaCEgrvNt31ta7fH1mOZQBFS0uN77PVA2AM3IVOJXQfOHUAHOE4GblC/e02/+4ISWl
-         4md6elVHf6w0feuUf6ly1oAQtCaORbPyiEVPfKY5A3SmNc1g5Dff0WrmBq20skuCYcnB
-         vVGt9fITElBOBYlxysKtVhMdEpXiHU34cjbfylrOKmWs201hE7hfvMQZ24fQ/3XxWs0x
-         hGWCNHEOrGNsMQjYPPCDDFe1/pry6KaD5GWgLh++hH38bWU/Zv3ePPBTkssu+r6ZyaUL
-         JNyF5HXnowvv3+SEYp+4/KqTkvuUc0Cx/APVT9XcbZOHCe1SOdEDSBZoesqbRf64/VJZ
-         1SGA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
-         :references:mime-version:content-transfer-encoding;
-        bh=tdr1vTjH34h/VYtvH3qpG6TP7zun3Pkb4XYsF/4HLgM=;
-        b=gXaFsYammC3jjhcE5ImGhCfqXshQBUottk0ZmFwGk7+bLj//tPevMvmap6ZmI/rlo2
-         BO3XfQyg1Z4SWKdzXWEEudB2iKv0OUpjhy0GzV2GakVcbwbFGkBGjlCXb2tEckp0irUh
-         Z6XDcOIIV5HrEKo8Q5jv+K/JSqC1Q6IFlPTJm5ppKyz7fsp6VJwwlNgvOWqu9Fsdhyjh
-         E8ob0sHn7N+8ySiM6AILkztGLClRbIsTzFgv7IUk7EKz2Jt0QLhYWdfzLXMTucrsioSo
-         qvHx79CqPd4oTKuRv/jAN6EDXYxAug2p065ShCSfTDVe17RhCaR2ZjXbYDuESPAzbbsr
-         BV7w==
-X-Gm-Message-State: AOAM530+59WM87UMxDpnhZf9GtG8nmcQMUxmfHRGKFhc09JccAo+/X4y
-	DaNyGkpqHCi0j36FGJpxfxg=
-X-Google-Smtp-Source: ABdhPJx1pAg7dbz/HExnfq4yKGL+1skNsuXvjpD0Ej6Gji13HS3vvvjiGH5aaEynzRUWDWejz/BLrg==
-X-Received: by 2002:a63:643:: with SMTP id 64mr11053291pgg.422.1611752945644;
-        Wed, 27 Jan 2021 05:09:05 -0800 (PST)
-Received: from localhost.localdomain ([182.226.226.37])
-        by smtp.googlemail.com with ESMTPSA id 6sm2163343pjm.31.2021.01.27.05.09.02
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 27 Jan 2021 05:09:04 -0800 (PST)
-From: Bongsu Jeon <bongsu.jeon2@gmail.com>
-X-Google-Original-From: Bongsu Jeon
-To: kuba@kernel.org,
-	shuah@kernel.org
-Date: Wed, 27 Jan 2021 22:08:29 +0900
-Message-Id: <20210127130829.4026-3-bongsu.jeon@samsung.com>
+	by ml01.01.org (Postfix) with ESMTPS id 051D2100F2262
+	for <linux-nfc@lists.01.org>; Thu, 11 Mar 2021 00:51:13 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=FXYujs890FRe2ZKT+4nnonLEaFN1pTJJgwQBonDO/El25mQMw/NymkHPNBzlY3ET0W49lnQiFFSqiqntRFX28ooErfRF054iym/ZjpIpDmZEqX0pUOF9fi88rTj//KiOOQcG3KrqB5h2+cYWvX2odENP+AmSJz0wMG+fIjJ73+O6wMT+ggu6RtYlNQQpJhYLZXkl1hn0cCP0tbHqlp/YSKyghDDe4JiQzXyPYGHcI763DirfDJ6d8PvQzcySIMaLOyiGbavMaetpPAQoOCMpvKmHK9RPw16oYHN0bX27/UctCxmPYAqSOWZ3Xb1iVXVVgjCj/QAN+Y2TaRlCTK1N5w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Spzi9cYSjcyWNMkMwZ5J9uWJ9s0sDRNAs+u9vPO6M2I=;
+ b=ZcrXibFEwkn8Q/FQSNe1C0sS4sLpZfysaA8wwzbzfbUXsZAG9sP/jBiI0a8mnlTV5tw/+JBwWU53/N6MECMsuZz0YFFDQKbuyxgi9s+mdfMLrwsUGehxObW0fH78CYDKgMpomhHTA6s/X56tKVJJAwKHLM1L6ELNnNNnwfM/NS9Y/c82+HcnEj5yGR3bYiQAc2kvwbZt3Q4Md7E/cGdcXeWyDknMhtvp5bRY6U2o57rL7Qlm9DoDmlMcLVOzUHHQaisOuux0D7k/tFUk5DimH1NVZnQ8VTyZPklkqlTwDjLqHHco6Bws7RNrS5ZpWnIxpPkH7HiQ7pX4W0hGJWYP6g==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=kontron.de; dmarc=pass action=none header.from=kontron.de;
+ dkim=pass header.d=kontron.de; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mysnt.onmicrosoft.com;
+ s=selector2-mysnt-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Spzi9cYSjcyWNMkMwZ5J9uWJ9s0sDRNAs+u9vPO6M2I=;
+ b=Jsm6iZJYsj5Gpat8ELFs458x8FIMaXratPnK1TOwwMiE2ammVbaOn04QX/7ajjCUByxKQsOIs4ZC4Oj0xBuDEZVcSII4U3vkIKR8ePyBcIepZmmF1f5JzCONBQ/iJVBU4XJK//0a5I8gOauaZ0NenfTsk8Zj5X1Mqz0jOtdWn9w=
+Authentication-Results: linux.intel.com; dkim=none (message not signed)
+ header.d=none;linux.intel.com; dmarc=none action=none header.from=kontron.de;
+Received: from AM0PR10MB2963.EURPRD10.PROD.OUTLOOK.COM (2603:10a6:208:157::14)
+ by AM0PR10MB3169.EURPRD10.PROD.OUTLOOK.COM (2603:10a6:208:18b::8) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3912.17; Thu, 11 Mar
+ 2021 08:51:02 +0000
+Received: from AM0PR10MB2963.EURPRD10.PROD.OUTLOOK.COM
+ ([fe80::213d:da89:973e:7fa1]) by AM0PR10MB2963.EURPRD10.PROD.OUTLOOK.COM
+ ([fe80::213d:da89:973e:7fa1%6]) with mapi id 15.20.3912.030; Thu, 11 Mar 2021
+ 08:51:02 +0000
+From: Schrempf Frieder <frieder.schrempf@kontron.de>
+To: Samuel Ortiz <sameo@linux.intel.com>,
+	linux-nfc@lists.01.org
+Date: Thu, 11 Mar 2021 09:50:20 +0100
+Message-Id: <20210311085020.429987-1-frieder.schrempf@kontron.de>
 X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20210127130829.4026-1-bongsu.jeon@samsung.com>
-References: <20210127130829.4026-1-bongsu.jeon@samsung.com>
+X-Originating-IP: [88.130.71.217]
+X-ClientProxiedBy: AM0PR02CA0086.eurprd02.prod.outlook.com
+ (2603:10a6:208:154::27) To AM0PR10MB2963.EURPRD10.PROD.OUTLOOK.COM
+ (2603:10a6:208:157::14)
 MIME-Version: 1.0
-Message-ID-Hash: UOTG2N4EVTNSLIDFSYFTLK2ZKBC6Y3CU
-X-Message-ID-Hash: UOTG2N4EVTNSLIDFSYFTLK2ZKBC6Y3CU
-X-MailFrom: <>
+X-MS-Exchange-MessageSentRepresentingType: 1
+Received: from fs-work.localdomain (88.130.71.217) by AM0PR02CA0086.eurprd02.prod.outlook.com (2603:10a6:208:154::27) with Microsoft SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.3912.17 via Frontend Transport; Thu, 11 Mar 2021 08:51:01 +0000
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: cbb19b36-07d0-4bf4-7ece-08d8e46acc40
+X-MS-TrafficTypeDiagnostic: AM0PR10MB3169:
+X-MS-Exchange-Transport-Forked: True
+X-Microsoft-Antispam-PRVS: 
+	<AM0PR10MB3169635C460BE541A809A17EE9909@AM0PR10MB3169.EURPRD10.PROD.OUTLOOK.COM>
+X-MS-Oob-TLC-OOBClassifiers: OLM:4125;
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam: BCL:0;
+X-Microsoft-Antispam-Message-Info: 
+	rhKi60OF4gLb81ilVwSyqoCpwwIOmNl46/tP82rPtzmymR0JM92KpjU/CZw+TyAV6RcE5yBQqS+KlNOOXcnctM0ZueD9ctvaD/dYgnNwvW8hi245I1392kOMFpkzNTqTHAv4Ube5AX6nkPk3wqo6qo6LyJZtdxFY+023fZB9t1i6DyW6sqU+LZqsixZcGhLINSF00RZ1I5EkfNP0DQoDdIdaX/i3TT8XOqE4QdVcNtcL5zRn1CIlKKTbtzTpUuacV8Uirnli74M38VKXOiIRiV2Y9Pp0uoALeZqkQ8StUhUIpQTJ3NLwNh6kpDPU7WLABMNHczCzAzxPFCe4lFKUElw9eyUO79kYOyFSnFFboB8Xnr82q9jrTvLiDg1v5Sqr4kTN168JpY8+muWCGLM5f5NNVDYcbcJMnKmnchSr+DqdHU1HmFFKlfzny1rySiwMKOzlyoB3VRyzm9bjHVE3kphPHZ+hVUn2yZQwjZYP4Wyriv0+Apy0y1NGwtq8HX2B0yJ/DVF/sAVq1+vPSIuOtA==
+X-Forefront-Antispam-Report: 
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM0PR10MB2963.EURPRD10.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(4636009)(136003)(39860400002)(376002)(366004)(396003)(346002)(1076003)(66556008)(8676002)(478600001)(66476007)(66946007)(6666004)(5660300002)(2906002)(83380400001)(36756003)(8936002)(2616005)(6512007)(26005)(4326008)(107886003)(186003)(86362001)(16526019)(956004)(52116002)(316002)(54906003)(6506007)(6486002);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData: 
+	=?us-ascii?Q?t2trdbxVVgIX4gpMfH8aopzRYs4/AgXBMZEOQ/8CfST5BuhGsp/gZFU/L0Lf?=
+ =?us-ascii?Q?j3X6XinvI4I8iBdQ0hnTPonXPvMS53EZzmsacSGTAAyb7TaT6uL38X3ea7dy?=
+ =?us-ascii?Q?i3XC96TSJsWVVZbyxu3x8DWwq/+zj1d3kL66YKAJfbjLJQ7Cfwa89B1KZuIA?=
+ =?us-ascii?Q?GtNQYgpvfm75DMm2ZVkOcD807FaG9MA6NJx4cv4ZtdA1Jnkfl773Mu6NwVwu?=
+ =?us-ascii?Q?gttK+U/mzFriu8VtCbtx5XQOoAEYCkUYY6fNdU14PLnjXTTOHnQoEzditPBU?=
+ =?us-ascii?Q?U8Eypn+TijmtnZwI+xgY3i0doroyxX0HOckdMk6+WaBvo1YnAA++VBnYIVAG?=
+ =?us-ascii?Q?Vs1PemQCihqWJZJGSlePlPazrPpzvLQyBursejq4m7OWqCwi3psjDMZatV38?=
+ =?us-ascii?Q?oGoFJI16HDSP7qsHY7pTjnJk2l5VIR3yC1QSXErKQ+2pC30+fgbfcis6hOG+?=
+ =?us-ascii?Q?mikgs/QUP1O2xVtgU+xDU5mvESFrXOFD5RYIc7TSQmYdqhy1gG+xigFdO2cN?=
+ =?us-ascii?Q?JT/e+oTjRqRIVpe2Mbnkg+SdUfDyb/nPBC4NwCRY0l44ITk52hs31A4E+xs2?=
+ =?us-ascii?Q?U/d0fxSevZ2txYMOucrPrb657Y3OAWobyoRau0XnPypQiouD4rSWQvs/XeKL?=
+ =?us-ascii?Q?OHr6W3574ic0+KJod8OEO9zDU1RBnAm9+tpwYgsqPACKorZWEZ9chVFHOwrq?=
+ =?us-ascii?Q?ep9UQ7qXN1S77XMDmranshXkFdV2FPVR3fkC4BYZH16mHZYjHOX7iNx4OUPv?=
+ =?us-ascii?Q?dnJkygm7nmDjqiyzxTGnNzw8BdSWOsAA0QYHGAmmRrzcHk4eY4GhSFesxy8q?=
+ =?us-ascii?Q?f75tgjQTtKzw5e3qn8CujpRFWbz4D1n9Xis9ga29+lM3u5rI+DXjl/yD5zpV?=
+ =?us-ascii?Q?3yVmA41Z3OIhVw5I+SjssfskxtFimkp6wzQtLslvMoBKAN+QucK75FsshZfm?=
+ =?us-ascii?Q?yXIADrvzLxJWqiSFBIht/r2oGm+LATnxnRAvoayKvT/qugJSNzuS2pkWbSxJ?=
+ =?us-ascii?Q?2VbcqikF9UucHzPO2/jaIj3OMWHBvRYua6170JCWXbfzKaWKF86icC3Tq9vQ?=
+ =?us-ascii?Q?MPstRWfPHf3w4p8PQO7w2i2bO6k1flmSJsakWgJdZeS7g1dwHGzLYGYpigNa?=
+ =?us-ascii?Q?TiAAWmZucLD9TQu7yuf8frd6Z92XPvYc9WaUecWCp/heOSJVQhnjCOyCWbgU?=
+ =?us-ascii?Q?CQ3OfGJWmV7SdHPrU6wVCwknaIpnn1Asyrr8q/O4Zoualc4Dsp3RqrdwsHDi?=
+ =?us-ascii?Q?OJKwNlNeWrmmxDGhQpJIinVIOSeHJqGnYc4zI8nymp9OLGg5jgJEUnSqgARq?=
+ =?us-ascii?Q?9/ZlqUueLBLBfY3nqPlIVhEL?=
+X-OriginatorOrg: kontron.de
+X-MS-Exchange-CrossTenant-Network-Message-Id: cbb19b36-07d0-4bf4-7ece-08d8e46acc40
+X-MS-Exchange-CrossTenant-AuthSource: AM0PR10MB2963.EURPRD10.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Mar 2021 08:51:02.0328
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 8c9d3c97-3fd9-41c8-a2b1-646f3942daf1
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: AYSDbJUwtyOvAtZG15HA9sZrhRK0GbiLOUB19s8OGwlr8nFDjiECzLf51E9KoaY5w8AWxsdOg5PNDDaFEuicgPqEQT1S90buNZRKvaIhz6g=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM0PR10MB3169
+Message-ID-Hash: OHD5IQHYPFUPUFYWDMNSVCBNO24M45VK
+X-Message-ID-Hash: OHD5IQHYPFUPUFYWDMNSVCBNO24M45VK
+X-MailFrom: frieder.schrempf@kontron.de
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency; loop; banned-address; member-moderation; nonmember-moderation; administrivia; implicit-dest; max-recipients; max-size; news-moderation; no-subject; suspicious-header
-CC: krzk@kernel.org, linux-kernel@vger.kernel.org, netdev@vger.kernel.org, linux-nfc@lists.01.org, linux-kselftest@vger.kernel.org, Bongsu Jeon <bongsu.jeon@samsung.com>
+CC: Frieder Schrempf <frieder.schrempf@kontron.de>
 X-Mailman-Version: 3.1.1
 Precedence: list
-Subject: [linux-nfc] [PATCH net-next v4 2/2] selftests: Add nci suite
+Subject: [linux-nfc] [PATCH] tag: Implement readout of tag UID via DBus interface
 List-Id: NFC on Linux <linux-nfc.lists.01.org>
-Archived-At: <https://lists.01.org/hyperkitty/list/linux-nfc@lists.01.org/message/UOTG2N4EVTNSLIDFSYFTLK2ZKBC6Y3CU/>
+Archived-At: <https://lists.01.org/hyperkitty/list/linux-nfc@lists.01.org/message/OHD5IQHYPFUPUFYWDMNSVCBNO24M45VK/>
 List-Archive: <https://lists.01.org/hyperkitty/list/linux-nfc@lists.01.org/>
 List-Help: <mailto:linux-nfc-request@lists.01.org?subject=help>
 List-Post: <mailto:linux-nfc@lists.01.org>
@@ -74,681 +118,123 @@ List-Unsubscribe: <mailto:linux-nfc-leave@lists.01.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-From: Bongsu Jeon <bongsu.jeon@samsung.com>
+From: Frieder Schrempf <frieder.schrempf@kontron.de>
 
-This is the NCI test suite. It tests the NFC/NCI module using virtual NCI
-device. Test cases consist of making the virtual NCI device on/off and
-controlling the device's polling for NCI1.0 and NCI2.0 version.
+This adds a 'Uid' property to the DBus interface for tags, which
+returns the UID of the tag as byte array.
 
-Signed-off-by: Bongsu Jeon <bongsu.jeon@samsung.com>
+Signed-off-by: Frieder Schrempf <frieder.schrempf@kontron.de>
 ---
- MAINTAINERS                           |   8 +
- tools/testing/selftests/Makefile      |   1 +
- tools/testing/selftests/nci/Makefile  |   6 +
- tools/testing/selftests/nci/config    |   3 +
- tools/testing/selftests/nci/nci_dev.c | 599 ++++++++++++++++++++++++++
- 5 files changed, 617 insertions(+)
- create mode 100644 tools/testing/selftests/nci/Makefile
- create mode 100644 tools/testing/selftests/nci/config
- create mode 100644 tools/testing/selftests/nci/nci_dev.c
+ src/tag.c | 57 ++++++++++++++++++++++++++++++++++++++++++++++++++++---
+ 1 file changed, 54 insertions(+), 3 deletions(-)
 
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 096b584e7fed..b62832e39e2a 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -12531,6 +12531,14 @@ F:	include/net/nfc/
- F:	include/uapi/linux/nfc.h
- F:	net/nfc/
+diff --git a/src/tag.c b/src/tag.c
+index 9eba4ee..2039e48 100644
+--- a/src/tag.c
++++ b/src/tag.c
+@@ -53,6 +53,7 @@ struct near_tag {
+ 	uint8_t nfcid_len;
  
-+NFC VIRTUAL NCI DEVICE DRIVER
-+M:	Bongsu Jeon <bongsu.jeon@samsung.com>
-+L:	netdev@vger.kernel.org
-+L:	linux-nfc@lists.01.org (moderated for non-subscribers)
-+S:	Supported
-+F:	drivers/nfc/virtual_ncidev.c
-+F:	tools/testing/selftests/nci/
-+
- NFS, SUNRPC, AND LOCKD CLIENTS
- M:	Trond Myklebust <trond.myklebust@hammerspace.com>
- M:	Anna Schumaker <anna.schumaker@netapp.com>
-diff --git a/tools/testing/selftests/Makefile b/tools/testing/selftests/Makefile
-index 8a917cb4426a..c42aacec5038 100644
---- a/tools/testing/selftests/Makefile
-+++ b/tools/testing/selftests/Makefile
-@@ -34,6 +34,7 @@ TARGETS += memory-hotplug
- TARGETS += mincore
- TARGETS += mount
- TARGETS += mqueue
-+TARGETS += nci
- TARGETS += net
- TARGETS += net/forwarding
- TARGETS += net/mptcp
-diff --git a/tools/testing/selftests/nci/Makefile b/tools/testing/selftests/nci/Makefile
-new file mode 100644
-index 000000000000..47669a1d6a59
---- /dev/null
-+++ b/tools/testing/selftests/nci/Makefile
-@@ -0,0 +1,6 @@
-+# SPDX-License-Identifier: GPL-2.0
-+CFLAGS += -Wl,-no-as-needed -Wall
-+LDFLAGS += -lpthread
-+
-+TEST_GEN_PROGS := nci_dev
-+include ../lib.mk
-diff --git a/tools/testing/selftests/nci/config b/tools/testing/selftests/nci/config
-new file mode 100644
-index 000000000000..b084e78276be
---- /dev/null
-+++ b/tools/testing/selftests/nci/config
-@@ -0,0 +1,3 @@
-+CONFIG_NFC=y
-+CONFIG_NFC_NCI=y
-+CONFIG_NFC_VIRTUAL_NCI=y
-diff --git a/tools/testing/selftests/nci/nci_dev.c b/tools/testing/selftests/nci/nci_dev.c
-new file mode 100644
-index 000000000000..57b505cb1561
---- /dev/null
-+++ b/tools/testing/selftests/nci/nci_dev.c
-@@ -0,0 +1,599 @@
-+// SPDX-License-Identifier: GPL-2.0-only
-+/*
-+ * Copyright (C) 2021 Samsung Electrnoics
-+ * Bongsu Jeon <bongsu.jeon@samsung.com>
-+ *
-+ * Test code for nci
-+ */
-+
-+#include <stdlib.h>
-+#include <errno.h>
-+#include <string.h>
-+#include <sys/ioctl.h>
-+#include <fcntl.h>
-+#include <pthread.h>
-+#include <linux/genetlink.h>
-+#include <sys/socket.h>
-+#include <linux/nfc.h>
-+
-+#include "../kselftest_harness.h"
-+
-+#define GENLMSG_DATA(glh)	((void *)(NLMSG_DATA(glh) + GENL_HDRLEN))
-+#define GENLMSG_PAYLOAD(glh)	(NLMSG_PAYLOAD(glh, 0) - GENL_HDRLEN)
-+#define NLA_DATA(na)		((void *)((char *)(na) + NLA_HDRLEN))
-+#define NLA_PAYLOAD(len)	((len) - NLA_HDRLEN)
-+
-+#define MAX_MSG_SIZE	1024
-+
-+#define IOCTL_GET_NCIDEV_IDX	0
-+#define VIRTUAL_NFC_PROTOCOLS	(NFC_PROTO_JEWEL_MASK | \
-+				 NFC_PROTO_MIFARE_MASK | \
-+				 NFC_PROTO_FELICA_MASK | \
-+				 NFC_PROTO_ISO14443_MASK | \
-+				 NFC_PROTO_ISO14443_B_MASK | \
-+				 NFC_PROTO_ISO15693_MASK)
-+
-+const __u8 nci_reset_cmd[] = {0x20, 0x00, 0x01, 0x01};
-+const __u8 nci_init_cmd[] = {0x20, 0x01, 0x00};
-+const __u8 nci_rf_discovery_cmd[] = {0x21, 0x03, 0x09, 0x04, 0x00, 0x01,
-+				      0x01, 0x01, 0x02, 0x01, 0x06, 0x01};
-+const __u8 nci_init_cmd_v2[] = {0x20, 0x01, 0x02, 0x00, 0x00};
-+const __u8 nci_rf_disc_map_cmd[] = {0x21, 0x00, 0x07, 0x02, 0x04, 0x03,
-+				     0x02, 0x05, 0x03, 0x03};
-+const __u8 nci_rf_deact_cmd[] = {0x21, 0x06, 0x01, 0x00};
-+const __u8 nci_reset_rsp[] = {0x40, 0x00, 0x03, 0x00, 0x10, 0x01};
-+const __u8 nci_reset_rsp_v2[] = {0x40, 0x00, 0x01, 0x00};
-+const __u8 nci_reset_ntf[] = {0x60, 0x00, 0x09, 0x02, 0x01, 0x20, 0x0e,
-+			       0x04, 0x61, 0x00, 0x04, 0x02};
-+const __u8 nci_init_rsp[] = {0x40, 0x01, 0x14, 0x00, 0x02, 0x0e, 0x02,
-+			      0x00, 0x03, 0x01, 0x02, 0x03, 0x02, 0xc8,
-+			      0x00, 0xff, 0x10, 0x00, 0x0e, 0x12, 0x00,
-+			      0x00, 0x04};
-+const __u8 nci_init_rsp_v2[] = {0x40, 0x01, 0x1c, 0x00, 0x1a, 0x7e, 0x06,
-+				 0x00, 0x02, 0x92, 0x04, 0xff, 0xff, 0x01,
-+				 0x00, 0x40, 0x06, 0x00, 0x00, 0x01, 0x01,
-+				 0x00, 0x02, 0x00, 0x03, 0x01, 0x01, 0x06,
-+				 0x00, 0x80, 0x00};
-+const __u8 nci_rf_disc_map_rsp[] = {0x41, 0x00, 0x01, 0x00};
-+const __u8 nci_rf_disc_rsp[] = {0x41, 0x03, 0x01, 0x00};
-+const __u8 nci_rf_deact_rsp[] = {0x41, 0x06, 0x01, 0x00};
-+
-+struct msgtemplate {
-+	struct nlmsghdr n;
-+	struct genlmsghdr g;
-+	char buf[MAX_MSG_SIZE];
-+};
-+
-+static int create_nl_socket(void)
+ 	uint8_t iso15693_dsfid;
++	uint8_t iso15693_uid_len;
+ 	uint8_t iso15693_uid[NFC_MAX_ISO15693_UID_LEN];
+ 
+ 	size_t data_length;
+@@ -168,6 +169,29 @@ static const char *type_string(struct near_tag *tag)
+ 	return type;
+ }
+ 
++static const uint8_t uid_array(struct near_tag *tag, uint8_t **uid)
 +{
-+	int fd;
-+	struct sockaddr_nl local;
++	if (tag->nfcid_len) {
++		DBG("NFCID: ");
++		for(int i = 0; i < tag->nfcid_len; i++)
++			DBG("%x", tag->nfcid[i]);
 +
-+	fd = socket(AF_NETLINK, SOCK_RAW, NETLINK_GENERIC);
-+	if (fd < 0)
-+		return -1;
++		*uid = tag->nfcid;
 +
-+	memset(&local, 0, sizeof(local));
-+	local.nl_family = AF_NETLINK;
++		return tag->nfcid_len;
++	} else if (tag->iso15693_uid_len) {
++		DBG("ISO-UID: ");
++		for(int i = 0; i < tag->iso15693_uid_len; i++)
++			DBG("%x", tag->iso15693_uid[i]);
 +
-+	if (bind(fd, (struct sockaddr *)&local, sizeof(local)) < 0)
-+		goto error;
++		*uid = tag->iso15693_uid;
 +
-+	return fd;
-+error:
-+	close(fd);
-+	return -1;
-+}
-+
-+static int send_cmd_mt_nla(int sd, __u16 nlmsg_type, __u32 nlmsg_pid,
-+			   __u8 genl_cmd, int nla_num, __u16 nla_type[],
-+			   void *nla_data[], int nla_len[])
-+{
-+	struct sockaddr_nl nladdr;
-+	struct msgtemplate msg;
-+	struct nlattr *na;
-+	int cnt, prv_len;
-+	int r, buflen;
-+	char *buf;
-+
-+	msg.n.nlmsg_len = NLMSG_LENGTH(GENL_HDRLEN);
-+	msg.n.nlmsg_type = nlmsg_type;
-+	msg.n.nlmsg_flags = NLM_F_REQUEST;
-+	msg.n.nlmsg_seq = 0;
-+	msg.n.nlmsg_pid = nlmsg_pid;
-+	msg.g.cmd = genl_cmd;
-+	msg.g.version = 0x1;
-+
-+	prv_len = 0;
-+	for (cnt = 0; cnt < nla_num; cnt++) {
-+		na = (struct nlattr *)(GENLMSG_DATA(&msg) + prv_len);
-+		na->nla_type = nla_type[cnt];
-+		na->nla_len = nla_len[cnt] + NLA_HDRLEN;
-+
-+		if (nla_len > 0)
-+			memcpy(NLA_DATA(na), nla_data[cnt], nla_len[cnt]);
-+
-+		msg.n.nlmsg_len += NLMSG_ALIGN(na->nla_len);
-+		prv_len = na->nla_len;
-+	}
-+
-+	buf = (char *)&msg;
-+	buflen = msg.n.nlmsg_len;
-+	memset(&nladdr, 0, sizeof(nladdr));
-+	nladdr.nl_family = AF_NETLINK;
-+
-+	while ((r = sendto(sd, buf, buflen, 0, (struct sockaddr *)&nladdr,
-+			   sizeof(nladdr))) < buflen) {
-+		if (r > 0) {
-+			buf += r;
-+			buflen -= r;
-+		} else if (errno != EAGAIN) {
-+			return -1;
-+		}
-+	}
-+	return 0;
-+}
-+
-+static int send_get_nfc_family(int sd, __u32 pid)
-+{
-+	__u16 nla_get_family_type = CTRL_ATTR_FAMILY_NAME;
-+	void *nla_get_family_data;
-+	int nla_get_family_len;
-+	char family_name[100];
-+
-+	nla_get_family_len = strlen(NFC_GENL_NAME) + 1;
-+	strcpy(family_name, NFC_GENL_NAME);
-+	nla_get_family_data = family_name;
-+
-+	return send_cmd_mt_nla(sd, GENL_ID_CTRL, pid, CTRL_CMD_GETFAMILY,
-+				1, &nla_get_family_type,
-+				&nla_get_family_data, &nla_get_family_len);
-+}
-+
-+static int get_family_id(int sd, __u32 pid)
-+{
-+	struct {
-+		struct nlmsghdr n;
-+		struct genlmsghdr g;
-+		char buf[512];
-+	} ans;
-+	struct nlattr *na;
-+	int rep_len;
-+	__u16 id;
-+	int rc;
-+
-+	rc = send_get_nfc_family(sd, pid);
-+
-+	if (rc < 0)
-+		return 0;
-+
-+	rep_len = recv(sd, &ans, sizeof(ans), 0);
-+
-+	if (ans.n.nlmsg_type == NLMSG_ERROR || rep_len < 0 ||
-+	    !NLMSG_OK(&ans.n, rep_len))
-+		return 0;
-+
-+	na = (struct nlattr *)GENLMSG_DATA(&ans);
-+	na = (struct nlattr *)((char *)na + NLA_ALIGN(na->nla_len));
-+	if (na->nla_type == CTRL_ATTR_FAMILY_ID)
-+		id = *(__u16 *)NLA_DATA(na);
-+
-+	return id;
-+}
-+
-+static int send_cmd_with_idx(int sd, __u16 nlmsg_type, __u32 nlmsg_pid,
-+			     __u8 genl_cmd, int dev_id)
-+{
-+	__u16 nla_type = NFC_ATTR_DEVICE_INDEX;
-+	void *nla_data = &dev_id;
-+	int nla_len = 4;
-+
-+	return send_cmd_mt_nla(sd, nlmsg_type, nlmsg_pid, genl_cmd, 1,
-+				&nla_type, &nla_data, &nla_len);
-+}
-+
-+static int get_nci_devid(int sd, __u16 fid, __u32 pid, int dev_id, struct msgtemplate *msg)
-+{
-+	int rc, rep_len;
-+
-+	rc = send_cmd_with_idx(sd, fid, pid, NFC_CMD_GET_DEVICE, dev_id);
-+	if (rc < 0) {
-+		rc = -1;
-+		goto error;
-+	}
-+
-+	rep_len = recv(sd, msg, sizeof(*msg), 0);
-+	if (rep_len < 0) {
-+		rc = -2;
-+		goto error;
-+	}
-+
-+	if (msg->n.nlmsg_type == NLMSG_ERROR ||
-+	    !NLMSG_OK(&msg->n, rep_len)) {
-+		rc = -3;
-+		goto error;
++		return tag->iso15693_uid_len;
 +	}
 +
 +	return 0;
-+error:
-+	return rc;
 +}
 +
-+static __u8 get_dev_enable_state(struct msgtemplate *msg)
+ static const char *protocol_string(struct near_tag *tag)
+ {
+ 	const char *protocol;
+@@ -219,6 +243,30 @@ static gboolean property_get_type(const GDBusPropertyTable *property,
+ 	return TRUE;
+ }
+ 
++static gboolean property_get_uid(const GDBusPropertyTable *property,
++					DBusMessageIter *iter, void *user_data)
 +{
-+	struct nlattr *na;
-+	int rep_len;
-+	int len;
++	struct near_tag *tag = user_data;
++	DBusMessageIter entry;
++	uint8_t *uid;
++	uint8_t len;
 +
-+	rep_len = GENLMSG_PAYLOAD(&msg->n);
-+	na = (struct nlattr *)GENLMSG_DATA(msg);
-+	len = 0;
++	len = uid_array(tag, &uid);
++	if (!uid || !len)
++		return FALSE;
 +
-+	while (len < rep_len) {
-+		len += NLA_ALIGN(na->nla_len);
-+		if (na->nla_type == NFC_ATTR_DEVICE_POWERED)
-+			return *(char *)NLA_DATA(na);
-+		na = (struct nlattr *)(GENLMSG_DATA(msg) + len);
-+	}
++	dbus_message_iter_open_container(iter, DBUS_TYPE_ARRAY,
++					 "{y}", &entry);
 +
-+	return rep_len;
++	for (int i = 0; i < len; i++)
++		dbus_message_iter_append_basic(&entry, DBUS_TYPE_BYTE,
++					       (void *)&uid[i]);
++
++	dbus_message_iter_close_container(iter, &entry);
++
++	return TRUE;
 +}
 +
-+FIXTURE(NCI) {
-+	int virtual_nci_fd;
-+	bool open_state;
-+	int dev_idex;
-+	bool isNCI2;
-+	int proto;
-+	__u32 pid;
-+	__u16 fid;
-+	int sd;
-+};
-+
-+FIXTURE_VARIANT(NCI) {
-+	bool isNCI2;
-+};
-+
-+FIXTURE_VARIANT_ADD(NCI, NCI1_0) {
-+	.isNCI2 = false,
-+};
-+
-+FIXTURE_VARIANT_ADD(NCI, NCI2_0) {
-+	.isNCI2 = true,
-+};
-+
-+static void *virtual_dev_open(void *data)
-+{
-+	char buf[258];
-+	int dev_fd;
-+	int len;
-+
-+	dev_fd = *(int *)data;
-+
-+	while ((len = read(dev_fd, buf, 258)) == 0)
-+		;
-+	if (len <= 0)
-+		goto error;
-+	if (len != sizeof(nci_reset_cmd))
-+		goto error;
-+	if (memcmp(nci_reset_cmd, buf, len))
-+		goto error;
-+	write(dev_fd, nci_reset_rsp, sizeof(nci_reset_rsp));
-+
-+	while ((len = read(dev_fd, buf, 258)) == 0)
-+		;
-+	if (len <= 0)
-+		goto error;
-+	if (len != sizeof(nci_init_cmd))
-+		goto error;
-+	if (memcmp(nci_init_cmd, buf, len))
-+		goto error;
-+	write(dev_fd, nci_init_rsp, sizeof(nci_init_rsp));
-+
-+	while ((len = read(dev_fd, buf, 258)) == 0)
-+		;
-+	if (len <= 0)
-+		goto error;
-+	if (len != sizeof(nci_rf_disc_map_cmd))
-+		goto error;
-+	if (memcmp(nci_rf_disc_map_cmd, buf, len))
-+		goto error;
-+	write(dev_fd, nci_rf_disc_map_rsp, sizeof(nci_rf_disc_map_rsp));
-+
-+	return (void *)0;
-+error:
-+	return (void *)-1;
-+}
-+
-+static void *virtual_dev_open_v2(void *data)
-+{
-+	char buf[258];
-+	int dev_fd;
-+	int len;
-+
-+	dev_fd = *(int *)data;
-+
-+	while ((len = read(dev_fd, buf, 258)) == 0)
-+		;
-+	if (len <= 0)
-+		goto error;
-+	if (len != sizeof(nci_reset_cmd))
-+		goto error;
-+	if (memcmp(nci_reset_cmd, buf, len))
-+		goto error;
-+	write(dev_fd, nci_reset_rsp_v2, sizeof(nci_reset_rsp_v2));
-+	write(dev_fd, nci_reset_ntf, sizeof(nci_reset_ntf));
-+
-+	while ((len = read(dev_fd, buf, 258)) == 0)
-+		;
-+	if (len <= 0)
-+		goto error;
-+	if (len != sizeof(nci_init_cmd_v2))
-+		goto error;
-+	if (memcmp(nci_init_cmd_v2, buf, len))
-+		goto error;
-+	write(dev_fd, nci_init_rsp_v2, sizeof(nci_init_rsp_v2));
-+
-+	while ((len = read(dev_fd, buf, 258)) == 0)
-+		;
-+	if (len <= 0)
-+		goto error;
-+	if (len != sizeof(nci_rf_disc_map_cmd))
-+		goto error;
-+	if (memcmp(nci_rf_disc_map_cmd, buf, len))
-+		goto error;
-+	write(dev_fd, nci_rf_disc_map_rsp, sizeof(nci_rf_disc_map_rsp));
-+
-+	return (void *)0;
-+error:
-+	return (void *)-1;
-+}
-+
-+FIXTURE_SETUP(NCI)
-+{
-+	struct msgtemplate msg;
-+	pthread_t thread_t;
-+	int status;
-+	int rc;
-+
-+	self->open_state = false;
-+	self->proto = VIRTUAL_NFC_PROTOCOLS;
-+	self->isNCI2 = variant->isNCI2;
-+
-+	self->sd = create_nl_socket();
-+	ASSERT_NE(self->sd, -1);
-+
-+	self->pid = getpid();
-+	self->fid = get_family_id(self->sd, self->pid);
-+	ASSERT_NE(self->fid, -1);
-+
-+	self->virtual_nci_fd = open("/dev/virtual_nci", O_RDWR);
-+	ASSERT_GT(self->virtual_nci_fd, -1);
-+
-+	rc = ioctl(self->virtual_nci_fd, IOCTL_GET_NCIDEV_IDX, &self->dev_idex);
-+	ASSERT_EQ(rc, 0);
-+
-+	rc = get_nci_devid(self->sd, self->fid, self->pid, self->dev_idex, &msg);
-+	ASSERT_EQ(rc, 0);
-+	EXPECT_EQ(get_dev_enable_state(&msg), 0);
-+
-+	if (self->isNCI2)
-+		rc = pthread_create(&thread_t, NULL, virtual_dev_open_v2,
-+				    (void *)&self->virtual_nci_fd);
-+	else
-+		rc = pthread_create(&thread_t, NULL, virtual_dev_open,
-+				    (void *)&self->virtual_nci_fd);
-+	ASSERT_GT(rc, -1);
-+
-+	rc = send_cmd_with_idx(self->sd, self->fid, self->pid,
-+			       NFC_CMD_DEV_UP, self->dev_idex);
-+	EXPECT_EQ(rc, 0);
-+
-+	pthread_join(thread_t, (void **)&status);
-+	ASSERT_EQ(status, 0);
-+	self->open_state = true;
-+}
-+
-+static void *virtual_deinit(void *data)
-+{
-+	char buf[258];
-+	int dev_fd;
-+	int len;
-+
-+	dev_fd = *(int *)data;
-+
-+	while ((len = read(dev_fd, buf, 258)) == 0)
-+		;
-+	if (len <= 0)
-+		goto error;
-+	if (len != sizeof(nci_reset_cmd))
-+		goto error;
-+	if (memcmp(nci_reset_cmd, buf, len))
-+		goto error;
-+	write(dev_fd, nci_reset_rsp, sizeof(nci_reset_rsp));
-+
-+	return (void *)0;
-+error:
-+	return (void *)-1;
-+}
-+
-+static void *virtual_deinit_v2(void *data)
-+{
-+	char buf[258];
-+	int dev_fd;
-+	int len;
-+
-+	dev_fd = *(int *)data;
-+
-+	while ((len = read(dev_fd, buf, 258)) == 0)
-+		;
-+	if (len <= 0)
-+		goto error;
-+	if (len != sizeof(nci_reset_cmd))
-+		goto error;
-+	if (memcmp(nci_reset_cmd, buf, len))
-+		goto error;
-+	write(dev_fd, nci_reset_rsp_v2, sizeof(nci_reset_rsp_v2));
-+	write(dev_fd, nci_reset_ntf, sizeof(nci_reset_ntf));
-+
-+	return (void *)0;
-+error:
-+	return (void *)-1;
-+}
-+
-+FIXTURE_TEARDOWN(NCI)
-+{
-+	pthread_t thread_t;
-+	int status;
-+	int rc;
-+
-+	if (self->open_state) {
-+		if (self->isNCI2)
-+			rc = pthread_create(&thread_t, NULL,
-+					    virtual_deinit_v2,
-+					    (void *)&self->virtual_nci_fd);
-+		else
-+			rc = pthread_create(&thread_t, NULL, virtual_deinit,
-+					    (void *)&self->virtual_nci_fd);
-+
-+		ASSERT_GT(rc, -1);
-+		rc = send_cmd_with_idx(self->sd, self->fid, self->pid,
-+				       NFC_CMD_DEV_DOWN, self->dev_idex);
-+		EXPECT_EQ(rc, 0);
-+
-+		pthread_join(thread_t, (void **)&status);
-+		ASSERT_EQ(status, 0);
-+	}
-+
-+	close(self->sd);
-+	close(self->virtual_nci_fd);
-+	self->open_state = false;
-+}
-+
-+TEST_F(NCI, init)
-+{
-+	struct msgtemplate msg;
-+	int rc;
-+
-+	rc = get_nci_devid(self->sd, self->fid, self->pid, self->dev_idex,
-+			   &msg);
-+	ASSERT_EQ(rc, 0);
-+	EXPECT_EQ(get_dev_enable_state(&msg), 1);
-+}
-+
-+static void *virtual_poll_start(void *data)
-+{
-+	char buf[258];
-+	int dev_fd;
-+	int len;
-+
-+	dev_fd = *(int *)data;
-+
-+	while ((len = read(dev_fd, buf, 258)) == 0)
-+		;
-+	if (len <= 0)
-+		goto error;
-+	if (len != sizeof(nci_rf_discovery_cmd))
-+		goto error;
-+	if (memcmp(nci_rf_discovery_cmd, buf, len))
-+		goto error;
-+	write(dev_fd, nci_rf_disc_rsp, sizeof(nci_rf_disc_rsp))
-+		;
-+
-+	return (void *)0;
-+error:
-+	return (void *)-1;
-+}
-+
-+static void *virtual_poll_stop(void *data)
-+{
-+	char buf[258];
-+	int dev_fd;
-+	int len;
-+
-+	dev_fd = *(int *)data;
-+
-+	while ((len = read(dev_fd, buf, 258)) == 0)
-+		;
-+	if (len <= 0)
-+		goto error;
-+	if (len != sizeof(nci_rf_deact_cmd))
-+		goto error;
-+	if (memcmp(nci_rf_deact_cmd, buf, len))
-+		goto error;
-+	write(dev_fd, nci_rf_deact_rsp, sizeof(nci_rf_deact_rsp));
-+
-+	return (void *)0;
-+error:
-+	return (void *)-1;
-+}
-+
-+TEST_F(NCI, start_poll)
-+{
-+	__u16 nla_start_poll_type[2] = {NFC_ATTR_DEVICE_INDEX,
-+					 NFC_ATTR_PROTOCOLS};
-+	void *nla_start_poll_data[2] = {&self->dev_idex, &self->proto};
-+	int nla_start_poll_len[2] = {4, 4};
-+	pthread_t thread_t;
-+	int status;
-+	int rc;
-+
-+	rc = pthread_create(&thread_t, NULL, virtual_poll_start,
-+			    (void *)&self->virtual_nci_fd);
-+	ASSERT_GT(rc, -1);
-+
-+	rc = send_cmd_mt_nla(self->sd, self->fid, self->pid,
-+			     NFC_CMD_START_POLL, 2, nla_start_poll_type,
-+			     nla_start_poll_data, nla_start_poll_len);
-+	EXPECT_EQ(rc, 0);
-+
-+	pthread_join(thread_t, (void **)&status);
-+	ASSERT_EQ(status, 0);
-+
-+	rc = pthread_create(&thread_t, NULL, virtual_poll_stop,
-+			    (void *)&self->virtual_nci_fd);
-+	ASSERT_GT(rc, -1);
-+
-+	rc = send_cmd_with_idx(self->sd, self->fid, self->pid,
-+			       NFC_CMD_STOP_POLL, self->dev_idex);
-+	EXPECT_EQ(rc, 0);
-+
-+	pthread_join(thread_t, (void **)&status);
-+	ASSERT_EQ(status, 0);
-+}
-+
-+TEST_F(NCI, deinit)
-+{
-+	struct msgtemplate msg;
-+	pthread_t thread_t;
-+	int status;
-+	int rc;
-+
-+	rc = get_nci_devid(self->sd, self->fid, self->pid, self->dev_idex,
-+			   &msg);
-+	ASSERT_EQ(rc, 0);
-+	EXPECT_EQ(get_dev_enable_state(&msg), 1);
-+
-+	if (self->isNCI2)
-+		rc = pthread_create(&thread_t, NULL, virtual_deinit_v2,
-+				    (void *)&self->virtual_nci_fd);
-+	else
-+		rc = pthread_create(&thread_t, NULL, virtual_deinit,
-+				    (void *)&self->virtual_nci_fd);
-+	ASSERT_GT(rc, -1);
-+
-+	rc = send_cmd_with_idx(self->sd, self->fid, self->pid,
-+			       NFC_CMD_DEV_DOWN, self->dev_idex);
-+	EXPECT_EQ(rc, 0);
-+
-+	pthread_join(thread_t, (void **)&status);
-+	self->open_state = 0;
-+	ASSERT_EQ(status, 0);
-+
-+	rc = get_nci_devid(self->sd, self->fid, self->pid, self->dev_idex,
-+			   &msg);
-+	ASSERT_EQ(rc, 0);
-+	EXPECT_EQ(get_dev_enable_state(&msg), 0);
-+}
-+
-+TEST_HARNESS_MAIN
+ static gboolean property_get_protocol(const GDBusPropertyTable *property,
+ 					DBusMessageIter *iter, void *user_data)
+ {
+@@ -526,6 +574,7 @@ static const GDBusPropertyTable tag_properties[] = {
+ 	{ "Protocol", "s", property_get_protocol },
+ 	{ "ReadOnly", "b", property_get_readonly },
+ 	{ "Adapter", "o", property_get_adapter },
++	{ "Uid", "ay", property_get_uid },
+ 
+ 	{ }
+ };
+@@ -671,8 +720,10 @@ static int tag_initialize(struct near_tag *tag,
+ 	if (nfcid_len && nfcid_len <= NFC_MAX_NFCID1_LEN) {
+ 		tag->nfcid_len = nfcid_len;
+ 		memcpy(tag->nfcid, nfcid, nfcid_len);
+-	} else if (iso15693_uid_len) {
++	} else if (iso15693_uid_len &&
++		   iso15693_uid_len <= NFC_MAX_ISO15693_UID_LEN) {
+ 		tag->iso15693_dsfid = iso15693_dsfid;
++		tag->iso15693_uid_len = iso15693_uid_len;
+ 		memcpy(tag->iso15693_uid, iso15693_uid, iso15693_uid_len);
+ 	}
+ 
+@@ -837,11 +888,11 @@ uint8_t *near_tag_get_iso15693_uid(uint32_t adapter_idx, uint32_t target_idx)
+ 	if (!tag)
+ 		goto fail;
+ 
+-	iso15693_uid = g_try_malloc0(NFC_MAX_ISO15693_UID_LEN);
++	iso15693_uid = g_try_malloc0(tag->iso15693_uid_len);
+ 	if (!iso15693_uid)
+ 		goto fail;
+ 
+-	memcpy(iso15693_uid, tag->iso15693_uid, NFC_MAX_ISO15693_UID_LEN);
++	memcpy(iso15693_uid, tag->iso15693_uid, tag->iso15693_uid_len);
+ 
+ 	return iso15693_uid;
+ 
 -- 
 2.25.1
 _______________________________________________
