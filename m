@@ -1,37 +1,37 @@
 Return-Path: <linux-nfc-bounces@lists.01.org>
 X-Original-To: lists+linux-nfc@lfdr.de
 Delivered-To: lists+linux-nfc@lfdr.de
-Received: from ml01.01.org (ml01.01.org [198.145.21.10])
-	by mail.lfdr.de (Postfix) with ESMTPS id CDA6937BE6E
-	for <lists+linux-nfc@lfdr.de>; Wed, 12 May 2021 15:44:25 +0200 (CEST)
+Received: from ml01.01.org (ml01.01.org [IPv6:2001:19d0:306:5::1])
+	by mail.lfdr.de (Postfix) with ESMTPS id 9BFDA37BEF5
+	for <lists+linux-nfc@lfdr.de>; Wed, 12 May 2021 15:54:58 +0200 (CEST)
 Received: from ml01.vlan13.01.org (localhost [IPv6:::1])
-	by ml01.01.org (Postfix) with ESMTP id 16F5A100EBB6B;
-	Wed, 12 May 2021 06:44:24 -0700 (PDT)
-Received-SPF: None (mailfrom) identity=mailfrom; client-ip=2001:a61:3b37:8401:666:cf1e:e8ed:533c; helo=localhost; envelope-from=oneukum@localhost; receiver=<UNKNOWN> 
-Received: from localhost (unknown [IPv6:2001:a61:3b37:8401:666:cf1e:e8ed:533c])
-	by ml01.01.org (Postfix) with ESMTP id E8EE1100EBB6A
-	for <linux-nfc@lists.01.org>; Wed, 12 May 2021 06:44:20 -0700 (PDT)
+	by ml01.01.org (Postfix) with ESMTP id D697B100EBB6C;
+	Wed, 12 May 2021 06:54:56 -0700 (PDT)
+Received-SPF: None (mailfrom) identity=mailfrom; client-ip=62.216.211.111; helo=localhost; envelope-from=oneukum@localhost; receiver=<UNKNOWN> 
+Received: from localhost (unknown [62.216.211.111])
+	by ml01.01.org (Postfix) with ESMTP id BFECE100EBB6B
+	for <linux-nfc@lists.01.org>; Wed, 12 May 2021 06:54:54 -0700 (PDT)
 Received: by localhost (Postfix, from userid 1000)
-	id B721AE052; Wed, 12 May 2021 15:44:16 +0200 (CEST)
+	id 5D8BDE05D; Wed, 12 May 2021 15:54:53 +0200 (CEST)
 From: Oliver Neukum <oneukum@suse.com>
 To: clement.perrochaud@effinnov.com,
 	charles.gorand@effinnov.com,
 	linux-nfc@lists.01.org,
 	netdev@vger.kernel.org
-Date: Wed, 12 May 2021 15:44:13 +0200
-Message-Id: <20210512134413.31808-1-oneukum@suse.com>
+Date: Wed, 12 May 2021 15:54:51 +0200
+Message-Id: <20210512135451.32375-1-oneukum@suse.com>
 X-Mailer: git-send-email 2.26.2
 MIME-Version: 1.0
-Message-ID-Hash: ZUXDSZZMA6HQ7ST5YPORDR4XO2JR444Q
-X-Message-ID-Hash: ZUXDSZZMA6HQ7ST5YPORDR4XO2JR444Q
+Message-ID-Hash: 3C5RSUJUBWLPCLSRJMTDDIFVA5I7PLXT
+X-Message-ID-Hash: 3C5RSUJUBWLPCLSRJMTDDIFVA5I7PLXT
 X-MailFrom: oneukum@localhost
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency; loop; banned-address; member-moderation; nonmember-moderation; administrivia; implicit-dest; max-recipients; max-size; news-moderation; no-subject; suspicious-header
 CC: Oliver Neukum <oneukum@suse.com>
 X-Mailman-Version: 3.1.1
 Precedence: list
-Subject: [linux-nfc] [PATCH] NFC: cooperation with runtime PM
+Subject: [linux-nfc] [PATCH] nxp-nci: add NXP1002 id
 List-Id: NFC on Linux <linux-nfc.lists.01.org>
-Archived-At: <https://lists.01.org/hyperkitty/list/linux-nfc@lists.01.org/message/ZUXDSZZMA6HQ7ST5YPORDR4XO2JR444Q/>
+Archived-At: <https://lists.01.org/hyperkitty/list/linux-nfc@lists.01.org/message/3C5RSUJUBWLPCLSRJMTDDIFVA5I7PLXT/>
 List-Archive: <https://lists.01.org/hyperkitty/list/linux-nfc@lists.01.org/>
 List-Help: <mailto:linux-nfc-request@lists.01.org?subject=help>
 List-Post: <mailto:linux-nfc@lists.01.org>
@@ -40,93 +40,25 @@ List-Unsubscribe: <mailto:linux-nfc-leave@lists.01.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-We cannot rely on the underlying hardware to do correct
-runtime PM. NFC core needs to get PM reference while
-a device is operational, lest it be suspended when
-it is supposed to be waiting for a target to come
-into range.
+The driver also works with those new devices.
 
 Signed-off-by: Oliver Neukum <oneukum@suse.com>
 ---
- net/nfc/core.c | 19 ++++++++++++++++++-
- 1 file changed, 18 insertions(+), 1 deletion(-)
+ drivers/nfc/nxp-nci/i2c.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/net/nfc/core.c b/net/nfc/core.c
-index 573c80c6ff7a..5ca4597c39c7 100644
---- a/net/nfc/core.c
-+++ b/net/nfc/core.c
-@@ -15,6 +15,7 @@
- #include <linux/slab.h>
- #include <linux/rfkill.h>
- #include <linux/nfc.h>
-+#include <linux/pm_runtime.h>
- 
- #include <net/genetlink.h>
- 
-@@ -37,6 +38,7 @@ int nfc_fw_download(struct nfc_dev *dev, const char *firmware_name)
- 	pr_debug("%s do firmware %s\n", dev_name(&dev->dev), firmware_name);
- 
- 	device_lock(&dev->dev);
-+	pm_runtime_get_sync(&dev->dev);
- 
- 	if (!device_is_registered(&dev->dev)) {
- 		rc = -ENODEV;
-@@ -58,7 +60,10 @@ int nfc_fw_download(struct nfc_dev *dev, const char *firmware_name)
- 	if (rc)
- 		dev->fw_download_in_progress = false;
- 
-+	device_unlock(&dev->dev);
-+	return rc;
- error:
-+	pm_runtime_put(&dev->dev);
- 	device_unlock(&dev->dev);
- 	return rc;
- }
-@@ -73,9 +78,13 @@ int nfc_fw_download(struct nfc_dev *dev, const char *firmware_name)
- int nfc_fw_download_done(struct nfc_dev *dev, const char *firmware_name,
- 			 u32 result)
- {
-+	int rv;
-+
- 	dev->fw_download_in_progress = false;
- 
--	return nfc_genl_fw_download_done(dev, firmware_name, result);
-+	rv = nfc_genl_fw_download_done(dev, firmware_name, result);
-+	pm_runtime_put(&dev->dev);
-+	return rv;
- }
- EXPORT_SYMBOL(nfc_fw_download_done);
- 
-@@ -93,6 +102,7 @@ int nfc_dev_up(struct nfc_dev *dev)
- 	pr_debug("dev_name=%s\n", dev_name(&dev->dev));
- 
- 	device_lock(&dev->dev);
-+	pm_runtime_get_sync(&dev->dev);
- 
- 	if (dev->rfkill && rfkill_blocked(dev->rfkill)) {
- 		rc = -ERFKILL;
-@@ -124,7 +134,11 @@ int nfc_dev_up(struct nfc_dev *dev)
- 	if (dev->ops->discover_se && dev->ops->discover_se(dev))
- 		pr_err("SE discovery failed\n");
- 
-+	device_unlock(&dev->dev);
-+	return rc;
-+
- error:
-+	pm_runtime_put(&dev->dev);
- 	device_unlock(&dev->dev);
- 	return rc;
- }
-@@ -161,6 +175,9 @@ int nfc_dev_down(struct nfc_dev *dev)
- 		dev->ops->dev_down(dev);
- 
- 	dev->dev_up = false;
-+	pm_runtime_put(&dev->dev);
-+	device_unlock(&dev->dev);
-+	return rc;
- 
- error:
- 	device_unlock(&dev->dev);
+diff --git a/drivers/nfc/nxp-nci/i2c.c b/drivers/nfc/nxp-nci/i2c.c
+index 7e451c10985d..94f7f6d9cbad 100644
+--- a/drivers/nfc/nxp-nci/i2c.c
++++ b/drivers/nfc/nxp-nci/i2c.c
+@@ -332,6 +332,7 @@ MODULE_DEVICE_TABLE(of, of_nxp_nci_i2c_match);
+ #ifdef CONFIG_ACPI
+ static const struct acpi_device_id acpi_id[] = {
+ 	{ "NXP1001" },
++	{ "NXP1002" },
+ 	{ "NXP7471" },
+ 	{ }
+ };
 -- 
 2.26.2
 _______________________________________________
