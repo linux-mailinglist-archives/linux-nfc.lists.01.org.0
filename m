@@ -2,44 +2,36 @@ Return-Path: <linux-nfc-bounces@lists.01.org>
 X-Original-To: lists+linux-nfc@lfdr.de
 Delivered-To: lists+linux-nfc@lfdr.de
 Received: from ml01.01.org (ml01.01.org [198.145.21.10])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9696B37ABF2
-	for <lists+linux-nfc@lfdr.de>; Tue, 11 May 2021 18:30:48 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id CDA6937BE6E
+	for <lists+linux-nfc@lfdr.de>; Wed, 12 May 2021 15:44:25 +0200 (CEST)
 Received: from ml01.vlan13.01.org (localhost [IPv6:::1])
-	by ml01.01.org (Postfix) with ESMTP id 33601100EB32A;
-	Tue, 11 May 2021 09:30:47 -0700 (PDT)
-Received-SPF: Pass (mailfrom) identity=mailfrom; client-ip=195.135.220.15; helo=mx2.suse.de; envelope-from=oneukum@suse.com; receiver=<UNKNOWN> 
-Received: from mx2.suse.de (mx2.suse.de [195.135.220.15])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by ml01.01.org (Postfix) with ESMTPS id 121BF100EBB6E
-	for <linux-nfc@lists.01.org>; Tue, 11 May 2021 09:30:44 -0700 (PDT)
-X-Virus-Scanned: by amavisd-new at test-mx.suse.de
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.com; s=susede1;
-	t=1620750643; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=4b6QaZNIM+EV22K9NPgM7etmRIFMFLZrODPkJMGcdwk=;
-	b=pbeMg1s0omT0Ny61+fTCyAVJL4Vs5LWHxTxx6BnQNIdFy92QeTPPnw5mzafU5skBf9kEo8
-	3bi87k1Hls3mk8s4DztJMJPo6l0yGD3iFpyilk/8eYYX/nQmL3mqDobSHo5byZx9gVpLCO
-	4EihmD99No59kpPw/we2FKHnYU4qG9o=
-Received: from relay2.suse.de (unknown [195.135.221.27])
-	by mx2.suse.de (Postfix) with ESMTP id 6C379B1AC
-	for <linux-nfc@lists.01.org>; Tue, 11 May 2021 16:30:43 +0000 (UTC)
-Message-ID: <46d0d6a709d42a344db86b8646293c077f0b8521.camel@suse.com>
+	by ml01.01.org (Postfix) with ESMTP id 16F5A100EBB6B;
+	Wed, 12 May 2021 06:44:24 -0700 (PDT)
+Received-SPF: None (mailfrom) identity=mailfrom; client-ip=2001:a61:3b37:8401:666:cf1e:e8ed:533c; helo=localhost; envelope-from=oneukum@localhost; receiver=<UNKNOWN> 
+Received: from localhost (unknown [IPv6:2001:a61:3b37:8401:666:cf1e:e8ed:533c])
+	by ml01.01.org (Postfix) with ESMTP id E8EE1100EBB6A
+	for <linux-nfc@lists.01.org>; Wed, 12 May 2021 06:44:20 -0700 (PDT)
+Received: by localhost (Postfix, from userid 1000)
+	id B721AE052; Wed, 12 May 2021 15:44:16 +0200 (CEST)
 From: Oliver Neukum <oneukum@suse.com>
-To: linux-nfc@lists.01.org
-Date: Tue, 11 May 2021 18:30:42 +0200
-User-Agent: Evolution 3.34.4 
+To: clement.perrochaud@effinnov.com,
+	charles.gorand@effinnov.com,
+	linux-nfc@lists.01.org,
+	netdev@vger.kernel.org
+Date: Wed, 12 May 2021 15:44:13 +0200
+Message-Id: <20210512134413.31808-1-oneukum@suse.com>
+X-Mailer: git-send-email 2.26.2
 MIME-Version: 1.0
-Message-ID-Hash: WYYIETV6THLF2KKORQBUKM7RYCN2XANK
-X-Message-ID-Hash: WYYIETV6THLF2KKORQBUKM7RYCN2XANK
-X-MailFrom: oneukum@suse.com
+Message-ID-Hash: ZUXDSZZMA6HQ7ST5YPORDR4XO2JR444Q
+X-Message-ID-Hash: ZUXDSZZMA6HQ7ST5YPORDR4XO2JR444Q
+X-MailFrom: oneukum@localhost
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency; loop; banned-address; member-moderation; nonmember-moderation; administrivia; implicit-dest; max-recipients; max-size; news-moderation; no-subject; suspicious-header
+CC: Oliver Neukum <oneukum@suse.com>
 X-Mailman-Version: 3.1.1
 Precedence: list
-Subject: [linux-nfc] how to test a driver for a new device
+Subject: [linux-nfc] [PATCH] NFC: cooperation with runtime PM
 List-Id: NFC on Linux <linux-nfc.lists.01.org>
-Archived-At: <https://lists.01.org/hyperkitty/list/linux-nfc@lists.01.org/message/WYYIETV6THLF2KKORQBUKM7RYCN2XANK/>
+Archived-At: <https://lists.01.org/hyperkitty/list/linux-nfc@lists.01.org/message/ZUXDSZZMA6HQ7ST5YPORDR4XO2JR444Q/>
 List-Archive: <https://lists.01.org/hyperkitty/list/linux-nfc@lists.01.org/>
 List-Help: <mailto:linux-nfc-request@lists.01.org?subject=help>
 List-Post: <mailto:linux-nfc@lists.01.org>
@@ -48,16 +40,95 @@ List-Unsubscribe: <mailto:linux-nfc-leave@lists.01.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-Hi,
+We cannot rely on the underlying hardware to do correct
+runtime PM. NFC core needs to get PM reference while
+a device is operational, lest it be suspended when
+it is supposed to be waiting for a target to come
+into range.
 
-I have a system with an NXP1002 as opposed to NXP1001
-device. I've added it to the nxp-nci driver and I can detect
-tags. Is there a test suite for NFC I should run before
-submitting?
+Signed-off-by: Oliver Neukum <oneukum@suse.com>
+---
+ net/nfc/core.c | 19 ++++++++++++++++++-
+ 1 file changed, 18 insertions(+), 1 deletion(-)
 
-	Regards
-		Oliver
-
+diff --git a/net/nfc/core.c b/net/nfc/core.c
+index 573c80c6ff7a..5ca4597c39c7 100644
+--- a/net/nfc/core.c
++++ b/net/nfc/core.c
+@@ -15,6 +15,7 @@
+ #include <linux/slab.h>
+ #include <linux/rfkill.h>
+ #include <linux/nfc.h>
++#include <linux/pm_runtime.h>
+ 
+ #include <net/genetlink.h>
+ 
+@@ -37,6 +38,7 @@ int nfc_fw_download(struct nfc_dev *dev, const char *firmware_name)
+ 	pr_debug("%s do firmware %s\n", dev_name(&dev->dev), firmware_name);
+ 
+ 	device_lock(&dev->dev);
++	pm_runtime_get_sync(&dev->dev);
+ 
+ 	if (!device_is_registered(&dev->dev)) {
+ 		rc = -ENODEV;
+@@ -58,7 +60,10 @@ int nfc_fw_download(struct nfc_dev *dev, const char *firmware_name)
+ 	if (rc)
+ 		dev->fw_download_in_progress = false;
+ 
++	device_unlock(&dev->dev);
++	return rc;
+ error:
++	pm_runtime_put(&dev->dev);
+ 	device_unlock(&dev->dev);
+ 	return rc;
+ }
+@@ -73,9 +78,13 @@ int nfc_fw_download(struct nfc_dev *dev, const char *firmware_name)
+ int nfc_fw_download_done(struct nfc_dev *dev, const char *firmware_name,
+ 			 u32 result)
+ {
++	int rv;
++
+ 	dev->fw_download_in_progress = false;
+ 
+-	return nfc_genl_fw_download_done(dev, firmware_name, result);
++	rv = nfc_genl_fw_download_done(dev, firmware_name, result);
++	pm_runtime_put(&dev->dev);
++	return rv;
+ }
+ EXPORT_SYMBOL(nfc_fw_download_done);
+ 
+@@ -93,6 +102,7 @@ int nfc_dev_up(struct nfc_dev *dev)
+ 	pr_debug("dev_name=%s\n", dev_name(&dev->dev));
+ 
+ 	device_lock(&dev->dev);
++	pm_runtime_get_sync(&dev->dev);
+ 
+ 	if (dev->rfkill && rfkill_blocked(dev->rfkill)) {
+ 		rc = -ERFKILL;
+@@ -124,7 +134,11 @@ int nfc_dev_up(struct nfc_dev *dev)
+ 	if (dev->ops->discover_se && dev->ops->discover_se(dev))
+ 		pr_err("SE discovery failed\n");
+ 
++	device_unlock(&dev->dev);
++	return rc;
++
+ error:
++	pm_runtime_put(&dev->dev);
+ 	device_unlock(&dev->dev);
+ 	return rc;
+ }
+@@ -161,6 +175,9 @@ int nfc_dev_down(struct nfc_dev *dev)
+ 		dev->ops->dev_down(dev);
+ 
+ 	dev->dev_up = false;
++	pm_runtime_put(&dev->dev);
++	device_unlock(&dev->dev);
++	return rc;
+ 
+ error:
+ 	device_unlock(&dev->dev);
+-- 
+2.26.2
 _______________________________________________
 Linux-nfc mailing list -- linux-nfc@lists.01.org
 To unsubscribe send an email to linux-nfc-leave@lists.01.org
