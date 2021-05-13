@@ -2,85 +2,85 @@ Return-Path: <linux-nfc-bounces@lists.01.org>
 X-Original-To: lists+linux-nfc@lfdr.de
 Delivered-To: lists+linux-nfc@lfdr.de
 Received: from ml01.01.org (ml01.01.org [IPv6:2001:19d0:306:5::1])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0FC3A37F0F4
-	for <lists+linux-nfc@lfdr.de>; Thu, 13 May 2021 03:35:47 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 17A8137F9FB
+	for <lists+linux-nfc@lfdr.de>; Thu, 13 May 2021 16:49:03 +0200 (CEST)
 Received: from ml01.vlan13.01.org (localhost [IPv6:::1])
-	by ml01.01.org (Postfix) with ESMTP id 7204D100F2276;
-	Wed, 12 May 2021 18:35:43 -0700 (PDT)
-Received-SPF: Pass (mailfrom) identity=mailfrom; client-ip=66.111.4.29; helo=out5-smtp.messagingengine.com; envelope-from=mgreer@animalcreek.com; receiver=<UNKNOWN> 
-Received: from out5-smtp.messagingengine.com (out5-smtp.messagingengine.com [66.111.4.29])
+	by ml01.01.org (Postfix) with ESMTP id 90475100EF26A;
+	Thu, 13 May 2021 07:49:01 -0700 (PDT)
+Received-SPF: Pass (mailfrom) identity=mailfrom; client-ip=66.111.4.230; helo=new4-smtp.messagingengine.com; envelope-from=mgreer@animalcreek.com; receiver=<UNKNOWN> 
+Received: from new4-smtp.messagingengine.com (new4-smtp.messagingengine.com [66.111.4.230])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits))
 	(No client certificate requested)
-	by ml01.01.org (Postfix) with ESMTPS id CCD54100F2275
-	for <linux-nfc@lists.01.org>; Wed, 12 May 2021 18:35:41 -0700 (PDT)
-Received: from compute1.internal (compute1.nyi.internal [10.202.2.41])
-	by mailout.nyi.internal (Postfix) with ESMTP id A23CE5C0066;
-	Wed, 12 May 2021 21:35:40 -0400 (EDT)
-Received: from mailfrontend1 ([10.202.2.162])
-  by compute1.internal (MEProxy); Wed, 12 May 2021 21:35:40 -0400
+	by ml01.01.org (Postfix) with ESMTPS id 63025100EF25B
+	for <linux-nfc@lists.01.org>; Thu, 13 May 2021 07:48:59 -0700 (PDT)
+Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
+	by mailnew.nyi.internal (Postfix) with ESMTP id 3A9D0580715;
+	Thu, 13 May 2021 10:48:58 -0400 (EDT)
+Received: from mailfrontend2 ([10.202.2.163])
+  by compute4.internal (MEProxy); Thu, 13 May 2021 10:48:58 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=animalcreek.com;
 	 h=date:from:to:cc:subject:message-id:references:mime-version
-	:content-type:in-reply-to; s=fm2; bh=DpVUZkigS0YBcpQTAee6c+OCcYp
-	kgSAchYFyPrT0G/I=; b=SJFqvRwXKaHVDrp6yAbs5aDuYPqR5dMZEZPNWhqHCNL
-	bAp/P8hbLXXc6IaZOb2xy7dRFIepJJqymysEeBW3wB1Xg4ThHWx2abvyvYkMsrzC
-	5QqwqQHxeIlHwQCH0kwlFwRMMpBP0w5qD8UMMeTBxuOFYvog8m4PQKcn4FHTMrzz
-	7EZeZlZ40d8YQ4pPlzXLdf1mMAno9mnGPeqZ53ZFRzYhmdEHtK7XLYregQrj74NB
-	thZuThM1IkHXX0/JQuIrLdKagNdh7Ve8KwM8tfDkboF2s49HaNAog6wkg+dWC6i6
-	3cIOeKwWunVWTt9t+6wj4Y+aF8hBB3ZGBCdt8yNAmYQ==
+	:content-type:in-reply-to; s=fm2; bh=lEk17EktawF4yxbelteLRZPL1u7
+	6s2v81K0ba/CVsLk=; b=dst6D/19N83Ua2dTF3g8TngtqoC74H416i/EgnfFofw
+	3nDGfArAk0ihsOzFOXuI3Us9IQFYQ3uJIYjuS3vmZtIp7dMORyM203+z/PTZXGIm
+	0K6zTD7y6l2J5h/CKj9LatOU5HmHItaLeCljRBMLW8H50IObu6v7xN61hrQBlAun
+	6EZUSN+eJVy0uOIjrFmPbmTAOV9MFtNXMj3u33s2IbZ80DJyJ4iD/yn+/VW+Poi7
+	AX9+ztICVwZ1fvHg7sSypdr44GHSFY6g5w7oZV0FeWnBFqpvRnixHGvKYTlqQceD
+	QWMFLua5JCumUiEuIfsK4aK4aunhJ25PvbdS2f8m63Q==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
 	messagingengine.com; h=cc:content-type:date:from:in-reply-to
 	:message-id:mime-version:references:subject:to:x-me-proxy
-	:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; bh=DpVUZk
-	igS0YBcpQTAee6c+OCcYpkgSAchYFyPrT0G/I=; b=OefKtoattdw537PpJdXfxG
-	jwqYDSvbE9GmGzKaTQTuiuPs1OXiw+fjvIlGUmED1+GIAs/z9S1DIjZo1CfoVaHo
-	bEFSiD2CXGXQUTVSrXJoVLyqI/vz+7/V4nROPpTSwzFkaMEZDR2Q3RP5yTEj3ACV
-	SdDBYE0bJ7S8qfhxVVnsn4d8ogsQSyeB7afqx8JPA7ktTxoRQBY5NmKl59yDzJp5
-	xhVhbLkkZPHWfL/pir7LPTDOV5IWVXa87Y2g+sc1s92jhGT4AiI+eus0KNYMaX74
-	NZOIm4MDCbaMJUdROT5iyT4/EoXt+0cPzZO0LiYUPIROXY8Ra9OAH2xJIOK/aWLg
+	:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; bh=lEk17E
+	ktawF4yxbelteLRZPL1u76s2v81K0ba/CVsLk=; b=B+ppxc5KqjbyAI6jGMV0c8
+	l3rNFJ7Cuvtgmgbrcd2UqMszPUVD81ml/Z5DXib3PMsSrlyNMRuMkgVd1JP5YhDB
+	hiLV16AtlCPMxN94/W0JHvpl5JzwyH+Jii5h0tTcAjl4JzOCsLtXan7dhBSVBBmt
+	fuqC4rkbUeO7cOauaJuk+/vvkS3SGqGf+SgEK+dGpS2HXcyRUszpwXOlkbzl5kws
+	i3Lb4v9fyJE4UWnkJJlI2yB2QwXpRk70NV+wzeXCWM+TrMpMr/tRnFf9+QrmPQqX
+	pFVLmTp8O3lLVs+5VW/BKfBbTnShAWKcMx6tXDqlRv8ku56C1IWNr06O0BKVgkcA
 	==
-X-ME-Sender: <xms:a4KcYGnxGmmAIqp-win5FZOhI6MVjVJJve1clAnteo4EXMvo_xaqBw>
-    <xme:a4KcYN07H9hHVzDyk9dTxy-ymPrbn6H0SWhcxFrh7gxwxOeXdQWJ81Ax5VNtnRO-p
-    meGX1em1rgdaRNPwA>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduledrvdehfedggeefucetufdoteggodetrfdotf
+X-ME-Sender: <xms:WTydYH1AdZuqZV75EQ77wbbQJizOCC4Unx9-FnyVuhYLx93H7zzcqw>
+    <xme:WTydYGHfDqrYYj3_6O5O5cDljxGzb937CMGwW3KvjegyT7vvKnwvQKe1bcNuiEnLD
+    qoUX-N573bSft4oqw>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgeduledrvdehgedgkeduucetufdoteggodetrfdotf
     fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
     uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
     cujfgurhepfffhvffukfhfgggtuggjohesthdtredttddtvdenucfhrhhomhepofgrrhhk
     ucfirhgvvghruceomhhgrhgvvghrsegrnhhimhgrlhgtrhgvvghkrdgtohhmqeenucggtf
-    frrghtthgvrhhnpedtheegudevteevkeeffeevudffvdejkeeitdekveeugfetleetheeg
-    gfduhfdtieenucffohhmrghinhepqhhtrdhiohenucfkphepjedtrddujedvrdefvddrvd
-    dukeenucevlhhushhtvghrufhiiigvpedtnecurfgrrhgrmhepmhgrihhlfhhrohhmpehm
-    ghhrvggvrhesrghnihhmrghltghrvggvkhdrtghomh
-X-ME-Proxy: <xmx:a4KcYEpjMeKINo4TqU_tJZq6V7NLnxI15BpHwbBsW0M7eWZobcuQgw>
-    <xmx:a4KcYKkuV6dsV-0TvuGu-2uMprVwns-2DC8Sr7P4ZD6xlkbjoErnBg>
-    <xmx:a4KcYE14GmK2tR9Qk9LF1GNOltslgJUEZrA5oK5rUSoZGVJ6CJO-Xw>
-    <xmx:bIKcYOqCu1RbsC7KTxJUOVVctHLIz-D1bmOwIzTvZ55UVgH6kimb6w>
+    frrghtthgvrhhnpedujeelgeejleegleevkeekvdevudfhteeuiedtleehtdduleelvdei
+    fffhvdehtdenucffohhmrghinhepkhgvrhhnvghlrdhorhhgnecukfhppeejtddrudejvd
+    drfedvrddvudeknecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehmrghilhhf
+    rhhomhepmhhgrhgvvghrsegrnhhimhgrlhgtrhgvvghkrdgtohhm
+X-ME-Proxy: <xmx:WTydYH6a0serpBMN0bhht0OcKsZuXXuzXk4tjPBimH3o0dJE-R0zcw>
+    <xmx:WTydYM1nhEBx9iyhPMUoGqeS88bQ2f-vYGeYFAN_OrfHGz2GqhAOvQ>
+    <xmx:WTydYKEk4iDN7SHNX2RLhWQsQD9KEV9AtFKeSo7gVslAQXas80eZMA>
+    <xmx:WjydYIYeddoIr3gRJY-O7nvnW9ji4XewFauyBzAoYJp89UHtV8wRfQ>
 Received: from blue.animalcreek.com (ip70-172-32-218.ph.ph.cox.net [70.172.32.218])
 	by mail.messagingengine.com (Postfix) with ESMTPA;
-	Wed, 12 May 2021 21:35:39 -0400 (EDT)
+	Thu, 13 May 2021 10:48:56 -0400 (EDT)
 Received: by blue.animalcreek.com (Postfix, from userid 1000)
-	id 431E4136008E; Wed, 12 May 2021 18:35:38 -0700 (MST)
-Date: Wed, 12 May 2021 18:35:38 -0700
+	id 8E0EF136008E; Thu, 13 May 2021 07:48:55 -0700 (MST)
+Date: Thu, 13 May 2021 07:48:55 -0700
 From: Mark Greer <mgreer@animalcreek.com>
-To: Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>
-Message-ID: <20210513013538.GA239989@animalcreek.com>
+To: Stephan Gerhold <stephan@gerhold.net>
+Message-ID: <20210513144855.GA266838@animalcreek.com>
 References: <20210512144319.30852-1-krzysztof.kozlowski@canonical.com>
  <14e78a9a-ed1a-9d7d-b854-db6d811f4622@kontron.de>
  <20210512170135.GB222094@animalcreek.com>
- <cd7a0110-702a-6e14-527e-fb4b53705870@canonical.com>
+ <YJ0SYWJjq3ZmXMy3@gerhold.net>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <cd7a0110-702a-6e14-527e-fb4b53705870@canonical.com>
+In-Reply-To: <YJ0SYWJjq3ZmXMy3@gerhold.net>
 Organization: Animal Creek Technologies, Inc.
-Message-ID-Hash: DCFYEWFDOFUXLAPLRFVGADITC5ZKOZ3F
-X-Message-ID-Hash: DCFYEWFDOFUXLAPLRFVGADITC5ZKOZ3F
+Message-ID-Hash: TRK4KJFKRV4BWPIE2WGTZZWMJHA35G4H
+X-Message-ID-Hash: TRK4KJFKRV4BWPIE2WGTZZWMJHA35G4H
 X-MailFrom: mgreer@animalcreek.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency; loop; banned-address; member-moderation; nonmember-moderation; administrivia; implicit-dest; max-recipients; max-size; news-moderation; no-subject; suspicious-header
-CC: Frieder Schrempf <frieder.schrempf@kontron.de>, Jakub Kicinski <kuba@kernel.org>, "David S. Miller" <davem@davemloft.net>, netdev@vger.kernel.org, linux-kernel@vger.kernel.org, linux-nfc@lists.01.org, Alex Blasche <alexander.blasche@qt.io>
+CC: Frieder Schrempf <frieder.schrempf@kontron.de>, Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>, Jakub Kicinski <kuba@kernel.org>, "David S. Miller" <davem@davemloft.net>, netdev@vger.kernel.org, linux-kernel@vger.kernel.org, linux-nfc@lists.01.org, Alex Blasche <alexander.blasche@qt.io>, phone-devel@vger.kernel.org
 X-Mailman-Version: 3.1.1
 Precedence: list
-Subject: [linux-nfc] Re: [PATCH 1/2] MAINTAINERS: nfc: add Krzysztof Kozlowski as maintainer
+Subject: [linux-nfc] Re: Testing wanted for Linux NFC subsystem
 List-Id: NFC on Linux <linux-nfc.lists.01.org>
-Archived-At: <https://lists.01.org/hyperkitty/list/linux-nfc@lists.01.org/message/DCFYEWFDOFUXLAPLRFVGADITC5ZKOZ3F/>
+Archived-At: <https://lists.01.org/hyperkitty/list/linux-nfc@lists.01.org/message/TRK4KJFKRV4BWPIE2WGTZZWMJHA35G4H/>
 List-Archive: <https://lists.01.org/hyperkitty/list/linux-nfc@lists.01.org/>
 List-Help: <mailto:linux-nfc-request@lists.01.org?subject=help>
 List-Post: <mailto:linux-nfc@lists.01.org>
@@ -89,38 +89,48 @@ List-Unsubscribe: <mailto:linux-nfc-leave@lists.01.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-On Wed, May 12, 2021 at 04:21:25PM -0400, Krzysztof Kozlowski wrote:
-> On 12/05/2021 13:01, Mark Greer wrote:
+On Thu, May 13, 2021 at 01:49:53PM +0200, Stephan Gerhold wrote:
+> Hi!
 
-> > Re: QT - I've already talked to Alex Blasche from QT (CC'd).  With some
-> > work we can get Linux NFC/neard back into their good graces.  I/we need
-> > to find time to put in the work, though.
-> > 
-> > An example of the issues they have seen is:
-> > 
-> > 	https://bugreports.qt.io/browse/QTBUG-43802
-> > 
-> > Another issue I have--and I suspect you, Krzysztof, have as well--is
-> > lack of hardware.  If anyone reading this wants to volunteer to be a
-> > tester, please speak up.
+Hi Stephan and thanks for stepping up.
+
+> I have a couple of "recycled" smartphones running mainline Linux
+> and some of them do have NFC chips. I have two with NXP PN547
+> (supported by nxp,nxp-nci-i2c), one with Samsung S3FWRN5
+> (samsung,s3fwrn5-i2c) and even one with Broadcom BCM2079x I think
+> (this one does not have a driver for the Linux NFC subsystem sadly).
 > 
-> Yes, testing would be very appreciated. I don't know how many unit tests
-> neard has, but maybe some mockups with unit testing would solve some of
-> problems?
+> +Cc phone-devel@vger.kernel.org, in case other people there are
+> interested in NFC :)
+> 
+> The NXP/Samsung ones seems to work just fine. However, since there are
+> barely any userspace tools making use of Linux NFC all my testing so far
+> was limited to polling for devices with "nfctool" and being happy enough
+> when it realizes that I hold some NFC tag close to the device. :S
 
-I'm not sure what you mean by this.  Do you mean creating some tests that
-sit directly on top of the kernel and test the kernel parts (e.g., use
-netlink)?  If so, that would be useful but you may end up implementing
-some of the NFC stack.  If you mean more/better tests that use neard to
-exercise the whole stack then that would be really good too.
+There is a user-level daemon that is the counterpart for the in-kernel
+NFC subsystem.  It is called neard and is available here:
 
-Speaking of NFC stack, the NFC forum has their specs paywalled which is
-a real bummer/pain.  I can try reaching out to them to see if they will
-help us help their mission but I'm not hopeful.
+	git://git.kernel.org/pub/scm/network/nfc/neard.git
 
-FYI, most of the issues that I ran into and know still exist are
-timing/race issues in neard.  I'm sure if we tested more, we could find
-some in the kernel though.
+There are a few test script in it that will let you read and write NFC
+tags, and do some other things.  We can add some more tests to that set
+as we go.
+
+> I would be happy to do some more testing if someone has something useful
+> that can be tested. However, I guess ideally we would have someone who
+> actually uses Linux NFC actively for some real application. :)
+
+Ideally, you should have some NFC tags of various types.  Types 2, 3,
+4A, 4B, and 5 tags are supported.  Peer-to-peer mode is supported too
+so you should be able to transfer data from one of your phones to the
+other over NFC (and do a BT hand-over, if you're interested).
+
+Note that the specified range for NFC is only 4 cm and poor antenna
+design, etc. means that the actual range is usually much less (e.g.,
+they amost have to touch).  Also note that there are timing constraints
+so you may need to make the scheduling priority of the interrupt thread
+of your NFC driver real-time.
 
 Mark
 --
