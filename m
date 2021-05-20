@@ -2,71 +2,83 @@ Return-Path: <linux-nfc-bounces@lists.01.org>
 X-Original-To: lists+linux-nfc@lfdr.de
 Delivered-To: lists+linux-nfc@lfdr.de
 Received: from ml01.01.org (ml01.01.org [IPv6:2001:19d0:306:5::1])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8EF94389360
-	for <lists+linux-nfc@lfdr.de>; Wed, 19 May 2021 18:13:19 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id F153F389F07
+	for <lists+linux-nfc@lfdr.de>; Thu, 20 May 2021 09:41:46 +0200 (CEST)
 Received: from ml01.vlan13.01.org (localhost [IPv6:::1])
-	by ml01.01.org (Postfix) with ESMTP id 12910100EAB5D;
-	Wed, 19 May 2021 09:13:18 -0700 (PDT)
-Received-SPF: None (mailfrom) identity=mailfrom; client-ip=91.189.89.112; helo=youngberry.canonical.com; envelope-from=krzysztof.kozlowski@canonical.com; receiver=<UNKNOWN> 
-Received: from youngberry.canonical.com (youngberry.canonical.com [91.189.89.112])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
+	by ml01.01.org (Postfix) with ESMTP id 88D28100ED4A4;
+	Thu, 20 May 2021 00:41:45 -0700 (PDT)
+Received-SPF: Pass (helo) identity=helo; client-ip=85.215.255.51; helo=mo4-p01-ob.smtp.rzone.de; envelope-from=stephan@gerhold.net; receiver=<UNKNOWN> 
+Received: from mo4-p01-ob.smtp.rzone.de (mo4-p01-ob.smtp.rzone.de [85.215.255.51])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits))
 	(No client certificate requested)
-	by ml01.01.org (Postfix) with ESMTPS id C7393100EAB58
-	for <linux-nfc@lists.01.org>; Wed, 19 May 2021 09:13:15 -0700 (PDT)
-Received: from mail-qv1-f72.google.com ([209.85.219.72])
-	by youngberry.canonical.com with esmtps  (TLS1.2) tls TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256
-	(Exim 4.93)
-	(envelope-from <krzysztof.kozlowski@canonical.com>)
-	id 1ljOos-0008PA-2h
-	for linux-nfc@lists.01.org; Wed, 19 May 2021 16:13:14 +0000
-Received: by mail-qv1-f72.google.com with SMTP id c5-20020a0ca9c50000b02901aede9b5061so10739054qvb.14
-        for <linux-nfc@lists.01.org>; Wed, 19 May 2021 09:13:14 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:subject:to:cc:references:from:message-id:date
-         :user-agent:mime-version:in-reply-to:content-language
-         :content-transfer-encoding;
-        bh=eS+z7fWf9ik7UiPFy0EbImNsC/jTSa8AjK2vvxy5tQE=;
-        b=cG+omjOi5nvndjEM9RXCNede6n5u2XSQwVXDrlx80dl+9y9GvO0Xlh34SZB2UJh/s5
-         xRX8j9P2lUhTdAvdwrLu63/vBS3OZKbWWun2hvhSHc/dRQu50lxgHVInsG8O3BJitHO8
-         mA7dz8ulXobtPPK5hsSgSJWegZKChc7G/9fzlSQEr3n7u+iLEvU/iyETRb+y3DUF5cK9
-         LiqLiJMNjfhjXdMZDgARcXqjcDF0pIiW9K5KEEe5dSmzSdOHMvPwxdgveCEne7Y58pE3
-         ZjJbgpQ9KkcVq3LULIa76Hj9zkqlQliV8VRricf3tMYaY8w8OOPRB/U/3o61G8zq0XNk
-         DkeA==
-X-Gm-Message-State: AOAM5330hYTyL9KOx0kvvcwkB42rMIznJNjZ1+d66HJlhvakBjn3asF8
-	sj6KeHYlilhCylPRAH0aClTYoFcx8xb+ToGcL4yZsF6qtrWL8nTGKSyz151ZWUQ5CUhYO1QNljX
-	yWEabuV3bqmrQvnW7jM9iBlmjssvAaX5qdQ==
-X-Received: by 2002:a05:620a:13a6:: with SMTP id m6mr77895qki.370.1621440793225;
-        Wed, 19 May 2021 09:13:13 -0700 (PDT)
-X-Google-Smtp-Source: ABdhPJzUghUkKBDIuGvqx1Nu07luWzepugYJj1I5VtklAhOR9KibnL6Cutz0I3Szhxs1G5QJhQj6OA==
-X-Received: by 2002:a05:620a:13a6:: with SMTP id m6mr77852qki.370.1621440792900;
-        Wed, 19 May 2021 09:13:12 -0700 (PDT)
-Received: from [192.168.1.4] ([45.237.48.3])
-        by smtp.gmail.com with ESMTPSA id f1sm83218qkl.93.2021.05.19.09.13.11
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 19 May 2021 09:13:12 -0700 (PDT)
-To: Stephan Gerhold <stephan@gerhold.net>,
- "David S. Miller" <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>
-References: <20210519091613.7343-1-stephan@gerhold.net>
- <20210519091613.7343-2-stephan@gerhold.net>
-From: Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>
-Message-ID: <86461091-617b-62ec-a9e5-2aec337d69ce@canonical.com>
-Date: Wed, 19 May 2021 12:13:05 -0400
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.8.1
+	by ml01.01.org (Postfix) with ESMTPS id D59A1100EF26A
+	for <linux-nfc@lists.01.org>; Thu, 20 May 2021 00:41:42 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1621496496; cv=none;
+    d=strato.com; s=strato-dkim-0002;
+    b=BZJ2ojaz7EzRNPbBXf6KeBTVCa9n0us/ZnsLcbgQT5Zg/mzDhIhn/zcnDGQ13/52pz
+    TLDEs5qImHT0evesDyYVOi43NqV/I/6KPDYvj+WkZuA1xiuZqJ0LdAYWvTlx6sUS741a
+    12XyYoEIZCiY9jrrVS3vv/+Dyvoqoz+8poV1u+zm9xTvz1IqRJJU7YNzGbixGBve7ZOS
+    bPQDgPsnGdDQssHJKsQgOgbfNoxMfUXjs37gcTbpCQSu6hyBBLHH8tH+fts8RcBjE4cr
+    G1y3XdB+x0/284eJSRWNDwkwqHqWZvLh5CdSGBPSfzKYrZDs1SQ4/urdSoyxPh+12fXD
+    p7gg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1621496496;
+    s=strato-dkim-0002; d=strato.com;
+    h=In-Reply-To:References:Message-ID:Subject:Cc:To:From:Date:Cc:Date:
+    From:Subject:Sender;
+    bh=/AB8rpzWcGGrvWhsgbSoWj2+H6i9d45l8uVGIOA0RAI=;
+    b=cdTA9oxqBfz6CXyYqNOp5OTgu4I+ca6lEoS9I9qadsBz2aOmUrOsNITsQOodqlk3nH
+    NJ3p38RGFtN2gM7fBV4nojXOKV1Ux09M0ClfsHHtP/hh5ZDdfxdUuHdqomoFyjFLljB9
+    q2ETnUBFlVuRihj2iLL+c6fvKqxZxVCqcPWnmS3puYwmDVPzYExrPswX4Zps77Btveq4
+    BeYlT/MKjvhRcyArVRxO8aCejI3mtesQ7OYQU/+7ChHnFg5lFhVD4KSjjAO4Y+q8Tp3c
+    4qt6xcFL/7ocxDaXvat1f7XTdJsh9XnznBkHzJ+Ab4ESkjk5Gs+8EpPfnI+WqFZQWNmY
+    560A==
+ARC-Authentication-Results: i=1; strato.com;
+    dkim=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1621496496;
+    s=strato-dkim-0002; d=gerhold.net;
+    h=In-Reply-To:References:Message-ID:Subject:Cc:To:From:Date:Cc:Date:
+    From:Subject:Sender;
+    bh=/AB8rpzWcGGrvWhsgbSoWj2+H6i9d45l8uVGIOA0RAI=;
+    b=iyLpKJEs6v8QsGMhEn73OPCITDSHGQy5shXqJq8FccU39QzJJaqkgNpF9MJ+OWbfIE
+    a/pmDpPjnY+odCaRmgIKL2L913S4D4ERxc2cOnRoXpHOFfR249BEXcq4q99yOv6UVQ1H
+    dMb13c0ApzCkCmcY9MCKE93pfvaNO2FZGoFnLQymUJgZ3Bv3I6Zfun/hw+02hLP4cB6z
+    gCVUuREmjB29sI53FQYICnCyihmDQnc3l3R2PLaHJKnUzEJKKLAvumkPUxXBLLGKeXHV
+    GXwwYsX2v+2H5Z8ge4JhGv84Zu8u/2Z51KBdXdHW8gOLay8V37m12DQCPvRCPF32DXZf
+    aDdg==
+Authentication-Results: strato.com;
+    dkim=none
+X-RZG-AUTH: ":P3gBZUipdd93FF5ZZvYFPugejmSTVR2nRPhVOQ/OcYgojyw4j34+u26zEodhPgRDZ8j6IcfMBg=="
+X-RZG-CLASS-ID: mo00
+Received: from gerhold.net
+    by smtp.strato.de (RZmta 47.26.1 DYNA|AUTH)
+    with ESMTPSA id 400bd8x4K7fZ0Rw
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256 bits))
+	(Client did not present a certificate);
+    Thu, 20 May 2021 09:41:35 +0200 (CEST)
+Date: Thu, 20 May 2021 09:41:31 +0200
+From: Stephan Gerhold <stephan@gerhold.net>
+To: Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>
+Message-ID: <YKYSq5WTeZyMIZYn@gerhold.net>
+References: <20210518133935.571298-1-stephan@gerhold.net>
+ <20210518133935.571298-2-stephan@gerhold.net>
+ <ac04821e-359d-aaaa-7e07-280156f64036@canonical.com>
+ <YKPWgSnz7STV4u+c@gerhold.net>
+ <8b14159f-dca9-a213-031f-83ab2b3840a4@canonical.com>
+ <YKTHXzUhcYa5YJIs@gerhold.net>
+ <10b3a50e-877c-d5b1-3e35-e5dff4ef53d8@canonical.com>
 MIME-Version: 1.0
-In-Reply-To: <20210519091613.7343-2-stephan@gerhold.net>
-Content-Language: en-US
-Message-ID-Hash: HFQCTG3FHYXRI7SXKJVCWBEE2J6C4GG3
-X-Message-ID-Hash: HFQCTG3FHYXRI7SXKJVCWBEE2J6C4GG3
-X-MailFrom: krzysztof.kozlowski@canonical.com
+Content-Disposition: inline
+In-Reply-To: <10b3a50e-877c-d5b1-3e35-e5dff4ef53d8@canonical.com>
+Message-ID-Hash: MHQT7S5JSIBX4VAAYJSY2WW4HH5JH7NS
+X-Message-ID-Hash: MHQT7S5JSIBX4VAAYJSY2WW4HH5JH7NS
+X-MailFrom: stephan@gerhold.net
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency; loop; banned-address; member-moderation; nonmember-moderation; administrivia; implicit-dest; max-recipients; max-size; news-moderation; no-subject; suspicious-header
-CC: Rob Herring <robh+dt@kernel.org>, linux-nfc@lists.01.org, netdev@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, Bongsu Jeon <bongsu.jeon@samsung.com>, ~postmarketos/upstreaming@lists.sr.ht
+CC: Bongsu Jeon <bongsu.jeon@samsung.com>, "David S. Miller" <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>, Rob Herring <robh+dt@kernel.org>, linux-nfc@lists.01.org, netdev@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, ~postmarketos/upstreaming@lists.sr.ht
 X-Mailman-Version: 3.1.1
 Precedence: list
-Subject: [linux-nfc] Re: [PATCH v2 2/2] nfc: s3fwrn5: i2c: Enable optional clock from device tree
+Subject: [linux-nfc] Re: [PATCH 2/2] nfc: s3fwrn5: i2c: Enable optional clock from device tree
 List-Id: NFC on Linux <linux-nfc.lists.01.org>
-Archived-At: <https://lists.01.org/hyperkitty/list/linux-nfc@lists.01.org/message/HFQCTG3FHYXRI7SXKJVCWBEE2J6C4GG3/>
+Archived-At: <https://lists.01.org/hyperkitty/list/linux-nfc@lists.01.org/message/MHQT7S5JSIBX4VAAYJSY2WW4HH5JH7NS/>
 List-Archive: <https://lists.01.org/hyperkitty/list/linux-nfc@lists.01.org/>
 List-Help: <mailto:linux-nfc-request@lists.01.org?subject=help>
 List-Post: <mailto:linux-nfc@lists.01.org>
@@ -75,49 +87,21 @@ List-Unsubscribe: <mailto:linux-nfc-leave@lists.01.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-On 19/05/2021 05:16, Stephan Gerhold wrote:
-> S3FWRN5 depends on a clock input ("XI" pin) to function properly.
-> Depending on the hardware configuration this could be an always-on
-> oscillator or some external clock that must be explicitly enabled.
+On Wed, May 19, 2021 at 11:58:38AM -0400, Krzysztof Kozlowski wrote:
+> > 
+> > Personally, I just skip all firmware/RF configuration (which works thanks
+> > to commit 4fb7b98c7be3 ("nfc: s3fwrn5: skip the NFC bootloader mode")).
+> > That way, S3FWRN5 just continues using the proper configuration
+> > that was loaded by the vendor drivers at some point. :)
 > 
-> So far we assumed that the clock is always-on.
-> Make the driver request an (optional) clock from the device tree
-> and make sure the clock is running before starting S3FWRN5.
-> 
-> Note: S3FWRN5 asserts "GPIO2" whenever it needs the clock input to
-> function correctly. On some hardware configurations, GPIO2 is
-> connected directly to an input pin of the external clock provider
-> (e.g. the main PMIC of the SoC). In that case, it can automatically
-> AND the clock enable bit and clock request from S3FWRN5 so that
-> the clock is actually only enabled when needed.
-> 
-> It is also conceivable that on some other hardware configuration
-> S3FWRN5's GPIO2 might be connected as a regular GPIO input
-> of the SoC. In that case, follow-up patches could extend the
-> driver to request the GPIO, set up an interrupt and only enable
-> the clock when requested by S3FWRN5.
-> 
-> Signed-off-by: Stephan Gerhold <stephan@gerhold.net>
-> ---
-> This allows NFC to work properly on the Samsung Galaxy A3/A5 (2015).
-> 
-> Changes in v2: Rewrite commit message and comment based on discussion
-> 
->   Note: I tried to explain the setup a bit better but dropped most of
->         the explanations about the exact configuration on the Samsung
->         Galaxy A5. I think the HW-specific details were more confusing
->         than helping. :)
-> 
-> v1: https://lore.kernel.org/netdev/20210518133935.571298-2-stephan@gerhold.net/
-> ---
->  drivers/nfc/s3fwrn5/i2c.c | 30 ++++++++++++++++++++++++++++--
->  1 file changed, 28 insertions(+), 2 deletions(-)
+> But isn't that configuration lost after power off?
 > 
 
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>
+I don't know exactly but I don't think it's lost. At least the firmware
+and rfreg configuration seem to be preserved since I've never provided
+the driver with the necessary firmware. It just works without :)
 
-Best regards,
-Krzysztof
+Stephan
 _______________________________________________
 Linux-nfc mailing list -- linux-nfc@lists.01.org
 To unsubscribe send an email to linux-nfc-leave@lists.01.org
