@@ -1,71 +1,70 @@
 Return-Path: <linux-nfc-bounces@lists.01.org>
 X-Original-To: lists+linux-nfc@lfdr.de
 Delivered-To: lists+linux-nfc@lfdr.de
-Received: from ml01.01.org (ml01.01.org [IPv6:2001:19d0:306:5::1])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2513D391946
-	for <lists+linux-nfc@lfdr.de>; Wed, 26 May 2021 15:56:11 +0200 (CEST)
+Received: from ml01.01.org (ml01.01.org [198.145.21.10])
+	by mail.lfdr.de (Postfix) with ESMTPS id 87F5939194C
+	for <lists+linux-nfc@lfdr.de>; Wed, 26 May 2021 15:56:30 +0200 (CEST)
 Received: from ml01.vlan13.01.org (localhost [IPv6:::1])
-	by ml01.01.org (Postfix) with ESMTP id EF349100ED49E;
-	Wed, 26 May 2021 06:56:08 -0700 (PDT)
+	by ml01.01.org (Postfix) with ESMTP id 10B8A100ED49E;
+	Wed, 26 May 2021 06:56:29 -0700 (PDT)
 Received-SPF: None (mailfrom) identity=mailfrom; client-ip=91.189.89.112; helo=youngberry.canonical.com; envelope-from=krzysztof.kozlowski@canonical.com; receiver=<UNKNOWN> 
 Received: from youngberry.canonical.com (youngberry.canonical.com [91.189.89.112])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
 	(No client certificate requested)
-	by ml01.01.org (Postfix) with ESMTPS id 47DE3100ED482
-	for <linux-nfc@lists.01.org>; Wed, 26 May 2021 06:56:05 -0700 (PDT)
-Received: from mail-vs1-f69.google.com ([209.85.217.69])
+	by ml01.01.org (Postfix) with ESMTPS id A5C1B100ED482
+	for <linux-nfc@lists.01.org>; Wed, 26 May 2021 06:56:27 -0700 (PDT)
+Received: from mail-vs1-f70.google.com ([209.85.217.70])
 	by youngberry.canonical.com with esmtps  (TLS1.2) tls TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256
 	(Exim 4.93)
 	(envelope-from <krzysztof.kozlowski@canonical.com>)
-	id 1llu0y-00065m-80
-	for linux-nfc@lists.01.org; Wed, 26 May 2021 13:56:04 +0000
-Received: by mail-vs1-f69.google.com with SMTP id f20-20020a67d8940000b029022a675e6e86so277111vsj.2
-        for <linux-nfc@lists.01.org>; Wed, 26 May 2021 06:56:04 -0700 (PDT)
+	id 1llu1J-000674-IG
+	for linux-nfc@lists.01.org; Wed, 26 May 2021 13:56:25 +0000
+Received: by mail-vs1-f70.google.com with SMTP id z5-20020a67d2850000b029023673cc643bso274928vsi.7
+        for <linux-nfc@lists.01.org>; Wed, 26 May 2021 06:56:25 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:subject:to:cc:references:from:message-id:date
          :user-agent:mime-version:in-reply-to:content-language
          :content-transfer-encoding;
-        bh=gZn8h8gkilkZaN7gS01tsrUP7HzVUTqYj/r9HNxu8z0=;
-        b=mRtpRQ8zihzWpgt6wEycqUTDhLPBDYlzIQOPfzHpJ0HQzBluCyw/lHqLvOQRy3Iztq
-         pioTjOslkEqT3XJRRZAJnmOp1KAdlUmnf7MJhwAcm6pzSRG9b6ybJtVRqUvv3Zy9jjMY
-         bVSrGHA4GasTwAwhDXI2UjY0tqQBlOdm+PPhxfzU15050HNQhwikzUQzP8ls5A9t6QS2
-         O9Waxth2/ht5+Dfr9L1VcMkdG78YJYQn3FD8xM7xGMDzDKVgHATr07qD8t88v9OlSnkF
-         +hCzW6BOGdEGOEA7PQk3zhDiUhHILInPYYCy9Gd7aF/SUzgpbWNEpegbP6G52XkCUO3m
-         BtPg==
-X-Gm-Message-State: AOAM531t+3A/srGLHJy0Q8tUhondi/cRaC1y9jEwYgVJ2lTnpGhxQsvC
-	SNrhd6pUZmM7/7GdlHo5fzZTerge5rb9XWfSNqlc/8YzvgjOJHXk29TSOLa7XpdDU+K3YPQArFN
-	cCYowhiQpbBMpOy48M82JT9ar4LdGsO5Wpw==
-X-Received: by 2002:ab0:14ce:: with SMTP id f14mr32867800uae.50.1622037363412;
-        Wed, 26 May 2021 06:56:03 -0700 (PDT)
-X-Google-Smtp-Source: ABdhPJyJtF7d3KZ3MenrDN2pRpX/m5oT/p1wrFd4tXmL69qgbesK0af5Jah5586fDe1vLhqceDDxUw==
-X-Received: by 2002:ab0:14ce:: with SMTP id f14mr32867618uae.50.1622037362034;
-        Wed, 26 May 2021 06:56:02 -0700 (PDT)
+        bh=wk3UlUCfkCL6QN9YaFyZimOXVt4iG+84u/Humu+3uZw=;
+        b=sK80C6KMVZxJ9iVRyu+kNd8oFP2UZ33klmgdV9c55SLQZWHPQo6b+OWZfAWi0KjRJ3
+         vuULbxaSstyvWnjEgsYXXwC2v537W8sQQ9sw/chRPOstjHeoO1Ku+nyvJB6kEp0r6fza
+         eOBUSEZ/DPE1g8eXMFwzwtLnN+RnsvRsBzVNk00Dder3wxM+n56dvjIHHyM0l4cPKE86
+         AwS3aAyPbFQOcGGEfB+z3zZeEyJZ3IVCroe3pYXZYD5hXLzl8ndufMI1J9hHdwsmJ1vE
+         Dt7A/FXyU1u1JhAInOgW2HsznkNijYuejZN8xWu6feORk+FKRcbnsoBqPprHpTkCK3VB
+         O2VQ==
+X-Gm-Message-State: AOAM5303d1u38QOtsk6ZZsw3vvyWvxYmdumXFGidnxbf+VrsCviBXudi
+	GSiLY2f5yhU3SfULzJWhTlBz6ZtZULdxye9LmyS9meKoSZaTnaTxhUxQz/wPTJ7Ov9ZpLsEJIVH
+	7oKNwDjZT/NJVgjFuWeT7eJ/bh9a8wYeEvA==
+X-Received: by 2002:a67:b919:: with SMTP id q25mr31366089vsn.17.1622037384733;
+        Wed, 26 May 2021 06:56:24 -0700 (PDT)
+X-Google-Smtp-Source: ABdhPJxinuLNMn5s0odgmLxRBXmJbtLvoYFepINUvv6jG+v4e1LdZ3aCTN15rHZ6f5RTZ6en80fFWA==
+X-Received: by 2002:a67:b919:: with SMTP id q25mr31366076vsn.17.1622037384616;
+        Wed, 26 May 2021 06:56:24 -0700 (PDT)
 Received: from [192.168.1.4] ([45.237.48.6])
-        by smtp.gmail.com with ESMTPSA id f6sm2100014vsh.31.2021.05.26.06.56.00
+        by smtp.gmail.com with ESMTPSA id b26sm2113090vsh.23.2021.05.26.06.56.23
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 26 May 2021 06:56:01 -0700 (PDT)
-To: samirweng1979 <samirweng1979@163.com>, davem@davemloft.net,
- dinghao.liu@zju.edu.cn
-References: <20210526005651.12652-1-samirweng1979@163.com>
+        Wed, 26 May 2021 06:56:24 -0700 (PDT)
+To: samirweng1979 <samirweng1979@163.com>, davem@davemloft.net
+References: <20210526011624.11204-1-samirweng1979@163.com>
 From: Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>
-Message-ID: <1aecd37b-88e8-e00d-d0b1-2fd989514c19@canonical.com>
-Date: Wed, 26 May 2021 09:56:00 -0400
+Message-ID: <dcb14fe3-4907-43f6-d79f-27599f1be249@canonical.com>
+Date: Wed, 26 May 2021 09:56:22 -0400
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
  Thunderbird/78.8.1
 MIME-Version: 1.0
-In-Reply-To: <20210526005651.12652-1-samirweng1979@163.com>
+In-Reply-To: <20210526011624.11204-1-samirweng1979@163.com>
 Content-Language: en-US
-Message-ID-Hash: AJ3VCSKKD3QB42XZQQVE4COYQJ2ZZARW
-X-Message-ID-Hash: AJ3VCSKKD3QB42XZQQVE4COYQJ2ZZARW
+Message-ID-Hash: SDRZKPL3P45I37QDGRRF43KROF7PG3X5
+X-Message-ID-Hash: SDRZKPL3P45I37QDGRRF43KROF7PG3X5
 X-MailFrom: krzysztof.kozlowski@canonical.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency; loop; banned-address; member-moderation; nonmember-moderation; administrivia; implicit-dest; max-recipients; max-size; news-moderation; no-subject; suspicious-header
 CC: linux-nfc@lists.01.org, netdev@vger.kernel.org, linux-kernel@vger.kernel.org, wengjianfeng <wengjianfeng@yulong.com>
 X-Mailman-Version: 3.1.1
 Precedence: list
-Subject: [linux-nfc] Re: [PATCH v2] nfc: st95hf: remove unnecessary assignment and label
+Subject: [linux-nfc] Re: [PATCH v2] nfc: st-nci: remove unnecessary labels
 List-Id: NFC on Linux <linux-nfc.lists.01.org>
-Archived-At: <https://lists.01.org/hyperkitty/list/linux-nfc@lists.01.org/message/AJ3VCSKKD3QB42XZQQVE4COYQJ2ZZARW/>
+Archived-At: <https://lists.01.org/hyperkitty/list/linux-nfc@lists.01.org/message/SDRZKPL3P45I37QDGRRF43KROF7PG3X5/>
 List-Archive: <https://lists.01.org/hyperkitty/list/linux-nfc@lists.01.org/>
 List-Help: <mailto:linux-nfc-request@lists.01.org?subject=help>
 List-Post: <mailto:linux-nfc@lists.01.org>
@@ -74,18 +73,18 @@ List-Unsubscribe: <mailto:linux-nfc-leave@lists.01.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-On 25/05/2021 20:56, samirweng1979 wrote:
+On 25/05/2021 21:16, samirweng1979 wrote:
 > From: wengjianfeng <wengjianfeng@yulong.com>
 > 
-> In function st95hf_in_send_cmd, the variable rc is assigned then goto
-> error label, which just returns rc, so we use return to replace it.
-> Since error label only used once in the function, so we remove error label.
+> Some labels are only used once, so we delete them and use the
+> return statement instead of the goto statement.
 > 
 > Signed-off-by: wengjianfeng <wengjianfeng@yulong.com>
 > ---
->  drivers/nfc/st95hf/core.c | 7 ++-----
->  1 file changed, 2 insertions(+), 5 deletions(-)
+>  drivers/nfc/st-nci/vendor_cmds.c | 15 +++++----------
+>  1 file changed, 5 insertions(+), 10 deletions(-)
 > 
+
 
 Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>
 
