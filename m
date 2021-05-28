@@ -1,49 +1,49 @@
 Return-Path: <linux-nfc-bounces@lists.01.org>
 X-Original-To: lists+linux-nfc@lfdr.de
 Delivered-To: lists+linux-nfc@lfdr.de
-Received: from ml01.01.org (ml01.01.org [IPv6:2001:19d0:306:5::1])
-	by mail.lfdr.de (Postfix) with ESMTPS id D120B3942C2
-	for <lists+linux-nfc@lfdr.de>; Fri, 28 May 2021 14:42:23 +0200 (CEST)
+Received: from ml01.01.org (ml01.01.org [198.145.21.10])
+	by mail.lfdr.de (Postfix) with ESMTPS id D851E3942C1
+	for <lists+linux-nfc@lfdr.de>; Fri, 28 May 2021 14:42:22 +0200 (CEST)
 Received: from ml01.vlan13.01.org (localhost [IPv6:::1])
-	by ml01.01.org (Postfix) with ESMTP id 9EF79100EC1EB;
+	by ml01.01.org (Postfix) with ESMTP id 8F9A3100EC1C8;
 	Fri, 28 May 2021 05:42:21 -0700 (PDT)
 Received-SPF: None (mailfrom) identity=mailfrom; client-ip=91.189.89.112; helo=youngberry.canonical.com; envelope-from=krzysztof.kozlowski@canonical.com; receiver=<UNKNOWN> 
 Received: from youngberry.canonical.com (youngberry.canonical.com [91.189.89.112])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
 	(No client certificate requested)
-	by ml01.01.org (Postfix) with ESMTPS id D4A71100EC1DA
+	by ml01.01.org (Postfix) with ESMTPS id B07BB100EC1DA
 	for <linux-nfc@lists.01.org>; Fri, 28 May 2021 05:42:16 -0700 (PDT)
-Received: from mail-ua1-f69.google.com ([209.85.222.69])
+Received: from mail-ua1-f70.google.com ([209.85.222.70])
 	by youngberry.canonical.com with esmtps  (TLS1.2) tls TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256
 	(Exim 4.93)
 	(envelope-from <krzysztof.kozlowski@canonical.com>)
-	id 1lmbod-0007yM-IR
+	id 1lmbod-0007yH-As
 	for linux-nfc@lists.01.org; Fri, 28 May 2021 12:42:15 +0000
-Received: by mail-ua1-f69.google.com with SMTP id i33-20020ab042240000b029020adb6e9ffcso1813062uai.23
+Received: by mail-ua1-f70.google.com with SMTP id i8-20020a9f3b080000b029023c932e01b8so1863478uah.3
         for <linux-nfc@lists.01.org>; Fri, 28 May 2021 05:42:15 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:from:to:subject:date:message-id:in-reply-to
          :references:mime-version:content-transfer-encoding;
-        bh=jAqSfj4V8Ljuoku0z/gnZf+7DpK+uMQ7YFx87xd1taE=;
-        b=Pl2OMuFt3QI0kkEKVkQy+9tmyaA4l7fsz9IoZqvOcFhU/LJmnklYagjvXRI8dfyC0e
-         2Bw/lEZfuS+iLdGEoeDCc5RzHKC0djctMZO86OjP3oxuqU8dQynn+Bpzys41A9LUY3rg
-         A1AqB+ttFXD2JESNLff4qmegP+ldtqCzYDMKqthtYdEkTpmfM9EPhW04S+0zI9zz8403
-         oBkaneQ8QXOrisvqJDs+YXOpL3d/ZGMw92hW5zR2yXPzSsodVz3yS0/a4ffIM59OApYM
-         AgCvtJJZ664xvl7FMjEcclyBL/+UG1x/tK+FERWp2wL/P1GbvSp0tGtA4/0EG/0t8wZg
-         CNqA==
-X-Gm-Message-State: AOAM53353zlMwNM3R6bFb80UCvNN/5p2jlzTl4uvZhxOrlg/PjjO8/oa
-	9j1I8VRPFQLJhVbe5hgaOP5BHWQflrQ1dA/cu0s/nxWTGdoAUFK+jHTmOi6/LkQZ5QAHGHbD5+q
-	C4JBxNSjRd6OzbuW7yU9urbhLiDlmTO0cVA==
-X-Received: by 2002:a1f:2850:: with SMTP id o77mr5533756vko.23.1622205734690;
+        bh=Lw36VrwBWml7IzR1JdzowLQpX/jCNNF5gFQShdOaSgY=;
+        b=mGweh50Eq73Hlq1iwo2lBk6eebNg3Zn8K+rqfhSvETSUb40XMdF82rYJEVNWqRRkqL
+         r4bMhlkjdAaNY2QXrZfK75xLBZ+dxBvXQnyo+SjbPSL8G6OeHLQVTJstydjp6811ZmUq
+         8uXp/FHQeK/LPSjmJ8u1UDOqa7IBq+/qv//4KxTZe9jjgMEQd0AVfZ9ohWQt0u35rkbH
+         Dq/qIEtXJG3KX8hWG/X45iY9kUaLbExWTSYNhSzVyUvoDa0v/2ZSovqtz2zARtIDONUO
+         Yei1KWqED3XpWx0p6Ndb5ZxrCKtT2Eh4F/+uvvMaZjWsSrMu0kyVGuPcZWxPTACtMB4z
+         RBNg==
+X-Gm-Message-State: AOAM530UMSI0TqDgUy98bz0aI83lvwIXVnDQcP0oc+XVc6Fb+sBlh5Xl
+	o1a9Y+VuEgh4be+PHAzg2uwQ5Z/JlMGIQiohjdWpLH8UovNOiU7KTFnLheLK8HFo/YwuEr9MDIK
+	FP4AjsihJEKVQV47VjRmJu4il3CMCX7AHWA==
+X-Received: by 2002:a05:6102:512:: with SMTP id l18mr6715753vsa.33.1622205734511;
         Fri, 28 May 2021 05:42:14 -0700 (PDT)
-X-Google-Smtp-Source: ABdhPJwP8YHtx6Nm7Vih9OSRSik8WCc8W76wXEqvpaj46Qq9kY3UA3420v5Vf1Pwn5+9Osz0Gz33sA==
-X-Received: by 2002:a1f:2850:: with SMTP id o77mr5533616vko.23.1622205733050;
-        Fri, 28 May 2021 05:42:13 -0700 (PDT)
+X-Google-Smtp-Source: ABdhPJygSs9E1/NeULXJxJsESzmza338EBoj5njw0AYG2NAKnqAxU1H4XWuGjP0/bg2APuzVmtRxrQ==
+X-Received: by 2002:a05:6102:512:: with SMTP id l18mr6715730vsa.33.1622205734327;
+        Fri, 28 May 2021 05:42:14 -0700 (PDT)
 Received: from localhost.localdomain ([45.237.48.6])
-        by smtp.gmail.com with ESMTPSA id b35sm782328uae.20.2021.05.28.05.42.11
+        by smtp.gmail.com with ESMTPSA id b35sm782328uae.20.2021.05.28.05.42.13
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 28 May 2021 05:42:12 -0700 (PDT)
+        Fri, 28 May 2021 05:42:13 -0700 (PDT)
 From: Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>
 To: Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>,
 	"David S. Miller" <davem@davemloft.net>,
@@ -51,21 +51,21 @@ To: Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>,
 	linux-nfc@lists.01.org,
 	netdev@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Date: Fri, 28 May 2021 08:41:52 -0400
-Message-Id: <20210528124200.79655-4-krzysztof.kozlowski@canonical.com>
+Date: Fri, 28 May 2021 08:41:53 -0400
+Message-Id: <20210528124200.79655-5-krzysztof.kozlowski@canonical.com>
 X-Mailer: git-send-email 2.27.0
 In-Reply-To: <20210528124200.79655-1-krzysztof.kozlowski@canonical.com>
 References: <20210528124200.79655-1-krzysztof.kozlowski@canonical.com>
 MIME-Version: 1.0
-Message-ID-Hash: 2V5KVXRTYB4EMJAE44OUKSLKSZSBJPJD
-X-Message-ID-Hash: 2V5KVXRTYB4EMJAE44OUKSLKSZSBJPJD
+Message-ID-Hash: VOYB7CPCM5UA37TAG6UA5F45NNPO33GB
+X-Message-ID-Hash: VOYB7CPCM5UA37TAG6UA5F45NNPO33GB
 X-MailFrom: krzysztof.kozlowski@canonical.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency; loop; banned-address; member-moderation; nonmember-moderation; administrivia; implicit-dest; max-recipients; max-size; news-moderation; no-subject; suspicious-header
 X-Mailman-Version: 3.1.1
 Precedence: list
-Subject: [linux-nfc] [PATCH 04/12] nfc: pn533: drop of_match_ptr from device ID table
+Subject: [linux-nfc] [PATCH 05/12] nfc: mrvl: mark OF device ID tables as maybe unused
 List-Id: NFC on Linux <linux-nfc.lists.01.org>
-Archived-At: <https://lists.01.org/hyperkitty/list/linux-nfc@lists.01.org/message/2V5KVXRTYB4EMJAE44OUKSLKSZSBJPJD/>
+Archived-At: <https://lists.01.org/hyperkitty/list/linux-nfc@lists.01.org/message/VOYB7CPCM5UA37TAG6UA5F45NNPO33GB/>
 List-Archive: <https://lists.01.org/hyperkitty/list/linux-nfc@lists.01.org/>
 List-Help: <mailto:linux-nfc-request@lists.01.org?subject=help>
 List-Post: <mailto:linux-nfc@lists.01.org>
@@ -74,25 +74,31 @@ List-Unsubscribe: <mailto:linux-nfc-leave@lists.01.org>
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: base64
 
-VGhlIGRyaXZlciBjYW4gbWF0Y2ggb25seSB2aWEgdGhlIERUIHRhYmxlIHNvIHRoZSB0YWJsZSBz
-aG91bGQgYmUgYWx3YXlzDQp1c2VkIGFuZCB0aGUgb2ZfbWF0Y2hfcHRyIGRvZXMgbm90IGhhdmUg
-YW55IHNlbnNlICh0aGlzIGFsc28gYWxsb3dzIEFDUEkNCm1hdGNoaW5nIHZpYSBQUlAwMDAxLCBl
-dmVuIHRob3VnaCBpdCBtaWdodCBiZSBub3QgcmVsZXZhbnQgaGVyZSkuICBUaGlzDQpmaXhlcyBj
-b21waWxlIHdhcm5pbmcgKCFDT05GSUdfT0YpOg0KDQogICAgZHJpdmVycy9uZmMvcG41MzMvaTJj
-LmM6MjUyOjM0OiB3YXJuaW5nOg0KICAgICAg4oCYb2ZfcG41MzNfaTJjX21hdGNo4oCZIGRlZmlu
-ZWQgYnV0IG5vdCB1c2VkIFstV3VudXNlZC1jb25zdC12YXJpYWJsZT1dDQoNClNpZ25lZC1vZmYt
-Ynk6IEtyenlzenRvZiBLb3psb3dza2kgPGtyenlzenRvZi5rb3psb3dza2lAY2Fub25pY2FsLmNv
-bT4NCi0tLQ0KIGRyaXZlcnMvbmZjL3BuNTMzL3VhcnQuYyB8IDIgKy0NCiAxIGZpbGUgY2hhbmdl
-ZCwgMSBpbnNlcnRpb24oKyksIDEgZGVsZXRpb24oLSkNCg0KZGlmZiAtLWdpdCBhL2RyaXZlcnMv
-bmZjL3BuNTMzL3VhcnQuYyBiL2RyaXZlcnMvbmZjL3BuNTMzL3VhcnQuYw0KaW5kZXggYTA2NjVk
-OGVhODViLi43YmRhZjgyNjMwNzAgMTAwNjQ0DQotLS0gYS9kcml2ZXJzL25mYy9wbjUzMy91YXJ0
-LmMNCisrKyBiL2RyaXZlcnMvbmZjL3BuNTMzL3VhcnQuYw0KQEAgLTMxOSw3ICszMTksNyBAQCBz
-dGF0aWMgc3RydWN0IHNlcmRldl9kZXZpY2VfZHJpdmVyIHBuNTMyX3VhcnRfZHJpdmVyID0gew0K
-IAkucmVtb3ZlID0gcG41MzJfdWFydF9yZW1vdmUsDQogCS5kcml2ZXIgPSB7DQogCQkubmFtZSA9
-ICJwbjUzMl91YXJ0IiwNCi0JCS5vZl9tYXRjaF90YWJsZSA9IG9mX21hdGNoX3B0cihwbjUzMl91
-YXJ0X29mX21hdGNoKSwNCisJCS5vZl9tYXRjaF90YWJsZSA9IHBuNTMyX3VhcnRfb2ZfbWF0Y2gs
-DQogCX0sDQogfTsNCiANCi0tIA0KMi4yNy4wDQpfX19fX19fX19fX19fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fXwpMaW51eC1uZmMgbWFpbGluZyBsaXN0IC0tIGxpbnV4LW5mY0Bs
-aXN0cy4wMS5vcmcKVG8gdW5zdWJzY3JpYmUgc2VuZCBhbiBlbWFpbCB0byBsaW51eC1uZmMtbGVh
-dmVAbGlzdHMuMDEub3JnCiUod2ViX3BhZ2VfdXJsKXNsaXN0aW5mbyUoY2dpZXh0KXMvJShfaW50
-ZXJuYWxfbmFtZSlz
+VGhlIGRyaXZlciBjYW4gbWF0Y2ggZWl0aGVyIHZpYSBPRiBvciBJMkMgSUQgdGFibGVzLiAgSWYg
+T0YgaXMgZGlzYWJsZWQsDQp0aGUgdGFibGUgd2lsbCBiZSB1bnVzZWQ6DQoNCiAgICBkcml2ZXJz
+L25mYy9uZmNtcnZsL3NwaS5jOjE5OTozNDogd2FybmluZzoNCiAgICAgICAg4oCYb2ZfbmZjbXJ2
+bF9zcGlfbWF0Y2jigJkgZGVmaW5lZCBidXQgbm90IHVzZWQgWy1XdW51c2VkLWNvbnN0LXZhcmlh
+YmxlPV0NCg0KU2lnbmVkLW9mZi1ieTogS3J6eXN6dG9mIEtvemxvd3NraSA8a3J6eXN6dG9mLmtv
+emxvd3NraUBjYW5vbmljYWwuY29tPg0KLS0tDQogZHJpdmVycy9uZmMvbmZjbXJ2bC9pMmMuYyB8
+IDIgKy0NCiBkcml2ZXJzL25mYy9uZmNtcnZsL3NwaS5jIHwgMiArLQ0KIDIgZmlsZXMgY2hhbmdl
+ZCwgMiBpbnNlcnRpb25zKCspLCAyIGRlbGV0aW9ucygtKQ0KDQpkaWZmIC0tZ2l0IGEvZHJpdmVy
+cy9uZmMvbmZjbXJ2bC9pMmMuYyBiL2RyaXZlcnMvbmZjL25mY21ydmwvaTJjLmMNCmluZGV4IGM1
+NDIwNjE2YjdiYy4uYmFmZDliNTAwYjJjIDEwMDY0NA0KLS0tIGEvZHJpdmVycy9uZmMvbmZjbXJ2
+bC9pMmMuYw0KKysrIGIvZHJpdmVycy9uZmMvbmZjbXJ2bC9pMmMuYw0KQEAgLTI2MCw3ICsyNjAs
+NyBAQCBzdGF0aWMgaW50IG5mY21ydmxfaTJjX3JlbW92ZShzdHJ1Y3QgaTJjX2NsaWVudCAqY2xp
+ZW50KQ0KIH0NCiANCiANCi1zdGF0aWMgY29uc3Qgc3RydWN0IG9mX2RldmljZV9pZCBvZl9uZmNt
+cnZsX2kyY19tYXRjaFtdID0gew0KK3N0YXRpYyBjb25zdCBzdHJ1Y3Qgb2ZfZGV2aWNlX2lkIG9m
+X25mY21ydmxfaTJjX21hdGNoW10gX19tYXliZV91bnVzZWQgPSB7DQogCXsgLmNvbXBhdGlibGUg
+PSAibWFydmVsbCxuZmMtaTJjIiwgfSwNCiAJe30sDQogfTsNCmRpZmYgLS1naXQgYS9kcml2ZXJz
+L25mYy9uZmNtcnZsL3NwaS5jIGIvZHJpdmVycy9uZmMvbmZjbXJ2bC9zcGkuYw0KaW5kZXggZGVj
+MGQzZWIzNjQ4Li4wNjQ3Yjg1OTMwYTYgMTAwNjQ0DQotLS0gYS9kcml2ZXJzL25mYy9uZmNtcnZs
+L3NwaS5jDQorKysgYi9kcml2ZXJzL25mYy9uZmNtcnZsL3NwaS5jDQpAQCAtMTk2LDcgKzE5Niw3
+IEBAIHN0YXRpYyBpbnQgbmZjbXJ2bF9zcGlfcmVtb3ZlKHN0cnVjdCBzcGlfZGV2aWNlICpzcGkp
+DQogCXJldHVybiAwOw0KIH0NCiANCi1zdGF0aWMgY29uc3Qgc3RydWN0IG9mX2RldmljZV9pZCBv
+Zl9uZmNtcnZsX3NwaV9tYXRjaFtdID0gew0KK3N0YXRpYyBjb25zdCBzdHJ1Y3Qgb2ZfZGV2aWNl
+X2lkIG9mX25mY21ydmxfc3BpX21hdGNoW10gX19tYXliZV91bnVzZWQgPSB7DQogCXsgLmNvbXBh
+dGlibGUgPSAibWFydmVsbCxuZmMtc3BpIiwgfSwNCiAJe30sDQogfTsNCi0tIA0KMi4yNy4wDQpf
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpMaW51eC1uZmMg
+bWFpbGluZyBsaXN0IC0tIGxpbnV4LW5mY0BsaXN0cy4wMS5vcmcKVG8gdW5zdWJzY3JpYmUgc2Vu
+ZCBhbiBlbWFpbCB0byBsaW51eC1uZmMtbGVhdmVAbGlzdHMuMDEub3JnCiUod2ViX3BhZ2VfdXJs
+KXNsaXN0aW5mbyUoY2dpZXh0KXMvJShfaW50ZXJuYWxfbmFtZSlz
