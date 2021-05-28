@@ -2,48 +2,48 @@ Return-Path: <linux-nfc-bounces@lists.01.org>
 X-Original-To: lists+linux-nfc@lfdr.de
 Delivered-To: lists+linux-nfc@lfdr.de
 Received: from ml01.01.org (ml01.01.org [IPv6:2001:19d0:306:5::1])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4B23A3942BD
-	for <lists+linux-nfc@lfdr.de>; Fri, 28 May 2021 14:42:19 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D120B3942C2
+	for <lists+linux-nfc@lfdr.de>; Fri, 28 May 2021 14:42:23 +0200 (CEST)
 Received: from ml01.vlan13.01.org (localhost [IPv6:::1])
-	by ml01.01.org (Postfix) with ESMTP id 77050100EC1D3;
-	Fri, 28 May 2021 05:42:16 -0700 (PDT)
+	by ml01.01.org (Postfix) with ESMTP id 9EF79100EC1EB;
+	Fri, 28 May 2021 05:42:21 -0700 (PDT)
 Received-SPF: None (mailfrom) identity=mailfrom; client-ip=91.189.89.112; helo=youngberry.canonical.com; envelope-from=krzysztof.kozlowski@canonical.com; receiver=<UNKNOWN> 
 Received: from youngberry.canonical.com (youngberry.canonical.com [91.189.89.112])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-SHA (128/128 bits))
 	(No client certificate requested)
-	by ml01.01.org (Postfix) with ESMTPS id 0A00D100ED4A0
-	for <linux-nfc@lists.01.org>; Fri, 28 May 2021 05:42:14 -0700 (PDT)
-Received: from mail-ua1-f70.google.com ([209.85.222.70])
+	by ml01.01.org (Postfix) with ESMTPS id D4A71100EC1DA
+	for <linux-nfc@lists.01.org>; Fri, 28 May 2021 05:42:16 -0700 (PDT)
+Received: from mail-ua1-f69.google.com ([209.85.222.69])
 	by youngberry.canonical.com with esmtps  (TLS1.2) tls TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256
 	(Exim 4.93)
 	(envelope-from <krzysztof.kozlowski@canonical.com>)
-	id 1lmboa-0007xi-JD
-	for linux-nfc@lists.01.org; Fri, 28 May 2021 12:42:12 +0000
-Received: by mail-ua1-f70.google.com with SMTP id a8-20020ab03c880000b029020f88f9250bso1826844uax.17
-        for <linux-nfc@lists.01.org>; Fri, 28 May 2021 05:42:12 -0700 (PDT)
+	id 1lmbod-0007yM-IR
+	for linux-nfc@lists.01.org; Fri, 28 May 2021 12:42:15 +0000
+Received: by mail-ua1-f69.google.com with SMTP id i33-20020ab042240000b029020adb6e9ffcso1813062uai.23
+        for <linux-nfc@lists.01.org>; Fri, 28 May 2021 05:42:15 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:from:to:subject:date:message-id:in-reply-to
          :references:mime-version:content-transfer-encoding;
-        bh=5rn4epAcNH1Mik4gARYYfuC/XhUWwqVwYBKCtmf4Gqs=;
-        b=k08f4krO13H461YLaqFubDJ/idgtvRcXB13wnn3k0SsSD8j/SEVpX1yAntalCC9VON
-         JX7JDjpGgQo97F0Ia68DSyMBwzFS+gpMDIJ0QrNR0VjtZbvOkxMnmT4QQkAUhLi0hzKI
-         fAvWVTpCNid1baHpbTMNEwc8CV5v45W22A92g0YcxlKrmCK3rOcvjZb55w8dkcZI+RdH
-         Kbwj3PqGGft4JyI7LKEctz80r7oRP2TsX3oHB94jD+mbQjDeGuVVZZVlY8hUgaFYook+
-         soGmcEhYbm1IFGcHMMvaUhtJb8cdNsRIfazb2YYm4d4MT1xXXpKZ1x6WEfbNstWWHyCy
-         aQsg==
-X-Gm-Message-State: AOAM531/yw+YOK6OU3yVJlh3WR8fx1Y4iIdwr7hJHsczssugfpjGGsz5
-	bGdfVs5WoIGLmEHI2qLeet6+uqV5RU/KkQtChoU/B1FFzbQoKNF15HwWfyY6iKioJFPaszy6tko
-	Yn5Xp1PsWiK7yC+c2YWJ1KyrGRyp2uCMD4A==
-X-Received: by 2002:a67:f489:: with SMTP id o9mr6659007vsn.47.1622205731738;
-        Fri, 28 May 2021 05:42:11 -0700 (PDT)
-X-Google-Smtp-Source: ABdhPJx7U4c+zsR2eMX8uGtXZTl5loFQdOdjHKdIFeosX2oE3JmTuGdnSEfaAP46EceGx8B3kXxW1A==
-X-Received: by 2002:a67:f489:: with SMTP id o9mr6658995vsn.47.1622205731595;
-        Fri, 28 May 2021 05:42:11 -0700 (PDT)
+        bh=jAqSfj4V8Ljuoku0z/gnZf+7DpK+uMQ7YFx87xd1taE=;
+        b=Pl2OMuFt3QI0kkEKVkQy+9tmyaA4l7fsz9IoZqvOcFhU/LJmnklYagjvXRI8dfyC0e
+         2Bw/lEZfuS+iLdGEoeDCc5RzHKC0djctMZO86OjP3oxuqU8dQynn+Bpzys41A9LUY3rg
+         A1AqB+ttFXD2JESNLff4qmegP+ldtqCzYDMKqthtYdEkTpmfM9EPhW04S+0zI9zz8403
+         oBkaneQ8QXOrisvqJDs+YXOpL3d/ZGMw92hW5zR2yXPzSsodVz3yS0/a4ffIM59OApYM
+         AgCvtJJZ664xvl7FMjEcclyBL/+UG1x/tK+FERWp2wL/P1GbvSp0tGtA4/0EG/0t8wZg
+         CNqA==
+X-Gm-Message-State: AOAM53353zlMwNM3R6bFb80UCvNN/5p2jlzTl4uvZhxOrlg/PjjO8/oa
+	9j1I8VRPFQLJhVbe5hgaOP5BHWQflrQ1dA/cu0s/nxWTGdoAUFK+jHTmOi6/LkQZ5QAHGHbD5+q
+	C4JBxNSjRd6OzbuW7yU9urbhLiDlmTO0cVA==
+X-Received: by 2002:a1f:2850:: with SMTP id o77mr5533756vko.23.1622205734690;
+        Fri, 28 May 2021 05:42:14 -0700 (PDT)
+X-Google-Smtp-Source: ABdhPJwP8YHtx6Nm7Vih9OSRSik8WCc8W76wXEqvpaj46Qq9kY3UA3420v5Vf1Pwn5+9Osz0Gz33sA==
+X-Received: by 2002:a1f:2850:: with SMTP id o77mr5533616vko.23.1622205733050;
+        Fri, 28 May 2021 05:42:13 -0700 (PDT)
 Received: from localhost.localdomain ([45.237.48.6])
-        by smtp.gmail.com with ESMTPSA id b35sm782328uae.20.2021.05.28.05.42.10
+        by smtp.gmail.com with ESMTPSA id b35sm782328uae.20.2021.05.28.05.42.11
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 28 May 2021 05:42:11 -0700 (PDT)
+        Fri, 28 May 2021 05:42:12 -0700 (PDT)
 From: Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>
 To: Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>,
 	"David S. Miller" <davem@davemloft.net>,
@@ -51,65 +51,48 @@ To: Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>,
 	linux-nfc@lists.01.org,
 	netdev@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Date: Fri, 28 May 2021 08:41:51 -0400
-Message-Id: <20210528124200.79655-3-krzysztof.kozlowski@canonical.com>
+Date: Fri, 28 May 2021 08:41:52 -0400
+Message-Id: <20210528124200.79655-4-krzysztof.kozlowski@canonical.com>
 X-Mailer: git-send-email 2.27.0
 In-Reply-To: <20210528124200.79655-1-krzysztof.kozlowski@canonical.com>
 References: <20210528124200.79655-1-krzysztof.kozlowski@canonical.com>
 MIME-Version: 1.0
-Message-ID-Hash: F4NVRSQYYNVNHODXW3KKKYDLELHH7KNZ
-X-Message-ID-Hash: F4NVRSQYYNVNHODXW3KKKYDLELHH7KNZ
+Message-ID-Hash: 2V5KVXRTYB4EMJAE44OUKSLKSZSBJPJD
+X-Message-ID-Hash: 2V5KVXRTYB4EMJAE44OUKSLKSZSBJPJD
 X-MailFrom: krzysztof.kozlowski@canonical.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency; loop; banned-address; member-moderation; nonmember-moderation; administrivia; implicit-dest; max-recipients; max-size; news-moderation; no-subject; suspicious-header
 X-Mailman-Version: 3.1.1
 Precedence: list
-Subject: [linux-nfc] [PATCH 03/12] nfc: port100: correct kerneldoc for structure
+Subject: [linux-nfc] [PATCH 04/12] nfc: pn533: drop of_match_ptr from device ID table
 List-Id: NFC on Linux <linux-nfc.lists.01.org>
-Archived-At: <https://lists.01.org/hyperkitty/list/linux-nfc@lists.01.org/message/F4NVRSQYYNVNHODXW3KKKYDLELHH7KNZ/>
+Archived-At: <https://lists.01.org/hyperkitty/list/linux-nfc@lists.01.org/message/2V5KVXRTYB4EMJAE44OUKSLKSZSBJPJD/>
 List-Archive: <https://lists.01.org/hyperkitty/list/linux-nfc@lists.01.org/>
 List-Help: <mailto:linux-nfc-request@lists.01.org?subject=help>
 List-Post: <mailto:linux-nfc@lists.01.org>
 List-Subscribe: <mailto:linux-nfc-join@lists.01.org>
 List-Unsubscribe: <mailto:linux-nfc-leave@lists.01.org>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 
-The port100_in_rf_setting structure does not contain valid kerneldoc
-docummentation, unlike the port100_tg_rf_setting structure.  Correct the
-kerneldoc to fix W=1 warnings:
-
-    warning: This comment starts with '/**', but isn't a kernel-doc comment.
-
-Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>
----
- drivers/nfc/port100.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/nfc/port100.c b/drivers/nfc/port100.c
-index 8e4d355dc3ae..4df926cc37d0 100644
---- a/drivers/nfc/port100.c
-+++ b/drivers/nfc/port100.c
-@@ -94,7 +94,7 @@ struct port100;
- typedef void (*port100_send_async_complete_t)(struct port100 *dev, void *arg,
- 					      struct sk_buff *resp);
- 
--/**
-+/*
-  * Setting sets structure for in_set_rf command
-  *
-  * @in_*_set_number: Represent the entry indexes in the port-100 RF Base Table.
-@@ -145,7 +145,7 @@ static const struct port100_in_rf_setting in_rf_settings[] = {
- };
- 
- /**
-- * Setting sets structure for tg_set_rf command
-+ * struct port100_tg_rf_setting - Setting sets structure for tg_set_rf command
-  *
-  * @tg_set_number: Represents the entry index in the port-100 RF Base Table.
-  *                 This table contains multiple RF setting sets required for RF
--- 
-2.27.0
-_______________________________________________
-Linux-nfc mailing list -- linux-nfc@lists.01.org
-To unsubscribe send an email to linux-nfc-leave@lists.01.org
-%(web_page_url)slistinfo%(cgiext)s/%(_internal_name)s
+VGhlIGRyaXZlciBjYW4gbWF0Y2ggb25seSB2aWEgdGhlIERUIHRhYmxlIHNvIHRoZSB0YWJsZSBz
+aG91bGQgYmUgYWx3YXlzDQp1c2VkIGFuZCB0aGUgb2ZfbWF0Y2hfcHRyIGRvZXMgbm90IGhhdmUg
+YW55IHNlbnNlICh0aGlzIGFsc28gYWxsb3dzIEFDUEkNCm1hdGNoaW5nIHZpYSBQUlAwMDAxLCBl
+dmVuIHRob3VnaCBpdCBtaWdodCBiZSBub3QgcmVsZXZhbnQgaGVyZSkuICBUaGlzDQpmaXhlcyBj
+b21waWxlIHdhcm5pbmcgKCFDT05GSUdfT0YpOg0KDQogICAgZHJpdmVycy9uZmMvcG41MzMvaTJj
+LmM6MjUyOjM0OiB3YXJuaW5nOg0KICAgICAg4oCYb2ZfcG41MzNfaTJjX21hdGNo4oCZIGRlZmlu
+ZWQgYnV0IG5vdCB1c2VkIFstV3VudXNlZC1jb25zdC12YXJpYWJsZT1dDQoNClNpZ25lZC1vZmYt
+Ynk6IEtyenlzenRvZiBLb3psb3dza2kgPGtyenlzenRvZi5rb3psb3dza2lAY2Fub25pY2FsLmNv
+bT4NCi0tLQ0KIGRyaXZlcnMvbmZjL3BuNTMzL3VhcnQuYyB8IDIgKy0NCiAxIGZpbGUgY2hhbmdl
+ZCwgMSBpbnNlcnRpb24oKyksIDEgZGVsZXRpb24oLSkNCg0KZGlmZiAtLWdpdCBhL2RyaXZlcnMv
+bmZjL3BuNTMzL3VhcnQuYyBiL2RyaXZlcnMvbmZjL3BuNTMzL3VhcnQuYw0KaW5kZXggYTA2NjVk
+OGVhODViLi43YmRhZjgyNjMwNzAgMTAwNjQ0DQotLS0gYS9kcml2ZXJzL25mYy9wbjUzMy91YXJ0
+LmMNCisrKyBiL2RyaXZlcnMvbmZjL3BuNTMzL3VhcnQuYw0KQEAgLTMxOSw3ICszMTksNyBAQCBz
+dGF0aWMgc3RydWN0IHNlcmRldl9kZXZpY2VfZHJpdmVyIHBuNTMyX3VhcnRfZHJpdmVyID0gew0K
+IAkucmVtb3ZlID0gcG41MzJfdWFydF9yZW1vdmUsDQogCS5kcml2ZXIgPSB7DQogCQkubmFtZSA9
+ICJwbjUzMl91YXJ0IiwNCi0JCS5vZl9tYXRjaF90YWJsZSA9IG9mX21hdGNoX3B0cihwbjUzMl91
+YXJ0X29mX21hdGNoKSwNCisJCS5vZl9tYXRjaF90YWJsZSA9IHBuNTMyX3VhcnRfb2ZfbWF0Y2gs
+DQogCX0sDQogfTsNCiANCi0tIA0KMi4yNy4wDQpfX19fX19fX19fX19fX19fX19fX19fX19fX19f
+X19fX19fX19fX19fX19fX19fXwpMaW51eC1uZmMgbWFpbGluZyBsaXN0IC0tIGxpbnV4LW5mY0Bs
+aXN0cy4wMS5vcmcKVG8gdW5zdWJzY3JpYmUgc2VuZCBhbiBlbWFpbCB0byBsaW51eC1uZmMtbGVh
+dmVAbGlzdHMuMDEub3JnCiUod2ViX3BhZ2VfdXJsKXNsaXN0aW5mbyUoY2dpZXh0KXMvJShfaW50
+ZXJuYWxfbmFtZSlz
