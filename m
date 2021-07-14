@@ -2,76 +2,76 @@ Return-Path: <linux-nfc-bounces@lists.01.org>
 X-Original-To: lists+linux-nfc@lfdr.de
 Delivered-To: lists+linux-nfc@lfdr.de
 Received: from ml01.01.org (ml01.01.org [IPv6:2001:19d0:306:5::1])
-	by mail.lfdr.de (Postfix) with ESMTPS id E9BAF3C836E
-	for <lists+linux-nfc@lfdr.de>; Wed, 14 Jul 2021 13:05:52 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0764E3C836F
+	for <lists+linux-nfc@lfdr.de>; Wed, 14 Jul 2021 13:05:54 +0200 (CEST)
 Received: from ml01.vlan13.01.org (localhost [IPv6:::1])
-	by ml01.01.org (Postfix) with ESMTP id 85DB3100F2253;
-	Wed, 14 Jul 2021 04:05:46 -0700 (PDT)
-Received-SPF: Pass (mailfrom) identity=mailfrom; client-ip=185.125.188.120; helo=smtp-relay-canonical-0.canonical.com; envelope-from=krzysztof.kozlowski@canonical.com; receiver=<UNKNOWN> 
-Received: from smtp-relay-canonical-0.canonical.com (smtp-relay-canonical-0.canonical.com [185.125.188.120])
+	by ml01.01.org (Postfix) with ESMTP id 94FB4100F2245;
+	Wed, 14 Jul 2021 04:05:48 -0700 (PDT)
+Received-SPF: Pass (mailfrom) identity=mailfrom; client-ip=185.125.188.121; helo=smtp-relay-canonical-1.canonical.com; envelope-from=krzysztof.kozlowski@canonical.com; receiver=<UNKNOWN> 
+Received: from smtp-relay-canonical-1.canonical.com (smtp-relay-canonical-1.canonical.com [185.125.188.121])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits))
 	(No client certificate requested)
-	by ml01.01.org (Postfix) with ESMTPS id D12D3100F225F
-	for <linux-nfc@lists.01.org>; Wed, 14 Jul 2021 04:05:44 -0700 (PDT)
-Received: from mail-ed1-f72.google.com (mail-ed1-f72.google.com [209.85.208.72])
+	by ml01.01.org (Postfix) with ESMTPS id 5D2A6100F2248
+	for <linux-nfc@lists.01.org>; Wed, 14 Jul 2021 04:05:46 -0700 (PDT)
+Received: from mail-ed1-f70.google.com (mail-ed1-f70.google.com [209.85.208.70])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by smtp-relay-canonical-0.canonical.com (Postfix) with ESMTPS id B598240596
-	for <linux-nfc@lists.01.org>; Wed, 14 Jul 2021 11:05:43 +0000 (UTC)
+	by smtp-relay-canonical-1.canonical.com (Postfix) with ESMTPS id 4DF844022C
+	for <linux-nfc@lists.01.org>; Wed, 14 Jul 2021 11:05:45 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=canonical.com;
-	s=20210705; t=1626260743;
-	bh=NTa05OQfhOQSsJKW22lfIuCT4kgzRpKArN0kjfsqe9U=;
+	s=20210705; t=1626260745;
+	bh=+YekN90xf6jsCpj8MSNQjVrLqPvlJAwS81y66JBOVXU=;
 	h=From:To:Subject:Date:Message-Id:MIME-Version;
-	b=vvMwvs1bvE2OKVx6xJY3x9sbrM77NU43+ouPJgpeV4nUp7ovJkYcwDBUbE5oZcjO5
-	 W8ZSELdLV7U++T/x87sC4mTFtoGYHD9wpHXyNVc34FmWOFvUudr/l0OnKdqKFMSAvO
-	 mq8VGQuMYfrV95d+zsUhjdYhorpS9DuJvC99uD3viA862+SOGF4/8DrhuPFSN2yDDv
-	 vonznPPM4T0dH8TvWC1jFzPBZ3LsRBy2JnOnapJmMzzezjvWpDNS8MhWbpQ7bARFq0
-	 FOnWZfJR/P7+Et9zORb/zGwCszq9P8jw3aNa4s0roeV+8dfl5SuN29Th306pg2wTcR
-	 sHbP48eCc5N0Q==
-Received: by mail-ed1-f72.google.com with SMTP id m21-20020a50ef150000b029039c013d5b80so1064231eds.7
-        for <linux-nfc@lists.01.org>; Wed, 14 Jul 2021 04:05:43 -0700 (PDT)
+	b=vWTqX9WT7K5Lw3o2qku7TYyYneSKiQqieHt7SWrptPrp1UcPc/D7ONvIisMtya3/T
+	 0urnscPSZzfXZoNBw8BkhwxSAnhauFRnCSC8L9KBDFQL5NU65oT3p1uejcNq+NJH3X
+	 JuIOdh/KsAhqhrmFsOBEdGfCl+cDXuGapTCgJoC78sLB+tN6RBMC0Ppa+fzksBWhKt
+	 nMKsRxFOedJMg/48cGbdQQZrH2hdzpHflpES86BXpJH/Tj515efa6hbGQZA0Aw/xsS
+	 RPkAgollQYcvGwpMvkS5jfieowVKdW7HBsSLmmONOLuJB0Dp9QACgorrXxBZA+D7Hx
+	 jnk2EJK10n8Qg==
+Received: by mail-ed1-f70.google.com with SMTP id x16-20020aa7d6d00000b02903a2e0d2acb7so1039657edr.16
+        for <linux-nfc@lists.01.org>; Wed, 14 Jul 2021 04:05:45 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
          :references:mime-version:content-transfer-encoding;
-        bh=NTa05OQfhOQSsJKW22lfIuCT4kgzRpKArN0kjfsqe9U=;
-        b=Uyav/H4NUZQOIP9DUoJscfq+5f+PHXhxVafzuL4VhE5PHMQXPdsrn7+2SmtWkbNjoS
-         9azzFuXftF+6e0sI2GjGTu9kOaERugXswGu9zH4vrp6Chu1HpOzMLsrrlaJIWE3E/zTl
-         wSuGtHAxjuMc3GtC31bRAuj03R0gTbXQ+tMl2fVYkPX8Tkr9gyW48XkCkz5hvtd7N5JK
-         2PKwi11El5jgL4h/FtL14Mx854A6mBtS9QDmWP/J8lBQkahmGs2nkegq7MGiVbYE4rql
-         2+NO5C6IE2oUYKBbIg4O7sQVk/EXmRHi9tl/47aainYCMPbtqoJwmVYuSJ3DhRpxWuTc
-         a+4A==
-X-Gm-Message-State: AOAM531nDbKt/zc82LWxTpxnb3NZ59bhmO788FKnoGSZgEGBKHXWZF6D
-	GKglYba2ieCILL+CH7BSoOjpW/wc4Ee9IAon/BAzTgqemAlHlA8ERxRTrSVILU+Purpi/tt4Ng9
-	rQrvuO9OaWIogqjqMeMn44UGy4IFv01HXbQ==
-X-Received: by 2002:a17:907:7708:: with SMTP id kw8mr12080014ejc.111.1626260742983;
-        Wed, 14 Jul 2021 04:05:42 -0700 (PDT)
-X-Google-Smtp-Source: ABdhPJzKn3H5x4rVPZhMOQy8OKISbzDJVLrGEsL4AvZDkYi1J7lRHPJ2rHHCoYK4g+SAdKQT+DLdFw==
-X-Received: by 2002:a17:907:7708:: with SMTP id kw8mr12079995ejc.111.1626260742813;
-        Wed, 14 Jul 2021 04:05:42 -0700 (PDT)
+        bh=+YekN90xf6jsCpj8MSNQjVrLqPvlJAwS81y66JBOVXU=;
+        b=nh9gqJ+MECssnUizQZJvjHuK/ivpOubG7YHXpxu3fx8UFdg/26Eu5CUIUFNCikhsq+
+         XRUDGcXbrCZ3ETT2bWJ4luGbfwTqWysxDhEfeef6VeCYy2v8RduHFgb1fq7Z72OdTTiJ
+         LOsyHRV1poYtkVULSSVG47j+zAlW5Ix/D+5sNE1UfH/a8pQljoUSctq+I58g+ictj7dy
+         PZZkov3NEdLjvQ82CxC6wpPRR3EXlC7LQSDIlVAp5XWnLNY6/RJNoeGlwnXUa4QAuqMz
+         8o7xqwowe6u5iLkY/yaaKS45In2SxK5rQEGHYrGga7/O9QcjGPf8zlEJP20hild8L46n
+         nGFQ==
+X-Gm-Message-State: AOAM5337dcz9rmxvmDg3ELcPZhzPfJl2tagEgOTwFFgfSrDbMKS+PeI9
+	93u6nc8e1I7g6UBEfz9FrFLUTgVpDEn+pjqXFoZrBxO0qPvf9NTXOkdNgoTtfRFqHyl7Z4J03/c
+	Q6UkL+Hn3bPW7Gw5IzmZ+a25BMzSBul3m3w==
+X-Received: by 2002:a17:906:3693:: with SMTP id a19mr11997774ejc.237.1626260744881;
+        Wed, 14 Jul 2021 04:05:44 -0700 (PDT)
+X-Google-Smtp-Source: ABdhPJy+9x745iil3ncXdkoMmyjSvKgkd4TwegDCuCqiQw+OfZ0MjU0Blo7PQ6icbITYPSVPA/6UMg==
+X-Received: by 2002:a17:906:3693:: with SMTP id a19mr11997758ejc.237.1626260744710;
+        Wed, 14 Jul 2021 04:05:44 -0700 (PDT)
 Received: from kozik-lap.lan (xdsl-188-155-177-222.adslplus.ch. [188.155.177.222])
-        by smtp.gmail.com with ESMTPSA id qp12sm637689ejb.90.2021.07.14.04.05.41
+        by smtp.gmail.com with ESMTPSA id qp12sm637689ejb.90.2021.07.14.04.05.42
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 14 Jul 2021 04:05:42 -0700 (PDT)
+        Wed, 14 Jul 2021 04:05:43 -0700 (PDT)
 From: Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>
 To: linux-nfc@lists.01.org
-Date: Wed, 14 Jul 2021 13:05:15 +0200
-Message-Id: <20210714110518.104655-14-krzysztof.kozlowski@canonical.com>
+Date: Wed, 14 Jul 2021 13:05:16 +0200
+Message-Id: <20210714110518.104655-15-krzysztof.kozlowski@canonical.com>
 X-Mailer: git-send-email 2.27.0
 In-Reply-To: <20210714110518.104655-1-krzysztof.kozlowski@canonical.com>
 References: <20210714110518.104655-1-krzysztof.kozlowski@canonical.com>
 MIME-Version: 1.0
-Message-ID-Hash: LCXEZS5WOGNOCPGWBKKAK2TKNRUPGORJ
-X-Message-ID-Hash: LCXEZS5WOGNOCPGWBKKAK2TKNRUPGORJ
+Message-ID-Hash: OPQ4ZC5AY6R63KSZOOTWD5EMMPJ5DXRW
+X-Message-ID-Hash: OPQ4ZC5AY6R63KSZOOTWD5EMMPJ5DXRW
 X-MailFrom: krzysztof.kozlowski@canonical.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency; loop; banned-address; member-moderation; nonmember-moderation; administrivia; implicit-dest; max-recipients; max-size; news-moderation; no-subject; suspicious-header
 CC: Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>
 X-Mailman-Version: 3.1.1
 Precedence: list
-Subject: [linux-nfc] [neard][PATCH 13/16] unit: fix memory leaks in test-ndef-parse
+Subject: [linux-nfc] [neard][PATCH 14/16] tag: do not open-code freeing ndef message
 List-Id: NFC on Linux <linux-nfc.lists.01.org>
-Archived-At: <https://lists.01.org/hyperkitty/list/linux-nfc@lists.01.org/message/LCXEZS5WOGNOCPGWBKKAK2TKNRUPGORJ/>
+Archived-At: <https://lists.01.org/hyperkitty/list/linux-nfc@lists.01.org/message/OPQ4ZC5AY6R63KSZOOTWD5EMMPJ5DXRW/>
 List-Archive: <https://lists.01.org/hyperkitty/list/linux-nfc@lists.01.org/>
 List-Help: <mailto:linux-nfc-request@lists.01.org?subject=help>
 List-Post: <mailto:linux-nfc@lists.01.org>
@@ -80,121 +80,34 @@ List-Unsubscribe: <mailto:linux-nfc-leave@lists.01.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-test-ndef-parse.c was not freeing fully the ndef records it got.
-Replace the open-coded freeing with usage of near_ndef_records_free() to
-solve libasan errors like:
-
-    Direct leak of 8 byte(s) in 1 object(s) allocated from:
-        #0 0x7f678a64b518 in calloc (/usr/lib/x86_64-linux-gnu/libasan.so.5+0xe9518)
-        #1 0x557597045e89 in parse_sp_payload src/ndef.c:1468
-        #2 0x557597045e89 in near_ndef_parse_msg src/ndef.c:2921
-
-and valgring errors like:
-
-    2 bytes in 1 blocks are definitely lost in loss record 2 of 52
-    at 0x483C7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
-    by 0x48CA698: g_malloc (in /usr/lib/x86_64-linux-gnu/libglib-2.0.so.0.6600.1)
-    by 0x48E4B3D: g_strndup (in /usr/lib/x86_64-linux-gnu/libglib-2.0.so.0.6600.1)
-    by 0x11C9F6: parse_record_header (ndef.c:1131)
-    by 0x11C9F6: parse_record_header (ndef.c:1038)
-    by 0x11E3D9: near_ndef_parse_msg (ndef.c:2855)
-    by 0x121E6B: test_ndef_uri (test-ndef-parse.c:213)
-    by 0x48ECDCD: ??? (in /usr/lib/x86_64-linux-gnu/libglib-2.0.so.0.6600.1)
-    by 0x48ECBCA: ??? (in /usr/lib/x86_64-linux-gnu/libglib-2.0.so.0.6600.1)
-    by 0x48ED2B9: g_test_run_suite (in /usr/lib/x86_64-linux-gnu/libglib-2.0.so.0.6600.1)
-    by 0x48ED2D4: g_test_run (in /usr/lib/x86_64-linux-gnu/libglib-2.0.so.0.6600.1)
-    by 0x10F61A: main (test-ndef-parse.c:467)
+Use near_ndef_msg_free() instead of open-coding it.
 
 Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>
 ---
- unit/test-ndef-parse.c | 39 +++++----------------------------------
- 1 file changed, 5 insertions(+), 34 deletions(-)
+ src/tag.c | 6 ++----
+ 1 file changed, 2 insertions(+), 4 deletions(-)
 
-diff --git a/unit/test-ndef-parse.c b/unit/test-ndef-parse.c
-index 0bc53eeac125..743bfa638d24 100644
---- a/unit/test-ndef-parse.c
-+++ b/unit/test-ndef-parse.c
-@@ -196,15 +196,6 @@ static uint8_t ho_hs_bt[] = {0x91, 0x02, 0x0A, 0x48, 0x73, 0x12, 0xD1, 0x02,
- 			      0x09, 0x44, 0x65, 0x79, 0x69, 0x63, 0x65, 0x4e,
- 			      0x61, 0x6d, 0x65};
+diff --git a/src/tag.c b/src/tag.c
+index 520368b1552c..ce8c477d9527 100644
+--- a/src/tag.c
++++ b/src/tag.c
+@@ -459,14 +459,12 @@ static DBusMessage *write_ndef(DBusConnection *conn,
+ 		break;
  
--static void test_ndef_free_record(struct near_ndef_record *record)
--{
--	g_free(record->header);
--	g_free(record->type);
--	g_free(record->data);
--	g_free(record);
--
--}
--
- static void test_ndef_uri(void)
- {
- 	GList *records;
-@@ -229,9 +220,7 @@ static void test_ndef_uri(void)
- 	if (g_test_verbose())
- 		g_print("NDEF URI field: %s\n", record->uri->field);
+ 	default:
+-		g_free(ndef->data);
+-		g_free(ndef);
++		near_ndef_msg_free(ndef);
  
--	g_free(record->uri->field);
--	g_free(record->uri);
--	test_ndef_free_record(record);
-+	near_ndef_records_free(records);
- }
- 
- static void test_ndef_text_encoding(uint8_t *text, size_t len, const char *encoding, const char *expected)
-@@ -262,11 +251,7 @@ static void test_ndef_text_encoding(uint8_t *text, size_t len, const char *encod
- 						record->text->language_code);
+ 		return __near_error_failed(msg, EOPNOTSUPP);
  	}
  
--	g_free(record->text->data);
--	g_free(record->text->encoding);
--	g_free(record->text->language_code);
--	g_free(record->text);
--	test_ndef_free_record(record);
-+	near_ndef_records_free(records);
- }
+-	g_free(ndef->data);
+-	g_free(ndef);
++	near_ndef_msg_free(ndef);
  
- static void test_ndef_text(void)
-@@ -318,10 +303,7 @@ static void test_ndef_single_sp(void)
- 		g_print("NDEF SP URI field: %.*s\n", (int)uri->field_length,
- 			(char *) uri->field);
- 
--	g_free(uri->field);
--	g_free(uri);
--	g_free(record->sp);
--	test_ndef_free_record(record);
-+	near_ndef_records_free(records);
- }
- 
- static void test_ndef_title_sp(void)
-@@ -372,16 +354,7 @@ static void test_ndef_title_sp(void)
- 		g_print("NDEF SP Title Language: %s\n", text->language_code);
- 	}
- 
--	g_free(uri->field);
--	g_free(uri);
--
--	g_free(text->data);
--	g_free(text->encoding);
--	g_free(text->language_code);
--	g_free(text);
--
--	g_free(record->sp);
--	test_ndef_free_record(record);
-+	near_ndef_records_free(records);
- }
- 
- static void test_ndef_aar(void)
-@@ -408,9 +381,7 @@ static void test_ndef_aar(void)
- 	if (g_test_verbose())
- 		g_print("NDEF AAR package: %s\n", record->aar->package);
- 
--	g_free(record->aar->package);
--	g_free(record->aar);
--	test_ndef_free_record(record);
-+	near_ndef_records_free(records);
- }
- 
- static void test_ndef_ho_hs_bt(void)
+ 	tag->write_ndef = ndef_with_header;
+ 	err = __near_tag_write(tag, ndef_with_header, write_cb);
 -- 
 2.27.0
 _______________________________________________
