@@ -2,76 +2,76 @@ Return-Path: <linux-nfc-bounces@lists.01.org>
 X-Original-To: lists+linux-nfc@lfdr.de
 Delivered-To: lists+linux-nfc@lfdr.de
 Received: from ml01.01.org (ml01.01.org [IPv6:2001:19d0:306:5::1])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5824B3C8361
+	by mail.lfdr.de (Postfix) with ESMTPS id 5F6F13C8362
 	for <lists+linux-nfc@lfdr.de>; Wed, 14 Jul 2021 13:05:38 +0200 (CEST)
 Received: from ml01.vlan13.01.org (localhost [IPv6:::1])
-	by ml01.01.org (Postfix) with ESMTP id A4635100EB358;
-	Wed, 14 Jul 2021 04:05:34 -0700 (PDT)
-Received-SPF: Pass (mailfrom) identity=mailfrom; client-ip=185.125.188.121; helo=smtp-relay-canonical-1.canonical.com; envelope-from=krzysztof.kozlowski@canonical.com; receiver=<UNKNOWN> 
-Received: from smtp-relay-canonical-1.canonical.com (smtp-relay-canonical-1.canonical.com [185.125.188.121])
+	by ml01.01.org (Postfix) with ESMTP id 909E1100EB34D;
+	Wed, 14 Jul 2021 04:05:33 -0700 (PDT)
+Received-SPF: Pass (mailfrom) identity=mailfrom; client-ip=185.125.188.120; helo=smtp-relay-canonical-0.canonical.com; envelope-from=krzysztof.kozlowski@canonical.com; receiver=<UNKNOWN> 
+Received: from smtp-relay-canonical-0.canonical.com (smtp-relay-canonical-0.canonical.com [185.125.188.120])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits))
 	(No client certificate requested)
-	by ml01.01.org (Postfix) with ESMTPS id 9E712100EB34D
+	by ml01.01.org (Postfix) with ESMTPS id 9D94F100EC1EB
 	for <linux-nfc@lists.01.org>; Wed, 14 Jul 2021 04:05:32 -0700 (PDT)
-Received: from mail-ej1-f70.google.com (mail-ej1-f70.google.com [209.85.218.70])
+Received: from mail-ej1-f69.google.com (mail-ej1-f69.google.com [209.85.218.69])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by smtp-relay-canonical-1.canonical.com (Postfix) with ESMTPS id 500DF4054E
+	by smtp-relay-canonical-0.canonical.com (Postfix) with ESMTPS id B1C8F40596
 	for <linux-nfc@lists.01.org>; Wed, 14 Jul 2021 11:05:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=canonical.com;
 	s=20210705; t=1626260729;
-	bh=aTj2OUkn/x8AGitoyMAN+BHpFwMpwL55l9Q3aKdbGZg=;
+	bh=vuxvHipAjlpPyDlVfSroyLrU4I8zV+ZPo5R1TOLojug=;
 	h=From:To:Subject:Date:Message-Id:MIME-Version;
-	b=IdF8XFeL0POwBYImLeQV2SEOOANwVNs/sdfGA8mtPdxSIgbkxKjLMwpv5Rhk+h4uU
-	 s9hm6NGElMGbx7xX4U2+gjtLekVbOG+M9OTK5sarOU66bKk/odRjPIgxFVVXlKmWDo
-	 Rdd9T9kvs2fbEvlCYVan7sEbtlqA4g9KODnZdI0iK0TvNLn3rpLfWH54pnkhfBPfr7
-	 eZ1nHi74aJEkUuHFxdwpi2CoON258JjdwjUXjVJ0AuMXFsX8Nd1vxdil7m4GN6glGe
-	 1VYjSavf1AtBXF69P+BB73/XMoNtF6P40vaVvFXjIksyfTqoNVDuEkUp3l2j0bgVVL
-	 +z/WbDC+t3lLQ==
-Received: by mail-ej1-f70.google.com with SMTP id rl7-20020a1709072167b02904f7606bd58fso644356ejb.11
+	b=DE71Qs23B2W8++rCkREQMuYq+m/fERg1XmPfS+yATj6me0bpTCL1CJ9YbpW2GZrSJ
+	 IFywx8k85ONkz3iemuAX3AfYLvuCnBipBsXZTOLetThAMDAsF88tKu8U1ui8K3dwaO
+	 L/fdPBl6/7m5mC13iZsPDtrAG7jffwFTC4VOmci6rVlG9u154iW+brPPqmRYUGbOEF
+	 8L9lXez/ZD95qrq2N5utYuumXxrTIJA2NryZ4ZGx3e6P2nYB4o7tbVowYR67Uggv1m
+	 5Y4bMYpzcDeVzq9Ldx24tzxl6yYLbKr7zl3kalAk2qsefLL8+z+a833F8CI1c24eTS
+	 4co9vhW5akRZA==
+Received: by mail-ej1-f69.google.com with SMTP id jx16-20020a1709077610b02904e0a2912b46so649809ejc.7
         for <linux-nfc@lists.01.org>; Wed, 14 Jul 2021 04:05:29 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
          :references:mime-version:content-transfer-encoding;
-        bh=aTj2OUkn/x8AGitoyMAN+BHpFwMpwL55l9Q3aKdbGZg=;
-        b=RRKh0z5TRs2R4inBWyES/GeY3HEuahxUlUHUZaTricfRQdox01imMuVKlg9KBTaZvV
-         C+DGQzW3tDh3smNfBPPEqpC8J2zUasDoR+D7xACp1dd4yltSILGOmQUw21JJrUqCJmVI
-         T7Bg629ilK9bPEa+qY1UdV/1Dm/3IyIq5y5JuuPn/koyR8aewnpXxS0PXdyR686tmk5k
-         xZfdlGAWYHuaPitTkq6r7VtQdFLoU30GxJYT32Km11Dh9Yb+flpDdR8AAEigrQuow3m9
-         m12oqTDJVNNzMv7tkSlsfiVQlUzhy/GXDQd6uhhJveY0KO4A0RGcI0mattuyrsUVV0LH
-         Y41g==
-X-Gm-Message-State: AOAM532KAD3O7fnCgq6OOC4c9lDvbQMHIUety7sxY1/6aGjreC/dntYt
-	X3OBCHoiSP2tULqbxFpJTmSfetR+UKw+pkk4XSkS8IAi/zD2QaACHmgWaEMrVEBl9TE/Y30dtsu
-	EUEG209l0o/ImUumBYMBQbrY+TXfwi8MHkQ==
-X-Received: by 2002:a17:906:af0e:: with SMTP id lx14mr3473580ejb.54.1626260728708;
+        bh=vuxvHipAjlpPyDlVfSroyLrU4I8zV+ZPo5R1TOLojug=;
+        b=INcVy8Z1TnbFhs43CBNm8lGOrQmRsXJYxZSTWlQaSp30MIhCvfOIFdD6iZ3d1Ga8iH
+         14SsBmPOzKJjzq4y/SICrvmrLBGFewyntbrM5pUwYWWcS3hR9D8mXDE6rULvmD0itNQT
+         nSEvpivUV01Txaf1qE2k7nENDBl1i0mveXDyo2nJbd2JccvcWJ7/Kfw9dgGX5Bla54/q
+         1nUKKOA41JEptMucDMlt9mhrI4bfOeQBiOURXocQFnxFZBc9JXlCQNlUPjUtQQoafQdy
+         t3k5fUfh/A7e68N9dnL1nueqK+N+gEwYo9q12KfRhVBJSXLZxpRvjFRPL4F0webiPWn1
+         4vag==
+X-Gm-Message-State: AOAM5305aP96NKXitHKkngf+zpOj2LG/te62obsYZkJIJix/9fEwqNjy
+	goHodZSj8eKxK5MYInZhIOCl1Digfp3AdQT7Pj9b/GUjA7z9cnwD4zKhcZyTdmlFi/vN8p9QuEC
+	u1pXW7WKzwuow9Hb9Zm65mNlFOuf7CJq63w==
+X-Received: by 2002:a17:906:a18b:: with SMTP id s11mr11940679ejy.8.1626260729011;
+        Wed, 14 Jul 2021 04:05:29 -0700 (PDT)
+X-Google-Smtp-Source: ABdhPJwMUOpVh9oLcRQJSiuVvDLVDXEWsFMgTMar41OiS+DOlPMT713FJFEzmMSH/CH6d9Uj3mgWvQ==
+X-Received: by 2002:a17:906:a18b:: with SMTP id s11mr11940642ejy.8.1626260728700;
         Wed, 14 Jul 2021 04:05:28 -0700 (PDT)
-X-Google-Smtp-Source: ABdhPJyHWhAPohZkwmkZEbferB1gxto4eqMGga31Af2w58IcuDN448TR0LLQu96y/wxX8haku5NQrA==
-X-Received: by 2002:a17:906:af0e:: with SMTP id lx14mr3473465ejb.54.1626260727304;
-        Wed, 14 Jul 2021 04:05:27 -0700 (PDT)
 Received: from kozik-lap.lan (xdsl-188-155-177-222.adslplus.ch. [188.155.177.222])
-        by smtp.gmail.com with ESMTPSA id qp12sm637689ejb.90.2021.07.14.04.05.26
+        by smtp.gmail.com with ESMTPSA id qp12sm637689ejb.90.2021.07.14.04.05.27
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 14 Jul 2021 04:05:26 -0700 (PDT)
+        Wed, 14 Jul 2021 04:05:27 -0700 (PDT)
 From: Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>
 To: linux-nfc@lists.01.org
-Date: Wed, 14 Jul 2021 13:05:04 +0200
-Message-Id: <20210714110518.104655-3-krzysztof.kozlowski@canonical.com>
+Date: Wed, 14 Jul 2021 13:05:05 +0200
+Message-Id: <20210714110518.104655-4-krzysztof.kozlowski@canonical.com>
 X-Mailer: git-send-email 2.27.0
 In-Reply-To: <20210714110518.104655-1-krzysztof.kozlowski@canonical.com>
 References: <20210714110518.104655-1-krzysztof.kozlowski@canonical.com>
 MIME-Version: 1.0
-Message-ID-Hash: UQG4JFOKKHWKW76ZWHUA57NDTM6355T5
-X-Message-ID-Hash: UQG4JFOKKHWKW76ZWHUA57NDTM6355T5
+Message-ID-Hash: DLOLTYUBS5UTXU73SI2MV357DW4GOQBJ
+X-Message-ID-Hash: DLOLTYUBS5UTXU73SI2MV357DW4GOQBJ
 X-MailFrom: krzysztof.kozlowski@canonical.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency; loop; banned-address; member-moderation; nonmember-moderation; administrivia; implicit-dest; max-recipients; max-size; news-moderation; no-subject; suspicious-header
 CC: Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>
 X-Mailman-Version: 3.1.1
 Precedence: list
-Subject: [linux-nfc] [neard][PATCH 02/16] nfctool: annotate printf-like functions as accepting format
+Subject: [linux-nfc] [neard][PATCH 03/16] mifare: use unsigned int to suppress compiler -Wstrict-overflow
 List-Id: NFC on Linux <linux-nfc.lists.01.org>
-Archived-At: <https://lists.01.org/hyperkitty/list/linux-nfc@lists.01.org/message/UQG4JFOKKHWKW76ZWHUA57NDTM6355T5/>
+Archived-At: <https://lists.01.org/hyperkitty/list/linux-nfc@lists.01.org/message/DLOLTYUBS5UTXU73SI2MV357DW4GOQBJ/>
 List-Archive: <https://lists.01.org/hyperkitty/list/linux-nfc@lists.01.org/>
 List-Help: <mailto:linux-nfc-request@lists.01.org?subject=help>
 List-Post: <mailto:linux-nfc@lists.01.org>
@@ -80,57 +80,52 @@ List-Unsubscribe: <mailto:linux-nfc-leave@lists.01.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-Printf-like functions should have the "format" argument annotated to:
-1. Help in detection of format string vulnerabilities (and mistakes).
-2. Satisfy -Wformat-nonliteral (-Wformat=2) warning.
+GCC v7.5 (Ubuntu Bionic) with optimizations has trouble spotting lack of
+possible overflow of a signed integer.  There is no overflow possible
+so this is a false positive which can be suppressed by simply using
+unsigned integer.  Unsigned also has more sense in that context.
 
-This fixes clang warnings like:
+This fixes GCC 7.5 warning:
 
-    tools/nfctool/sniffer.c:206:18: error: format string is not a string literal [-Werror,-Wformat-nonliteral]
-                        sprintf(line, fmt, offset);
-                                      ^~~
+    plugins/mifare.c: In function 'mifare_process_MADs':
+    plugins/mifare.c:626:5: error: assuming signed overflow does not occur when simplifying conditional to constant [-Werror=strict-overflow]
+      if (global_tag_size == 0) {
+         ^
 
 Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>
 ---
- tools/nfctool/sniffer.c | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
+ plugins/mifare.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
-diff --git a/tools/nfctool/sniffer.c b/tools/nfctool/sniffer.c
-index 3d1d230a50c5..6a38a213c74d 100644
---- a/tools/nfctool/sniffer.c
-+++ b/tools/nfctool/sniffer.c
-@@ -168,7 +168,6 @@ void sniffer_print_hexdump(FILE *file, guint8 *data, guint32 len,
- 	gchar *hexa = NULL, *human = NULL;
- 	guint8 offset_len;
- 	guint8 human_offset;
--	gchar *fmt;
+diff --git a/plugins/mifare.c b/plugins/mifare.c
+index a4e4ba443995..f42007d5dfd7 100644
+--- a/plugins/mifare.c
++++ b/plugins/mifare.c
+@@ -560,7 +560,7 @@ static int mifare_process_MADs(void *data)
+ 	struct mifare_cookie *mf_ck = data;
+ 	int err;
+ 	int i;
+-	int global_tag_size = 0;
++	unsigned int global_tag_size = 0;
+ 	int ioffset;
+ 	uint8_t *tag_data;
+ 	size_t data_size;
+@@ -626,13 +626,13 @@ done_mad:
+ 	if (global_tag_size == 0) {
  
- 	if (len == 0)
- 		return;
-@@ -185,11 +184,9 @@ void sniffer_print_hexdump(FILE *file, guint8 *data, guint32 len,
- 	if (output_len > 0xFFFF) {
- 		offset_len = 8;
- 		human_offset = HUMAN_READABLE_OFFSET + 4;
--		fmt = "%08X: ";
- 	} else {
- 		offset_len = 4;
- 		human_offset = HUMAN_READABLE_OFFSET;
--		fmt = "%04X: ";
+ 		/* no NFC sectors - mark tag as blank */
+-		near_error("TAG Global size: [%d], not valid NFC tag.",
++		near_error("TAG Global size: [%u], not valid NFC tag.",
+ 				global_tag_size);
+ 		return -ENODEV;
  	}
  
- 	if (print_len) {
-@@ -203,7 +200,10 @@ void sniffer_print_hexdump(FILE *file, guint8 *data, guint32 len,
- 		if (digits == 0) {
- 			memset(line, ' ', human_offset);
+ 	/* n sectors, each sector is 3 blocks, each block is 16 bytes */
+-	DBG("TAG Global size: [%d]", global_tag_size);
++	DBG("TAG Global size: [%u]", global_tag_size);
  
--			sprintf(line, fmt, offset);
-+			if (offset_len == 8)
-+				sprintf(line, "%08X: ", offset);
-+			else
-+				sprintf(line, "%04X: ", offset);
- 
- 			offset += 16;
- 
+ 	mf_ck->tag = near_tag_get_tag(mf_ck->adapter_idx, mf_ck->target_idx);
+ 	if (!mf_ck->tag) {
 -- 
 2.27.0
 _______________________________________________
