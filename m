@@ -1,77 +1,87 @@
 Return-Path: <linux-nfc-bounces@lists.01.org>
 X-Original-To: lists+linux-nfc@lfdr.de
 Delivered-To: lists+linux-nfc@lfdr.de
-Received: from ml01.01.org (ml01.01.org [IPv6:2001:19d0:306:5::1])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4F05A3C8371
-	for <lists+linux-nfc@lfdr.de>; Wed, 14 Jul 2021 13:05:56 +0200 (CEST)
+Received: from ml01.01.org (ml01.01.org [198.145.21.10])
+	by mail.lfdr.de (Postfix) with ESMTPS id 1DF2F3CA591
+	for <lists+linux-nfc@lfdr.de>; Thu, 15 Jul 2021 20:34:22 +0200 (CEST)
 Received: from ml01.vlan13.01.org (localhost [IPv6:::1])
-	by ml01.01.org (Postfix) with ESMTP id AF48E100F2270;
-	Wed, 14 Jul 2021 04:05:50 -0700 (PDT)
-Received-SPF: Pass (mailfrom) identity=mailfrom; client-ip=185.125.188.120; helo=smtp-relay-canonical-0.canonical.com; envelope-from=krzysztof.kozlowski@canonical.com; receiver=<UNKNOWN> 
-Received: from smtp-relay-canonical-0.canonical.com (smtp-relay-canonical-0.canonical.com [185.125.188.120])
+	by ml01.01.org (Postfix) with ESMTP id 6B86F100EB834;
+	Thu, 15 Jul 2021 11:34:20 -0700 (PDT)
+Received-SPF: Pass (mailfrom) identity=mailfrom; client-ip=64.147.123.25; helo=wout2-smtp.messagingengine.com; envelope-from=mgreer@animalcreek.com; receiver=<UNKNOWN> 
+Received: from wout2-smtp.messagingengine.com (wout2-smtp.messagingengine.com [64.147.123.25])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits))
 	(No client certificate requested)
-	by ml01.01.org (Postfix) with ESMTPS id 05F10100F2243
-	for <linux-nfc@lists.01.org>; Wed, 14 Jul 2021 04:05:49 -0700 (PDT)
-Received: from mail-ej1-f71.google.com (mail-ej1-f71.google.com [209.85.218.71])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-relay-canonical-0.canonical.com (Postfix) with ESMTPS id F09AA40596
-	for <linux-nfc@lists.01.org>; Wed, 14 Jul 2021 11:05:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=canonical.com;
-	s=20210705; t=1626260747;
-	bh=w7bnPaA72vOy3O8KJ4rRFanUcZPfCp5j76DqNtc3sOg=;
-	h=From:To:Subject:Date:Message-Id:MIME-Version;
-	b=rnjwsH7BzmRZ0mPxgRlc6/0RlBYluhOpDRbrnCUWh8g7dZmJKH8j+b7ETwGCKcTmS
-	 aQJj8XqJAlwUsQOxsEg22fGCgn34VWW7OwGd/RC/7SOyWVljA4qD/0f3xkMZ56Xq2A
-	 45f/U1q+e25eAgOptJjOrzM5RgyrGNR2H6qx9dcfEwz7fEL/Tc6Yr6sAuioaWvSSne
-	 IvlcqTRzzb89k1EhQ6aAvLfrpGoJfrtVeUQqKuh4kLGGBCOaTpENKSD2iOelz2Qm/v
-	 qmgjhT0bJ7htkluuRczydWdLGSXvYvwiPUBooSiwuWsN/nlry242brM91lO6oblcA/
-	 a7BAvjnNNTIpg==
-Received: by mail-ej1-f71.google.com with SMTP id r10-20020a170906350ab02904f12f4a8c69so649194eja.12
-        for <linux-nfc@lists.01.org>; Wed, 14 Jul 2021 04:05:47 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
-         :references:mime-version:content-transfer-encoding;
-        bh=w7bnPaA72vOy3O8KJ4rRFanUcZPfCp5j76DqNtc3sOg=;
-        b=TI5aHKLZBOiuZV2UK1U2rdjcmM2MjJANyFzI1hW+562+sRqyCxzlIdErylbAAaZ6ee
-         7Hy+Xp6lGLvICtXGAZ+9GMXvUnWZuE326lrXAf4VZFJRB2iSHsoCF05ulY1STC7e2x7/
-         XiAQJg2nREHyXcyI6LimLR2usZizDzg8zS5kP2/pXHgXC2jRgnZbAM5ecYlTyTOOD1rM
-         JqLDNOeC1U5V4B5HIVFGTOwtg2Lj3qJ+3S+CkwzpdqtCLhr7QQdMjvdTawsE9hqrWXWT
-         ZhWLDjAL3E1XW9a6oADqrCpnIKMNCQbyiUDYVtJa2ZYQ7Y+11shH5bne6TLBRUn8vfST
-         6NEw==
-X-Gm-Message-State: AOAM5308kaCJnFFg3ESylo/nzSz10mHPsL75Tr2T/1M1EeezRhqckwmI
-	9xDQ+IO9dgyyGWgnQeRbgqoJISk+YUpLhOaPrGYhtTu0ZKSWaANujl/zVjliEEpv1+8b0NwK9er
-	uuJNqU9hn79XLyIRsknT3u+YEGNRQkevEvg==
-X-Received: by 2002:a17:906:498b:: with SMTP id p11mr11829663eju.295.1626260747207;
-        Wed, 14 Jul 2021 04:05:47 -0700 (PDT)
-X-Google-Smtp-Source: ABdhPJy7DYI2vDt7+Bq/It4lvZ+q6xWaQvQTtORz2UfvN3lFq1dRhZWBxN19o93xZQMpWp0VA8oE8g==
-X-Received: by 2002:a17:906:498b:: with SMTP id p11mr11829646eju.295.1626260747016;
-        Wed, 14 Jul 2021 04:05:47 -0700 (PDT)
-Received: from kozik-lap.lan (xdsl-188-155-177-222.adslplus.ch. [188.155.177.222])
-        by smtp.gmail.com with ESMTPSA id qp12sm637689ejb.90.2021.07.14.04.05.45
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 14 Jul 2021 04:05:46 -0700 (PDT)
-From: Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>
-To: linux-nfc@lists.01.org
-Date: Wed, 14 Jul 2021 13:05:18 +0200
-Message-Id: <20210714110518.104655-17-krzysztof.kozlowski@canonical.com>
-X-Mailer: git-send-email 2.27.0
-In-Reply-To: <20210714110518.104655-1-krzysztof.kozlowski@canonical.com>
-References: <20210714110518.104655-1-krzysztof.kozlowski@canonical.com>
+	by ml01.01.org (Postfix) with ESMTPS id 3A9F1100EBB7F
+	for <linux-nfc@lists.01.org>; Thu, 15 Jul 2021 11:34:18 -0700 (PDT)
+Received: from compute3.internal (compute3.nyi.internal [10.202.2.43])
+	by mailout.west.internal (Postfix) with ESMTP id 502563200929;
+	Thu, 15 Jul 2021 14:34:15 -0400 (EDT)
+Received: from mailfrontend2 ([10.202.2.163])
+  by compute3.internal (MEProxy); Thu, 15 Jul 2021 14:34:15 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=animalcreek.com;
+	 h=date:from:to:cc:subject:message-id:references:mime-version
+	:content-type:in-reply-to; s=fm3; bh=NluGXAJ/DAp9CqW2ihdNBSTC8Kd
+	6zOQIZTS2wa+Zktw=; b=Jpk2wiqBm0FEOUdpWoGZ3OMLe7DduD3R5Sbk7MBpxS4
+	YfVixTdI4ARElhYtAdXv1YSDkg32ByGQtvtGGWCyKmOlHU/rSHF8fjzGYeP+tvto
+	nDim8w886gMFakJ7hck+1oM0/vLqgXkiDrx0X7hQDLYWs50oqoR2iO5cQ7ql7DBU
+	yRi2/w7PIyBu/rVQX0nLuR+HCuq7ef9RTtG5k0wFG0uDFHu37Ui/9roSoX8/Q1JU
+	5q1vh2zlubHI66O4AY5GjaJMspZlw9R0kVYdpDX+bEWcfXBObJeHwW/emSIWMlpx
+	WpEp3PSyFtQaXNXF14d7S5bLX9hlqAaeXpiD4q+iPVQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to:x-me-proxy
+	:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; bh=NluGXA
+	J/DAp9CqW2ihdNBSTC8Kd6zOQIZTS2wa+Zktw=; b=ks0ttD9WWdNH1/M4qdFJLX
+	uDQ3sifuZlObjNrGGPBWsBKI/olhMja8thsGk/IO4D72vIG/UOHVcNcTkZ6qBqRj
+	1MAOQerSYFlCj5A1A/5FV7AkdTEGAd25Z2EccNOVPtkF3qK72P4StqsQyqPjT70l
+	oMFfWkR58YL2NwbAUZip6UPeehGPuMaTF3lZxiZbgtMu9CoR05k9LLLeelsdZcWx
+	kbnLFqafH4yQaQtFuXYz+CkCajcXiwf89fjXqUA6L6pijOoJQMAdT5Q+RJgPzmtv
+	ED9/4mJn7hmYozHNuAnLZzTYI+mtay++yp2QLHqwdlmQdswpd3SxVq5d0MgaDMlw
+	==
+X-ME-Sender: <xms:pn_wYMaNPrxdjdiexF2mS--jZ2-G7YkOohBTcb6vx6OU9rSBc4JHiQ>
+    <xme:pn_wYHZdgAjz-L0T3JGNvJX49Etn__nwtnaRz3xnYu4r-sbhR1tM3HusSgYFz8mIE
+    eKWtuoSH21yydhebA>
+X-ME-Received: <xmr:pn_wYG8nyGbqm7QKIVPWiTL8dOvXQN_fWPsyv9DrpmlicScgXo1_oEm_juUOxW40PfqS52Z56Yf27Z8xuIKNODfxPJbYYA5eCOpfaYc>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvtddrvddtgdekiecutefuodetggdotefrodftvf
+    curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
+    uegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenuc
+    fjughrpeffhffvuffkfhggtggujghosehttdertddttddvnecuhfhrohhmpeforghrkhcu
+    ifhrvggvrhcuoehmghhrvggvrhesrghnihhmrghltghrvggvkhdrtghomheqnecuggftrf
+    grthhtvghrnhepfeetudehfeetgeeivdffheelteeiieegjeduleeludegueeludeijefh
+    udekjeejnecuffhomhgrihhnpehkvghrnhgvlhdrohhrghdpghhithhhuhgsrdgtohhmne
+    cuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehmrghilhhfrhhomhepmhhgrhgv
+    vghrsegrnhhimhgrlhgtrhgvvghkrdgtohhm
+X-ME-Proxy: <xmx:pn_wYGrw3XdqWZUqLRHI7YJWNhg9u6fdkxOayqsXqAQL_OCW24CQ2w>
+    <xmx:pn_wYHpdejlwl2SHWV0LZfAVovcHSeC79tMk9msoZEmyKSJ5r_qgdA>
+    <xmx:pn_wYEQFdOIk5NjAl8j1qGcIgS44kHDNr3hbzN9JUW8f_aNRge7Z9w>
+    <xmx:pn_wYICVmAV64wC9FhiHgtFaH1Owc6xPW0R9_Smdpsp9LCOVmYqZpA>
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
+ 15 Jul 2021 14:34:14 -0400 (EDT)
+Received: by blue.animalcreek.com (Postfix, from userid 1000)
+	id 59F931360093; Thu, 15 Jul 2021 11:34:13 -0700 (MST)
+Date: Thu, 15 Jul 2021 11:34:13 -0700
+From: Mark Greer <mgreer@animalcreek.com>
+To: Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>
+Message-ID: <20210715183413.GB525255@animalcreek.com>
+References: <20210512144319.30852-1-krzysztof.kozlowski@canonical.com>
+ <961dc9c5-0eb0-586c-5e70-b21ca2f8e6f3@linaro.org>
+ <d498c949-3b1e-edaa-81ed-60573cfb6ee9@canonical.com>
+ <20210512164952.GA222094@animalcreek.com>
+ <df2ec154-79fa-af7b-d337-913ed4a0692e@canonical.com>
 MIME-Version: 1.0
-Message-ID-Hash: 3AXSPQ3XNSX4ND4EO4UI74IOIYCSAGOL
-X-Message-ID-Hash: 3AXSPQ3XNSX4ND4EO4UI74IOIYCSAGOL
-X-MailFrom: krzysztof.kozlowski@canonical.com
+Content-Disposition: inline
+In-Reply-To: <df2ec154-79fa-af7b-d337-913ed4a0692e@canonical.com>
+Organization: Animal Creek Technologies, Inc.
+Message-ID-Hash: 74N767VCSD56BHDVWZLEHRRYTV62T2C7
+X-Message-ID-Hash: 74N767VCSD56BHDVWZLEHRRYTV62T2C7
+X-MailFrom: mgreer@animalcreek.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency; loop; banned-address; member-moderation; nonmember-moderation; administrivia; implicit-dest; max-recipients; max-size; news-moderation; no-subject; suspicious-header
-CC: Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>
+CC: Jakub Kicinski <kuba@kernel.org>, "David S. Miller" <davem@davemloft.net>, netdev@vger.kernel.org, linux-kernel@vger.kernel.org, linux-nfc@lists.01.org
 X-Mailman-Version: 3.1.1
 Precedence: list
-Subject: [linux-nfc] [neard][PATCH 16/16] ci: add build with sanitizers (asan, lsan and ubsan)
+Subject: [linux-nfc] Re: [PATCH 1/2] MAINTAINERS: nfc: add Krzysztof Kozlowski as maintainer
 List-Id: NFC on Linux <linux-nfc.lists.01.org>
-Archived-At: <https://lists.01.org/hyperkitty/list/linux-nfc@lists.01.org/message/3AXSPQ3XNSX4ND4EO4UI74IOIYCSAGOL/>
+Archived-At: <https://lists.01.org/hyperkitty/list/linux-nfc@lists.01.org/message/74N767VCSD56BHDVWZLEHRRYTV62T2C7/>
 List-Archive: <https://lists.01.org/hyperkitty/list/linux-nfc@lists.01.org/>
 List-Help: <mailto:linux-nfc-request@lists.01.org?subject=help>
 List-Post: <mailto:linux-nfc@lists.01.org>
@@ -80,168 +90,87 @@ List-Unsubscribe: <mailto:linux-nfc-leave@lists.01.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-Check the results if sanitizers were correctly linked.
+On Fri, Jul 09, 2021 at 11:24:41AM +0200, Krzysztof Kozlowski wrote:
+> On 12/05/2021 18:49, Mark Greer wrote:
+> > On Wed, May 12, 2021 at 11:43:13AM -0400, Krzysztof Kozlowski wrote:
+> >> On 12/05/2021 11:11, Daniel Lezcano wrote:
+> >>> On 12/05/2021 16:43, Krzysztof Kozlowski wrote:
+> >>>> The NFC subsystem is orphaned.  I am happy to spend some cycles to
+> >>>> review the patches, send pull requests and in general keep the NFC
+> >>>> subsystem running.
+> >>>>
+> >>>> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>
+> >>>>
+> >>>> ---
+> >>>>
+> >>>> I admit I don't have big experience in NFC part but this will be nice
+> >>>> opportunity to learn something new. 
+> >>>
+> >>> NFC has been lost in the limbos since a while. Good to see someone
+> >>> volunteering to take care of it.
+> >>>
+> >>> May I suggest to create a simple nfc reading program in the 'tools'
+> >>> directory (could be a training exercise ;)
+> >>>
+> >>
+> >> Noted, thanks. I also need to get a simple hardware dongle for this....
+> > 
+> > Krzysztof, the NFC portion of the kernel has a counterpart in userspace
+> > called neard.  I'm supposed to be maintaining it but I have next to no
+> > time to do so.  If you have spare cycles, any help would be appreciated.
+> > 
+> > Anyway, in neard, there are some simple test scripts (python2 - I/we need
+> > to update to python3).  The current home of neard is:
+> > 
+> > git://git.kernel.org/pub/scm/network/nfc/neard.git
+> 
+> I guess none of us have problem of too much spare time :), so it took me
+> a while before I looked at neard.
+> 
+> With newer Gcc, neard did not even compile (which I am fixing now). I
+> set up a fork:
+> https://github.com/krzk/neard
+> However I can give early disclaimer - playing with GLib userspace code
+> is not something I am in long term interested. If this was written in
+> Rust, would be different story. :)
+> 
+> I also configured basic CI (or rather continuous building):
+> https://github.com/krzk/neard/actions/runs/1014641944
+> 
+> However I still do not have proper testing setup. No hardware. Would be
+> nice if Samsung. ST, NXP or Intel could spare some development board
+> with the NFC chip supported by kernel. Till then, I will try the NFC
+> simulator and virtual NCI drivers.
+> 
+> My next plan for neard is to extend the CI. There is no way I (or anyone
+> else I believe) can keep good quality of releases without automated
+> checks. I'll add some more distros, clang and later many some linters or
+> cppcheck.
 
-Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>
----
- .github/workflows/ci.yml | 44 ++++++++++++++++++++++++++++++++++++++--
- HACKING                  |  5 ++++-
- ci/debian.sanitizers.sh  | 18 ++++++++++++++++
- ci/ubuntu.sanitizers.sh  |  1 +
- 4 files changed, 65 insertions(+), 3 deletions(-)
- create mode 100755 ci/debian.sanitizers.sh
- create mode 120000 ci/ubuntu.sanitizers.sh
+Hi Krzysztof, I see you've been busy.  Thanks for that.
 
-diff --git a/.github/workflows/ci.yml b/.github/workflows/ci.yml
-index 14cc4306de23..7c2eb3cb13f4 100644
---- a/.github/workflows/ci.yml
-+++ b/.github/workflows/ci.yml
-@@ -66,6 +66,13 @@ jobs:
-               CC: gcc
-               MODE: maintainer
- 
-+          - container: "debian:stable"
-+            env:
-+              ARCH: x86-64
-+              CC: gcc
-+              VARIANT: sanitizers
-+              MODE: maintainer
-+
-           - container: "debian:stable"
-             env:
-               ARCH: x86-64
-@@ -78,6 +85,13 @@ jobs:
-               CC: gcc
-               MODE: maintainer
- 
-+          - container: "debian:testing"
-+            env:
-+              ARCH: x86-64
-+              CC: gcc
-+              VARIANT: sanitizers
-+              MODE: maintainer
-+
-           - container: "debian:testing"
-             env:
-               ARCH: x86-64
-@@ -153,6 +167,13 @@ jobs:
-               CC: gcc
-               MODE: maintainer
- 
-+          - container: "ubuntu:hirsute"
-+            env:
-+              ARCH: x86-64
-+              CC: gcc
-+              VARIANT: sanitizers
-+              MODE: maintainer
-+
-           - container: "ubuntu:hirsute"
-             env:
-               ARCH: x86-64
-@@ -165,6 +186,13 @@ jobs:
-               CC: gcc
-               MODE: maintainer
- 
-+          - container: "ubuntu:focal"
-+            env:
-+              ARCH: x86-64
-+              CC: gcc
-+              VARIANT: sanitizers
-+              MODE: maintainer
-+
-           - container: "ubuntu:focal"
-             env:
-               ARCH: x86-64
-@@ -235,9 +263,14 @@ jobs:
-     - name: Configure
-       run: |
-         echo "Bootstraping in mode: $MODE"
-+        CONFIGURE_ARGS=""
-+        if [ "$VARIANT" = "sanitizers" ]; then
-+          CONFIGURE_ARGS="--enable-asan --enable-lsan --enable-ubsan --enable-pie"
-+        fi
-         if [ "$MODE" = "maintainer" ]; then
-           ./bootstrap-configure \
--            --disable-silent-rules
-+            --disable-silent-rules \
-+            $CONFIGURE_ARGS
-         else
-           ./bootstrap && \
-             ./configure \
-@@ -246,7 +279,8 @@ jobs:
-             --prefix=/usr \
-             --enable-ese \
-             --sysconfdir=/etc \
--            --enable-tools
-+            --enable-tools \
-+            $CONFIGURE_ARGS
-         fi
- 
-     - name: Compile
-@@ -277,6 +311,12 @@ jobs:
-         esac
-         echo "Checking for built matching architecture: $ARCH_CHECK"
-         file src/neard | grep "$ARCH_CHECK"
-+        if [ "$VARIANT" = "sanitizers" ]; then
-+          echo "Checking for linking against sanitizer libraries"
-+          ldd src/neard | grep libasan.so
-+          # liblsan won't appear if asan is used
-+          ldd src/neard | grep libubsan.so
-+        fi
- 
-     - name: Install
-       run: make install
-diff --git a/HACKING b/HACKING
-index 7326242506a6..40bde2fb3c8b 100644
---- a/HACKING
-+++ b/HACKING
-@@ -51,8 +51,11 @@ like this:
-     # git clone git://git.kernel.org/pub/scm/network/.../neard.git
-     # cd neard
- 
--  Configure and build
-+  Configure (choose only one)
-     # ./bootstrap-configure
-+    # ./bootstrap-configure --enable-asan --enable-lsan --enable-ubsan
-+
-+  Build
-     # make
- 
-   Check installation
-diff --git a/ci/debian.sanitizers.sh b/ci/debian.sanitizers.sh
-new file mode 100755
-index 000000000000..40dc1f44b55a
---- /dev/null
-+++ b/ci/debian.sanitizers.sh
-@@ -0,0 +1,18 @@
-+#!/bin/sh
-+# SPDX-License-Identifier: GPL-2.0
-+#
-+# Copyright (c) 2021 Canonical Ltd.
-+# Author: Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>
-+#                             <krzk@kernel.org>
-+#
-+
-+set -ex
-+
-+apt install -y --no-install-recommends \
-+	liblsan0 \
-+	libubsan1
-+
-+apt install -y --no-install-recommends libasan6 || \
-+	apt install -y --no-install-recommends libasan5
-+
-+echo "Install finished: $0"
-diff --git a/ci/ubuntu.sanitizers.sh b/ci/ubuntu.sanitizers.sh
-new file mode 120000
-index 000000000000..53cd9418ed35
---- /dev/null
-+++ b/ci/ubuntu.sanitizers.sh
-@@ -0,0 +1 @@
-+debian.sanitizers.sh
-\ No newline at end of file
--- 
-2.27.0
+FYI, I made a repo on github some time back but never announced it.  The
+only reason I mention it is because the name/link looks more official:
+
+	https://github.com/linux-nfc/neard
+
+Let see what happens with permssion on kernel.org and go from there.
+
+Re: hardware - I don't have much reader hardware either.  I almost
+exclusively use BeagleBone[Black] + RF Cape + trf7970atb.  I also have
+a USB dongle with a pn533, FWIW. I do have a decent collection of NFC tags,
+though.  I'll contact you privately to arrange to send some to you.
+
+For peer-to-peer testing, your smartphone probably has an NFC reader but
+you'll have to play around to find the sweet spot where they put the
+antenna (older phones were notoriously bad for NFC antenna design; newer
+ones are generally better).
+
+I will review your patch sets but the earliest I will get to them will
+be Sunday.
+
+Mark
+--
 _______________________________________________
 Linux-nfc mailing list -- linux-nfc@lists.01.org
 To unsubscribe send an email to linux-nfc-leave@lists.01.org
