@@ -2,77 +2,77 @@ Return-Path: <linux-nfc-bounces@lists.01.org>
 X-Original-To: lists+linux-nfc@lfdr.de
 Delivered-To: lists+linux-nfc@lfdr.de
 Received: from ml01.01.org (ml01.01.org [198.145.21.10])
-	by mail.lfdr.de (Postfix) with ESMTPS id C54E03CB5BB
-	for <lists+linux-nfc@lfdr.de>; Fri, 16 Jul 2021 12:09:11 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D85483CB5BC
+	for <lists+linux-nfc@lfdr.de>; Fri, 16 Jul 2021 12:09:13 +0200 (CEST)
 Received: from ml01.vlan13.01.org (localhost [IPv6:::1])
-	by ml01.01.org (Postfix) with ESMTP id 7D4B0100EB35A;
-	Fri, 16 Jul 2021 03:09:10 -0700 (PDT)
+	by ml01.01.org (Postfix) with ESMTP id 9014C100F2255;
+	Fri, 16 Jul 2021 03:09:12 -0700 (PDT)
 Received-SPF: Pass (mailfrom) identity=mailfrom; client-ip=185.125.188.120; helo=smtp-relay-canonical-0.canonical.com; envelope-from=krzysztof.kozlowski@canonical.com; receiver=<UNKNOWN> 
 Received: from smtp-relay-canonical-0.canonical.com (smtp-relay-canonical-0.canonical.com [185.125.188.120])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits))
 	(No client certificate requested)
-	by ml01.01.org (Postfix) with ESMTPS id D4BA4100F2268
-	for <linux-nfc@lists.01.org>; Fri, 16 Jul 2021 03:09:07 -0700 (PDT)
-Received: from mail-ed1-f71.google.com (mail-ed1-f71.google.com [209.85.208.71])
+	by ml01.01.org (Postfix) with ESMTPS id ECE32100EB35A
+	for <linux-nfc@lists.01.org>; Fri, 16 Jul 2021 03:09:09 -0700 (PDT)
+Received: from mail-ed1-f70.google.com (mail-ed1-f70.google.com [209.85.208.70])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by smtp-relay-canonical-0.canonical.com (Postfix) with ESMTPS id 92083408AC
-	for <linux-nfc@lists.01.org>; Fri, 16 Jul 2021 10:09:06 +0000 (UTC)
+	by smtp-relay-canonical-0.canonical.com (Postfix) with ESMTPS id DF898408AC
+	for <linux-nfc@lists.01.org>; Fri, 16 Jul 2021 10:09:08 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=canonical.com;
-	s=20210705; t=1626430146;
-	bh=zXMdoqKe2JrAMT4RBgqrZIubL2jRbMbrxY8o3vGW6kE=;
+	s=20210705; t=1626430148;
+	bh=GSRPfQR8I+lyy0FN8V3AJPSy72S1DdT6Md8zcP3JVLs=;
 	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
 	 MIME-Version;
-	b=YntRdq8r/jleW8JuGPYIVOsDJ62lkfrxMSXqsrrM+KrBDyanKbnqORRSDghkk3EKS
-	 Ufe+DK6ww4emgbfAOX82kp0S4V6wAV4yv2sTQHXLFUh3GxzbugUlk11DKlVqFMVDH0
-	 EdNN6M3DmcVfSkkzbEj2Y96NQJiUy6Etst3c6azra3tbEOXLyBosdguBA0WhBV4H0s
-	 BTQQddWxR3dEM/U+EzjTyy3DRjVGrtBVrzpx5ZMHWVgneVdI5Z6mDRuoz0afcwf0ME
-	 EpN8UTcTTNoB1zIJY/aiPolyqKbvKj9dbzEYDtYYD12/D7mYS95Wp8PPTnLM0Xl93c
-	 mHc6N2HbP2DyQ==
-Received: by mail-ed1-f71.google.com with SMTP id j25-20020aa7ca590000b029039c88110440so4565587edt.15
-        for <linux-nfc@lists.01.org>; Fri, 16 Jul 2021 03:09:06 -0700 (PDT)
+	b=uWSUrwD9bZMQu9dMkmetfpydJA4wmcBieLel5CAg5usuNtsi2R4BhS+/7tK2WwHlC
+	 nK9LXXt8E1kbEnLU0D3TnGwGIpvQQhUzOHxbrV6l2roviQ1tGRi1qjzMXOqGC72b+g
+	 uHlF0jPk+KXadPiZW8goAdNYA7Ln+AgPhD0wx8WbS+NfgK7Jj6acPk54Rbm1CztXvj
+	 jXJoROJDzhAQ6CxeRSNDMSiwHp0LC1vhmYAKERLVddEgo4Pt+NdgH6LUW0+BK81OtL
+	 UFpWCBC/Fcn628G/XT4FsttlaayWSrFFi+dfkMVoe6uksXvZWZNhLDzkQF7e3OKG1O
+	 CejoEOngtGy5w==
+Received: by mail-ed1-f70.google.com with SMTP id v2-20020a50c4020000b02903a6620f87feso4597073edf.18
+        for <linux-nfc@lists.01.org>; Fri, 16 Jul 2021 03:09:08 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
          :references:mime-version:content-transfer-encoding;
-        bh=zXMdoqKe2JrAMT4RBgqrZIubL2jRbMbrxY8o3vGW6kE=;
-        b=Dz0s/SCEkrdcQnSlDlqLveFlUHczFCMSl3M6tRqfn6dDIsQp51BSyiGoihftSvAr54
-         +bCCfczHGeo/kJMUdYQ1vVa/4Ano/yjmBo9XBiMvBvIfoZB1x18/MBxBsl8Gbnc+Ul2V
-         kPNg97YtetcZDqZNAGeiHg5WhavvZ0rbRmygkhU5uGUz2+XTX1MtJ3uNDVCu9cyBDazP
-         vT/B5rwEltBJdk/aTTMU3qQf6Eu+nMZSAonz8Qfn6+xdVKgbN55/VDsbCgWhAerixktd
-         Tsh0RDEqU59RJ93+h7TMW0K4lTj2rrNRKvZ8sG8JTmaOPfzwCptuYezPYBs+ByTu9RRI
-         Cw1w==
-X-Gm-Message-State: AOAM5303k2OrwROwXl7a5vTF2MSIlWL/8uretZD5yH7hg2uavoMVmHnE
-	vc/or7r0UppF+fNBQL3Ezj2xuj9dC9H08w4J4PRoGvAUe8Lt0qW1yTDXA5WduroiBcxM+/U7LAl
-	h0KkT4lXGcAg3kVJjDKWzC/a5gJcEg1G/5A==
-X-Received: by 2002:aa7:d514:: with SMTP id y20mr13575966edq.371.1626430145876;
-        Fri, 16 Jul 2021 03:09:05 -0700 (PDT)
-X-Google-Smtp-Source: ABdhPJwJGDx59pjS0auKfFIEQ35CKAdaOGqMmkAweqDSJmpd37TGjfDLIK3DJuqT15gGQ+nhzBNDlg==
-X-Received: by 2002:aa7:d514:: with SMTP id y20mr13575944edq.371.1626430145708;
-        Fri, 16 Jul 2021 03:09:05 -0700 (PDT)
+        bh=GSRPfQR8I+lyy0FN8V3AJPSy72S1DdT6Md8zcP3JVLs=;
+        b=fkCBWtMXS8oaN/6Il3VXacer5MSU+4dQwq9fbFrZpX4Q+nOw4o1i0J7PebO+LOvgcZ
+         W51RVYkwLzg984iI4SHvduOYlDMYdM2pdHcuYNEnmZ7s7WZklrVkwSUASglNxU4ed73w
+         F2p68ysgO0C4iDKovNMXdfjTelzzo35Sn0fBz/sxyGxWJe+Bl6I0eFIXO3WKCavc+6Fq
+         rkmMjSYbXQDfFjvF+b9o4HF/TFV2YI4kS8Oq60ScNlLGPmMCm7300NJ8Y3tGhheo23y4
+         MFSaBsXtezlpGuYH/Ttqn35JvbxUAmFb7f55lcYKQNePetmjQ1ZDcgoxFqXVhsJ7tvqh
+         eOsA==
+X-Gm-Message-State: AOAM5304w6L8EOT9rzDd9sj9r5ztF14LBG1dx7yJYNV6VdQWAbqgQDAB
+	DU8BldoGfZqjc33NXVIheBPgb5d4/3+CrWTrFIIcRY6Q9/cQq8Or4ZFzUIQa+0CTVaByhVAPZ5e
+	HnSQKLLaNsu2pemmNQyhYW4ZSyIzCauCitg==
+X-Received: by 2002:a17:906:9c84:: with SMTP id fj4mr10851510ejc.438.1626430148394;
+        Fri, 16 Jul 2021 03:09:08 -0700 (PDT)
+X-Google-Smtp-Source: ABdhPJxYy+stmKX/H+vtiHVG6caR/nnXj5CEpS2zuhUfqbb1UkSiicR0T+EGFeQfXpPBQgtv1eKkuA==
+X-Received: by 2002:a17:906:9c84:: with SMTP id fj4mr10851503ejc.438.1626430148259;
+        Fri, 16 Jul 2021 03:09:08 -0700 (PDT)
 Received: from localhost.localdomain (xdsl-188-155-177-222.adslplus.ch. [188.155.177.222])
-        by smtp.gmail.com with ESMTPSA id u26sm2710389ejj.4.2021.07.16.03.09.04
+        by smtp.gmail.com with ESMTPSA id u26sm2710389ejj.4.2021.07.16.03.09.05
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 16 Jul 2021 03:09:04 -0700 (PDT)
+        Fri, 16 Jul 2021 03:09:07 -0700 (PDT)
 From: Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>
 To: linux-nfc@lists.01.org
-Date: Fri, 16 Jul 2021 12:08:43 +0200
-Message-Id: <20210716100844.51360-7-krzysztof.kozlowski@canonical.com>
+Date: Fri, 16 Jul 2021 12:08:44 +0200
+Message-Id: <20210716100844.51360-8-krzysztof.kozlowski@canonical.com>
 X-Mailer: git-send-email 2.27.0
 In-Reply-To: <20210716100844.51360-1-krzysztof.kozlowski@canonical.com>
 References: <20210716100844.51360-1-krzysztof.kozlowski@canonical.com>
 MIME-Version: 1.0
-Message-ID-Hash: DCHYE2ONYSCHPWNMBASXNJ6A6Y6Y672K
-X-Message-ID-Hash: DCHYE2ONYSCHPWNMBASXNJ6A6Y6Y672K
+Message-ID-Hash: WLFGJBFAWYGUT5TYYURXLXKDM6CRAAVZ
+X-Message-ID-Hash: WLFGJBFAWYGUT5TYYURXLXKDM6CRAAVZ
 X-MailFrom: krzysztof.kozlowski@canonical.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency; loop; banned-address; member-moderation; nonmember-moderation; administrivia; implicit-dest; max-recipients; max-size; news-moderation; no-subject; suspicious-header
 CC: Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>
 X-Mailman-Version: 3.1.1
 Precedence: list
-Subject: [linux-nfc] [neard][PATCH 6/7] unit: fix record memory leak in test-snep-read
+Subject: [linux-nfc] [neard][PATCH 7/7] unit: fix records GList memory leak in test-snep-read
 List-Id: NFC on Linux <linux-nfc.lists.01.org>
-Archived-At: <https://lists.01.org/hyperkitty/list/linux-nfc@lists.01.org/message/DCHYE2ONYSCHPWNMBASXNJ6A6Y6Y672K/>
+Archived-At: <https://lists.01.org/hyperkitty/list/linux-nfc@lists.01.org/message/WLFGJBFAWYGUT5TYYURXLXKDM6CRAAVZ/>
 List-Archive: <https://lists.01.org/hyperkitty/list/linux-nfc@lists.01.org/>
 List-Help: <mailto:linux-nfc-request@lists.01.org?subject=help>
 List-Post: <mailto:linux-nfc@lists.01.org>
@@ -81,16 +81,16 @@ List-Unsubscribe: <mailto:linux-nfc-leave@lists.01.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-Instead of open-coding __near_ndef_record_free() with mistakes, use it
-directly to fix memory leaks like:
+The test_snep_dummy_req_put() stores one record in global stored_recd
+pointer, so the GList itself should be freed.  This fixes Valgrind
+warning:
 
-  2 bytes in 1 blocks are definitely lost in loss record 2 of 36
+  24 bytes in 1 blocks are definitely lost in loss record 21 of 30
     at 0x483C7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
     by 0x48CA698: g_malloc (in /usr/lib/x86_64-linux-gnu/libglib-2.0.so.0.6600.1)
-    by 0x48E4B3D: g_strndup (in /usr/lib/x86_64-linux-gnu/libglib-2.0.so.0.6600.1)
-    by 0x11CB66: parse_record_header (ndef.c:1122)
-    by 0x11CB66: parse_record_header (ndef.c:1029)
-    by 0x11E549: near_ndef_parse_msg (ndef.c:2846)
+    by 0x48E2CF1: g_slice_alloc (in /usr/lib/x86_64-linux-gnu/libglib-2.0.so.0.6600.1)
+    by 0x48BFF07: g_list_append (in /usr/lib/x86_64-linux-gnu/libglib-2.0.so.0.6600.1)
+    by 0x11E68A: near_ndef_parse_msg (ndef.c:2964)
     by 0x122A23: test_snep_dummy_req_put (test-snep-read.c:131)
     by 0x122005: snep_core_process_request (snep.c:397)
     by 0x122005: near_snep_core_read (snep.c:617)
@@ -100,74 +100,24 @@ directly to fix memory leaks like:
     by 0x48ECDCD: ??? (in /usr/lib/x86_64-linux-gnu/libglib-2.0.so.0.6600.1)
     by 0x48ECBCA: ??? (in /usr/lib/x86_64-linux-gnu/libglib-2.0.so.0.6600.1)
     by 0x48ED2B9: g_test_run_suite (in /usr/lib/x86_64-linux-gnu/libglib-2.0.so.0.6600.1)
-
-  15 bytes in 1 blocks are definitely lost in loss record 13 of 36
-    at 0x483ED99: calloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
-    by 0x11E65F: near_ndef_parse_msg (ndef.c:2958)
-    by 0x122A23: test_snep_dummy_req_put (test-snep-read.c:131)
-    by 0x122005: snep_core_process_request (snep.c:397)
-    by 0x122005: near_snep_core_read (snep.c:617)
-    by 0x123042: test_snep_read_req_common.constprop.0 (test-snep-read.c:352)
-    by 0x1234E0: test_snep_read_put_req_ok (test-snep-read.c:500)
-    by 0x1234E0: test_snep_read_get_req_ok (test-snep-read.c:644)
-    by 0x48ECDCD: ??? (in /usr/lib/x86_64-linux-gnu/libglib-2.0.so.0.6600.1)
-    by 0x48ECBCA: ??? (in /usr/lib/x86_64-linux-gnu/libglib-2.0.so.0.6600.1)
-    by 0x48ED2B9: g_test_run_suite (in /usr/lib/x86_64-linux-gnu/libglib-2.0.so.0.6600.1)
-    by 0x48ED2D4: g_test_run (in /usr/lib/x86_64-linux-gnu/libglib-2.0.so.0.6600.1)
-    by 0x10F784: main (test-snep-read.c:967)
 
 Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>
 ---
- unit/test-snep-read.c | 2 +-
- unit/test-utils.c     | 8 --------
- unit/test-utils.h     | 2 --
- 3 files changed, 1 insertion(+), 11 deletions(-)
+ unit/test-snep-read.c | 1 +
+ 1 file changed, 1 insertion(+)
 
 diff --git a/unit/test-snep-read.c b/unit/test-snep-read.c
-index 3bc1a9fad7df..a4df6ec95f8f 100644
+index a4df6ec95f8f..2e977f749610 100644
 --- a/unit/test-snep-read.c
 +++ b/unit/test-snep-read.c
-@@ -224,7 +224,7 @@ static void test_snep_cleanup(gpointer context, gconstpointer data)
- 	__near_snep_core_cleanup();
+@@ -142,6 +142,7 @@ static bool test_snep_dummy_req_put(int fd, void *data)
+ 	g_free(nfc_data);
  
- 	if (stored_recd)
--		test_ndef_free_record(stored_recd);
-+		__near_ndef_record_free(stored_recd);
+ 	stored_recd = records->data;
++	g_list_free(records);
  
- 	if (ctx->test_recd_msg) {
- 		g_free(ctx->test_recd_msg->data);
-diff --git a/unit/test-utils.c b/unit/test-utils.c
-index fe256561821f..369437421971 100644
---- a/unit/test-utils.c
-+++ b/unit/test-utils.c
-@@ -20,14 +20,6 @@
- 
- #include "test-utils.h"
- 
--void test_ndef_free_record(struct near_ndef_record *record)
--{
--	g_free(record->header);
--	g_free(record->type);
--	g_free(record->data);
--	g_free(record);
--}
--
- struct near_ndef_message *test_ndef_create_test_record(const char *str)
- {
- 	struct near_ndef_message *ndef;
-diff --git a/unit/test-utils.h b/unit/test-utils.h
-index c371d566a573..108f2a1fb139 100644
---- a/unit/test-utils.h
-+++ b/unit/test-utils.h
-@@ -143,8 +143,6 @@ struct near_ndef_record {
- 	size_t data_len;
- };
- 
--void test_ndef_free_record(struct near_ndef_record *record);
--
- struct near_ndef_message *test_ndef_create_test_record(const char *str);
- 
- #endif
+ 	TEST_SNEP_LOG("\t\tdummy_req_put STORED REC data=%p length=%zu\n",
+ 			stored_recd->data, stored_recd->data_len);
 -- 
 2.27.0
 _______________________________________________
