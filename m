@@ -1,78 +1,78 @@
 Return-Path: <linux-nfc-bounces@lists.01.org>
 X-Original-To: lists+linux-nfc@lfdr.de
 Delivered-To: lists+linux-nfc@lfdr.de
-Received: from ml01.01.org (ml01.01.org [IPv6:2001:19d0:306:5::1])
-	by mail.lfdr.de (Postfix) with ESMTPS id A56393CD30E
-	for <lists+linux-nfc@lfdr.de>; Mon, 19 Jul 2021 13:09:00 +0200 (CEST)
+Received: from ml01.01.org (ml01.01.org [198.145.21.10])
+	by mail.lfdr.de (Postfix) with ESMTPS id 96F3B3CD30F
+	for <lists+linux-nfc@lfdr.de>; Mon, 19 Jul 2021 13:09:01 +0200 (CEST)
 Received: from ml01.vlan13.01.org (localhost [IPv6:::1])
-	by ml01.01.org (Postfix) with ESMTP id 23F4E100EB323;
-	Mon, 19 Jul 2021 04:08:57 -0700 (PDT)
-Received-SPF: Pass (mailfrom) identity=mailfrom; client-ip=185.125.188.120; helo=smtp-relay-canonical-0.canonical.com; envelope-from=krzysztof.kozlowski@canonical.com; receiver=<UNKNOWN> 
-Received: from smtp-relay-canonical-0.canonical.com (smtp-relay-canonical-0.canonical.com [185.125.188.120])
+	by ml01.01.org (Postfix) with ESMTP id 32886100EB85D;
+	Mon, 19 Jul 2021 04:08:59 -0700 (PDT)
+Received-SPF: Pass (mailfrom) identity=mailfrom; client-ip=185.125.188.121; helo=smtp-relay-canonical-1.canonical.com; envelope-from=krzysztof.kozlowski@canonical.com; receiver=<UNKNOWN> 
+Received: from smtp-relay-canonical-1.canonical.com (smtp-relay-canonical-1.canonical.com [185.125.188.121])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits))
 	(No client certificate requested)
-	by ml01.01.org (Postfix) with ESMTPS id 7DB3F100EB855
-	for <linux-nfc@lists.01.org>; Mon, 19 Jul 2021 04:08:55 -0700 (PDT)
-Received: from mail-lj1-f200.google.com (mail-lj1-f200.google.com [209.85.208.200])
+	by ml01.01.org (Postfix) with ESMTPS id A8FE7100EB855
+	for <linux-nfc@lists.01.org>; Mon, 19 Jul 2021 04:08:56 -0700 (PDT)
+Received: from mail-lj1-f199.google.com (mail-lj1-f199.google.com [209.85.208.199])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by smtp-relay-canonical-0.canonical.com (Postfix) with ESMTPS id 88D25418CF
-	for <linux-nfc@lists.01.org>; Mon, 19 Jul 2021 11:08:54 +0000 (UTC)
+	by smtp-relay-canonical-1.canonical.com (Postfix) with ESMTPS id A8F6540207
+	for <linux-nfc@lists.01.org>; Mon, 19 Jul 2021 11:08:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=canonical.com;
-	s=20210705; t=1626692934;
-	bh=c5n4bc2TkKHK0AdATMazhNZk+dxCMRPdxxqU0aBkdNg=;
+	s=20210705; t=1626692935;
+	bh=jPq0N3pn7/rLirS7qKwLuHNCcR8YUP82b47/74QczFQ=;
 	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
 	 MIME-Version;
-	b=h6qWoINCNHTVTuJXNZ9HSC3zgoVdT8f7tskKrTHJBhQDRTHM0MYxhkLYe43/KmXUW
-	 wF1I9YMB0YBk4ugzdOxePjzSNdpJifrpJYRC3TsarpPWJSXQA3RADSCMIwi8ARIeDT
-	 vWlaQqfNN5z6oPWtX5HSxoGuK4AmvHL7A0fcnnFpByH0fmR3KZnq0SYBB9rzjdiK0V
-	 llicftzOUxqWVBcN4STXSnfMfu/2Q2pnfbnpHv7o4Ah1HdM/RRyj5B11RUpbyxgiZ7
-	 T25ZJaH2EUP2sxi+lXn2u4ni1q9d/PvVDv+d+1rPhUZWZjmKHAzFwd/E+oOODwwZXD
-	 rBLaJRvu4Ek3w==
-Received: by mail-lj1-f200.google.com with SMTP id o10-20020a2e9a0a0000b02901978bad99feso2029169lji.0
-        for <linux-nfc@lists.01.org>; Mon, 19 Jul 2021 04:08:54 -0700 (PDT)
+	b=EUWhI4uEvVlLBxkn+hHTV3L6lag2cAmsj3qONFIrC55mPRtU/fBTxL9fkKBxnmD0d
+	 C75BGTnrQhMw8AEUYhmYL2qlNeMt6VJkVfa65LelzWY/BgsTicWoTxP9E9jNA6DeBN
+	 MoCBYKtEOL+F9gb+Ds1oSL4naZHY1ddulkgyT1qeU370bH7YZJDd1C28TnCPzbxqKe
+	 GWWN8IdRtMzdcuDxpyhRjkzylo9Qw6ewHf1+oEuy0BCJei4Z5YwICvD2rvXlsuGSX3
+	 7MNhxPEBTlJIfJEhXZVDtXlkf1lGUbIVNIEmScFYO8bScioMB5a/Pb/7IhI2PNJhA4
+	 j8vqKd3hzgujg==
+Received: by mail-lj1-f199.google.com with SMTP id d1-20020a2e81010000b0290196925bc674so3205748ljg.10
+        for <linux-nfc@lists.01.org>; Mon, 19 Jul 2021 04:08:55 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
          :references:mime-version:content-transfer-encoding;
-        bh=c5n4bc2TkKHK0AdATMazhNZk+dxCMRPdxxqU0aBkdNg=;
-        b=GhcYc5ynLsSu6d+dCfi3ry2LiPYF6T/6uar3Y+aFIjMuEAOGvZo86UnJl/tgbTrnVZ
-         BbySN8bgZvNaUIHArSGWvZ2P1PlZ9MoLPoI/SClHLlwo0K+y4iitgwyT9W6QdDvrPz3P
-         rumqLMeyxCU/sEyta5AVX3VW2VGfGGDeIWVp/lXk8/vTdP2uc2tVYH9ZwNVAWnNlvzMv
-         vRFDiYo4HtXKFIjuMl0QUxHuVOE11NkmxDdNumtSi0rG40vp0xVtX7BMubmemuoVyHS5
-         kWg38vqNbzzg2AdqQAHa53Q02riiP3CvFp0a2XTsF37Dao3MSjvDo1teXbE+ABqhZ6KA
-         XMsA==
-X-Gm-Message-State: AOAM533UmQBN0y+l2zAD3DJ/T5mS/nBk1FPwav8lOlZ1eXdLTXG/lN9m
-	Z/0JcimvI1TkdKAXNclVeW6m9JfLPIyKbG6qTFT6HSkF8f3dk1tH+I9LtmJ+9jytoAgO+2Fewqm
-	w/F4Ww1+5Tjq+vOD7dqT/ksPcWxpU+TINKg==
-X-Received: by 2002:a05:6512:990:: with SMTP id w16mr2534791lft.346.1626692933843;
-        Mon, 19 Jul 2021 04:08:53 -0700 (PDT)
-X-Google-Smtp-Source: ABdhPJx8+FchyjVSNrbpIl+HdB9vf5jezqXCnEcapYZcaBQPn4vM7ghWjxrzmGOa0pIdchBrRg+6yQ==
-X-Received: by 2002:a05:6512:990:: with SMTP id w16mr2534783lft.346.1626692933698;
-        Mon, 19 Jul 2021 04:08:53 -0700 (PDT)
+        bh=jPq0N3pn7/rLirS7qKwLuHNCcR8YUP82b47/74QczFQ=;
+        b=rcTBbXWplVVfYqVK0pspN8JKh/WXvfoRqNNUy/OerdpbAc27X5Z8Wz1fZp3LeGDdBv
+         +rK3tgjf6VZ6zkDSSJIdxMOw8ArbNwo/3i0u8GEt5wiezHdn7o3o7H0xwRNCJ+pmLccc
+         MYLyyiCEN8/EsSYXoZih2tDr2sLzboE0DLI59T03HZfpYA6/Xz9l8VxkzmrBqUq/D0N0
+         e+jyple+chxTJeQSpelWGieL0sDlhpm48f5J+YifCn4WERDsLfb+Q8eJm+cs9e88Wzkr
+         yLKuadd0xK3Pae4JMo6B+2rO2x4Alv0OVxAAWo+KxsnQJ9Rx1sgzdKggrkgFDVg1hB++
+         NRqw==
+X-Gm-Message-State: AOAM532DJIa1wFk2jNo/wSSHJGv0iUMYOAk+QapjSIbHwA+lchVPm0j/
+	Abakdn/+4bSBdForzJqgiO0kw8KQkzcTD0HsHMmDW38zzBi7hYKwjhM3dAiLeUJCHsN40comibE
+	jKNi2PQYysJ12G8j4l1hZGaqKZSA4kSzlLw==
+X-Received: by 2002:a2e:a23b:: with SMTP id i27mr21331611ljm.176.1626692934936;
+        Mon, 19 Jul 2021 04:08:54 -0700 (PDT)
+X-Google-Smtp-Source: ABdhPJz3WDBYoGxRAEk9DWaGXQPkdnSUSapF0jsxYRNzSpUoVnpl3vpUz2xlD3k24GaGhOJqOrOSvQ==
+X-Received: by 2002:a2e:a23b:: with SMTP id i27mr21331607ljm.176.1626692934779;
+        Mon, 19 Jul 2021 04:08:54 -0700 (PDT)
 Received: from localhost.localdomain (m193-217-114-158.cust.tele2.hr. [193.217.114.158])
-        by smtp.gmail.com with ESMTPSA id z25sm1264701lfh.283.2021.07.19.04.08.52
+        by smtp.gmail.com with ESMTPSA id z25sm1264701lfh.283.2021.07.19.04.08.53
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 19 Jul 2021 04:08:53 -0700 (PDT)
+        Mon, 19 Jul 2021 04:08:54 -0700 (PDT)
 From: Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>
 To: linux-nfc@lists.01.org
-Date: Mon, 19 Jul 2021 13:07:23 +0200
-Message-Id: <20210719110819.27340-18-krzysztof.kozlowski@canonical.com>
+Date: Mon, 19 Jul 2021 13:07:24 +0200
+Message-Id: <20210719110819.27340-19-krzysztof.kozlowski@canonical.com>
 X-Mailer: git-send-email 2.27.0
 In-Reply-To: <20210719110819.27340-1-krzysztof.kozlowski@canonical.com>
 References: <20210719110819.27340-1-krzysztof.kozlowski@canonical.com>
 MIME-Version: 1.0
-Message-ID-Hash: PRLUVV2QYN6LTM3R3IE4AHE6OM7BTJFS
-X-Message-ID-Hash: PRLUVV2QYN6LTM3R3IE4AHE6OM7BTJFS
+Message-ID-Hash: F5GEHN4UGXTB2DLTOZ5VPAQUCODJKYDV
+X-Message-ID-Hash: F5GEHN4UGXTB2DLTOZ5VPAQUCODJKYDV
 X-MailFrom: krzysztof.kozlowski@canonical.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency; loop; banned-address; member-moderation; nonmember-moderation; administrivia; implicit-dest; max-recipients; max-size; news-moderation; no-subject; suspicious-header
 CC: Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>
 X-Mailman-Version: 3.1.1
 Precedence: list
-Subject: [linux-nfc] [neard][PATCH v2 17/73] se: fix multiple apdu definitions
+Subject: [linux-nfc] [neard][PATCH v2 18/73] se: silence clang -Wcast-align warning
 List-Id: NFC on Linux <linux-nfc.lists.01.org>
-Archived-At: <https://lists.01.org/hyperkitty/list/linux-nfc@lists.01.org/message/PRLUVV2QYN6LTM3R3IE4AHE6OM7BTJFS/>
+Archived-At: <https://lists.01.org/hyperkitty/list/linux-nfc@lists.01.org/message/F5GEHN4UGXTB2DLTOZ5VPAQUCODJKYDV/>
 List-Archive: <https://lists.01.org/hyperkitty/list/linux-nfc@lists.01.org/>
 List-Help: <mailto:linux-nfc-request@lists.01.org?subject=help>
 List-Post: <mailto:linux-nfc@lists.01.org>
@@ -81,33 +81,76 @@ List-Unsubscribe: <mailto:linux-nfc-leave@lists.01.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-Fixes:
+Fix clang warnings:
 
-    /usr/bin/ld: se/seeld-manager.o:se/seel.h:31: multiple definition of `apdu'; se/seeld-main.o:se/seel.h:31: first defined here
-    /usr/bin/ld: se/seeld-se.o:se/seel.h:31: multiple definition of `apdu'; se/seeld-main.o:se/seel.h:31: first defined here
-    /usr/bin/ld: se/seeld-driver.o:se/seel.h:31: multiple definition of `apdu'; se/seeld-main.o:se/seel.h:31: first defined here
-    /usr/bin/ld: se/seeld-apdu.o:se/seel.h:31: multiple definition of `apdu'; se/seeld-main.o:se/seel.h:31: first defined here
-    /usr/bin/ld: se/seeld-channel.o:se/seel.h:31: multiple definition of `apdu'; se/seeld-main.o:se/seel.h:31: first defined here
-    /usr/bin/ld: se/seeld-ace.o:se/seel.h:31: multiple definition of `apdu'; se/seeld-main.o:se/seel.h:31: first defined here
+    se/ace.c:147:15: error: cast from 'uint8_t *' (aka 'unsigned char *') to 'struct seel_ace_apdu_rule *' increases required alignment from 1 to 4 [-Werror,-Wcast-align]
+                    apdu_rule = (struct seel_ace_apdu_rule *)rule->apdu_rules;
+                                ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    se/ace.c:790:18: error: cast from 'uint8_t *' (aka 'unsigned char *') to 'uint32_t *' (aka 'unsigned int *') increases required alignment from 1 to 4 [-Werror,-Wcast-align]
+            apdu_header = *((uint32_t *) apdu);
+                            ^~~~~~~~~~~~~~~~~
+    se/ace.c:791:14: error: cast from 'uint8_t *' (aka 'unsigned char *') to 'struct seel_ace_apdu_rule *' increases required alignment from 1 to 4 [-Werror,-Wcast-align]
+            apdu_rule = (struct seel_ace_apdu_rule *)rule->apdu_rules;
+                        ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Increasing alignment should be fine for most of the platforms (maybe
+except some performance penalty), although there are such which might
+not handle it and raise CPU exception.  I am not sure whether the code
+is actually safe, but proper fixing would require bigger changes.
 
 Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>
 ---
- se/seel.h | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ se/ace.c | 30 +++++++++++++++++++++++++++---
+ 1 file changed, 27 insertions(+), 3 deletions(-)
 
-diff --git a/se/seel.h b/se/seel.h
-index 24cd0011ffb7..ea89e1519764 100644
---- a/se/seel.h
-+++ b/se/seel.h
-@@ -28,7 +28,7 @@
- struct seel_se;
- struct seel_channel;
- struct seel_ace;
--struct seel_apdu *apdu;
-+struct seel_apdu;
+diff --git a/se/ace.c b/se/ace.c
+index c1561abae8c1..ef0e7e15fbf7 100644
+--- a/se/ace.c
++++ b/se/ace.c
+@@ -144,7 +144,18 @@ static void dump_rule(gpointer data, gpointer user_data)
+ 		uint8_t *header, *mask;
+ 		size_t n_rules;
  
- int __seel_manager_init(DBusConnection *conn);
- void __seel_manager_cleanup(void);
+-		apdu_rule = (struct seel_ace_apdu_rule *)rule->apdu_rules;
++		/*
++		 * (void *) to silence -Wcast-align. Code should be safe
++		 * (assuming platform handles unaliagned access) as iterations
++		 * go up to n_rules.
++		 *
++		 * TODO: Fix the problem instead of silencing with cast, so
++		 * the code would be porable.
++		 */
++		if (rule->apdu_rules_len % sizeof(struct seel_ace_apdu_rule *)) {
++			DBG("  APDU: wrong alignment (Bug, code needs fixing)");
++		}
++		apdu_rule = (struct seel_ace_apdu_rule *)(void *)rule->apdu_rules;
+ 		n_rules = rule->apdu_rules_len /
+ 				sizeof(struct seel_ace_apdu_rule);
+ 
+@@ -787,8 +798,21 @@ static bool apdu_allowed(struct seel_ace_rule *rule,
+ 
+ 	n_rules = rule->apdu_rules_len /
+ 				sizeof(struct seel_ace_apdu_rule);
+-	apdu_header = *((uint32_t *) apdu);
+-	apdu_rule = (struct seel_ace_apdu_rule *)rule->apdu_rules;
++	/*
++	 * FIXME: apdu comes from message and where is checking for apdu_len?
++	 * The (void *) is to fix -Wcast-align but the actual problem is
++	 * whether the apdu contains enough of data.
++	 */
++	apdu_header = *((uint32_t *)(void *) apdu);
++	/*
++	 * (void *) to silence -Wcast-align. Code should be safe
++	 * (assuming platform handles unaliagned access) as iterations
++	 * go up to n_rules.
++	 *
++	 * TODO: Fix the problem instead of silencing with cast, so
++	 * the code would be porable.
++	 */
++	apdu_rule = (struct seel_ace_apdu_rule *)(void *)rule->apdu_rules;
+ 
+ 	for (i = 0; i < n_rules; i++) {
+ 		if ((apdu_header & apdu_rule->mask) == apdu_rule->header)
 -- 
 2.27.0
 _______________________________________________
