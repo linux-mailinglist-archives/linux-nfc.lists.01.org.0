@@ -1,80 +1,84 @@
 Return-Path: <linux-nfc-bounces@lists.01.org>
 X-Original-To: lists+linux-nfc@lfdr.de
 Delivered-To: lists+linux-nfc@lfdr.de
-Received: from ml01.01.org (ml01.01.org [198.145.21.10])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2EC883CD3A7
-	for <lists+linux-nfc@lfdr.de>; Mon, 19 Jul 2021 13:21:29 +0200 (CEST)
+Received: from ml01.01.org (ml01.01.org [IPv6:2001:19d0:306:5::1])
+	by mail.lfdr.de (Postfix) with ESMTPS id BC3623CE432
+	for <lists+linux-nfc@lfdr.de>; Mon, 19 Jul 2021 18:32:58 +0200 (CEST)
 Received: from ml01.vlan13.01.org (localhost [IPv6:::1])
-	by ml01.01.org (Postfix) with ESMTP id 7C667100F2270;
-	Mon, 19 Jul 2021 04:21:27 -0700 (PDT)
-Received-SPF: Pass (mailfrom) identity=mailfrom; client-ip=185.125.188.120; helo=smtp-relay-canonical-0.canonical.com; envelope-from=krzysztof.kozlowski@canonical.com; receiver=<UNKNOWN> 
-Received: from smtp-relay-canonical-0.canonical.com (smtp-relay-canonical-0.canonical.com [185.125.188.120])
+	by ml01.01.org (Postfix) with ESMTP id DE17B100EB355;
+	Mon, 19 Jul 2021 09:32:56 -0700 (PDT)
+Received-SPF: Pass (mailfrom) identity=mailfrom; client-ip=66.111.4.27; helo=out3-smtp.messagingengine.com; envelope-from=mgreer@animalcreek.com; receiver=<UNKNOWN> 
+Received: from out3-smtp.messagingengine.com (out3-smtp.messagingengine.com [66.111.4.27])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits))
 	(No client certificate requested)
-	by ml01.01.org (Postfix) with ESMTPS id F10F7100EB333
-	for <linux-nfc@lists.01.org>; Mon, 19 Jul 2021 04:21:24 -0700 (PDT)
-Received: from mail-lj1-f197.google.com (mail-lj1-f197.google.com [209.85.208.197])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-relay-canonical-0.canonical.com (Postfix) with ESMTPS id CCBA1401C0
-	for <linux-nfc@lists.01.org>; Mon, 19 Jul 2021 11:21:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=canonical.com;
-	s=20210705; t=1626693683;
-	bh=baErOkuRIl70n8LBpA7q/Ag4J5P4YXhLNiPvIOzzB0I=;
-	h=Subject:To:References:From:Message-ID:Date:MIME-Version:
-	 In-Reply-To:Content-Type;
-	b=dWe7Jmxbt1IOe7340wHmntMmR5q3Qdvk3ILDvzSuX7sVgnAonOqc8HOLswK3e2V2H
-	 XoHlf8oTXlEWaq3otRuhMAC8F5zf1Kc+VUuC0YuESL78Jg/47/DEBtoF5znvhQ0jAA
-	 KBJanezioFARBCyPfnAzCBBmkr5EHbCUKfQWTN67him/B8kXsURygk8CpYNG73/7o3
-	 JMePB0dkSYs3o+Lg8HvQvYJFIy0v+WzpzhrfkCew2xZT/Y+i7U39A7Isd0FtlsrUPA
-	 cVxEg7oJxCjLqXiBV+DDTjpbO3ZjLiNIwJulxsVoaTUjgCGoUG4It63YDoHCald249
-	 +SJEaDiFC+8qw==
-Received: by mail-lj1-f197.google.com with SMTP id d1-20020a2e81010000b0290196925bc674so3221171ljg.10
-        for <linux-nfc@lists.01.org>; Mon, 19 Jul 2021 04:21:23 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:subject:to:references:from:message-id:date
-         :user-agent:mime-version:in-reply-to:content-language
-         :content-transfer-encoding;
-        bh=baErOkuRIl70n8LBpA7q/Ag4J5P4YXhLNiPvIOzzB0I=;
-        b=ntMT/tQx92KX+rm5OpT1fJbn3bbpw42AF6DU/CJjFgtvs4rikk9Z66ik10v7PA7xz4
-         r070Nk7eJptpEGLK+9RHQkOHTVB5TFwztZN747KXOXC/zfjQAe5aaZ+s8srUwKh/mXFl
-         fj4xqbz4IYJEpHbpBxAEyQadiYajNvMb+pJzdqmis5z16TfC7Tfbq1V6lgEC2XrKWyO7
-         5pYLAZ1OCov4faef1936rabh0iw+BGCy/CFNwb3s2cdvmIF8dqkjqQcrlmai8Jknwo1O
-         UA6+PWYLhfs2/oVtWZnY7q/Ok+fmqhY5mTKhXOeNkX3Wbm+W/KQx+1oX27bpzfyMm1B4
-         gICw==
-X-Gm-Message-State: AOAM531QMiKElibkUExr1DBR/hW7wGyFEK2kWAylUNZ3dS5H1WAgUTL3
-	F7Vsu+hYzS/VoQhJSQ9puqj7OJmW6KXqqVvcULpNSCjcC4ruZ68cnF6SaAoHvotSYA/qu9rvVHP
-	iEY7YhRBNAsSPtHbkDb59MB2KJm0bgzONJA==
-X-Received: by 2002:a2e:9a8e:: with SMTP id p14mr11766536lji.69.1626693683009;
-        Mon, 19 Jul 2021 04:21:23 -0700 (PDT)
-X-Google-Smtp-Source: ABdhPJzsXNu3tRH56qn8NqnXNzHJIY+d6VlbAZZEHiyYTnfIMlSqC1EZrCIabeMtqB0F626/d9GpmQ==
-X-Received: by 2002:a2e:9a8e:: with SMTP id p14mr11766523lji.69.1626693682829;
-        Mon, 19 Jul 2021 04:21:22 -0700 (PDT)
-Received: from [192.168.8.102] (m193-217-114-158.cust.tele2.hr. [193.217.114.158])
-        by smtp.gmail.com with ESMTPSA id q23sm369000ljc.134.2021.07.19.04.21.22
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 19 Jul 2021 04:21:22 -0700 (PDT)
-To: linux-nfc@lists.01.org, Mark Greer <mgreer@animalcreek.com>
+	by ml01.01.org (Postfix) with ESMTPS id 35E8A100EB352
+	for <linux-nfc@lists.01.org>; Mon, 19 Jul 2021 09:32:51 -0700 (PDT)
+Received: from compute2.internal (compute2.nyi.internal [10.202.2.42])
+	by mailout.nyi.internal (Postfix) with ESMTP id 53A285C0067;
+	Mon, 19 Jul 2021 12:32:50 -0400 (EDT)
+Received: from mailfrontend2 ([10.202.2.163])
+  by compute2.internal (MEProxy); Mon, 19 Jul 2021 12:32:50 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=animalcreek.com;
+	 h=date:from:to:cc:subject:message-id:references:mime-version
+	:content-type:in-reply-to; s=fm3; bh=QgROJs0KlTphpL9KjoMLq0QjopL
+	HnKdG80bl4edVseQ=; b=jPwIUgos/LlGy4OM38c4PKS+Lkz53PLu79/VhT/6eH1
+	HK3bgeKg9+ySMbewv1DclgzeD7g4GGavIYDD2MSCAr5j+R8r95QpSYZ3z/1FcRrt
+	DRGIiVrVGA3G4lBurG4Mn/aTCjrSPb9XpW+x0Botc7n/QZCisZ2ht7tktthlaWcX
+	VQy9Ge1LNqYBy1GTyTfuhku3qFtnnnZTp7AQ5EKxxDHxdDnTu2OBVhsINjHWY8R/
+	5TCUQzb7hDgUByeE2jAgG9vAA4zJZkj5Pb/RvtjermtvlPTmEkzJ51hfvnDBSovB
+	NS4sCMLFPEXss+g71GxeV+kecw5xU9IEHVVFPpwjLEg==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to:x-me-proxy
+	:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; bh=QgROJs
+	0KlTphpL9KjoMLq0QjopLHnKdG80bl4edVseQ=; b=vugTTWHRDKNHLifwLeVN0h
+	hu24hHOSa827hBe9UIwg+l+f5kYQRlnEUUhOe26+VEeadjkosuEM7HBYqoM3UTUK
+	JXg2CX1QBEbFLRIVdUE4BvCv5JNl3Ef/tqwbWQxAHJBHTEHEIeLFGOWwCfWniSoM
+	hEovPYs2Cq8Yo/SISpjFglvmYBs7IZSXB9Gjs6TpoYTLNQ47JLHqREWCg9xocs2H
+	ahozT6GMinRGbNoZZRVB4MYMN+jFFtLAblnrpLAbHF+4y6EnJgjCfyVAKFmzF7Bk
+	Cgf5OhkZI5S1jqwjeNKz9jwaObLBSkItzuJ2eFz8XoZJQokhwo3CTMMtQI9wJ6JQ
+	==
+X-ME-Sender: <xms:Man1YKVSseJ9y9KA5RqNwvemT_N9kju0MOviTDDUAYUQn1K8qIS72g>
+    <xme:Man1YGmK0mMjnAwvVMtAtfv5VGXQBn8IWd3NJmc4Y6xcRG1jK2D5YjYb00ARfN3bf
+    UY0wKA7rVT3zrhvRw>
+X-ME-Received: <xmr:Man1YOacK0czZgDw0E3H2hzpIyQQLNmH6zW131ixouf5nkUSauR5vcvD-QsjpRMO7J3i1Yu1KMCwx6G0bbWisH_F8rJk9F_uQzrewVA>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvtddrfedtgddutddtucetufdoteggodetrfdotf
+    fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
+    uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
+    cujfgurhepfffhvffukfhfgggtuggjohesthdtredttddtvdenucfhrhhomhepofgrrhhk
+    ucfirhgvvghruceomhhgrhgvvghrsegrnhhimhgrlhgtrhgvvghkrdgtohhmqeenucggtf
+    frrghtthgvrhhnpeefteduheefteegiedvffehleetieeigeejudelledugeeuleduieej
+    hfdukeejjeenucffohhmrghinhepkhgvrhhnvghlrdhorhhgpdhgihhthhhusgdrtghomh
+    enucevlhhushhtvghrufhiiigvpedtnecurfgrrhgrmhepmhgrihhlfhhrohhmpehmghhr
+    vggvrhesrghnihhmrghltghrvggvkhdrtghomh
+X-ME-Proxy: <xmx:Man1YBXec9k2Uh_hGMjnZ4dzR4dm7HoUEiRjjVUlJPT7iERiYRMbHQ>
+    <xmx:Man1YEkxfN2yedYwByM4uKsSEGcOH5ETmD_Urr41t3I78yVXfQPW6A>
+    <xmx:Man1YGcuWyBnWhy-iEkS6GnKzHpGUWAHh8LbsDyFH7GpT1o8X_gLZA>
+    <xmx:Mqn1YAu3Pj74QdUHtiSHUMN0eEvLbUiNbkKeA5Y3KIxhS_6D7tdPMQ>
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
+ 19 Jul 2021 12:32:49 -0400 (EDT)
+Received: by blue.animalcreek.com (Postfix, from userid 1000)
+	id EF8AB136009D; Mon, 19 Jul 2021 09:32:47 -0700 (MST)
+Date: Mon, 19 Jul 2021 09:32:47 -0700
+From: Mark Greer <mgreer@animalcreek.com>
+To: Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>
+Message-ID: <20210719163247.GA860856@animalcreek.com>
 References: <20210719110819.27340-1-krzysztof.kozlowski@canonical.com>
-From: Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>
-Message-ID: <d78d75e7-098c-cf41-9f96-c746d91385ad@canonical.com>
-Date: Mon, 19 Jul 2021 13:21:21 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.11.0
+ <d78d75e7-098c-cf41-9f96-c746d91385ad@canonical.com>
 MIME-Version: 1.0
-In-Reply-To: <20210719110819.27340-1-krzysztof.kozlowski@canonical.com>
-Content-Language: en-US
-Message-ID-Hash: YJY6FXEXJE55VATYFIRFUXVM2IK7RGOF
-X-Message-ID-Hash: YJY6FXEXJE55VATYFIRFUXVM2IK7RGOF
-X-MailFrom: krzysztof.kozlowski@canonical.com
+Content-Disposition: inline
+In-Reply-To: <d78d75e7-098c-cf41-9f96-c746d91385ad@canonical.com>
+Organization: Animal Creek Technologies, Inc.
+Message-ID-Hash: 3Y3YYOEXPOHPVIX2SYT5KEJQGIBGRRFR
+X-Message-ID-Hash: 3Y3YYOEXPOHPVIX2SYT5KEJQGIBGRRFR
+X-MailFrom: mgreer@animalcreek.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency; loop; banned-address; member-moderation; nonmember-moderation; administrivia; implicit-dest; max-recipients; max-size; news-moderation; no-subject; suspicious-header
+CC: linux-nfc@lists.01.org
 X-Mailman-Version: 3.1.1
 Precedence: list
 Subject: [linux-nfc] Re: [neard][PATCH v2 00/73] combined fixes - warnings, memory leaks, memory corruption
 List-Id: NFC on Linux <linux-nfc.lists.01.org>
-Archived-At: <https://lists.01.org/hyperkitty/list/linux-nfc@lists.01.org/message/YJY6FXEXJE55VATYFIRFUXVM2IK7RGOF/>
+Archived-At: <https://lists.01.org/hyperkitty/list/linux-nfc@lists.01.org/message/3Y3YYOEXPOHPVIX2SYT5KEJQGIBGRRFR/>
 List-Archive: <https://lists.01.org/hyperkitty/list/linux-nfc@lists.01.org/>
 List-Help: <mailto:linux-nfc-request@lists.01.org?subject=help>
 List-Post: <mailto:linux-nfc@lists.01.org>
@@ -83,37 +87,42 @@ List-Unsubscribe: <mailto:linux-nfc-leave@lists.01.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-On 19/07/2021 13:07, Krzysztof Kozlowski wrote:
-> Hi,
+On Mon, Jul 19, 2021 at 01:21:21PM +0200, Krzysztof Kozlowski wrote:
+> On 19/07/2021 13:07, Krzysztof Kozlowski wrote:
+> > Hi,
+> > 
+> > Mark asked for resending fixes separate from setting up CI under Github
+> > Actions, so here is a combination of all my previously sent patches
+> > related only to the actual C code:
+> > 
+> > https://lore.kernel.org/linux-nfc/20210710033859.3989-1-krzysztof.kozlowski@canonical.com/T/#t
+> > https://lore.kernel.org/linux-nfc/20210711202102.18094-1-krzysztof.kozlowski@canonical.com/T/#t
+> > https://lore.kernel.org/linux-nfc/20210714110518.104655-1-krzysztof.kozlowski@canonical.com/T/#t
+> > https://lore.kernel.org/linux-nfc/20210716100844.51360-1-krzysztof.kozlowski@canonical.com/T/#t
+> > 
+> > This includes fixes for GCC/clang warnings, memory leaks, memory
+> > corruption and few other minor fixes. The UTF-8 and UTF-16 is not
+> > entirely fixed and I removed the work-in-progress patches.
+> > 
+> > Changes since v1 are:
+> > 1. Group all patches based on prefix (unit file), instead of topic.
+> > 2. Put the build-related patches at the end.
+> > 3. Remove all CI-related patches.
 > 
-> Mark asked for resending fixes separate from setting up CI under Github
-> Actions, so here is a combination of all my previously sent patches
-> related only to the actual C code:
+> I put CI-related changes in:
+> https://github.com/linux-nfc/neard/commits/krzk/github-ci-v2
 > 
-> https://lore.kernel.org/linux-nfc/20210710033859.3989-1-krzysztof.kozlowski@canonical.com/T/#t
-> https://lore.kernel.org/linux-nfc/20210711202102.18094-1-krzysztof.kozlowski@canonical.com/T/#t
-> https://lore.kernel.org/linux-nfc/20210714110518.104655-1-krzysztof.kozlowski@canonical.com/T/#t
-> https://lore.kernel.org/linux-nfc/20210716100844.51360-1-krzysztof.kozlowski@canonical.com/T/#t
-> 
-> This includes fixes for GCC/clang warnings, memory leaks, memory
-> corruption and few other minor fixes. The UTF-8 and UTF-16 is not
-> entirely fixed and I removed the work-in-progress patches.
-> 
-> Changes since v1 are:
-> 1. Group all patches based on prefix (unit file), instead of topic.
-> 2. Put the build-related patches at the end.
-> 3. Remove all CI-related patches.
+> It's based on master, so it fails building (fixes are in the set here).
+> Should be rebased on top of this set before merging. Few patches got
+> also squashed as now this set does not follow my exact development history.
 
-I put CI-related changes in:
-https://github.com/linux-nfc/neard/commits/krzk/github-ci-v2
+Okay.  I'll work on reviewing through the week but I likely won't get
+through many until next weekend.
 
-It's based on master, so it fails building (fixes are in the set here).
-Should be rebased on top of this set before merging. Few patches got
-also squashed as now this set does not follow my exact development history.
+Thanks for the quick turn-around.
 
-
-Best regards,
-Krzysztof
+Mark
+--
 _______________________________________________
 Linux-nfc mailing list -- linux-nfc@lists.01.org
 To unsubscribe send an email to linux-nfc-leave@lists.01.org
