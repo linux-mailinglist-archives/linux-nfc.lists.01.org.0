@@ -1,78 +1,78 @@
 Return-Path: <linux-nfc-bounces@lists.01.org>
 X-Original-To: lists+linux-nfc@lfdr.de
 Delivered-To: lists+linux-nfc@lfdr.de
-Received: from ml01.01.org (ml01.01.org [IPv6:2001:19d0:306:5::1])
-	by mail.lfdr.de (Postfix) with ESMTPS id DF7F33CD318
-	for <lists+linux-nfc@lfdr.de>; Mon, 19 Jul 2021 13:09:10 +0200 (CEST)
+Received: from ml01.01.org (ml01.01.org [198.145.21.10])
+	by mail.lfdr.de (Postfix) with ESMTPS id 5D9873CD319
+	for <lists+linux-nfc@lfdr.de>; Mon, 19 Jul 2021 13:09:12 +0200 (CEST)
 Received: from ml01.vlan13.01.org (localhost [IPv6:::1])
-	by ml01.01.org (Postfix) with ESMTP id 088C9100EB330;
-	Mon, 19 Jul 2021 04:09:09 -0700 (PDT)
-Received-SPF: Pass (mailfrom) identity=mailfrom; client-ip=185.125.188.121; helo=smtp-relay-canonical-1.canonical.com; envelope-from=krzysztof.kozlowski@canonical.com; receiver=<UNKNOWN> 
-Received: from smtp-relay-canonical-1.canonical.com (smtp-relay-canonical-1.canonical.com [185.125.188.121])
+	by ml01.01.org (Postfix) with ESMTP id 15592100EB859;
+	Mon, 19 Jul 2021 04:09:11 -0700 (PDT)
+Received-SPF: Pass (mailfrom) identity=mailfrom; client-ip=185.125.188.120; helo=smtp-relay-canonical-0.canonical.com; envelope-from=krzysztof.kozlowski@canonical.com; receiver=<UNKNOWN> 
+Received: from smtp-relay-canonical-0.canonical.com (smtp-relay-canonical-0.canonical.com [185.125.188.120])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits))
 	(No client certificate requested)
-	by ml01.01.org (Postfix) with ESMTPS id 2BE54100EB33C
-	for <linux-nfc@lists.01.org>; Mon, 19 Jul 2021 04:09:07 -0700 (PDT)
-Received: from mail-lj1-f197.google.com (mail-lj1-f197.google.com [209.85.208.197])
+	by ml01.01.org (Postfix) with ESMTPS id 4E1F7100EB855
+	for <linux-nfc@lists.01.org>; Mon, 19 Jul 2021 04:09:08 -0700 (PDT)
+Received: from mail-lj1-f200.google.com (mail-lj1-f200.google.com [209.85.208.200])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by smtp-relay-canonical-1.canonical.com (Postfix) with ESMTPS id 2B85140207
-	for <linux-nfc@lists.01.org>; Mon, 19 Jul 2021 11:09:06 +0000 (UTC)
+	by smtp-relay-canonical-0.canonical.com (Postfix) with ESMTPS id 576C0408B2
+	for <linux-nfc@lists.01.org>; Mon, 19 Jul 2021 11:09:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=canonical.com;
-	s=20210705; t=1626692946;
-	bh=ALPYuisJuNTTb6DTEUnqid+7H8k7Xl+3dqbIQ9EBvc4=;
+	s=20210705; t=1626692947;
+	bh=Z7DGWJIas6tMyxRKMwFWiecihVoQTXMJAjHX+immGKk=;
 	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
 	 MIME-Version:Content-Type;
-	b=NOpZFmdz4fQCaJ/qXWoLLesnFAADPXcJGpqZfU/Yeu6y7dOxV4rFdTWaweEIUqLl6
-	 LbQ4gKiF2FWlB/kzNt3FUyjuuEGKzacijXyE0++HWErn1LWa4wo0onPkoQ6fKm6JHW
-	 jLefPYQshNJq7xizgfsbLmxtKT5eSYVMLEyzEQ6uDuDTMxYlqr5Y9GpkRhHMCv0FUj
-	 nRVFlU5kT17soXm9YCK0HEn9Kfb2wUBzrb/X+4XIUXHq9pmjk8pSeADmsjYbg4ZiDI
-	 gDYP/4Ysgv8z+qpz3oa22DpuH83LRoSh873QVSw+urKWq/TS3YlXbhvFB2c2wG/+MX
-	 R8NwKOyVq6UaA==
-Received: by mail-lj1-f197.google.com with SMTP id z18-20020a2e96520000b0290178006de192so9320558ljh.3
-        for <linux-nfc@lists.01.org>; Mon, 19 Jul 2021 04:09:06 -0700 (PDT)
+	b=cqKz7998q/lRi8v+2LJ+cbJXnDAG5o2Ix66/HQlIaYiuPggvM84Z376aVMO/TLfhu
+	 9UXJ2iQfUDlmbcymQmm/l/MDhaIxoa1MsxprG6tQ8Tw0UYqbkMxxsJLw5WFYZn6531
+	 ITPJe01A1TtHcl+XZaZCFaAiP71RJKosDA5c9aRyM5RXl9Il5ilPybJUjMSMOYHCz6
+	 AKfB1TgGYEfvrVc7qQfypsfic1+vu4oDZBtv7mBHWtJvZ4vIwzXhtBvc03cwFyd1Gt
+	 uL1nJ8m/dLfpBzWPUoPvSRFHJ1HvjjpNPNI20J4/4RtcJQiWG9lSuprEKS6Y8qEm2V
+	 xI8ikhc0XZkzg==
+Received: by mail-lj1-f200.google.com with SMTP id v10-20020a2ea60a0000b029017fd05dc0aaso9302288ljp.1
+        for <linux-nfc@lists.01.org>; Mon, 19 Jul 2021 04:09:07 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
          :references:mime-version:content-transfer-encoding;
-        bh=ALPYuisJuNTTb6DTEUnqid+7H8k7Xl+3dqbIQ9EBvc4=;
-        b=qdDKa3ozNuSPxhIy1VL4xSmH61OKRoUDgIKgvzWJEdfrX7ya3vm+a9ZeF3ekhCiUIq
-         H/vdG9P7K4HZgmqx3gw4cnye/k8Ocv2Ehoy+cWQI62SoF7G9tvzdC278zziNOiNeHVcE
-         +vCNd5BruEe9eivok1hB61gfik6KnJRKsWFdm6DEtIpHp0hvVOu2JjqJG+dB4Rjbc0aK
-         YriYyJ/Uy7l6rknHgL4dkEdaCxgl5VRth72fM4n8662cCr5DSyr2frWZRP4E5V/+kKjk
-         Ks+9FRvE3xOaOlGVZiy1zADY1q/ply3oNbNj15iblnx034DZX1kj1gfgfG9Omzgtvhg5
-         hVwA==
-X-Gm-Message-State: AOAM5325owEhPBrf/OqwDm9C0rrimxfbw9PybeoPxD9lAZ+WIsz+H8qi
-	57IAxZECB9gwnxirkmScgDxPSGDM4g+LCvyL1hoNzy+h4vG9x0qGafGPQbfxpowlhOmFqzc893j
-	7pHpz42xSvCf7adK2pIZM+YO1T+nSQu9XzQ==
-X-Received: by 2002:ac2:5472:: with SMTP id e18mr18566573lfn.26.1626692945439;
-        Mon, 19 Jul 2021 04:09:05 -0700 (PDT)
-X-Google-Smtp-Source: ABdhPJw/yXh+DPMp2sWEA7YXsWwmsHtQIzUQcXkArP7rnuyLclzF0WC9z5/rG+ITJ4+3v5atnnB+tw==
-X-Received: by 2002:ac2:5472:: with SMTP id e18mr18566561lfn.26.1626692945274;
-        Mon, 19 Jul 2021 04:09:05 -0700 (PDT)
+        bh=Z7DGWJIas6tMyxRKMwFWiecihVoQTXMJAjHX+immGKk=;
+        b=oHm3l0Q5rMJVYZIkB2M0XJaV0ePVO6obYuEfdcLrCqonir8ozOuwN91iGGlH78wcEJ
+         LbsmnsxRGIW3yFV7nPJJMJqES/bAaqV7q+ZXOVyNWBuCUAwe68wnrBud4YBoya8Xl7xv
+         967E1ayen656gkdWzHIm9VFb6qaj7JIAHJIfH2cm1ZJCX+7Ifmi6ehBdDmJY76MqnRrj
+         xbpy+DS9eOVxqP82oP131f8wImcWzkp39WLWd0vIgrMD4KhOw1fcZNOTpDkogtWFnHQw
+         9ktsLbRZK5hCJjuQUt1Af9MQA7/buRM39U0EJTT2x0wXMFKjlFqAfzyctUuBUojRFC4v
+         8gvA==
+X-Gm-Message-State: AOAM530J+4qNy7oRE/6Ll9duV3ls1VN00UWgrIRAlmLMpJVdZBj/o6jU
+	cvEBSDp0pi2drdORugDV0SaSjfXvnAJvhoJmA+RTdKZ3DRs/QIauqDW48Fln5yfJQd6XLx/kK4R
+	pdprYGf/SysvHH8Su3wPugPZNroXdDx9ung==
+X-Received: by 2002:a2e:309:: with SMTP id 9mr22079337ljd.82.1626692946629;
+        Mon, 19 Jul 2021 04:09:06 -0700 (PDT)
+X-Google-Smtp-Source: ABdhPJw9BEOY3F3sucpW4CarhAxj4J2kYwcQY7exWaD1X9esKyUPuGNdeI414+nSYGnPULt6VNdrKg==
+X-Received: by 2002:a2e:309:: with SMTP id 9mr22079330ljd.82.1626692946496;
+        Mon, 19 Jul 2021 04:09:06 -0700 (PDT)
 Received: from localhost.localdomain (m193-217-114-158.cust.tele2.hr. [193.217.114.158])
-        by smtp.gmail.com with ESMTPSA id z25sm1264701lfh.283.2021.07.19.04.09.04
+        by smtp.gmail.com with ESMTPSA id z25sm1264701lfh.283.2021.07.19.04.09.05
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 19 Jul 2021 04:09:04 -0700 (PDT)
+        Mon, 19 Jul 2021 04:09:06 -0700 (PDT)
 From: Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>
 To: linux-nfc@lists.01.org
-Date: Mon, 19 Jul 2021 13:07:33 +0200
-Message-Id: <20210719110819.27340-28-krzysztof.kozlowski@canonical.com>
+Date: Mon, 19 Jul 2021 13:07:34 +0200
+Message-Id: <20210719110819.27340-29-krzysztof.kozlowski@canonical.com>
 X-Mailer: git-send-email 2.27.0
 In-Reply-To: <20210719110819.27340-1-krzysztof.kozlowski@canonical.com>
 References: <20210719110819.27340-1-krzysztof.kozlowski@canonical.com>
 MIME-Version: 1.0
-Message-ID-Hash: IKYKVPP5CPC6UPHDHG3K5GINWPIKTMXI
-X-Message-ID-Hash: IKYKVPP5CPC6UPHDHG3K5GINWPIKTMXI
+Message-ID-Hash: QGHPBNPWJYB72E6T3M6S26BZGVRL6TIU
+X-Message-ID-Hash: QGHPBNPWJYB72E6T3M6S26BZGVRL6TIU
 X-MailFrom: krzysztof.kozlowski@canonical.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency; loop; banned-address; member-moderation; nonmember-moderation; administrivia; implicit-dest; max-recipients; max-size; news-moderation; no-subject; suspicious-header
 CC: Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>
 X-Mailman-Version: 3.1.1
 Precedence: list
-Subject: [linux-nfc] [neard][PATCH v2 27/73] nfctype3: use proper format for integers (-Wformat)
+Subject: [linux-nfc] [neard][PATCH v2 28/73] nfctype5: use proper format for integers (-Wformat)
 List-Id: NFC on Linux <linux-nfc.lists.01.org>
-Archived-At: <https://lists.01.org/hyperkitty/list/linux-nfc@lists.01.org/message/IKYKVPP5CPC6UPHDHG3K5GINWPIKTMXI/>
+Archived-At: <https://lists.01.org/hyperkitty/list/linux-nfc@lists.01.org/message/QGHPBNPWJYB72E6T3M6S26BZGVRL6TIU/>
 List-Archive: <https://lists.01.org/hyperkitty/list/linux-nfc@lists.01.org/>
 List-Help: <mailto:linux-nfc-request@lists.01.org?subject=help>
 List-Post: <mailto:linux-nfc@lists.01.org>
@@ -83,28 +83,37 @@ Content-Transfer-Encoding: base64
 
 UHJvcGVybHkgcHJpbnQgc2lnbmVkIGFuZCB1bnNpZ25lZCBpbnRlZ2Vycy4gIFRoaXMgZml4ZXMg
 d2FybmluZ3MgbGlrZToNCg0KICAgIEluIGZpbGUgaW5jbHVkZWQgZnJvbSBwbHVnaW5zL25mY3R5
-cGUzLmM6MzY6DQogICAgcGx1Z2lucy9uZmN0eXBlMy5jOiBJbiBmdW5jdGlvbiDigJhkYXRhX3Jl
-Y3bigJk6DQogICAgLi9pbmNsdWRlL25lYXIvbG9nLmg6NDU6MTQ6IGVycm9yOiBmb3JtYXQg4oCY
-JXpk4oCZIGV4cGVjdHMgYXJndW1lbnQgb2YgdHlwZSDigJhzaWduZWQgc2l6ZV904oCZLCBidXQg
-YXJndW1lbnQgNCBoYXMgdHlwZSDigJhzaXplX3TigJkge2FrYSDigJhsb25nIHVuc2lnbmVkIGlu
-dOKAmX0gWy1XZXJyb3I9Zm9ybWF0PV0NCiAgICAgICA0NSB8ICAgbmVhcl9kZWJ1ZygiJXM6JXMo
-KSAiIGZtdCwgXA0KICAgICAgICAgIHwgICAgICAgICAgICAgIF5+fn5+fn5+fn4NCiAgICBwbHVn
-aW5zL25mY3R5cGUzLmM6MjQ5OjM6IG5vdGU6IGluIGV4cGFuc2lvbiBvZiBtYWNybyDigJhEQkfi
-gJkNCiAgICAgIDI0OSB8ICAgREJHKCJEb25lIHJlYWRpbmcgJXpkIGJ5dGVzIGF0ICVwIiwgZGF0
-YV9sZW5ndGgsIG5mY19kYXRhKTsNCiAgICAgICAgICB8ICAgXn5+DQoNClNpZ25lZC1vZmYtYnk6
-IEtyenlzenRvZiBLb3psb3dza2kgPGtyenlzenRvZi5rb3psb3dza2lAY2Fub25pY2FsLmNvbT4N
-Ci0tLQ0KIHBsdWdpbnMvbmZjdHlwZTMuYyB8IDIgKy0NCiAxIGZpbGUgY2hhbmdlZCwgMSBpbnNl
-cnRpb24oKyksIDEgZGVsZXRpb24oLSkNCg0KZGlmZiAtLWdpdCBhL3BsdWdpbnMvbmZjdHlwZTMu
-YyBiL3BsdWdpbnMvbmZjdHlwZTMuYw0KaW5kZXggZDRmYmVkMGRmYzJmLi5jMDUwMmYxNWQ5ZjIg
-MTAwNjQ0DQotLS0gYS9wbHVnaW5zL25mY3R5cGUzLmMNCisrKyBiL3BsdWdpbnMvbmZjdHlwZTMu
-Yw0KQEAgLTI0Niw3ICsyNDYsNyBAQCBzdGF0aWMgaW50IGRhdGFfcmVjdih1aW50OF90ICpyZXNw
-LCBpbnQgbGVuZ3RoLCB2b2lkICpkYXRhKQ0KIA0KIAkJdGFnLT5jdXJyZW50X2Jsb2NrID0gMDsN
-CiANCi0JCURCRygiRG9uZSByZWFkaW5nICV6ZCBieXRlcyBhdCAlcCIsIGRhdGFfbGVuZ3RoLCBu
-ZmNfZGF0YSk7DQorCQlEQkcoIkRvbmUgcmVhZGluZyAlenUgYnl0ZXMgYXQgJXAiLCBkYXRhX2xl
-bmd0aCwgbmZjX2RhdGEpOw0KIAkJcmVjb3JkcyA9IG5lYXJfbmRlZl9wYXJzZV9tc2cobmZjX2Rh
-dGEsIGRhdGFfbGVuZ3RoLCBOVUxMKTsNCiAJCW5lYXJfdGFnX2FkZF9yZWNvcmRzKHRhZy0+dGFn
-LCByZWNvcmRzLCB0YWctPmNiLCAwKTsNCiANCi0tIA0KMi4yNy4wDQpfX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fXwpMaW51eC1uZmMgbWFpbGluZyBsaXN0IC0t
-IGxpbnV4LW5mY0BsaXN0cy4wMS5vcmcKVG8gdW5zdWJzY3JpYmUgc2VuZCBhbiBlbWFpbCB0byBs
-aW51eC1uZmMtbGVhdmVAbGlzdHMuMDEub3JnCiUod2ViX3BhZ2VfdXJsKXNsaXN0aW5mbyUoY2dp
-ZXh0KXMvJShfaW50ZXJuYWxfbmFtZSlz
+cGU1LmM6Mjk6DQogICAgcGx1Z2lucy9uZmN0eXBlNS5jOiBJbiBmdW5jdGlvbiDigJh0NV9yZWFk
+4oCZOg0KICAgIC4vaW5jbHVkZS9uZWFyL2xvZy5oOjQ1OjE0OiBlcnJvcjogZm9ybWF0IOKAmCV6
+ZOKAmSBleHBlY3RzIGFyZ3VtZW50IG9mIHR5cGUg4oCYc2lnbmVkIHNpemVfdOKAmSwgYnV0IGFy
+Z3VtZW50IDQgaGFzIHR5cGUg4oCYc2l6ZV904oCZIHtha2Eg4oCYbG9uZyB1bnNpZ25lZCBpbnTi
+gJl9IFstV2Vycm9yPWZvcm1hdD1dDQogICAgICAgNDUgfCAgIG5lYXJfZGVidWcoIiVzOiVzKCkg
+IiBmbXQsIFwNCiAgICAgICAgICB8ICAgICAgICAgICAgICBefn5+fn5+fn5+DQogICAgcGx1Z2lu
+cy9uZmN0eXBlNS5jOjQzNzoyOiBub3RlOiBpbiBleHBhbnNpb24gb2YgbWFjcm8g4oCYREJH4oCZ
+DQogICAgICA0MzcgfCAgREJHKCJSZWFkaW5nICV6ZCBieXRlcyBzdGFydGluZyBhdCBvZmZzZXQg
+JWRcbiIsIGxlbiwgb2Zmc2V0KTsNCiAgICAgICAgICB8ICBefn4NCg0KU2lnbmVkLW9mZi1ieTog
+S3J6eXN6dG9mIEtvemxvd3NraSA8a3J6eXN6dG9mLmtvemxvd3NraUBjYW5vbmljYWwuY29tPg0K
+LS0tDQogcGx1Z2lucy9uZmN0eXBlNS5jIHwgNiArKystLS0NCiAxIGZpbGUgY2hhbmdlZCwgMyBp
+bnNlcnRpb25zKCspLCAzIGRlbGV0aW9ucygtKQ0KDQpkaWZmIC0tZ2l0IGEvcGx1Z2lucy9uZmN0
+eXBlNS5jIGIvcGx1Z2lucy9uZmN0eXBlNS5jDQppbmRleCAzZDJjZGYwMzBkNGYuLjBmOTBlNTVh
+YjI2OCAxMDA2NDQNCi0tLSBhL3BsdWdpbnMvbmZjdHlwZTUuYw0KKysrIGIvcGx1Z2lucy9uZmN0
+eXBlNS5jDQpAQCAtNDM0LDcgKzQzNCw3IEBAIHN0YXRpYyBpbnQgdDVfcmVhZChzdHJ1Y3QgbmVh
+cl90YWcgKnRhZywgdWludDhfdCBvZmZzZXQsIHVpbnQ4X3QgKmJ1ZiwNCiAJdWludDhfdCBibGtf
+c2l6ZSA9IG5lYXJfdGFnX2dldF9ibGtfc2l6ZSh0YWcpOw0KIAlpbnQgZXJyOw0KIA0KLQlEQkco
+IlJlYWRpbmcgJXpkIGJ5dGVzIHN0YXJ0aW5nIGF0IG9mZnNldCAlZFxuIiwgbGVuLCBvZmZzZXQp
+Ow0KKwlEQkcoIlJlYWRpbmcgJXp1IGJ5dGVzIHN0YXJ0aW5nIGF0IG9mZnNldCAldVxuIiwgbGVu
+LCBvZmZzZXQpOw0KIA0KIAllcnIgPSB0NV9jbWRfaGRyX2luaXQodGFnLCAmdDVfY21kLmhkciwg
+Q01EX1JFQURfU0lOR0xFX0JMT0NLKTsNCiAJaWYgKGVycikNCkBAIC01MzIsMTAgKzUzMiwxMCBA
+QCBzdGF0aWMgaW50IHQ1X3dyaXRlKHN0cnVjdCBuZWFyX3RhZyAqdGFnLCB1aW50OF90IG9mZnNl
+dCwgdWludDhfdCAqYnVmLA0KIAl1aW50OF90IGJsa19zaXplID0gbmVhcl90YWdfZ2V0X2Jsa19z
+aXplKHRhZyk7DQogCWludCBlcnI7DQogDQotCURCRygiV3JpdGluZyAlemQgYnl0ZXMgc3RhcnRp
+bmcgYXQgb2Zmc2V0ICVkXG4iLCBsZW4sIG9mZnNldCk7DQorCURCRygiV3JpdGluZyAlenUgYnl0
+ZXMgc3RhcnRpbmcgYXQgb2Zmc2V0ICV1XG4iLCBsZW4sIG9mZnNldCk7DQogDQogCWlmIChvZmZz
+ZXQgJSBibGtfc2l6ZSkgew0KLQkJbmVhcl9lcnJvcigiV3JpdGUgLSBJbnZhbGlkIG9mZnNldCAt
+IG9mZnNldDogJWQsIGJsa19zaXplOiAlZCIsDQorCQluZWFyX2Vycm9yKCJXcml0ZSAtIEludmFs
+aWQgb2Zmc2V0IC0gb2Zmc2V0OiAldSwgYmxrX3NpemU6ICV1IiwNCiAJCQkgICBvZmZzZXQsIGJs
+a19zaXplKTsNCiAJCXJldHVybiAtRUlOVkFMOw0KIAl9DQotLSANCjIuMjcuMA0KX19fX19fX19f
+X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX19fX18KTGludXgtbmZjIG1haWxpbmcg
+bGlzdCAtLSBsaW51eC1uZmNAbGlzdHMuMDEub3JnClRvIHVuc3Vic2NyaWJlIHNlbmQgYW4gZW1h
+aWwgdG8gbGludXgtbmZjLWxlYXZlQGxpc3RzLjAxLm9yZwolKHdlYl9wYWdlX3VybClzbGlzdGlu
+Zm8lKGNnaWV4dClzLyUoX2ludGVybmFsX25hbWUpcw==
