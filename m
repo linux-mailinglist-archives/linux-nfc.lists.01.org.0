@@ -1,78 +1,78 @@
 Return-Path: <linux-nfc-bounces@lists.01.org>
 X-Original-To: lists+linux-nfc@lfdr.de
 Delivered-To: lists+linux-nfc@lfdr.de
-Received: from ml01.01.org (ml01.01.org [198.145.21.10])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7DE183CD32A
-	for <lists+linux-nfc@lfdr.de>; Mon, 19 Jul 2021 13:09:29 +0200 (CEST)
+Received: from ml01.01.org (ml01.01.org [IPv6:2001:19d0:306:5::1])
+	by mail.lfdr.de (Postfix) with ESMTPS id 965163CD32B
+	for <lists+linux-nfc@lfdr.de>; Mon, 19 Jul 2021 13:09:33 +0200 (CEST)
 Received: from ml01.vlan13.01.org (localhost [IPv6:::1])
-	by ml01.01.org (Postfix) with ESMTP id 35D15100EB331;
-	Mon, 19 Jul 2021 04:09:28 -0700 (PDT)
-Received-SPF: Pass (mailfrom) identity=mailfrom; client-ip=185.125.188.120; helo=smtp-relay-canonical-0.canonical.com; envelope-from=krzysztof.kozlowski@canonical.com; receiver=<UNKNOWN> 
-Received: from smtp-relay-canonical-0.canonical.com (smtp-relay-canonical-0.canonical.com [185.125.188.120])
+	by ml01.01.org (Postfix) with ESMTP id 47E45100EB333;
+	Mon, 19 Jul 2021 04:09:32 -0700 (PDT)
+Received-SPF: Pass (mailfrom) identity=mailfrom; client-ip=185.125.188.121; helo=smtp-relay-canonical-1.canonical.com; envelope-from=krzysztof.kozlowski@canonical.com; receiver=<UNKNOWN> 
+Received: from smtp-relay-canonical-1.canonical.com (smtp-relay-canonical-1.canonical.com [185.125.188.121])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits))
 	(No client certificate requested)
-	by ml01.01.org (Postfix) with ESMTPS id 3C66C100EB345
-	for <linux-nfc@lists.01.org>; Mon, 19 Jul 2021 04:09:26 -0700 (PDT)
-Received: from mail-lj1-f198.google.com (mail-lj1-f198.google.com [209.85.208.198])
+	by ml01.01.org (Postfix) with ESMTPS id 3D1A1100EB32F
+	for <linux-nfc@lists.01.org>; Mon, 19 Jul 2021 04:09:27 -0700 (PDT)
+Received: from mail-lj1-f199.google.com (mail-lj1-f199.google.com [209.85.208.199])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by smtp-relay-canonical-0.canonical.com (Postfix) with ESMTPS id 3C44040624
-	for <linux-nfc@lists.01.org>; Mon, 19 Jul 2021 11:09:25 +0000 (UTC)
+	by smtp-relay-canonical-1.canonical.com (Postfix) with ESMTPS id 3FB1240325
+	for <linux-nfc@lists.01.org>; Mon, 19 Jul 2021 11:09:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=canonical.com;
-	s=20210705; t=1626692965;
-	bh=AeqbaBEvvgaioAgWHC+su0eJHvutfGr8CYeymvTyKZ4=;
+	s=20210705; t=1626692966;
+	bh=19y7Le2BxMbMSWdWjGtGkr07bFAVESWjj4f9Q3FC7wo=;
 	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
 	 MIME-Version;
-	b=h0Zz2Jv83YFbkMwQfvsz7no+8JGIqD5XCJxgWRnl94Hui9SJnI3ZWJFMmpBYjBkkB
-	 5JOd5TPrHneZw39bRs9OlphLVklwM4ySYQ415C2GUsy8NQKQLhM34jnj/lnF5MXPli
-	 aHsx0mlC4HcD0IqpXcF7fx+POOLBl+tsubQZRS1drRx4xSQ33hyTMMi5gvCD88aLRp
-	 siLOOZcQJPkIgYEG48t8cgS3TLrNWgQYG0zTrjg1II18wnDrBMlkESj5hsk9KU8qdF
-	 m+st9L2JoQTZzQQ0YrbicqnjpZdaYeOZNjnnQo+ePYWzpqbd5Fg3Fwo2slycBl1twE
-	 5WcegJdAlEHHg==
-Received: by mail-lj1-f198.google.com with SMTP id y11-20020a2eb00b0000b0290194aa1ae3efso5326547ljk.18
-        for <linux-nfc@lists.01.org>; Mon, 19 Jul 2021 04:09:25 -0700 (PDT)
+	b=MrMV1oi1xqKzQJjxHI93CJpspv4HTpkgEAFd5H+DBBfpuUsbZ1NsX2F6Pg1KiHN+E
+	 KrGAE17/8VCfj/iGTFvOpiNbVmN50r+K2jf+HAkJpYkZtKAR+Db29rBSo/hvyCvyWa
+	 o/Y8Ed/xVLRiv3ejlEiogHrOz+PnrTU3EZB5R6fgPQo7Op6DHdDIjQyVCF+kvq581/
+	 jeEhFmFh5l1jmuAhm+y4MCXcgVGctwZwI1l4OuKwo1zvay0LnTMQzec5x+pmb96hX6
+	 CJveWPWu74YXdBGUNr2bKTPgzwpG1f1UVM+hI1t4qKBg6CCPJx5EYq+4IPlsu24x4m
+	 oXvfXBN5OLuKQ==
+Received: by mail-lj1-f199.google.com with SMTP id y7-20020a2e97870000b029018bc821fd31so9300376lji.11
+        for <linux-nfc@lists.01.org>; Mon, 19 Jul 2021 04:09:26 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
          :references:mime-version:content-transfer-encoding;
-        bh=AeqbaBEvvgaioAgWHC+su0eJHvutfGr8CYeymvTyKZ4=;
-        b=slWbFRzugN7rm76Cz7t9gccHN6NVGcxDlWdmZfBcdam2V7Ic0Mrk0f4LLiXMfQ9FIH
-         kj3POyK+ObrBl4gBesE+Z5Zd4vb/0ggXSN3rLzIFAxQ+7Vuud5hvfsX+gfaKQ4UWUImq
-         KRCd48YK2W4CHyuUPk+XangUT0zIUIPBIQZenYyXDZDeTfogGVFsWdvtTXVLX0F1JUIn
-         3HHfhG1I7heJW7ChoUPbg2G/INdKHlZz1hYKN/omUKoGxyjoDPcGMYNGenj9Tnp8uQKS
-         jMnoH+bXFSROEKXjurhZR6yWm3d9DpzQ/w1og7/omZUY61kS/L7+9s75J9mexBEvTjp2
-         C6qw==
-X-Gm-Message-State: AOAM532GyyzENuvnhkR/6usjYMDWokcXbQU0xrr52h3BRYYsb8jEUiI9
-	yAhsUPqugHwbpzdX94K/HcUcRs4GQ480/6wbtMvLBYHeF2HDB/VW3OcRX6fIsdoEfSbLYS5YzfR
-	B+X2EaHDGeBZR4NJyx2W2b86vjEV34bMjbA==
-X-Received: by 2002:ac2:4a8c:: with SMTP id l12mr18379658lfp.657.1626692964240;
-        Mon, 19 Jul 2021 04:09:24 -0700 (PDT)
-X-Google-Smtp-Source: ABdhPJw4GTe3n2UtexSdsHf5UZw1bykoEwqS0roZHCOyT+VHQ3Iojq7Och857754k47NFWqo3g8gXg==
-X-Received: by 2002:ac2:4a8c:: with SMTP id l12mr18379647lfp.657.1626692964028;
-        Mon, 19 Jul 2021 04:09:24 -0700 (PDT)
+        bh=19y7Le2BxMbMSWdWjGtGkr07bFAVESWjj4f9Q3FC7wo=;
+        b=qs2l0iBKzvpyYWswVA1/ULEQMVnduMznCdbSLvDxaCqW3rZhXCJyvtmBruB3Groyqe
+         1kjq/ZDaC4BbE2H0KVTGs2QikOdKxVo32jwJPCT8NzDv0QR+uORUm8pkHlTL5HjLhm1t
+         ENHPUBN3nnJ8b9/YeT/4UOski3lECwGuukZfg0K28cXTmHnH8BReK4Q9Zh6k/r8Gnaog
+         CSx07MsrXefFukmtrim0XAM4W/uhNNwaH4VhBdegetG3c9aJsbWjdLSM8TIo/hNxcbe4
+         yZ6ldV8uh3lLMEXUSvhpqWQNdaDLvH15tXuSYdX4TDsQM1G1Acm+gEdgIcrHy8gW/5Yg
+         Z6lg==
+X-Gm-Message-State: AOAM533/bHhcFDWhvJ5FZuRfSeP/B4lXyT0L9yGrY5QbpxdSYrw2Fm0b
+	401UW2527DxmJh9FLvhK4ynrLyGLZbLUycG1NzwCoaud8eq/9uyHWoZ2JgfcYXic5L1gZtCqotA
+	+u1VJe7xEOuLkNxPF8BvgC4kgOrNCStatHg==
+X-Received: by 2002:a2e:a484:: with SMTP id h4mr14556264lji.180.1626692965538;
+        Mon, 19 Jul 2021 04:09:25 -0700 (PDT)
+X-Google-Smtp-Source: ABdhPJxO9xsJq1PewuZdIB0MAwqSc1FiEPoUP6eyXmC3wBUbgpOHflGcT/nEzOq2pDNvfIDv6/EjZg==
+X-Received: by 2002:a2e:a484:: with SMTP id h4mr14556255lji.180.1626692965402;
+        Mon, 19 Jul 2021 04:09:25 -0700 (PDT)
 Received: from localhost.localdomain (m193-217-114-158.cust.tele2.hr. [193.217.114.158])
-        by smtp.gmail.com with ESMTPSA id z25sm1264701lfh.283.2021.07.19.04.09.23
+        by smtp.gmail.com with ESMTPSA id z25sm1264701lfh.283.2021.07.19.04.09.24
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 19 Jul 2021 04:09:23 -0700 (PDT)
+        Mon, 19 Jul 2021 04:09:25 -0700 (PDT)
 From: Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>
 To: linux-nfc@lists.01.org
-Date: Mon, 19 Jul 2021 13:07:49 +0200
-Message-Id: <20210719110819.27340-44-krzysztof.kozlowski@canonical.com>
+Date: Mon, 19 Jul 2021 13:07:50 +0200
+Message-Id: <20210719110819.27340-45-krzysztof.kozlowski@canonical.com>
 X-Mailer: git-send-email 2.27.0
 In-Reply-To: <20210719110819.27340-1-krzysztof.kozlowski@canonical.com>
 References: <20210719110819.27340-1-krzysztof.kozlowski@canonical.com>
 MIME-Version: 1.0
-Message-ID-Hash: WOU6Z5VT4WUSHNPLJXJS44OYE6ACAWGM
-X-Message-ID-Hash: WOU6Z5VT4WUSHNPLJXJS44OYE6ACAWGM
+Message-ID-Hash: YKPKQVOD677BHX7JO3ZHYM2VFI47RL3D
+X-Message-ID-Hash: YKPKQVOD677BHX7JO3ZHYM2VFI47RL3D
 X-MailFrom: krzysztof.kozlowski@canonical.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency; loop; banned-address; member-moderation; nonmember-moderation; administrivia; implicit-dest; max-recipients; max-size; news-moderation; no-subject; suspicious-header
 CC: Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>
 X-Mailman-Version: 3.1.1
 Precedence: list
-Subject: [linux-nfc] [neard][PATCH v2 43/73] snep: fix double free of GSList
+Subject: [linux-nfc] [neard][PATCH v2 44/73] snep: fix fragmented response memory leaks
 List-Id: NFC on Linux <linux-nfc.lists.01.org>
-Archived-At: <https://lists.01.org/hyperkitty/list/linux-nfc@lists.01.org/message/WOU6Z5VT4WUSHNPLJXJS44OYE6ACAWGM/>
+Archived-At: <https://lists.01.org/hyperkitty/list/linux-nfc@lists.01.org/message/YKPKQVOD677BHX7JO3ZHYM2VFI47RL3D/>
 List-Archive: <https://lists.01.org/hyperkitty/list/linux-nfc@lists.01.org/>
 List-Help: <mailto:linux-nfc-request@lists.01.org?subject=help>
 List-Post: <mailto:linux-nfc@lists.01.org>
@@ -81,112 +81,53 @@ List-Unsubscribe: <mailto:linux-nfc-leave@lists.01.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-g_slist_free_full() already frees entire GSList so calling it with
-g_slist_free causes a double free and memory corruption.
+Sending long response might cause frame fragmentation and
+near_snep_core_response_with_info() does not free such 'struct
+p2p_snep_put_req_data'.  It looks like freeing the fragmented response
+is task for snep_core_process_request as it already frees the fragments.
+Add also freeing the response itself to fix Valgrind (and ASAN) reported
+memory leaks:
 
-This can be seen with Valgrind:
+  $ valgrind  --leak-check=full unit/test-snep-read
 
-  Invalid read of size 8
-    at 0x48E3980: g_slice_free_chain_with_offset (in /usr/lib/x86_64-linux-gnu/libglib-2.0.so.0.6600.1)
-    by 0x122075: snep_core_process_request (snep.c:481)
-    by 0x122075: near_snep_core_read (snep.c:620)
-    by 0x122CE4: test_snep_read_req_common (test-snep-read.c:348)
-    by 0x12457A: test_snep_read_get_req_frags_client_resp (test-snep-read.c:775)
+  80 bytes in 2 blocks are definitely lost in loss record 55 of 60
+    at 0x483ED99: calloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
+    by 0x122496: near_snep_core_response_with_info (snep.c:762)
+    by 0x122E21: test_snep_dummy_req_get (test-snep-read.c:179)
+    by 0x121FF3: snep_core_process_request (snep.c:411)
+    by 0x121FF3: near_snep_core_read (snep.c:616)
+    by 0x122CC4: test_snep_read_req_common (test-snep-read.c:355)
+    by 0x124792: test_snep_read_get_req_frags_client_resp (test-snep-read.c:760)
     by 0x48ECDCD: ??? (in /usr/lib/x86_64-linux-gnu/libglib-2.0.so.0.6600.1)
     by 0x48ECBCA: ??? (in /usr/lib/x86_64-linux-gnu/libglib-2.0.so.0.6600.1)
     by 0x48ED2B9: g_test_run_suite (in /usr/lib/x86_64-linux-gnu/libglib-2.0.so.0.6600.1)
     by 0x48ED2D4: g_test_run (in /usr/lib/x86_64-linux-gnu/libglib-2.0.so.0.6600.1)
-    by 0x10F982: main (test-snep-read.c:960)
-   Address 0x501e198 is 8 bytes inside a block of size 16 free'd
-    at 0x483DA3F: free (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
-    by 0x48E3971: g_slice_free_chain_with_offset (in /usr/lib/x86_64-linux-gnu/libglib-2.0.so.0.6600.1)
-    by 0x122068: snep_core_process_request (snep.c:479)
-    by 0x122068: near_snep_core_read (snep.c:620)
-    by 0x122CE4: test_snep_read_req_common (test-snep-read.c:348)
-    by 0x12457A: test_snep_read_get_req_frags_client_resp (test-snep-read.c:775)
-    by 0x48ECDCD: ??? (in /usr/lib/x86_64-linux-gnu/libglib-2.0.so.0.6600.1)
-    by 0x48ECBCA: ??? (in /usr/lib/x86_64-linux-gnu/libglib-2.0.so.0.6600.1)
-    by 0x48ED2B9: g_test_run_suite (in /usr/lib/x86_64-linux-gnu/libglib-2.0.so.0.6600.1)
-    by 0x48ED2D4: g_test_run (in /usr/lib/x86_64-linux-gnu/libglib-2.0.so.0.6600.1)
-    by 0x10F982: main (test-snep-read.c:960)
-   Block was alloc'd at
-    at 0x483C7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
-    by 0x48CA698: g_malloc (in /usr/lib/x86_64-linux-gnu/libglib-2.0.so.0.6600.1)
-    by 0x48E2CF1: g_slice_alloc (in /usr/lib/x86_64-linux-gnu/libglib-2.0.so.0.6600.1)
-    by 0x48E4407: g_slist_append (in /usr/lib/x86_64-linux-gnu/libglib-2.0.so.0.6600.1)
-    by 0x121AC7: snep_core_push_prepare_fragments (snep.c:377)
-    by 0x121AC7: near_snep_core_response (snep.c:695)
-    by 0x1224DB: near_snep_core_response_with_info (snep.c:779)
-    by 0x122E41: test_snep_dummy_req_get (test-snep-read.c:172)
-    by 0x121FF3: snep_core_process_request (snep.c:413)
-    by 0x121FF3: near_snep_core_read (snep.c:620)
-    by 0x122CE4: test_snep_read_req_common (test-snep-read.c:348)
-    by 0x124449: test_snep_read_get_req_frags_client_resp (test-snep-read.c:746)
-    by 0x48ECDCD: ??? (in /usr/lib/x86_64-linux-gnu/libglib-2.0.so.0.6600.1)
-    by 0x48ECBCA: ??? (in /usr/lib/x86_64-linux-gnu/libglib-2.0.so.0.6600.1)
-
-  Invalid free() / delete / delete[] / realloc()
-    at 0x483DA3F: free (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
-    by 0x48E3971: g_slice_free_chain_with_offset (in /usr/lib/x86_64-linux-gnu/libglib-2.0.so.0.6600.1)
-    by 0x122075: snep_core_process_request (snep.c:481)
-    by 0x122075: near_snep_core_read (snep.c:620)
-    by 0x122CE4: test_snep_read_req_common (test-snep-read.c:348)
-    by 0x12457A: test_snep_read_get_req_frags_client_resp (test-snep-read.c:775)
-    by 0x48ECDCD: ??? (in /usr/lib/x86_64-linux-gnu/libglib-2.0.so.0.6600.1)
-    by 0x48ECBCA: ??? (in /usr/lib/x86_64-linux-gnu/libglib-2.0.so.0.6600.1)
-    by 0x48ED2B9: g_test_run_suite (in /usr/lib/x86_64-linux-gnu/libglib-2.0.so.0.6600.1)
-    by 0x48ED2D4: g_test_run (in /usr/lib/x86_64-linux-gnu/libglib-2.0.so.0.6600.1)
-    by 0x10F982: main (test-snep-read.c:960)
-   Address 0x501e190 is 0 bytes inside a block of size 16 free'd
-    at 0x483DA3F: free (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
-    by 0x48E3971: g_slice_free_chain_with_offset (in /usr/lib/x86_64-linux-gnu/libglib-2.0.so.0.6600.1)
-    by 0x122068: snep_core_process_request (snep.c:479)
-    by 0x122068: near_snep_core_read (snep.c:620)
-    by 0x122CE4: test_snep_read_req_common (test-snep-read.c:348)
-    by 0x12457A: test_snep_read_get_req_frags_client_resp (test-snep-read.c:775)
-    by 0x48ECDCD: ??? (in /usr/lib/x86_64-linux-gnu/libglib-2.0.so.0.6600.1)
-    by 0x48ECBCA: ??? (in /usr/lib/x86_64-linux-gnu/libglib-2.0.so.0.6600.1)
-    by 0x48ED2B9: g_test_run_suite (in /usr/lib/x86_64-linux-gnu/libglib-2.0.so.0.6600.1)
-    by 0x48ED2D4: g_test_run (in /usr/lib/x86_64-linux-gnu/libglib-2.0.so.0.6600.1)
-    by 0x10F982: main (test-snep-read.c:960)
-   Block was alloc'd at
-    at 0x483C7F3: malloc (in /usr/lib/x86_64-linux-gnu/valgrind/vgpreload_memcheck-amd64-linux.so)
-    by 0x48CA698: g_malloc (in /usr/lib/x86_64-linux-gnu/libglib-2.0.so.0.6600.1)
-    by 0x48E2CF1: g_slice_alloc (in /usr/lib/x86_64-linux-gnu/libglib-2.0.so.0.6600.1)
-    by 0x48E4407: g_slist_append (in /usr/lib/x86_64-linux-gnu/libglib-2.0.so.0.6600.1)
-    by 0x121AC7: snep_core_push_prepare_fragments (snep.c:377)
-    by 0x121AC7: near_snep_core_response (snep.c:695)
-    by 0x1224DB: near_snep_core_response_with_info (snep.c:779)
-    by 0x122E41: test_snep_dummy_req_get (test-snep-read.c:172)
-    by 0x121FF3: snep_core_process_request (snep.c:413)
-    by 0x121FF3: near_snep_core_read (snep.c:620)
-    by 0x122CE4: test_snep_read_req_common (test-snep-read.c:348)
-    by 0x124449: test_snep_read_get_req_frags_client_resp (test-snep-read.c:746)
-    by 0x48ECDCD: ??? (in /usr/lib/x86_64-linux-gnu/libglib-2.0.so.0.6600.1)
-    by 0x48ECBCA: ??? (in /usr/lib/x86_64-linux-gnu/libglib-2.0.so.0.6600.1)
+    by 0x10F982: main (test-snep-read.c:976)
 
 Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>
 ---
- src/snep.c | 2 --
- 1 file changed, 2 deletions(-)
+ src/snep.c | 4 ++++
+ 1 file changed, 4 insertions(+)
 
 diff --git a/src/snep.c b/src/snep.c
-index 737060139b07..bac93c115cb3 100644
+index bac93c115cb3..d4692c522df3 100644
 --- a/src/snep.c
 +++ b/src/snep.c
-@@ -436,7 +436,6 @@ static bool snep_core_process_request(int client_fd,
+@@ -436,6 +436,8 @@ static bool snep_core_process_request(int client_fd,
  
  		g_slist_free_full(snep_data->req->fragments,
  						free_snep_core_fragment);
--		g_slist_free(snep_data->req->fragments);
++		g_free(snep_data->req);
++		snep_data->req = NULL;
  
  		g_hash_table_remove(snep_client_hash,
  						GINT_TO_POINTER(client_fd));
-@@ -476,7 +475,6 @@ leave_cont:
+@@ -475,6 +477,8 @@ leave_cont:
  		/* No more fragment to send, clean memory */
  		g_slist_free_full(snep_data->req->fragments,
  						free_snep_core_fragment);
--		g_slist_free(snep_data->req->fragments);
++		g_free(snep_data->req);
++		snep_data->req = NULL;
  
  		g_hash_table_remove(snep_client_hash,
  						GINT_TO_POINTER(client_fd));
