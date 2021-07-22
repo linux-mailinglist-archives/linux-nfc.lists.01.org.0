@@ -1,72 +1,73 @@
 Return-Path: <linux-nfc-bounces@lists.01.org>
 X-Original-To: lists+linux-nfc@lfdr.de
 Delivered-To: lists+linux-nfc@lfdr.de
-Received: from ml01.01.org (ml01.01.org [198.145.21.10])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2C3873D2ADE
-	for <lists+linux-nfc@lfdr.de>; Thu, 22 Jul 2021 19:13:31 +0200 (CEST)
+Received: from ml01.01.org (ml01.01.org [IPv6:2001:19d0:306:5::1])
+	by mail.lfdr.de (Postfix) with ESMTPS id A4C523D2AE3
+	for <lists+linux-nfc@lfdr.de>; Thu, 22 Jul 2021 19:16:55 +0200 (CEST)
 Received: from ml01.vlan13.01.org (localhost [IPv6:::1])
-	by ml01.01.org (Postfix) with ESMTP id 9E78C100EBB6C;
-	Thu, 22 Jul 2021 10:13:28 -0700 (PDT)
-Received-SPF: Pass (mailfrom) identity=mailfrom; client-ip=2a00:1450:4864:20::22c; helo=mail-lj1-x22c.google.com; envelope-from=vindrg@gmail.com; receiver=<UNKNOWN> 
-Received: from mail-lj1-x22c.google.com (mail-lj1-x22c.google.com [IPv6:2a00:1450:4864:20::22c])
+	by ml01.01.org (Postfix) with ESMTP id E3D36100EBB72;
+	Thu, 22 Jul 2021 10:16:53 -0700 (PDT)
+Received-SPF: Pass (mailfrom) identity=mailfrom; client-ip=2a00:1450:4864:20::231; helo=mail-lj1-x231.google.com; envelope-from=vindrg@gmail.com; receiver=<UNKNOWN> 
+Received: from mail-lj1-x231.google.com (mail-lj1-x231.google.com [IPv6:2a00:1450:4864:20::231])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits))
 	(No client certificate requested)
-	by ml01.01.org (Postfix) with ESMTPS id 786C1100EBB61
-	for <linux-nfc@lists.01.org>; Thu, 22 Jul 2021 10:13:25 -0700 (PDT)
-Received: by mail-lj1-x22c.google.com with SMTP id h9so8256831ljm.5
-        for <linux-nfc@lists.01.org>; Thu, 22 Jul 2021 10:13:25 -0700 (PDT)
+	by ml01.01.org (Postfix) with ESMTPS id F197B100EBB6C
+	for <linux-nfc@lists.01.org>; Thu, 22 Jul 2021 10:16:50 -0700 (PDT)
+Received: by mail-lj1-x231.google.com with SMTP id t3so8267922ljc.3
+        for <linux-nfc@lists.01.org>; Thu, 22 Jul 2021 10:16:50 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
         h=subject:to:references:from:message-id:date:user-agent:mime-version
          :in-reply-to:content-language:content-transfer-encoding;
-        bh=CRCFwsQOXkT0mbXd3z3LBiBD6q2OZ4JY8b+72EAn3F8=;
-        b=bKRPrZT8cZh2kSSLpIciaydzSZwb4n3VGEZDTBA7tFwJDhz/hlpBiWCtKozTrxkNby
-         +Lk4hXwR1BWMzbDd2tCCAmSu/zcsZSEu9HJ6ExO1YkwRQz1pxFZ9jn8O/8xGbfi3eEfR
-         512nXBjwCyXmPd3DyoJE1ZhWnwfYtiwJlzv5HmRlwlVBuNY5Egc8Ps71RM/14/Mb0W+E
-         xXIEbqiZZQlHQTtSJBnEjvQOfJ4BMiFAa6qx8ul0+YWo+89QYFXcb5iCvdkfrnRVblMb
-         vraz8njYeRC6a9oECOE10nUrhIR7PvL1H56K/86HQnSOCfXT7Lf57GYA1KnZA1IsPadE
-         zxmQ==
+        bh=Q1HhO7C42Si4I/zqDG4/pAVk+GrW3JSrAc3ShHYGQjg=;
+        b=QGVoPNKbjNuwzKJnZ2Md13h9a9YhcIB2OWm386spqUILN6auKQxwIRpFxGa70pwm2i
+         /FkqKf1zZj7erstyydTpeWMptiThCvnqiR48Pe8Ahw8l0WtgAKS3vQpcGE6svOtHZqsb
+         ylDMWpKmjw1+/auuiWKAGlnxf41YkDiPu2P8VL2aXkfQtPLMnVXVi8Hck+guq2l+5/8r
+         1RF4hSQgKi1whRhOFRaZyT217HzesHsDmoNEx5rnyVg9NDkjmQPz6QcwMXHbtr5+5x/P
+         FCUATHW09YOtV492rRy2GRXNc8r5+NA2BfhRtu3+cV+G8KTqPnRdjZ3ddJKnH0y+0t6b
+         Z2+Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:subject:to:references:from:message-id:date
          :user-agent:mime-version:in-reply-to:content-language
          :content-transfer-encoding;
-        bh=CRCFwsQOXkT0mbXd3z3LBiBD6q2OZ4JY8b+72EAn3F8=;
-        b=O6hktGjf9Mrrva7aFrc/yM3z6FLzE5YbsuYC0ZAZgUj9MqXzMMtEGJ2whf3d6sj+qx
-         ysR0EEaO5c+tqKdiQLT6IBQsaeiUliGq8afLqi3uT4TLSb7ivfubyP077IiqDx8vxQWN
-         WsGZzQVT6SEqXNIrgORBMXnMz4Y6d4ytPmZlZReEID28J21Y+fAlhXtQiCcMbPcEtkVL
-         v2kq3OpVhSl7nmlAC1eOmGK8DvaEXir60b6/Vqo27PPpXp/PTsCA8//uL1E/+N47z8dS
-         2ml0vNQTuujLr84lKsq1vM+wzo3jiFMWkpkIyB/slPfAHe4zCSsG+35hh0srT/mC1YGf
-         INgQ==
-X-Gm-Message-State: AOAM533Xl3P4xk8YrkC04BaoWclfeoGg7PFhIhqs/E0rqgRclJdrU5vb
-	bordC9VS4ytKgsQRf+eY02Rw0Oy9U/c=
-X-Google-Smtp-Source: ABdhPJyTifWjMeJ3Ok+9Sff4AOs6cX1Gd20q5jJX8IpCSVq0uBjO+JHlEn2mAAAtrC4jlq/9pFCk3g==
-X-Received: by 2002:a2e:9215:: with SMTP id k21mr726097ljg.91.1626974002078;
-        Thu, 22 Jul 2021 10:13:22 -0700 (PDT)
+        bh=Q1HhO7C42Si4I/zqDG4/pAVk+GrW3JSrAc3ShHYGQjg=;
+        b=gOQLIYSVtr/t631+VjGrHs8qqZvQKAXplpDJFvPe6HhHZ4mKQAEmHSCSO4WZHODwJj
+         vdRGslITMWSs+suuiFSVSr62XARgW5rBlyHrYLzHgXZSEnFkP0V0juJIWi29Hw3Lf30u
+         qUbuHlnQPkogplHIbfncO10djDMg6ZWOhYq2dV/mp393ygyUots+JIklDSXm5gU9fDuU
+         xqoQ8j3hyuqeVHu8btydTu5SIIsd10DwP/Kmi+1ClpwwgqWQKbMczjFBk+yinrUNwBy2
+         kPrD9oqSQbRPorI/P8P2kSJvWz6zVfHrxVRap6/b4S7d8QdvH0IvEMhAZ1W5gL14YrON
+         lk1A==
+X-Gm-Message-State: AOAM532Rhm4XFToz10XhkQ4u1qdGag/Pu0KAL/Yj+9he5s/I2J/Xp140
+	MMDLJ3dY51izo9AIVbX08hujZdL0i50=
+X-Google-Smtp-Source: ABdhPJz97CBHlMZd+nuHTzhrEWkbJro1z7ZiteA5hoHvcS8ccFlcZnKqX8pEltDUAX4RQukrJyJiFg==
+X-Received: by 2002:a2e:9b84:: with SMTP id z4mr705052lji.179.1626974206160;
+        Thu, 22 Jul 2021 10:16:46 -0700 (PDT)
 Received: from [192.168.1.10] (mail.dargis.net. [62.80.227.49])
-        by smtp.gmail.com with ESMTPSA id d7sm2955828ljq.112.2021.07.22.10.13.21
+        by smtp.gmail.com with ESMTPSA id e7sm2484249ljq.9.2021.07.22.10.16.45
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 22 Jul 2021 10:13:21 -0700 (PDT)
-To: Frieder Schrempf <frieder.schrempf@kontron.de>, linux-nfc@lists.01.org
+        Thu, 22 Jul 2021 10:16:45 -0700 (PDT)
+To: Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>,
+ linux-nfc@lists.01.org
 References: <CAPNCXk0qkc-5myby0TdzD=6kBXSd_o_iNGy6jjjO5YXeyZqceg@mail.gmail.com>
- <e35ac631-3b84-f6c5-3f34-b6859f3b709f@kontron.de>
+ <c3e98408-8d27-fe0e-4d99-6c1ae1d961ab@canonical.com>
 From: Vincas Dargis <vindrg@gmail.com>
-Message-ID: <338d62d6-b59b-1742-b146-1278ae1b9139@gmail.com>
-Date: Thu, 22 Jul 2021 20:13:20 +0300
+Message-ID: <c60058e4-73d3-4545-7165-7d03df865822@gmail.com>
+Date: Thu, 22 Jul 2021 20:16:45 +0300
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
  Thunderbird/78.12.0
 MIME-Version: 1.0
-In-Reply-To: <e35ac631-3b84-f6c5-3f34-b6859f3b709f@kontron.de>
+In-Reply-To: <c3e98408-8d27-fe0e-4d99-6c1ae1d961ab@canonical.com>
 Content-Language: en-US
-Message-ID-Hash: Z4JF3YQAECQSIPCOV3PJBS3UC7JMPEXO
-X-Message-ID-Hash: Z4JF3YQAECQSIPCOV3PJBS3UC7JMPEXO
+Message-ID-Hash: I2TI3NXO3XUIVRAP6NSWQI6EKM4XCBHL
+X-Message-ID-Hash: I2TI3NXO3XUIVRAP6NSWQI6EKM4XCBHL
 X-MailFrom: vindrg@gmail.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency; loop; banned-address; member-moderation; nonmember-moderation; administrivia; implicit-dest; max-recipients; max-size; news-moderation; no-subject; suspicious-header
 X-Mailman-Version: 3.1.1
 Precedence: list
 Subject: [linux-nfc] Re: About NFC Tag emulation on Linux
 List-Id: NFC on Linux <linux-nfc.lists.01.org>
-Archived-At: <https://lists.01.org/hyperkitty/list/linux-nfc@lists.01.org/message/Z4JF3YQAECQSIPCOV3PJBS3UC7JMPEXO/>
+Archived-At: <https://lists.01.org/hyperkitty/list/linux-nfc@lists.01.org/message/I2TI3NXO3XUIVRAP6NSWQI6EKM4XCBHL/>
 List-Archive: <https://lists.01.org/hyperkitty/list/linux-nfc@lists.01.org/>
 List-Help: <mailto:linux-nfc-request@lists.01.org?subject=help>
 List-Post: <mailto:linux-nfc@lists.01.org>
@@ -75,10 +76,14 @@ List-Unsubscribe: <mailto:linux-nfc-leave@lists.01.org>
 Content-Type: text/plain; charset="us-ascii"; format="flowed"
 Content-Transfer-Encoding: 7bit
 
-2021-07-22 15:34, Frieder Schrempf wrote:
-> By the way, this is only true for Qt up to version 5.15. They dropped neard support for Qt 6 (see https://bugreports.qt.io/browse/QTBUG-81824).
+2021-07-22 14:53, Krzysztof Kozlowski wrote:
+> I think nfcsim kernel module could help you but I am not sure how much
+> you can emulate.
 
-Ouch... good catch, so I just scrap the idea... Thanks.
+That's interesting, though I'm not sure how should I use it too, and I guess it would be too low level?. And as another 
+post mentioned, Qt will not have NFC support on Linux so I just scraping the idea...
+
+Thanks.
 _______________________________________________
 Linux-nfc mailing list -- linux-nfc@lists.01.org
 To unsubscribe send an email to linux-nfc-leave@lists.01.org
