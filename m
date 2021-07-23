@@ -2,88 +2,140 @@ Return-Path: <linux-nfc-bounces@lists.01.org>
 X-Original-To: lists+linux-nfc@lfdr.de
 Delivered-To: lists+linux-nfc@lfdr.de
 Received: from ml01.01.org (ml01.01.org [IPv6:2001:19d0:306:5::1])
-	by mail.lfdr.de (Postfix) with ESMTPS id A4C523D2AE3
-	for <lists+linux-nfc@lfdr.de>; Thu, 22 Jul 2021 19:16:55 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 69D9E3D3463
+	for <lists+linux-nfc@lfdr.de>; Fri, 23 Jul 2021 08:03:36 +0200 (CEST)
 Received: from ml01.vlan13.01.org (localhost [IPv6:::1])
-	by ml01.01.org (Postfix) with ESMTP id E3D36100EBB72;
-	Thu, 22 Jul 2021 10:16:53 -0700 (PDT)
-Received-SPF: Pass (mailfrom) identity=mailfrom; client-ip=2a00:1450:4864:20::231; helo=mail-lj1-x231.google.com; envelope-from=vindrg@gmail.com; receiver=<UNKNOWN> 
-Received: from mail-lj1-x231.google.com (mail-lj1-x231.google.com [IPv6:2a00:1450:4864:20::231])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits))
+	by ml01.01.org (Postfix) with ESMTP id 1CC30100EBB97;
+	Thu, 22 Jul 2021 23:03:34 -0700 (PDT)
+Received-SPF: Pass (mailfrom) identity=mailfrom; client-ip=64.147.123.24; helo=wout1-smtp.messagingengine.com; envelope-from=mgreer@animalcreek.com; receiver=<UNKNOWN> 
+Received: from wout1-smtp.messagingengine.com (wout1-smtp.messagingengine.com [64.147.123.24])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits))
 	(No client certificate requested)
-	by ml01.01.org (Postfix) with ESMTPS id F197B100EBB6C
-	for <linux-nfc@lists.01.org>; Thu, 22 Jul 2021 10:16:50 -0700 (PDT)
-Received: by mail-lj1-x231.google.com with SMTP id t3so8267922ljc.3
-        for <linux-nfc@lists.01.org>; Thu, 22 Jul 2021 10:16:50 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20161025;
-        h=subject:to:references:from:message-id:date:user-agent:mime-version
-         :in-reply-to:content-language:content-transfer-encoding;
-        bh=Q1HhO7C42Si4I/zqDG4/pAVk+GrW3JSrAc3ShHYGQjg=;
-        b=QGVoPNKbjNuwzKJnZ2Md13h9a9YhcIB2OWm386spqUILN6auKQxwIRpFxGa70pwm2i
-         /FkqKf1zZj7erstyydTpeWMptiThCvnqiR48Pe8Ahw8l0WtgAKS3vQpcGE6svOtHZqsb
-         ylDMWpKmjw1+/auuiWKAGlnxf41YkDiPu2P8VL2aXkfQtPLMnVXVi8Hck+guq2l+5/8r
-         1RF4hSQgKi1whRhOFRaZyT217HzesHsDmoNEx5rnyVg9NDkjmQPz6QcwMXHbtr5+5x/P
-         FCUATHW09YOtV492rRy2GRXNc8r5+NA2BfhRtu3+cV+G8KTqPnRdjZ3ddJKnH0y+0t6b
-         Z2+Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:subject:to:references:from:message-id:date
-         :user-agent:mime-version:in-reply-to:content-language
-         :content-transfer-encoding;
-        bh=Q1HhO7C42Si4I/zqDG4/pAVk+GrW3JSrAc3ShHYGQjg=;
-        b=gOQLIYSVtr/t631+VjGrHs8qqZvQKAXplpDJFvPe6HhHZ4mKQAEmHSCSO4WZHODwJj
-         vdRGslITMWSs+suuiFSVSr62XARgW5rBlyHrYLzHgXZSEnFkP0V0juJIWi29Hw3Lf30u
-         qUbuHlnQPkogplHIbfncO10djDMg6ZWOhYq2dV/mp393ygyUots+JIklDSXm5gU9fDuU
-         xqoQ8j3hyuqeVHu8btydTu5SIIsd10DwP/Kmi+1ClpwwgqWQKbMczjFBk+yinrUNwBy2
-         kPrD9oqSQbRPorI/P8P2kSJvWz6zVfHrxVRap6/b4S7d8QdvH0IvEMhAZ1W5gL14YrON
-         lk1A==
-X-Gm-Message-State: AOAM532Rhm4XFToz10XhkQ4u1qdGag/Pu0KAL/Yj+9he5s/I2J/Xp140
-	MMDLJ3dY51izo9AIVbX08hujZdL0i50=
-X-Google-Smtp-Source: ABdhPJz97CBHlMZd+nuHTzhrEWkbJro1z7ZiteA5hoHvcS8ccFlcZnKqX8pEltDUAX4RQukrJyJiFg==
-X-Received: by 2002:a2e:9b84:: with SMTP id z4mr705052lji.179.1626974206160;
-        Thu, 22 Jul 2021 10:16:46 -0700 (PDT)
-Received: from [192.168.1.10] (mail.dargis.net. [62.80.227.49])
-        by smtp.gmail.com with ESMTPSA id e7sm2484249ljq.9.2021.07.22.10.16.45
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 22 Jul 2021 10:16:45 -0700 (PDT)
-To: Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>,
- linux-nfc@lists.01.org
+	by ml01.01.org (Postfix) with ESMTPS id 09C14100EBB92
+	for <linux-nfc@lists.01.org>; Thu, 22 Jul 2021 23:03:31 -0700 (PDT)
+Received: from compute1.internal (compute1.nyi.internal [10.202.2.41])
+	by mailout.west.internal (Postfix) with ESMTP id 99A27320090C;
+	Fri, 23 Jul 2021 02:03:30 -0400 (EDT)
+Received: from mailfrontend2 ([10.202.2.163])
+  by compute1.internal (MEProxy); Fri, 23 Jul 2021 02:03:30 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=animalcreek.com;
+	 h=date:from:to:cc:subject:message-id:references:mime-version
+	:content-type:in-reply-to; s=fm3; bh=/+INcXZ7oSeDPQmZYnxKbv44fUk
+	KVvZYkm8l0g2UoGs=; b=qTwZlioyyMLKJBhY3kd7IVwqiadwqdm8Ps57Y6o5uvS
+	9atUUF/98u9kzL3ureFyStBK4+J9UNQsuDyOYTSikBojOgIKwfX2UwyzKBUkwIek
+	2XkH5yOlW8IY+IyrXgCPIzOn+cLs+fVnX2/KYeZJwtRR6EEizoDFpGaF97JEVXxN
+	GvxKvo4zasaLm4NQgUs1mVWuL3ZRkv7aYJAD3YLKC7OcPjfbrVy6+3FhSTGzU8PW
+	rjid3fW8wJ3hHEahFVGjHikAWHkZvyXuZ9vSVCCcbXNUpyQuxGEZBMRhWG9qs6kq
+	CcYoucT96n4Fl+irwvLUPFNcMMfZ+cyOWOHXqZyOiMQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to:x-me-proxy
+	:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; bh=/+INcX
+	Z7oSeDPQmZYnxKbv44fUkKVvZYkm8l0g2UoGs=; b=ECJhh3s/vhSfwsHN5Uemgu
+	US9SpuIXA1EeWQEPR33mFYt8QRA06rMhcqTKjwE31idQed/Ovv4vTN9wlK2pBfZF
+	WRuAC3pUZ8ohNhHP8P4mBdSTQ1SbpddA4oOoK+oMqYhkUYK4abAUZD2vjBoICCrE
+	hwUmvBq75ilUG2OG3Ob5/eY0R9vAxKc2DUt9J0jzQTf7m6Lydp+hMoVHpy6Jr5dj
+	T1mL4GlmCsYDnN3Qc3sir1VYQ98ls1CRQTqgcPZWxc2mR3MJaYvMXszVXNS0AW7K
+	L9fPf+ulf4bG640KASVCQplnLGWwQbjvbM+migaCGulabSRAIeSB7fL9y6kdRdMA
+	==
+X-ME-Sender: <xms:sVv6YAeJ7zehgqB7kXAun9eVPn5Gz4fTTBUFYbrW58Mz1YEiSCWC9w>
+    <xme:sVv6YCO-g7Ltx_mRz5fQJyuIf_NgA6iL-5g4ZO4s_16uEpxaAdxyhGXk6ncgrKDha
+    EDzfHejisS2PSNlvg>
+X-ME-Received: <xmr:sVv6YBi_j_h8A9WetMe0siyBUf0lEkqEUPosjR9IEVZ29Q8MKPQI2A6NFStMGXcLSl8UcOb8O4ai8m0VJrlFoB6CbKDuoz-TodKPW6o>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvtddrfeejgdelkecutefuodetggdotefrodftvf
+    curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
+    uegrihhlohhuthemuceftddtnecunecujfgurhepfffhvffukfhfgggtuggjohesthdtre
+    dttddtvdenucfhrhhomhepofgrrhhkucfirhgvvghruceomhhgrhgvvghrsegrnhhimhgr
+    lhgtrhgvvghkrdgtohhmqeenucggtffrrghtthgvrhhnpeeivdetheefhffhleejgffghe
+    ettedtfeevfedvuedvieduieekhfdukeeiiedujeenucffohhmrghinhepmhhikhhrohgv
+    rdgtohhmpdhtihdrtghomhdpghhothhothgrghhsrdgtohhmnecuvehluhhsthgvrhfuih
+    iivgeptdenucfrrghrrghmpehmrghilhhfrhhomhepmhhgrhgvvghrsegrnhhimhgrlhgt
+    rhgvvghkrdgtohhm
+X-ME-Proxy: <xmx:sVv6YF9Z5zmIOqe-34kE3ZHs7L_NRxwzFe7GFp-Iik1bEqDf8jSTyQ>
+    <xmx:sVv6YMsrpIML7_rjE90NAXgLL4NiI0J2ujblOhxP8Td6bSFLZBhynw>
+    <xmx:sVv6YMGjSXaiIGknogLxapDzOFtfTtdeQM2P0yE7_l6DYbg_DYV4NA>
+    <xmx:slv6YC2n_ACafEqDLgWSNXex2j7XBvmqyv6inQJwlQItmjiGp504cw>
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Fri,
+ 23 Jul 2021 02:03:29 -0400 (EDT)
+Received: by blue.animalcreek.com (Postfix, from userid 1000)
+	id 453D113600A8; Thu, 22 Jul 2021 23:03:28 -0700 (MST)
+Date: Thu, 22 Jul 2021 23:03:28 -0700
+From: Mark Greer <mgreer@animalcreek.com>
+To: Vincas Dargis <vindrg@gmail.com>
+Message-ID: <20210723060328.GA1042603@animalcreek.com>
 References: <CAPNCXk0qkc-5myby0TdzD=6kBXSd_o_iNGy6jjjO5YXeyZqceg@mail.gmail.com>
- <c3e98408-8d27-fe0e-4d99-6c1ae1d961ab@canonical.com>
-From: Vincas Dargis <vindrg@gmail.com>
-Message-ID: <c60058e4-73d3-4545-7165-7d03df865822@gmail.com>
-Date: Thu, 22 Jul 2021 20:16:45 +0300
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.12.0
 MIME-Version: 1.0
-In-Reply-To: <c3e98408-8d27-fe0e-4d99-6c1ae1d961ab@canonical.com>
-Content-Language: en-US
-Message-ID-Hash: I2TI3NXO3XUIVRAP6NSWQI6EKM4XCBHL
-X-Message-ID-Hash: I2TI3NXO3XUIVRAP6NSWQI6EKM4XCBHL
-X-MailFrom: vindrg@gmail.com
+Content-Disposition: inline
+In-Reply-To: <CAPNCXk0qkc-5myby0TdzD=6kBXSd_o_iNGy6jjjO5YXeyZqceg@mail.gmail.com>
+Organization: Animal Creek Technologies, Inc.
+Message-ID-Hash: KQYRNUFHB33WO6OHEFSXXN6RJMLCEUUO
+X-Message-ID-Hash: KQYRNUFHB33WO6OHEFSXXN6RJMLCEUUO
+X-MailFrom: mgreer@animalcreek.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency; loop; banned-address; member-moderation; nonmember-moderation; administrivia; implicit-dest; max-recipients; max-size; news-moderation; no-subject; suspicious-header
+CC: linux-nfc@lists.01.org
 X-Mailman-Version: 3.1.1
 Precedence: list
 Subject: [linux-nfc] Re: About NFC Tag emulation on Linux
 List-Id: NFC on Linux <linux-nfc.lists.01.org>
-Archived-At: <https://lists.01.org/hyperkitty/list/linux-nfc@lists.01.org/message/I2TI3NXO3XUIVRAP6NSWQI6EKM4XCBHL/>
+Archived-At: <https://lists.01.org/hyperkitty/list/linux-nfc@lists.01.org/message/KQYRNUFHB33WO6OHEFSXXN6RJMLCEUUO/>
 List-Archive: <https://lists.01.org/hyperkitty/list/linux-nfc@lists.01.org/>
 List-Help: <mailto:linux-nfc-request@lists.01.org?subject=help>
 List-Post: <mailto:linux-nfc@lists.01.org>
 List-Subscribe: <mailto:linux-nfc-join@lists.01.org>
 List-Unsubscribe: <mailto:linux-nfc-leave@lists.01.org>
-Content-Type: text/plain; charset="us-ascii"; format="flowed"
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-2021-07-22 14:53, Krzysztof Kozlowski wrote:
-> I think nfcsim kernel module could help you but I am not sure how much
-> you can emulate.
+On Thu, Jul 22, 2021 at 01:59:17PM +0300, Vincas Dargis wrote:
+> Hi list,
 
-That's interesting, though I'm not sure how should I use it too, and I guess it would be too low level?. And as another 
-post mentioned, Qt will not have NFC support on Linux so I just scraping the idea...
+Hi Vincas.
 
-Thanks.
+> I see there's "test-device", "test-tag" helpers in neard-tools package
+> in Debian, but it looks like it needs actual devices/tags to test
+> with..?
+> 
+> Is there a way to emulate NFC tag, to "emit" NFC tag discovery events
+> and NDEF mesages on Linux? Qt supports NFC on Linux via neard daemon,
+> so I thought it would be very useful to emulate NFC tags (with various
+> payloads) for development and (automated even?) testing.
+
+I won't repeat [much of] what others have said but I can add this:
+
+
+A: Try nfcsim
+
+Already mentioned in this thread.
+
+B: Use real hardware
+
+B.1: Reader/Writers
+
+PN533 dongles are fairly inexpensive (e.g.,
+https://www.mikroe.com/nfc-usb-dongle) but most other are > $50 USD
+so they are a little expensive.
+
+B.2: Tags
+
+B.2.i: Use a dynamic tag
+
+That is a fancy term for a programmable device that looks like a "dumb"
+NFC tag from the reader/writer side but you can control it (including
+the data that is read by the reader) from the other side.  NXP, ST,
+and TI all have (or did have) versions.  There may be others.  These
+will almost certainly require a programming effort on your part.  If
+you chose the TI rf430cl33x, I may be able to help
+(e.g., https://www.ti.com/tool/DLP-RF430BP).
+
+B.2.ii: Buy some "dumb" tags
+
+They're cheap so buy a few (e.g., https://store.gototags.com/nfc-tags).
+Try different tags types.  Types 2, 3, 4A, 4B, and 5 all work.
+In theory type 1 tags work too but I have no way to test them so I
+cannot say for sure.
+
+Mark
+--
 _______________________________________________
 Linux-nfc mailing list -- linux-nfc@lists.01.org
 To unsubscribe send an email to linux-nfc-leave@lists.01.org
