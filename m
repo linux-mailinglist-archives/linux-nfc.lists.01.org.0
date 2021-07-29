@@ -2,59 +2,59 @@ Return-Path: <linux-nfc-bounces@lists.01.org>
 X-Original-To: lists+linux-nfc@lfdr.de
 Delivered-To: lists+linux-nfc@lfdr.de
 Received: from ml01.01.org (ml01.01.org [IPv6:2001:19d0:306:5::1])
-	by mail.lfdr.de (Postfix) with ESMTPS id E81453DA136
-	for <lists+linux-nfc@lfdr.de>; Thu, 29 Jul 2021 12:40:43 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 85E533DA137
+	for <lists+linux-nfc@lfdr.de>; Thu, 29 Jul 2021 12:40:45 +0200 (CEST)
 Received: from ml01.vlan13.01.org (localhost [IPv6:::1])
-	by ml01.01.org (Postfix) with ESMTP id 3CF51100EBB94;
+	by ml01.01.org (Postfix) with ESMTP id 4771E100EBB9C;
 	Thu, 29 Jul 2021 03:40:41 -0700 (PDT)
-Received-SPF: Pass (mailfrom) identity=mailfrom; client-ip=185.125.188.120; helo=smtp-relay-canonical-0.canonical.com; envelope-from=krzysztof.kozlowski@canonical.com; receiver=<UNKNOWN> 
-Received: from smtp-relay-canonical-0.canonical.com (smtp-relay-canonical-0.canonical.com [185.125.188.120])
+Received-SPF: Pass (mailfrom) identity=mailfrom; client-ip=185.125.188.121; helo=smtp-relay-canonical-1.canonical.com; envelope-from=krzysztof.kozlowski@canonical.com; receiver=<UNKNOWN> 
+Received: from smtp-relay-canonical-1.canonical.com (smtp-relay-canonical-1.canonical.com [185.125.188.121])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits))
 	(No client certificate requested)
-	by ml01.01.org (Postfix) with ESMTPS id C4E3B100EBBC0
-	for <linux-nfc@lists.01.org>; Thu, 29 Jul 2021 03:40:38 -0700 (PDT)
-Received: from mail-ed1-f70.google.com (mail-ed1-f70.google.com [209.85.208.70])
+	by ml01.01.org (Postfix) with ESMTPS id 9C9E4100EBB72
+	for <linux-nfc@lists.01.org>; Thu, 29 Jul 2021 03:40:39 -0700 (PDT)
+Received: from mail-ej1-f70.google.com (mail-ej1-f70.google.com [209.85.218.70])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by smtp-relay-canonical-0.canonical.com (Postfix) with ESMTPS id 812773F232
+	by smtp-relay-canonical-1.canonical.com (Postfix) with ESMTPS id F3D103F114
 	for <linux-nfc@lists.01.org>; Thu, 29 Jul 2021 10:40:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=canonical.com;
 	s=20210705; t=1627555237;
-	bh=Cw3WxWMdLZ5M5UUT98hz5uB4oSAZN8UMdeHX+1yibmU=;
+	bh=a08v9hxy0zgk30tu0EPhwU1/dVMKGIwopyByTRLQTW8=;
 	h=From:To:Subject:Date:Message-Id:In-Reply-To:References:
 	 MIME-Version;
-	b=UA6W0mJepY+O8jhv0HDxrEZOfnFjSdBLv6/CymMIE833Vk6y7kg7C/1AsFH47TtpN
-	 BiV2vbnX0ApVhRNwH39E1KJVGGQqebXNJy934Xi9GQHev1+tLd8CM3GlSviElvf3g/
-	 5WECRMGgd8pqUavUveux178EATYz8klg+8PUcRLUGCRB7spU6t5mbUHN61BSPhGYsR
-	 HgHclX9OBvGeip8QjJikSCBAKK4HOaJ4tGUts0qAjroirzIYFdtRvJ5HsJH9jpBvZw
-	 dhw1/KtUOWyWjdNj89WyQStEc/UpeyY/h+m6xZLS6rodq7IH2MQjmHeHISc+wYJMq1
-	 ffG2z1SZ6yqeQ==
-Received: by mail-ed1-f70.google.com with SMTP id ay20-20020a0564022034b02903bc515b673dso2748997edb.3
+	b=XczK2avjsdMOM9SAfpWKGgRVwZwt5tYnEiUaOsw06EQGBwMLIltolQId1knrYaasL
+	 0IRQapfjyUhBxx87qPtgs6PXV753yXNUvygu8W8KhanfeeBEGgfLfN3/ZX5i4hFODw
+	 GHrWLru/I/rjCD+oEhW41UFJ3cOoKzWBP4j4H5nz1/sl0vtcclmZ5IUJnfIlw02UWR
+	 xd9vPKf8k4p6epHYHwuBljNwKtjB6DJU9Hn3bo/oK6QMVJt/HyVcqd4ru6a22LfALk
+	 a5UKKDo3tczKpC6B5Qd9HCbnEKQ7/cs99/+Lnt/Ha4+TY3lBx87k7Qm3d0n9PpZOwC
+	 h9auV90SoaxeQ==
+Received: by mail-ej1-f70.google.com with SMTP id q19-20020a170906b293b029058a1e75c819so1818680ejz.16
         for <linux-nfc@lists.01.org>; Thu, 29 Jul 2021 03:40:37 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:from:to:subject:date:message-id:in-reply-to
          :references:mime-version:content-transfer-encoding;
-        bh=Cw3WxWMdLZ5M5UUT98hz5uB4oSAZN8UMdeHX+1yibmU=;
-        b=hze/GTeUvM1IAiIspfEmLj4upjIo6HmmcmSPfNVoZIudwa9BAqioQ0rfpj9Yv/z4Ue
-         +E3hGzok0y5tkaiCUucgIWawbHXH8jHKhh6xEAD+g0R779honbJ1FheFR5X3n5yGdXVI
-         V5XI9tm1Bmj5JO9EdoaucMlbhW6NYsUlEDOLZRt9GofzV1pfmwEHR4Iu6bYsgkuWXbmp
-         lGzLzCXK3fnsSVrEtNgjY+fuBFfLbOq33VXWy+BIKHRRWUVHXUdDQ3vFLv7h1ny85aG3
-         LCGyNl0Ow4/bilEDG9jIhq9fKrf1FDOfDx8WlEjF/w8Y910elL0QrPxZgnRjSl4jOU25
-         fmUA==
-X-Gm-Message-State: AOAM5338OxcOK8Di7qSJVZjUdcujpk1RhDTNmvN/QfZDIY4qR1Xl1EM+
-	IVVsAAnF+Vzo18jyWTzrfVqRBFO45zyBSMs5CYBOFHT4SL5ayYCsEE/gN9I4yfNUeacbH46xJBa
-	g+qjmBIC6UyZjvICFIyh/QDKu2ekWdVBQPA==
-X-Received: by 2002:a17:907:1190:: with SMTP id uz16mr3961132ejb.543.1627555236312;
-        Thu, 29 Jul 2021 03:40:36 -0700 (PDT)
-X-Google-Smtp-Source: ABdhPJyelGCc7LxjALvK3umx0eo+PexaLLnBk1cGkBUbydBmcQuE3sbk2nmw8yhHldZtMsl1cgWHbw==
-X-Received: by 2002:a17:907:1190:: with SMTP id uz16mr3961115ejb.543.1627555236127;
-        Thu, 29 Jul 2021 03:40:36 -0700 (PDT)
+        bh=a08v9hxy0zgk30tu0EPhwU1/dVMKGIwopyByTRLQTW8=;
+        b=ZUTIVvRru7MvxAl/mdZ66MHZd0vDYRvJKh0Nmpy+uawX+gKUQDnlQ6Evt1zJmQxqBd
+         2SFXU7N8FtzHyZTbz+gIymUmO140YO8GfeIRgO6wR7OdV1B0qRzfFLindn+xK8+52oAt
+         YTTfHPDl5rTvAhroMTL6dePTXB1f3Pn9BVb3/6yUs/vlJm2S1XKkQMrcphv4NErZh8pI
+         WciMFksCyKuoHKQuGkILJQXph94ZPjYaKIHptNS5Lytiz+FTKLjU4WGOCXvZ8sB0RYf2
+         a4Lk8ch9Di61ctI6/MchCfvFXmMfnMCFqI+0VaZ+aFsVlOAS3Q/KtR0SBBFjh4kRIbAR
+         PdPA==
+X-Gm-Message-State: AOAM531vfDrOjcKokbTl8rbBHOWw4w1Q4mlMu5QvBK3QTEv8YceuGliJ
+	eMesM8o9lVs6vWVwxft1ENxvnnRNijkOBRWMZwX69FIf1h5LhbxsNPcTQr7H5tbC6S2raRnlk9o
+	+MUzIRXZB/szSX+IDb3btbrgrGPUOEkuTpg==
+X-Received: by 2002:a17:906:94cd:: with SMTP id d13mr4063279ejy.158.1627555237726;
+        Thu, 29 Jul 2021 03:40:37 -0700 (PDT)
+X-Google-Smtp-Source: ABdhPJxpcC8Z7IC55TpoG5cbgBRsSSS6C555lTVpoloQhomyURPjel7+zQOzWNYTmYIp//p8tRPZ1g==
+X-Received: by 2002:a17:906:94cd:: with SMTP id d13mr4063260ejy.158.1627555237495;
+        Thu, 29 Jul 2021 03:40:37 -0700 (PDT)
 Received: from localhost.localdomain ([86.32.47.9])
-        by smtp.gmail.com with ESMTPSA id c14sm824475ejb.78.2021.07.29.03.40.35
+        by smtp.gmail.com with ESMTPSA id c14sm824475ejb.78.2021.07.29.03.40.36
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 29 Jul 2021 03:40:35 -0700 (PDT)
+        Thu, 29 Jul 2021 03:40:37 -0700 (PDT)
 From: Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>
 To: Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>,
 	Mark Greer <mgreer@animalcreek.com>,
@@ -65,21 +65,21 @@ To: Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>,
 	netdev@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	linux-wireless@vger.kernel.org
-Date: Thu, 29 Jul 2021 12:40:12 +0200
-Message-Id: <20210729104022.47761-3-krzysztof.kozlowski@canonical.com>
+Date: Thu, 29 Jul 2021 12:40:13 +0200
+Message-Id: <20210729104022.47761-4-krzysztof.kozlowski@canonical.com>
 X-Mailer: git-send-email 2.27.0
 In-Reply-To: <20210729104022.47761-1-krzysztof.kozlowski@canonical.com>
 References: <20210729104022.47761-1-krzysztof.kozlowski@canonical.com>
 MIME-Version: 1.0
-Message-ID-Hash: XTTTE7Q2ME2IWDJ3G7P5RN5HB34CNL63
-X-Message-ID-Hash: XTTTE7Q2ME2IWDJ3G7P5RN5HB34CNL63
+Message-ID-Hash: BUZRG33CYAJ32YN2VHMDW77W73WYAY2F
+X-Message-ID-Hash: BUZRG33CYAJ32YN2VHMDW77W73WYAY2F
 X-MailFrom: krzysztof.kozlowski@canonical.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency; loop; banned-address; member-moderation; nonmember-moderation; administrivia; implicit-dest; max-recipients; max-size; news-moderation; no-subject; suspicious-header
 X-Mailman-Version: 3.1.1
 Precedence: list
-Subject: [linux-nfc] [PATCH 02/12] nfc: mei_phy: constify buffer passed to mei_nfc_send()
+Subject: [linux-nfc] [PATCH 03/12] nfc: port100: constify several pointers
 List-Id: NFC on Linux <linux-nfc.lists.01.org>
-Archived-At: <https://lists.01.org/hyperkitty/list/linux-nfc@lists.01.org/message/XTTTE7Q2ME2IWDJ3G7P5RN5HB34CNL63/>
+Archived-At: <https://lists.01.org/hyperkitty/list/linux-nfc@lists.01.org/message/BUZRG33CYAJ32YN2VHMDW77W73WYAY2F/>
 List-Archive: <https://lists.01.org/hyperkitty/list/linux-nfc@lists.01.org/>
 List-Help: <mailto:linux-nfc-request@lists.01.org?subject=help>
 List-Post: <mailto:linux-nfc@lists.01.org>
@@ -88,27 +88,146 @@ List-Unsubscribe: <mailto:linux-nfc-leave@lists.01.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-The buffer passed to mei_nfc_send() can be const for correctness and
-safety.
+Several functions do not modify pointed data so arguments and local
+variables can be const for correctness and safety.
 
 Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>
 ---
- drivers/nfc/mei_phy.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/nfc/port100.c | 37 ++++++++++++++++++++-----------------
+ 1 file changed, 20 insertions(+), 17 deletions(-)
 
-diff --git a/drivers/nfc/mei_phy.c b/drivers/nfc/mei_phy.c
-index 41146bb99474..f9cca885beec 100644
---- a/drivers/nfc/mei_phy.c
-+++ b/drivers/nfc/mei_phy.c
-@@ -202,7 +202,7 @@ static int mei_nfc_connect(struct nfc_mei_phy *phy)
- 	return r;
+diff --git a/drivers/nfc/port100.c b/drivers/nfc/port100.c
+index ccb5c5fab905..517376c43b86 100644
+--- a/drivers/nfc/port100.c
++++ b/drivers/nfc/port100.c
+@@ -526,7 +526,7 @@ static inline u8 port100_checksum(u16 value)
  }
  
--static int mei_nfc_send(struct nfc_mei_phy *phy, u8 *buf, size_t length)
-+static int mei_nfc_send(struct nfc_mei_phy *phy, const u8 *buf, size_t length)
+ /* The rule: sum(data elements) + checksum = 0 */
+-static u8 port100_data_checksum(u8 *data, int datalen)
++static u8 port100_data_checksum(const u8 *data, int datalen)
  {
- 	struct mei_nfc_hdr *hdr;
- 	u8 *mei_buf;
+ 	u8 sum = 0;
+ 	int i;
+@@ -568,10 +568,10 @@ static void port100_tx_update_payload_len(void *_frame, int len)
+ 	le16_add_cpu(&frame->datalen, len);
+ }
+ 
+-static bool port100_rx_frame_is_valid(void *_frame)
++static bool port100_rx_frame_is_valid(const void *_frame)
+ {
+ 	u8 checksum;
+-	struct port100_frame *frame = _frame;
++	const struct port100_frame *frame = _frame;
+ 
+ 	if (frame->start_frame != cpu_to_be16(PORT100_FRAME_SOF) ||
+ 	    frame->extended_frame != cpu_to_be16(PORT100_FRAME_EXT))
+@@ -589,23 +589,24 @@ static bool port100_rx_frame_is_valid(void *_frame)
+ 	return true;
+ }
+ 
+-static bool port100_rx_frame_is_ack(struct port100_ack_frame *frame)
++static bool port100_rx_frame_is_ack(const struct port100_ack_frame *frame)
+ {
+ 	return (frame->start_frame == cpu_to_be16(PORT100_FRAME_SOF) &&
+ 		frame->ack_frame == cpu_to_be16(PORT100_FRAME_ACK));
+ }
+ 
+-static inline int port100_rx_frame_size(void *frame)
++static inline int port100_rx_frame_size(const void *frame)
+ {
+-	struct port100_frame *f = frame;
++	const struct port100_frame *f = frame;
+ 
+ 	return sizeof(struct port100_frame) + le16_to_cpu(f->datalen) +
+ 	       PORT100_FRAME_TAIL_LEN;
+ }
+ 
+-static bool port100_rx_frame_is_cmd_response(struct port100 *dev, void *frame)
++static bool port100_rx_frame_is_cmd_response(const struct port100 *dev,
++					     const void *frame)
+ {
+-	struct port100_frame *f = frame;
++	const struct port100_frame *f = frame;
+ 
+ 	return (PORT100_FRAME_CMD(f) == PORT100_CMD_RESPONSE(dev->cmd->code));
+ }
+@@ -655,7 +656,8 @@ static void port100_recv_response(struct urb *urb)
+ 	schedule_work(&dev->cmd_complete_work);
+ }
+ 
+-static int port100_submit_urb_for_response(struct port100 *dev, gfp_t flags)
++static int port100_submit_urb_for_response(const struct port100 *dev,
++					   gfp_t flags)
+ {
+ 	dev->in_urb->complete = port100_recv_response;
+ 
+@@ -666,7 +668,7 @@ static void port100_recv_ack(struct urb *urb)
+ {
+ 	struct port100 *dev = urb->context;
+ 	struct port100_cmd *cmd = dev->cmd;
+-	struct port100_ack_frame *in_frame;
++	const struct port100_ack_frame *in_frame;
+ 	int rc;
+ 
+ 	cmd->status = urb->status;
+@@ -708,7 +710,7 @@ static void port100_recv_ack(struct urb *urb)
+ 	schedule_work(&dev->cmd_complete_work);
+ }
+ 
+-static int port100_submit_urb_for_ack(struct port100 *dev, gfp_t flags)
++static int port100_submit_urb_for_ack(const struct port100 *dev, gfp_t flags)
+ {
+ 	dev->in_urb->complete = port100_recv_ack;
+ 
+@@ -753,8 +755,9 @@ static int port100_send_ack(struct port100 *dev)
+ 	return rc;
+ }
+ 
+-static int port100_send_frame_async(struct port100 *dev, struct sk_buff *out,
+-				    struct sk_buff *in, int in_len)
++static int port100_send_frame_async(struct port100 *dev,
++				    const struct sk_buff *out,
++				    const struct sk_buff *in, int in_len)
+ {
+ 	int rc;
+ 
+@@ -960,7 +963,7 @@ static void port100_abort_cmd(struct nfc_digital_dev *ddev)
+ 	usb_kill_urb(dev->in_urb);
+ }
+ 
+-static struct sk_buff *port100_alloc_skb(struct port100 *dev, unsigned int size)
++static struct sk_buff *port100_alloc_skb(const struct port100 *dev, unsigned int size)
+ {
+ 	struct sk_buff *skb;
+ 
+@@ -1152,7 +1155,7 @@ static int port100_in_configure_hw(struct nfc_digital_dev *ddev, int type,
+ static void port100_in_comm_rf_complete(struct port100 *dev, void *arg,
+ 				       struct sk_buff *resp)
+ {
+-	struct port100_cb_arg *cb_arg = arg;
++	const struct port100_cb_arg *cb_arg = arg;
+ 	nfc_digital_cmd_complete_t cb = cb_arg->complete_cb;
+ 	u32 status;
+ 	int rc;
+@@ -1330,7 +1333,7 @@ static void port100_tg_comm_rf_complete(struct port100 *dev, void *arg,
+ 					struct sk_buff *resp)
+ {
+ 	u32 status;
+-	struct port100_cb_arg *cb_arg = arg;
++	const struct port100_cb_arg *cb_arg = arg;
+ 	nfc_digital_cmd_complete_t cb = cb_arg->complete_cb;
+ 	struct port100_tg_comm_rf_res *hdr;
+ 
+@@ -1453,7 +1456,7 @@ static int port100_listen_mdaa(struct nfc_digital_dev *ddev,
+ static int port100_listen(struct nfc_digital_dev *ddev, u16 timeout,
+ 			  nfc_digital_cmd_complete_t cb, void *arg)
+ {
+-	struct port100 *dev = nfc_digital_get_drvdata(ddev);
++	const struct port100 *dev = nfc_digital_get_drvdata(ddev);
+ 	struct sk_buff *skb;
+ 
+ 	skb = port100_alloc_skb(dev, 0);
 -- 
 2.27.0
 _______________________________________________
