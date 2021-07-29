@@ -1,60 +1,60 @@
 Return-Path: <linux-nfc-bounces@lists.01.org>
 X-Original-To: lists+linux-nfc@lfdr.de
 Delivered-To: lists+linux-nfc@lfdr.de
-Received: from ml01.01.org (ml01.01.org [198.145.21.10])
-	by mail.lfdr.de (Postfix) with ESMTPS id BC0F43DA142
-	for <lists+linux-nfc@lfdr.de>; Thu, 29 Jul 2021 12:40:50 +0200 (CEST)
+Received: from ml01.01.org (ml01.01.org [IPv6:2001:19d0:306:5::1])
+	by mail.lfdr.de (Postfix) with ESMTPS id 78E4B3DA141
+	for <lists+linux-nfc@lfdr.de>; Thu, 29 Jul 2021 12:40:49 +0200 (CEST)
 Received: from ml01.vlan13.01.org (localhost [IPv6:::1])
-	by ml01.01.org (Postfix) with ESMTP id 96F50100EB82F;
+	by ml01.01.org (Postfix) with ESMTP id 88FA1100EBB97;
 	Thu, 29 Jul 2021 03:40:46 -0700 (PDT)
-Received-SPF: Pass (mailfrom) identity=mailfrom; client-ip=185.125.188.120; helo=smtp-relay-canonical-0.canonical.com; envelope-from=krzysztof.kozlowski@canonical.com; receiver=<UNKNOWN> 
-Received: from smtp-relay-canonical-0.canonical.com (smtp-relay-canonical-0.canonical.com [185.125.188.120])
+Received-SPF: Pass (mailfrom) identity=mailfrom; client-ip=185.125.188.121; helo=smtp-relay-canonical-1.canonical.com; envelope-from=krzysztof.kozlowski@canonical.com; receiver=<UNKNOWN> 
+Received: from smtp-relay-canonical-1.canonical.com (smtp-relay-canonical-1.canonical.com [185.125.188.121])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits))
 	(No client certificate requested)
-	by ml01.01.org (Postfix) with ESMTPS id 74D23100EBB97
+	by ml01.01.org (Postfix) with ESMTPS id 21FB9100EB825
 	for <linux-nfc@lists.01.org>; Thu, 29 Jul 2021 03:40:44 -0700 (PDT)
-Received: from mail-ej1-f70.google.com (mail-ej1-f70.google.com [209.85.218.70])
+Received: from mail-ed1-f72.google.com (mail-ed1-f72.google.com [209.85.208.72])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by smtp-relay-canonical-0.canonical.com (Postfix) with ESMTPS id 5DA383F22A
+	by smtp-relay-canonical-1.canonical.com (Postfix) with ESMTPS id BAF583F113
 	for <linux-nfc@lists.01.org>; Thu, 29 Jul 2021 10:40:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=canonical.com;
 	s=20210705; t=1627555242;
-	bh=Cti8DGqbNI8YPSuGsMvGoiLdXe5FLuXImkkJsU3HkS0=;
+	bh=KXmULC4yNLbjXfZilnwZUymI+qeRnrLMQ/vMczDuSm8=;
 	h=From:To:Subject:Date:Message-Id:In-Reply-To:References:
 	 MIME-Version;
-	b=QfKl/5/vgZQOC1MHdycPjE1604IA3JTWMoIzYTcgwP5e05j/fMVDgxF9t2Hpz7mAk
-	 LIgdnX4v/wGazTZuSQVgx92W2VTpGqKlxXabf7utO5hPfWUgwgyrevR8W0+uDd/QkH
-	 MouboZLdzIa0ghrTM63aQKrlTm8JoSqCcPCBiWU4weSp8oBvZBW/qUWZ2DCEuTdU9M
-	 BBeXcGOG3rdMktyXdhtBpfb1XVxmj3+yKYRPeVMmtR746JrrmZmN1n0MaL/Gy9/1hc
-	 wJ0dzgtQnmNs4qrZP38737BvuSz2vfbl8Y5C98wjmAH/wRWktL+oQE/CWFRlJvWPvg
-	 HQmEtURtVLhnw==
-Received: by mail-ej1-f70.google.com with SMTP id kf3-20020a17090776c3b0290536d9b62eb6so1843757ejc.2
+	b=YigS+8QfeZ9cIu40lqUKLt714vfWNx0XN68/ZNwZHyXW6+mXRoRsRjJIYZJubXgCG
+	 f0e1Ydt0P3HwUr8Fxj53zNmxgww9onUIY6VDUi5plo5tA2Rxq8WKDR7/QXjsjXxQeF
+	 DDAk38FYvBrbFwdVBdfY138E9QFtLb9aOOAXCy/+io48aKs5e+lQcPwe5cyi+gfcLX
+	 /8q7tEhRYfy643SeQ5PTL24b11mVeT9cQrzmuxIR86Zj6yuaOPfzbSTZmn74JexdPs
+	 7rbv7PiD1YskV2VwevqvwKYhVqFLMgYiGeXTUsg8gdtrD1/eqGAtJxDVGpF+byWEUT
+	 CU1mRDRzhJHfQ==
+Received: by mail-ed1-f72.google.com with SMTP id de5-20020a0564023085b02903bb92fd182eso2765327edb.8
         for <linux-nfc@lists.01.org>; Thu, 29 Jul 2021 03:40:42 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:from:to:subject:date:message-id:in-reply-to
          :references:mime-version:content-transfer-encoding;
-        bh=Cti8DGqbNI8YPSuGsMvGoiLdXe5FLuXImkkJsU3HkS0=;
-        b=MX0TNAiToeaGhok2ncPumf6su5plmjMxxu5JV/PLkHtSRGWyu42iGC8lfvo4V+aJE+
-         9XH24fdP4JM7KWmd9j6sEdQEGjL3MbxP6yJ79RczgqXm+sC4mssroUtQ1R/iSjWivyt0
-         8Wk4cXHIaixtNl2npmT+Jr+vsZ+0LTDDRtQALsu7kH2l8M5NA+mC29uCaSfqHA78ECnt
-         IWZm6r1kqptN8g1SxVOAlL1CCZYUcNApKicI3Z9gaVNQRD5a17t6NmjUVUjiJUq0TSQl
-         DexOwh+Vy64cK7tDfdFhSvGqy+hHH1JnO7z161PXroHn1rLtlt0N4MGSGkzMjynuC83K
-         EfrQ==
-X-Gm-Message-State: AOAM5334oNAsMb3J4hMowFt5jOyQkpASPwIX0/6mtkC6DTzO9QrHZDv8
-	tgrbGo94x6xbCduD4ip9xy7cpBn6/2EC3JHlc8tflfioOdhVgHmLyZn0t6jtBv2wcOWaFjR/BBj
-	z3+R7yGlPl/mVpULdE5M7b0WxhKyjdMVc0A==
-X-Received: by 2002:aa7:d342:: with SMTP id m2mr5302485edr.40.1627555241263;
-        Thu, 29 Jul 2021 03:40:41 -0700 (PDT)
-X-Google-Smtp-Source: ABdhPJwjxgKl6WmnwX+WqFoKb6oCeo3LEsCBOoKuWEW0W2jjhEWMO4WBVPwCw/S6BOn4eM0m2lGmgg==
-X-Received: by 2002:aa7:d342:: with SMTP id m2mr5302475edr.40.1627555241166;
-        Thu, 29 Jul 2021 03:40:41 -0700 (PDT)
+        bh=KXmULC4yNLbjXfZilnwZUymI+qeRnrLMQ/vMczDuSm8=;
+        b=GIWgaWiepjYuiBldhjI0mJMIqAlToeFvPgPsmjvaxorRC9gq9vbPr31VR3ORc15Ib8
+         Uo6T2EO21RAF+UM2+5EfDmowUAVKMKmQJMj71GiKirwxBWPzg6cE5lk6JqTVD056x7os
+         yw52sbQie9p8m0oNjXPUGKVAIAMV0Qs2AHApbpGm0yniU1cijIBXx9AoUO1f734QJByn
+         l6a24K9bMFcfdz49HhA8i2BtJwrptbx5116yZG7cj+1pObssqWL/v6Ba7Q0UJeKOH5NK
+         LHCci1pf9fwptgDmKTf4L2lcDQq2iSAK0sqC1zXR0seqSyuLKksJF0zYEZW1nQfMGm82
+         x3SA==
+X-Gm-Message-State: AOAM531rgGfsucFkxURHKvsYf1glSrJy25fuK2OHhhY3UW2yENB9vVAQ
+	TtB7MIZJC8RcqcRPsQxFAaNadXM0f88yHyQFZ4QAYPJcdiNRuXYlP+aGuRvbJTNtB/iWxyYBBma
+	G1weAsehvMfD7BX8PWCDjhKX6SHbVG5kP5A==
+X-Received: by 2002:a05:6402:1cb6:: with SMTP id cz22mr5180757edb.148.1627555242547;
+        Thu, 29 Jul 2021 03:40:42 -0700 (PDT)
+X-Google-Smtp-Source: ABdhPJxjW5Qyti3uGsJQhjyg9e0Vg9hnF5ajD1dE9uX/LfyH7AIvIxTCmpWZpCLut6Hz/YpkiUBGxg==
+X-Received: by 2002:a05:6402:1cb6:: with SMTP id cz22mr5180746edb.148.1627555242430;
+        Thu, 29 Jul 2021 03:40:42 -0700 (PDT)
 Received: from localhost.localdomain ([86.32.47.9])
-        by smtp.gmail.com with ESMTPSA id c14sm824475ejb.78.2021.07.29.03.40.40
+        by smtp.gmail.com with ESMTPSA id c14sm824475ejb.78.2021.07.29.03.40.41
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 29 Jul 2021 03:40:40 -0700 (PDT)
+        Thu, 29 Jul 2021 03:40:42 -0700 (PDT)
 From: Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>
 To: Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>,
 	Mark Greer <mgreer@animalcreek.com>,
@@ -65,21 +65,21 @@ To: Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>,
 	netdev@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	linux-wireless@vger.kernel.org
-Date: Thu, 29 Jul 2021 12:40:16 +0200
-Message-Id: <20210729104022.47761-7-krzysztof.kozlowski@canonical.com>
+Date: Thu, 29 Jul 2021 12:40:17 +0200
+Message-Id: <20210729104022.47761-8-krzysztof.kozlowski@canonical.com>
 X-Mailer: git-send-email 2.27.0
 In-Reply-To: <20210729104022.47761-1-krzysztof.kozlowski@canonical.com>
 References: <20210729104022.47761-1-krzysztof.kozlowski@canonical.com>
 MIME-Version: 1.0
-Message-ID-Hash: 5QKN2ZPY73BYIRUFG5LBQ57DSEPGUZKK
-X-Message-ID-Hash: 5QKN2ZPY73BYIRUFG5LBQ57DSEPGUZKK
+Message-ID-Hash: HQY364JYFJRQ7GXJBJO5OEPIX4373TJT
+X-Message-ID-Hash: HQY364JYFJRQ7GXJBJO5OEPIX4373TJT
 X-MailFrom: krzysztof.kozlowski@canonical.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency; loop; banned-address; member-moderation; nonmember-moderation; administrivia; implicit-dest; max-recipients; max-size; news-moderation; no-subject; suspicious-header
 X-Mailman-Version: 3.1.1
 Precedence: list
-Subject: [linux-nfc] [PATCH 06/12] nfc: nfcsim: constify drvdata (struct nfcsim)
+Subject: [linux-nfc] [PATCH 07/12] nfc: fdp: drop unneeded cast for printing firmware size in dev_dbg()
 List-Id: NFC on Linux <linux-nfc.lists.01.org>
-Archived-At: <https://lists.01.org/hyperkitty/list/linux-nfc@lists.01.org/message/5QKN2ZPY73BYIRUFG5LBQ57DSEPGUZKK/>
+Archived-At: <https://lists.01.org/hyperkitty/list/linux-nfc@lists.01.org/message/HQY364JYFJRQ7GXJBJO5OEPIX4373TJT/>
 List-Archive: <https://lists.01.org/hyperkitty/list/linux-nfc@lists.01.org/>
 List-Help: <mailto:linux-nfc-request@lists.01.org?subject=help>
 List-Post: <mailto:linux-nfc@lists.01.org>
@@ -88,27 +88,40 @@ List-Unsubscribe: <mailto:linux-nfc-leave@lists.01.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-nfcsim_abort_cmd() does not modify struct nfcsim, so local variable
-can be a pointer to const.
+Size of firmware is a type of size_t, so print it directly instead of
+casting to int.
 
 Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>
 ---
- drivers/nfc/nfcsim.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/nfc/fdp/fdp.c | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/nfc/nfcsim.c b/drivers/nfc/nfcsim.c
-index 143dc49b815b..15754671eb4d 100644
---- a/drivers/nfc/nfcsim.c
-+++ b/drivers/nfc/nfcsim.c
-@@ -240,7 +240,7 @@ static int nfcsim_send(struct nfc_digital_dev *ddev, struct sk_buff *skb,
+diff --git a/drivers/nfc/fdp/fdp.c b/drivers/nfc/fdp/fdp.c
+index 3e542b7389cb..650a140bea46 100644
+--- a/drivers/nfc/fdp/fdp.c
++++ b/drivers/nfc/fdp/fdp.c
+@@ -276,8 +276,8 @@ static int fdp_nci_request_firmware(struct nci_dev *ndev)
+ 		(data[FDP_FW_HEADER_SIZE + 2] << 16) |
+ 		(data[FDP_FW_HEADER_SIZE + 3] << 24);
  
- static void nfcsim_abort_cmd(struct nfc_digital_dev *ddev)
- {
--	struct nfcsim *dev = nfc_digital_get_drvdata(ddev);
-+	const struct nfcsim *dev = nfc_digital_get_drvdata(ddev);
+-	dev_dbg(dev, "RAM patch version: %d, size: %d\n",
+-		  info->ram_patch_version, (int) info->ram_patch->size);
++	dev_dbg(dev, "RAM patch version: %d, size: %zu\n",
++		  info->ram_patch_version, info->ram_patch->size);
  
- 	nfcsim_link_recv_cancel(dev->link_in);
+ 
+ 	r = request_firmware(&info->otp_patch, FDP_OTP_PATCH_NAME, dev);
+@@ -293,8 +293,8 @@ static int fdp_nci_request_firmware(struct nci_dev *ndev)
+ 		(data[FDP_FW_HEADER_SIZE+2] << 16) |
+ 		(data[FDP_FW_HEADER_SIZE+3] << 24);
+ 
+-	dev_dbg(dev, "OTP patch version: %d, size: %d\n",
+-		 info->otp_patch_version, (int) info->otp_patch->size);
++	dev_dbg(dev, "OTP patch version: %d, size: %zu\n",
++		 info->otp_patch_version, info->otp_patch->size);
+ 	return 0;
  }
+ 
 -- 
 2.27.0
 _______________________________________________
