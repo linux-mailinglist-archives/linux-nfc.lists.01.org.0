@@ -1,60 +1,60 @@
 Return-Path: <linux-nfc-bounces@lists.01.org>
 X-Original-To: lists+linux-nfc@lfdr.de
 Delivered-To: lists+linux-nfc@lfdr.de
-Received: from ml01.01.org (ml01.01.org [IPv6:2001:19d0:306:5::1])
-	by mail.lfdr.de (Postfix) with ESMTPS id 04F723DA146
-	for <lists+linux-nfc@lfdr.de>; Thu, 29 Jul 2021 12:40:55 +0200 (CEST)
+Received: from ml01.01.org (ml01.01.org [198.145.21.10])
+	by mail.lfdr.de (Postfix) with ESMTPS id C14553DA166
+	for <lists+linux-nfc@lfdr.de>; Thu, 29 Jul 2021 12:42:52 +0200 (CEST)
 Received: from ml01.vlan13.01.org (localhost [IPv6:::1])
-	by ml01.01.org (Postfix) with ESMTP id DB11A100EB82B;
-	Thu, 29 Jul 2021 03:40:52 -0700 (PDT)
+	by ml01.01.org (Postfix) with ESMTP id 6C7AB100EBB6A;
+	Thu, 29 Jul 2021 03:42:51 -0700 (PDT)
 Received-SPF: Pass (mailfrom) identity=mailfrom; client-ip=185.125.188.121; helo=smtp-relay-canonical-1.canonical.com; envelope-from=krzysztof.kozlowski@canonical.com; receiver=<UNKNOWN> 
 Received: from smtp-relay-canonical-1.canonical.com (smtp-relay-canonical-1.canonical.com [185.125.188.121])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits))
 	(No client certificate requested)
-	by ml01.01.org (Postfix) with ESMTPS id D82D7100EBBBB
-	for <linux-nfc@lists.01.org>; Thu, 29 Jul 2021 03:40:50 -0700 (PDT)
-Received: from mail-ed1-f71.google.com (mail-ed1-f71.google.com [209.85.208.71])
+	by ml01.01.org (Postfix) with ESMTPS id BA044100EBBBB
+	for <linux-nfc@lists.01.org>; Thu, 29 Jul 2021 03:42:49 -0700 (PDT)
+Received: from mail-ed1-f69.google.com (mail-ed1-f69.google.com [209.85.208.69])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by smtp-relay-canonical-1.canonical.com (Postfix) with ESMTPS id AC7E53F235
-	for <linux-nfc@lists.01.org>; Thu, 29 Jul 2021 10:40:49 +0000 (UTC)
+	by smtp-relay-canonical-1.canonical.com (Postfix) with ESMTPS id 9C9213F231
+	for <linux-nfc@lists.01.org>; Thu, 29 Jul 2021 10:42:48 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=canonical.com;
-	s=20210705; t=1627555249;
-	bh=6LhaqEyE6YM7qc+DvvBC/izK9f7my9CENZwOkswScoM=;
+	s=20210705; t=1627555368;
+	bh=1aqWonZ1UVeYrgP40WWguDTIwwMWBTXMW2a73Xqk2/I=;
 	h=From:To:Subject:Date:Message-Id:In-Reply-To:References:
 	 MIME-Version;
-	b=pCYFcLJxKT89TDwTk0M8wOK5c1x26ozPyWOD6ZU25R6PpydbnVjOHI7Y0WRqyi2gp
-	 QkoZMvNN6kXZf1+MKk1z8kSeN5qZ5UfDq2Cbn2yw/ahNiUV3ZuV8NPkUeBDS75S1Xo
-	 KXRTsx6YkPBE1gQ5HpATaOptgOGNgYn6v7W+QbHO6qplXXqJceHBUfwyyRfyiwltH8
-	 uoKC5DGL7izx9dh17V9FKnH2Q2foaSQxkZ/4Vu/tujJpvPgkUA6Rdqwu6KgQ7IPgL5
-	 nGcg5Po0pCuHnp82haOExEamXWwFXONQQ7cbdhKjAvgyCn1jiq0GuQ9iEcT73a9+Ng
-	 6Z+Y/SztD1wwA==
-Received: by mail-ed1-f71.google.com with SMTP id ay20-20020a0564022034b02903bc515b673dso2749242edb.3
-        for <linux-nfc@lists.01.org>; Thu, 29 Jul 2021 03:40:49 -0700 (PDT)
+	b=fTaOL6yTA1N+j0b4PUpgzWYos85Rpw0HlW0/TgjfeqewNixyjGNfObfDbsVVve1bV
+	 yydbMj9K5Ccic8BYEPXdTA4fkQWUWx7oJkgK/ZE65F4lEb/LuC3WVjJmC1AffOmwA1
+	 sGu1k8b6HYE9IzZyrbjGgGc+UubqOQ2+eXU6evx/KPw39ESOd7+97h8+GRCB06Mrl7
+	 +igO0k3WafwE2vQOrr3evhhnc/jFz2vKZ4rOP/1zt5kbkapY8/rZSQ3V7pAeoLDpbz
+	 Wz7HRQtEPwtjuNJStAMXPRCC/E2OFNve8/u1A5YWbdQJm8IQeyp/KlLsZmT8d9XkZS
+	 vHHNwVaZWX8vA==
+Received: by mail-ed1-f69.google.com with SMTP id n24-20020aa7c7980000b02903bb4e1d45aaso2727109eds.15
+        for <linux-nfc@lists.01.org>; Thu, 29 Jul 2021 03:42:48 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:from:to:subject:date:message-id:in-reply-to
          :references:mime-version:content-transfer-encoding;
-        bh=6LhaqEyE6YM7qc+DvvBC/izK9f7my9CENZwOkswScoM=;
-        b=LQtxh7/A/O6bG/6Zc2wLCCgRHGga6p+1SpTWJUjUGQIHfeDoqL3KRTRjpjBXhwxFqS
-         HLlXuzze87HEbAVUKx+FaQUZXv+SEp5Fwv4YEpFQkq0wNubOKek1V3f7SXkNF7ivbXW6
-         hkN0QnMTi+K4zb5OBY7ADcG03WbrUXtzUJo+CnVWOo8GJ8NP7Kl8LH0ixkX52EYGWN+H
-         gET5+PRSzypRFXZA3USBEiH5uMaMXxjRxMqnAvK63v4gNVAfdM7zwNEc4iH8Q0hNgtPg
-         bdJN6VYo5Bae89yinFSGQIspeflr4WD6BNDPyIm3J6S1La2IvrZvy+/cEpToXkWCX9i7
-         15BA==
-X-Gm-Message-State: AOAM531dS/skyWK+dhMqbqdFeqW4x6my5IUmyhrv0ZdkGNclLDJweKtM
-	6DHhghO5+aaCWdGmh2pdmx5vAZa17yS2XwcyaO1Zxv0sTJ2+OFsOgSmDpqOrqNTwz3wu7M81CJT
-	eB3HS+/CEU7kNxKNbm0HrWDa2490NS4kKjQ==
-X-Received: by 2002:a05:6402:d2:: with SMTP id i18mr5264566edu.17.1627555247739;
-        Thu, 29 Jul 2021 03:40:47 -0700 (PDT)
-X-Google-Smtp-Source: ABdhPJyU2Ka89Z3Qjr8Tzvk3IIGX+JEzwdx0FNyuEdwHjyphht6T2bpxMENgCaQjv8QxWPsttQOLJw==
-X-Received: by 2002:a05:6402:d2:: with SMTP id i18mr5264543edu.17.1627555247595;
-        Thu, 29 Jul 2021 03:40:47 -0700 (PDT)
+        bh=1aqWonZ1UVeYrgP40WWguDTIwwMWBTXMW2a73Xqk2/I=;
+        b=fzES7X8kT+MszoE6ko35ItjYaUYGtikryspQImQFRAnmrjXjRwSwDXgT3ES7wEESxF
+         FBButZ6QEj2qptZkuWJzAf4C3MN3oeDU2Xi2wsUwAkg9jN/d6rvTzBd+W+lY+gj7lOXq
+         3PO8JgaHL/aUsY1dB6dNCeZ2QyfWGPFPxqgQIbke1+zOJ3v3tr2v5D+VDA/fdsKrIb/A
+         RFvIzbQ3XLscJ2SnJKxPgINkWuh41QxlYRt4YcLfGecV+pxsncQImkESINX0XjdauvGf
+         8c+3c2rVkqfvNTMxrJJSC/wMtBdRIkmlokCkZhxMAvC45kKlZQdBlwSj5yWnXiT4iyuj
+         C31Q==
+X-Gm-Message-State: AOAM530AM5LiI7yXr+tyyCUF/OF9ZictXrtJHutnRU2fArnR2Cowv5Y2
+	oz0zfqUkWhbaYrPEhWbnqXIOW6ami5P6WOjc04ORM0CCZmBcd7SSZU+1TzyVcj75Taf6E869dXJ
+	5mXhJOaafMrccVWp38sD7ZxoSMLsSo8RhEA==
+X-Received: by 2002:a17:907:1b02:: with SMTP id mp2mr4104321ejc.196.1627555368311;
+        Thu, 29 Jul 2021 03:42:48 -0700 (PDT)
+X-Google-Smtp-Source: ABdhPJy7aV8dzqZZfnsgycbu2nLiwhd9HngRE7rGbZygUqpYd4zH2xG3lNFXnZlVjoxsJ3E/BKLvUA==
+X-Received: by 2002:a17:907:1b02:: with SMTP id mp2mr4104308ejc.196.1627555368118;
+        Thu, 29 Jul 2021 03:42:48 -0700 (PDT)
 Received: from localhost.localdomain ([86.32.47.9])
-        by smtp.gmail.com with ESMTPSA id c14sm824475ejb.78.2021.07.29.03.40.46
+        by smtp.gmail.com with ESMTPSA id e7sm1048472edk.3.2021.07.29.03.42.47
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 29 Jul 2021 03:40:46 -0700 (PDT)
+        Thu, 29 Jul 2021 03:42:47 -0700 (PDT)
 From: Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>
 To: Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>,
 	Mark Greer <mgreer@animalcreek.com>,
@@ -65,21 +65,21 @@ To: Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>,
 	netdev@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	linux-wireless@vger.kernel.org
-Date: Thu, 29 Jul 2021 12:40:21 +0200
-Message-Id: <20210729104022.47761-12-krzysztof.kozlowski@canonical.com>
+Date: Thu, 29 Jul 2021 12:42:41 +0200
+Message-Id: <20210729104241.48086-1-krzysztof.kozlowski@canonical.com>
 X-Mailer: git-send-email 2.27.0
 In-Reply-To: <20210729104022.47761-1-krzysztof.kozlowski@canonical.com>
 References: <20210729104022.47761-1-krzysztof.kozlowski@canonical.com>
 MIME-Version: 1.0
-Message-ID-Hash: WNAQD4FRLNRXWLNLVPSLBHFGT4VRJZYV
-X-Message-ID-Hash: WNAQD4FRLNRXWLNLVPSLBHFGT4VRJZYV
+Message-ID-Hash: U557XZYCESI55R6FW3Q3FGME36J55EHY
+X-Message-ID-Hash: U557XZYCESI55R6FW3Q3FGME36J55EHY
 X-MailFrom: krzysztof.kozlowski@canonical.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency; loop; banned-address; member-moderation; nonmember-moderation; administrivia; implicit-dest; max-recipients; max-size; news-moderation; no-subject; suspicious-header
 X-Mailman-Version: 3.1.1
 Precedence: list
-Subject: [linux-nfc] [PATCH 11/12] nfc: mrvl: constify several pointers
+Subject: [linux-nfc] [PATCH 12/12] nfc: mrvl: constify static nfcmrvl_if_ops
 List-Id: NFC on Linux <linux-nfc.lists.01.org>
-Archived-At: <https://lists.01.org/hyperkitty/list/linux-nfc@lists.01.org/message/WNAQD4FRLNRXWLNLVPSLBHFGT4VRJZYV/>
+Archived-At: <https://lists.01.org/hyperkitty/list/linux-nfc@lists.01.org/message/U557XZYCESI55R6FW3Q3FGME36J55EHY/>
 List-Archive: <https://lists.01.org/hyperkitty/list/linux-nfc@lists.01.org/>
 List-Help: <mailto:linux-nfc-request@lists.01.org?subject=help>
 List-Post: <mailto:linux-nfc@lists.01.org>
@@ -88,164 +88,105 @@ List-Unsubscribe: <mailto:linux-nfc-leave@lists.01.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-Several functions do not modify pointed data so arguments and local
-variables can be const for correctness and safety.
+File-scope struct nfcmrvl_if_ops is not modified so can be made const.
 
 Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>
 ---
- drivers/nfc/nfcmrvl/fw_dnld.c | 16 +++++++++-------
- drivers/nfc/nfcmrvl/i2c.c     |  2 +-
- drivers/nfc/nfcmrvl/main.c    |  2 +-
- drivers/nfc/nfcmrvl/nfcmrvl.h |  2 +-
- drivers/nfc/nfcmrvl/spi.c     |  4 ++--
- drivers/nfc/nfcmrvl/uart.c    |  2 +-
- 6 files changed, 15 insertions(+), 13 deletions(-)
+ drivers/nfc/nfcmrvl/i2c.c     | 2 +-
+ drivers/nfc/nfcmrvl/main.c    | 2 +-
+ drivers/nfc/nfcmrvl/nfcmrvl.h | 4 ++--
+ drivers/nfc/nfcmrvl/spi.c     | 2 +-
+ drivers/nfc/nfcmrvl/uart.c    | 2 +-
+ drivers/nfc/nfcmrvl/usb.c     | 2 +-
+ 6 files changed, 7 insertions(+), 7 deletions(-)
 
-diff --git a/drivers/nfc/nfcmrvl/fw_dnld.c b/drivers/nfc/nfcmrvl/fw_dnld.c
-index aaccb8b76b3e..edac56b01fd1 100644
---- a/drivers/nfc/nfcmrvl/fw_dnld.c
-+++ b/drivers/nfc/nfcmrvl/fw_dnld.c
-@@ -129,7 +129,7 @@ static void fw_dnld_timeout(struct timer_list *t)
- }
- 
- static int process_state_reset(struct nfcmrvl_private *priv,
--			       struct sk_buff *skb)
-+			       const struct sk_buff *skb)
- {
- 	if (sizeof(nci_pattern_core_reset_ntf) != skb->len ||
- 	    memcmp(skb->data, nci_pattern_core_reset_ntf,
-@@ -145,7 +145,8 @@ static int process_state_reset(struct nfcmrvl_private *priv,
- 	return 0;
- }
- 
--static int process_state_init(struct nfcmrvl_private *priv, struct sk_buff *skb)
-+static int process_state_init(struct nfcmrvl_private *priv,
-+			      const struct sk_buff *skb)
- {
- 	struct nci_core_set_config_cmd cmd;
- 
-@@ -175,7 +176,7 @@ static void create_lc(struct nfcmrvl_private *priv)
- }
- 
- static int process_state_set_ref_clock(struct nfcmrvl_private *priv,
--				       struct sk_buff *skb)
-+				       const struct sk_buff *skb)
- {
- 	struct nci_core_set_config_cmd cmd;
- 
-@@ -221,7 +222,7 @@ static int process_state_set_ref_clock(struct nfcmrvl_private *priv,
- }
- 
- static int process_state_set_hi_config(struct nfcmrvl_private *priv,
--				       struct sk_buff *skb)
-+				       const struct sk_buff *skb)
- {
- 	if (sizeof(nci_pattern_core_set_config_rsp) != skb->len ||
- 	    memcmp(skb->data, nci_pattern_core_set_config_rsp, skb->len))
-@@ -232,7 +233,7 @@ static int process_state_set_hi_config(struct nfcmrvl_private *priv,
- }
- 
- static int process_state_open_lc(struct nfcmrvl_private *priv,
--				 struct sk_buff *skb)
-+				 const struct sk_buff *skb)
- {
- 	if (sizeof(nci_pattern_core_conn_create_rsp) >= skb->len ||
- 	    memcmp(skb->data, nci_pattern_core_conn_create_rsp,
-@@ -347,7 +348,7 @@ static int process_state_fw_dnld(struct nfcmrvl_private *priv,
- }
- 
- static int process_state_close_lc(struct nfcmrvl_private *priv,
--				  struct sk_buff *skb)
-+				  const struct sk_buff *skb)
- {
- 	if (sizeof(nci_pattern_core_conn_close_rsp) != skb->len ||
- 	    memcmp(skb->data, nci_pattern_core_conn_close_rsp, skb->len))
-@@ -358,7 +359,8 @@ static int process_state_close_lc(struct nfcmrvl_private *priv,
- 	return 0;
- }
- 
--static int process_state_boot(struct nfcmrvl_private *priv, struct sk_buff *skb)
-+static int process_state_boot(struct nfcmrvl_private *priv,
-+			      const struct sk_buff *skb)
- {
- 	if (sizeof(nci_pattern_proprietary_boot_rsp) != skb->len ||
- 	    memcmp(skb->data, nci_pattern_proprietary_boot_rsp, skb->len))
 diff --git a/drivers/nfc/nfcmrvl/i2c.c b/drivers/nfc/nfcmrvl/i2c.c
-index 59a529e72d96..6e659e77c8a2 100644
+index 6e659e77c8a2..c38b228006fd 100644
 --- a/drivers/nfc/nfcmrvl/i2c.c
 +++ b/drivers/nfc/nfcmrvl/i2c.c
-@@ -182,8 +182,8 @@ static int nfcmrvl_i2c_parse_dt(struct device_node *node,
- static int nfcmrvl_i2c_probe(struct i2c_client *client,
- 			     const struct i2c_device_id *id)
+@@ -146,7 +146,7 @@ static void nfcmrvl_i2c_nci_update_config(struct nfcmrvl_private *priv,
  {
-+	const struct nfcmrvl_platform_data *pdata;
- 	struct nfcmrvl_i2c_drv_data *drv_data;
--	struct nfcmrvl_platform_data *pdata;
- 	struct nfcmrvl_platform_data config;
- 	int ret;
+ }
  
+-static struct nfcmrvl_if_ops i2c_ops = {
++static const struct nfcmrvl_if_ops i2c_ops = {
+ 	.nci_open = nfcmrvl_i2c_nci_open,
+ 	.nci_close = nfcmrvl_i2c_nci_close,
+ 	.nci_send = nfcmrvl_i2c_nci_send,
 diff --git a/drivers/nfc/nfcmrvl/main.c b/drivers/nfc/nfcmrvl/main.c
-index 6e9e7ce8792c..d8e48bdaf652 100644
+index d8e48bdaf652..2fcf545012b1 100644
 --- a/drivers/nfc/nfcmrvl/main.c
 +++ b/drivers/nfc/nfcmrvl/main.c
-@@ -93,7 +93,7 @@ struct nfcmrvl_private *nfcmrvl_nci_register_dev(enum nfcmrvl_phy phy,
+@@ -91,7 +91,7 @@ static const struct nci_ops nfcmrvl_nci_ops = {
+ 
+ struct nfcmrvl_private *nfcmrvl_nci_register_dev(enum nfcmrvl_phy phy,
  				void *drv_data,
- 				struct nfcmrvl_if_ops *ops,
+-				struct nfcmrvl_if_ops *ops,
++				const struct nfcmrvl_if_ops *ops,
  				struct device *dev,
--				struct nfcmrvl_platform_data *pdata)
-+				const struct nfcmrvl_platform_data *pdata)
+ 				const struct nfcmrvl_platform_data *pdata)
  {
- 	struct nfcmrvl_private *priv;
- 	int rc;
 diff --git a/drivers/nfc/nfcmrvl/nfcmrvl.h b/drivers/nfc/nfcmrvl/nfcmrvl.h
-index a715543bc9bf..84fafa95965e 100644
+index 84fafa95965e..165bd0a95190 100644
 --- a/drivers/nfc/nfcmrvl/nfcmrvl.h
 +++ b/drivers/nfc/nfcmrvl/nfcmrvl.h
-@@ -94,7 +94,7 @@ struct nfcmrvl_private *nfcmrvl_nci_register_dev(enum nfcmrvl_phy phy,
- 				void *drv_data,
- 				struct nfcmrvl_if_ops *ops,
- 				struct device *dev,
--				struct nfcmrvl_platform_data *pdata);
-+				const struct nfcmrvl_platform_data *pdata);
- 
- 
- void nfcmrvl_chip_reset(struct nfcmrvl_private *priv);
-diff --git a/drivers/nfc/nfcmrvl/spi.c b/drivers/nfc/nfcmrvl/spi.c
-index 66696321c645..7b015bb33fc9 100644
---- a/drivers/nfc/nfcmrvl/spi.c
-+++ b/drivers/nfc/nfcmrvl/spi.c
-@@ -106,7 +106,7 @@ static struct nfcmrvl_if_ops spi_ops = {
- 	.nci_update_config = nfcmrvl_spi_nci_update_config,
+@@ -77,7 +77,7 @@ struct nfcmrvl_private {
+ 	/* PHY type */
+ 	enum nfcmrvl_phy phy;
+ 	/* Low level driver ops */
+-	struct nfcmrvl_if_ops *if_ops;
++	const struct nfcmrvl_if_ops *if_ops;
  };
  
--static int nfcmrvl_spi_parse_dt(struct device_node *node,
-+static int nfcmrvl_spi_parse_dt(const struct device_node *node,
- 				struct nfcmrvl_platform_data *pdata)
- {
- 	int ret;
-@@ -129,7 +129,7 @@ static int nfcmrvl_spi_parse_dt(struct device_node *node,
+ struct nfcmrvl_if_ops {
+@@ -92,7 +92,7 @@ void nfcmrvl_nci_unregister_dev(struct nfcmrvl_private *priv);
+ int nfcmrvl_nci_recv_frame(struct nfcmrvl_private *priv, struct sk_buff *skb);
+ struct nfcmrvl_private *nfcmrvl_nci_register_dev(enum nfcmrvl_phy phy,
+ 				void *drv_data,
+-				struct nfcmrvl_if_ops *ops,
++				const struct nfcmrvl_if_ops *ops,
+ 				struct device *dev,
+ 				const struct nfcmrvl_platform_data *pdata);
  
- static int nfcmrvl_spi_probe(struct spi_device *spi)
- {
--	struct nfcmrvl_platform_data *pdata;
-+	const struct nfcmrvl_platform_data *pdata;
- 	struct nfcmrvl_platform_data config;
- 	struct nfcmrvl_spi_drv_data *drv_data;
- 	int ret = 0;
+diff --git a/drivers/nfc/nfcmrvl/spi.c b/drivers/nfc/nfcmrvl/spi.c
+index 7b015bb33fc9..d64abd0c4df3 100644
+--- a/drivers/nfc/nfcmrvl/spi.c
++++ b/drivers/nfc/nfcmrvl/spi.c
+@@ -99,7 +99,7 @@ static void nfcmrvl_spi_nci_update_config(struct nfcmrvl_private *priv,
+ 	drv_data->nci_spi->xfer_speed_hz = config->clk;
+ }
+ 
+-static struct nfcmrvl_if_ops spi_ops = {
++static const struct nfcmrvl_if_ops spi_ops = {
+ 	.nci_open = nfcmrvl_spi_nci_open,
+ 	.nci_close = nfcmrvl_spi_nci_close,
+ 	.nci_send = nfcmrvl_spi_nci_send,
 diff --git a/drivers/nfc/nfcmrvl/uart.c b/drivers/nfc/nfcmrvl/uart.c
-index 50d86c90b9dd..63ac434675c8 100644
+index 63ac434675c8..9c92cbdc42f0 100644
 --- a/drivers/nfc/nfcmrvl/uart.c
 +++ b/drivers/nfc/nfcmrvl/uart.c
-@@ -98,8 +98,8 @@ static int nfcmrvl_uart_parse_dt(struct device_node *node,
- static int nfcmrvl_nci_uart_open(struct nci_uart *nu)
- {
- 	struct nfcmrvl_private *priv;
--	struct nfcmrvl_platform_data *pdata = NULL;
- 	struct nfcmrvl_platform_data config;
-+	const struct nfcmrvl_platform_data *pdata = NULL;
- 	struct device *dev = nu->tty->dev;
+@@ -49,7 +49,7 @@ static void nfcmrvl_uart_nci_update_config(struct nfcmrvl_private *priv,
+ 			    config->flow_control);
+ }
  
- 	/*
+-static struct nfcmrvl_if_ops uart_ops = {
++static const struct nfcmrvl_if_ops uart_ops = {
+ 	.nci_open = nfcmrvl_uart_nci_open,
+ 	.nci_close = nfcmrvl_uart_nci_close,
+ 	.nci_send = nfcmrvl_uart_nci_send,
+diff --git a/drivers/nfc/nfcmrvl/usb.c b/drivers/nfc/nfcmrvl/usb.c
+index 9d649b45300b..a99aedff795d 100644
+--- a/drivers/nfc/nfcmrvl/usb.c
++++ b/drivers/nfc/nfcmrvl/usb.c
+@@ -264,7 +264,7 @@ static int nfcmrvl_usb_nci_send(struct nfcmrvl_private *priv,
+ 	return err;
+ }
+ 
+-static struct nfcmrvl_if_ops usb_ops = {
++static const struct nfcmrvl_if_ops usb_ops = {
+ 	.nci_open = nfcmrvl_usb_nci_open,
+ 	.nci_close = nfcmrvl_usb_nci_close,
+ 	.nci_send = nfcmrvl_usb_nci_send,
 -- 
 2.27.0
 _______________________________________________
