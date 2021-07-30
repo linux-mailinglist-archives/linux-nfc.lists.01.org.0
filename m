@@ -2,82 +2,78 @@ Return-Path: <linux-nfc-bounces@lists.01.org>
 X-Original-To: lists+linux-nfc@lfdr.de
 Delivered-To: lists+linux-nfc@lfdr.de
 Received: from ml01.01.org (ml01.01.org [IPv6:2001:19d0:306:5::1])
-	by mail.lfdr.de (Postfix) with ESMTPS id 421853DA81A
-	for <lists+linux-nfc@lfdr.de>; Thu, 29 Jul 2021 17:58:11 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2D7CF3DB407
+	for <lists+linux-nfc@lfdr.de>; Fri, 30 Jul 2021 08:57:04 +0200 (CEST)
 Received: from ml01.vlan13.01.org (localhost [IPv6:::1])
-	by ml01.01.org (Postfix) with ESMTP id 78631100EBB6E;
-	Thu, 29 Jul 2021 08:58:09 -0700 (PDT)
-Received-SPF: Pass (mailfrom) identity=mailfrom; client-ip=66.111.4.26; helo=out2-smtp.messagingengine.com; envelope-from=mgreer@animalcreek.com; receiver=<UNKNOWN> 
-Received: from out2-smtp.messagingengine.com (out2-smtp.messagingengine.com [66.111.4.26])
+	by ml01.01.org (Postfix) with ESMTP id EC34E100EB83E;
+	Thu, 29 Jul 2021 23:57:01 -0700 (PDT)
+Received-SPF: Pass (mailfrom) identity=mailfrom; client-ip=185.125.188.120; helo=smtp-relay-canonical-0.canonical.com; envelope-from=krzysztof.kozlowski@canonical.com; receiver=<UNKNOWN> 
+Received: from smtp-relay-canonical-0.canonical.com (smtp-relay-canonical-0.canonical.com [185.125.188.120])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits))
 	(No client certificate requested)
-	by ml01.01.org (Postfix) with ESMTPS id 7AA41100EC1C6
-	for <linux-nfc@lists.01.org>; Thu, 29 Jul 2021 08:58:07 -0700 (PDT)
-Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
-	by mailout.nyi.internal (Postfix) with ESMTP id E69D45C010E;
-	Thu, 29 Jul 2021 11:58:03 -0400 (EDT)
-Received: from mailfrontend1 ([10.202.2.162])
-  by compute4.internal (MEProxy); Thu, 29 Jul 2021 11:58:03 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=animalcreek.com;
-	 h=date:from:to:cc:subject:message-id:references:mime-version
-	:content-type:in-reply-to; s=fm3; bh=ahTGRcGEE9+wIDNP0Z6gvlwNfNO
-	vXtR62+7G1xOUlpo=; b=dAjdr+TgHnv2Eba/RgVsG3XsqoPIBieIN8+ypHOme+f
-	HzIHhd3w1egvJStE/G9hosh7PIJxB1rUBB3oFWte2hd+R8MieCZjTSw7ErvStI0O
-	LuemMP8129pCo995OvxlryEMjCZylKH3AdD2CXXeX6j2HRhfWLS5a+ltRC/AfNZ9
-	pNqqsC4Foxtkw9ROn6KFNZJGEp333EM8X0xv+LwM95Z5HiNe17MOU5BmcWnzEIen
-	i7/7PytUdQbIrSob75Xl9KvGaUsh/fEBSUz7X/ElDFX3KoWtYqoloKUL3m+P3oRH
-	v9ZW5LNjLNAl7TKzHvGeyXnD8mLzBhqtn4Nh9o2BOZQ==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to:x-me-proxy
-	:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; bh=ahTGRc
-	GEE9+wIDNP0Z6gvlwNfNOvXtR62+7G1xOUlpo=; b=VsurHzvl5huQ9dXpK1Uo6+
-	0LgCrkdHNO2LaFY/a2jfAFxaBSVsK9GseP+KnGyXhZoR8LmdAktTvYhRHzYxtIvZ
-	OGYGRv10va2f+2PZl/k9D01ud9j6xG2yT2niOU23wQLS3Qsg9DREx5OG9y/ecu05
-	qt6VEihXQZQ4eeREx043VMiooD7ANtt38o3fWR51NtWTazqu1utG0vNdbUhV8e2Y
-	sLO6wkZPkhUB7JA1mxxw1uhRlDQWu1mcKslCyIGKkwzeWpfjWl0OWI9ePxKJKoNh
-	FT4A2uJO5aOd2pILX9DiiW1X0OriUTqU/DAQY1Y7K5hO1OUO0fMYhGFAFjj5S8dw
-	==
-X-ME-Sender: <xms:C9ACYWHCx_vM9SpHKf7IQ8Mb1P734ae9_TsiLtAYNN75bcE_k4Ch4Q>
-    <xme:C9ACYXUFE0QNXCHmwAonFsHW7KEqHVum95V7oxlBYz2UdzZovOMmhoMKOaPWdgB5P
-    VR8Mgn2CQdu7YYOpA>
-X-ME-Received: <xmr:C9ACYQLJPIihb5KG6S9ccCE1aEOcO7doSAJdBTh7cfPRr2mwfBGC_2N-ZydhxriT5jKRlfB538ednSwNx8ucvjz0-3dZ6Id2CebnUfo>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvtddrheefgdehtdcutefuodetggdotefrodftvf
-    curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
-    uegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenuc
-    fjughrpeffhffvuffkfhggtggujghosehttdertddttddvnecuhfhrohhmpeforghrkhcu
-    ifhrvggvrhcuoehmghhrvggvrhesrghnihhmrghltghrvggvkhdrtghomheqnecuggftrf
-    grthhtvghrnhepieeugfdutdefiedtvdfftedufedvjeehgfevveefudfgjeffgeeiteet
-    jedufffhnecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehmrghilhhfrhhomh
-    epmhhgrhgvvghrsegrnhhimhgrlhgtrhgvvghkrdgtohhm
-X-ME-Proxy: <xmx:C9ACYQHONO11FiGHu5ER7cLbFxopPx78wEJTZgZzLcn-kMnazxzFRQ>
-    <xmx:C9ACYcVgwHPmJQqekfcZzE3IJjtrZ_yHyzipFw4ciyRNXkjs8nxOuA>
-    <xmx:C9ACYTPOXKyo9ah6Xcc77nFAtR34dCN4hTP8IG_o7Y5fLdeO-8awOQ>
-    <xmx:C9ACYfHWTLoJN7XD9sXBe53u6jN_WhM0U3Zu_DD_j5uKqJmzpGS-BQ>
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
- 29 Jul 2021 11:58:03 -0400 (EDT)
-Received: by blue.animalcreek.com (Postfix, from userid 1000)
-	id 6508C1360232; Thu, 29 Jul 2021 08:58:02 -0700 (MST)
-Date: Thu, 29 Jul 2021 08:58:02 -0700
-From: Mark Greer <mgreer@animalcreek.com>
-To: Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>
-Message-ID: <20210729155802.GA242073@animalcreek.com>
-References: <20210729104022.47761-1-krzysztof.kozlowski@canonical.com>
- <20210729104022.47761-5-krzysztof.kozlowski@canonical.com>
+	by ml01.01.org (Postfix) with ESMTPS id F3644100EBBDD
+	for <linux-nfc@lists.01.org>; Thu, 29 Jul 2021 23:56:59 -0700 (PDT)
+Received: from mail-ej1-f70.google.com (mail-ej1-f70.google.com [209.85.218.70])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-relay-canonical-0.canonical.com (Postfix) with ESMTPS id 028E93F224
+	for <linux-nfc@lists.01.org>; Fri, 30 Jul 2021 06:56:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=canonical.com;
+	s=20210705; t=1627628217;
+	bh=H0iqXvcx2Sb6gUihpF2rOO1152k8ULgDqjgBbDt6/wQ=;
+	h=From:To:Subject:Date:Message-Id:MIME-Version;
+	b=dYuns8ivovFvXJQnFGrKvxcvm+J5UA9HHWmKmhDhwpcsES4ccHiemoX5xUQpPerOX
+	 YjMzf7ykm4YS9G9K6dWzR/4RW+z6zMgc6YG5csB5l4mZVSnsIOyOAxtcKC7LLEN8+o
+	 gkMbvHzd5FE5Khi1tj/pilxPak1a+9MfTpxXSOSWGNyWWphARbRGlHRDeLglVQcvhR
+	 c07Mcb6BrWRhsWO6fcZEV0zpgn19huUFh03s59vZX4TZkAaRoWgel/quB2nBvZsPUJ
+	 TvZB9AL/zmlHfVXZpj6/L9DveTfKZmljfzcxhbnCFvSokU0nGVMMV7xVSXBFalsyAW
+	 wpw+BIzqtAeHw==
+Received: by mail-ej1-f70.google.com with SMTP id q19-20020a170906b293b029058a1e75c819so2737886ejz.16
+        for <linux-nfc@lists.01.org>; Thu, 29 Jul 2021 23:56:56 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20161025;
+        h=x-gm-message-state:from:to:subject:date:message-id:mime-version
+         :content-transfer-encoding;
+        bh=H0iqXvcx2Sb6gUihpF2rOO1152k8ULgDqjgBbDt6/wQ=;
+        b=f6NkBPDlv22u1l+9Zx8x+1LebsZ9oPHh/pvMEz7aYJXv0aidoIPtYLOwxjNVLKHE8I
+         YAyAimsDAzxkdLQusc8EH2hrPqxW1fAqi0NVG2/baHe2VZZLEYP+ATMwcDaPHyYRYdUO
+         aBi2+xpu+yk1vokqvwJZXHQt0MQZw1Blek2N7LNdfbwU5LJWemfystjYc9q7s/kRDySH
+         kfqL/X1wBq+9DhV1AMVWn8X5Sxsjxex6Di0N5HbTedzyh5/XqY59NGUIWmef6pk7fHHU
+         5cEcKDKwxiEVe9+NBHvStobx4Gp4m6rBYSUUrImNB6W64nFuAwP5b73TntW0S5vz66lp
+         UpxA==
+X-Gm-Message-State: AOAM531OQzmVGRhScoMF9BFjI0laOdIxeLqJRkvzpBRVI2dNg1O2KtxH
+	uqnyJxzFEJF5cmLb8L63L9RCG2+HZBgZMntceThNYuYIk4XdmlyvfaRbkRPnzOoIMqwBqlhGQ0n
+	nVgi25uSbID6jSR+/N0iUa6HeDF3FHFym1Q==
+X-Received: by 2002:a17:906:9251:: with SMTP id c17mr1210631ejx.516.1627628216644;
+        Thu, 29 Jul 2021 23:56:56 -0700 (PDT)
+X-Google-Smtp-Source: ABdhPJzdiRODyaxS5ozEQ1SGCvSq92XcTRg9NN5AZlQaqiA2V+ZljzQ10rzB6+WfdmPHGFnit/Pcsw==
+X-Received: by 2002:a17:906:9251:: with SMTP id c17mr1210618ejx.516.1627628216466;
+        Thu, 29 Jul 2021 23:56:56 -0700 (PDT)
+Received: from localhost.localdomain ([86.32.47.9])
+        by smtp.gmail.com with ESMTPSA id m9sm238518ejn.91.2021.07.29.23.56.55
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 29 Jul 2021 23:56:56 -0700 (PDT)
+From: Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>
+To: Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>,
+	"David S. Miller" <davem@davemloft.net>,
+	Jakub Kicinski <kuba@kernel.org>,
+	linux-nfc@lists.01.org,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Date: Fri, 30 Jul 2021 08:56:17 +0200
+Message-Id: <20210730065625.34010-1-krzysztof.kozlowski@canonical.com>
+X-Mailer: git-send-email 2.27.0
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20210729104022.47761-5-krzysztof.kozlowski@canonical.com>
-Organization: Animal Creek Technologies, Inc.
-Message-ID-Hash: J6JZETX7BQZNWA2YQUI5NSJZI7WIB3R5
-X-Message-ID-Hash: J6JZETX7BQZNWA2YQUI5NSJZI7WIB3R5
-X-MailFrom: mgreer@animalcreek.com
+Message-ID-Hash: 2QTDXQ3QOYLJGZGQ7G3Q2DSYZELDIISZ
+X-Message-ID-Hash: 2QTDXQ3QOYLJGZGQ7G3Q2DSYZELDIISZ
+X-MailFrom: krzysztof.kozlowski@canonical.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency; loop; banned-address; member-moderation; nonmember-moderation; administrivia; implicit-dest; max-recipients; max-size; news-moderation; no-subject; suspicious-header
-CC: Bongsu Jeon <bongsu.jeon@samsung.com>, "David S. Miller" <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>, linux-nfc@lists.01.org, netdev@vger.kernel.org, linux-kernel@vger.kernel.org, linux-wireless@vger.kernel.org
 X-Mailman-Version: 3.1.1
 Precedence: list
-Subject: [linux-nfc] Re: [PATCH 04/12] nfc: trf7970a: constify several pointers
+Subject: [linux-nfc] [PATCH v2 0/8] nfc: constify pointed data - missed part
 List-Id: NFC on Linux <linux-nfc.lists.01.org>
-Archived-At: <https://lists.01.org/hyperkitty/list/linux-nfc@lists.01.org/message/J6JZETX7BQZNWA2YQUI5NSJZI7WIB3R5/>
+Archived-At: <https://lists.01.org/hyperkitty/list/linux-nfc@lists.01.org/message/2QTDXQ3QOYLJGZGQ7G3Q2DSYZELDIISZ/>
 List-Archive: <https://lists.01.org/hyperkitty/list/linux-nfc@lists.01.org/>
 List-Help: <mailto:linux-nfc-request@lists.01.org?subject=help>
 List-Post: <mailto:linux-nfc@lists.01.org>
@@ -86,16 +82,54 @@ List-Unsubscribe: <mailto:linux-nfc-leave@lists.01.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-On Thu, Jul 29, 2021 at 12:40:14PM +0200, Krzysztof Kozlowski wrote:
-> Several functions do not modify pointed data so arguments and local
-> variables can be const for correctness and safety.
-> 
-> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>
-> ---
->  drivers/nfc/trf7970a.c | 17 +++++++++--------
->  1 file changed, 9 insertions(+), 8 deletions(-)
+Hi,
 
-Acked-by: Mark Greer <mgreer@animalcreek.com>
+This was previously sent [1] but got lost. It was a  prerequisite to part two of NFC const [2].
+
+Changes since v1:
+1. Add patch 1/8 fixing up nfcmrvl_spi_parse_dt()
+
+[1] https://lore.kernel.org/lkml/20210726145224.146006-1-krzysztof.kozlowski@canonical.com/
+[2] https://lore.kernel.org/linux-nfc/20210729104022.47761-1-krzysztof.kozlowski@canonical.com/T/#m199fbdde180fa005a10addf28479fcbdc6263eab
+
+Best regards,
+Krzysztof
+
+
+Krzysztof Kozlowski (8):
+  nfc: mrvl: correct nfcmrvl_spi_parse_dt() device_node argument
+  nfc: annotate af_nfc_exit() as __exit
+  nfc: hci: annotate nfc_llc_init() as __init
+  nfc: constify several pointers to u8, char and sk_buff
+  nfc: constify local pointer variables
+  nfc: nci: constify several pointers to u8, sk_buff and other structs
+  nfc: hci: pass callback data param as pointer in nci_request()
+  nfc: hci: cleanup unneeded spaces
+
+ drivers/nfc/nfcmrvl/spi.c  |   2 +-
+ drivers/nfc/pn544/pn544.c  |   4 +-
+ include/net/nfc/nci_core.h |  18 ++---
+ include/net/nfc/nfc.h      |   4 +-
+ net/nfc/af_nfc.c           |   2 +-
+ net/nfc/core.c             |   6 +-
+ net/nfc/hci/core.c         |   8 +--
+ net/nfc/hci/llc.c          |   2 +-
+ net/nfc/hci/llc_shdlc.c    |  10 +--
+ net/nfc/llcp.h             |   8 +--
+ net/nfc/llcp_commands.c    |  46 +++++++------
+ net/nfc/llcp_core.c        |  44 ++++++------
+ net/nfc/nci/core.c         | 134 ++++++++++++++++++-------------------
+ net/nfc/nci/data.c         |  12 ++--
+ net/nfc/nci/hci.c          |  52 +++++++-------
+ net/nfc/nci/ntf.c          |  87 +++++++++++++-----------
+ net/nfc/nci/rsp.c          |  48 +++++++------
+ net/nfc/nci/spi.c          |   2 +-
+ net/nfc/netlink.c          |   2 +-
+ net/nfc/nfc.h              |   2 +-
+ 20 files changed, 255 insertions(+), 238 deletions(-)
+
+-- 
+2.27.0
 _______________________________________________
 Linux-nfc mailing list -- linux-nfc@lists.01.org
 To unsubscribe send an email to linux-nfc-leave@lists.01.org
