@@ -2,84 +2,82 @@ Return-Path: <linux-nfc-bounces@lists.01.org>
 X-Original-To: lists+linux-nfc@lfdr.de
 Delivered-To: lists+linux-nfc@lfdr.de
 Received: from ml01.01.org (ml01.01.org [198.145.21.10])
-	by mail.lfdr.de (Postfix) with ESMTPS id 43AFC3E1947
-	for <lists+linux-nfc@lfdr.de>; Thu,  5 Aug 2021 18:14:33 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 34B6A3E3703
+	for <lists+linux-nfc@lfdr.de>; Sat,  7 Aug 2021 22:08:43 +0200 (CEST)
 Received: from ml01.vlan13.01.org (localhost [IPv6:::1])
-	by ml01.01.org (Postfix) with ESMTP id 21E62100EBBD7;
-	Thu,  5 Aug 2021 09:14:28 -0700 (PDT)
-Received-SPF: Pass (mailfrom) identity=mailfrom; client-ip=66.111.4.28; helo=out4-smtp.messagingengine.com; envelope-from=mgreer@animalcreek.com; receiver=<UNKNOWN> 
-Received: from out4-smtp.messagingengine.com (out4-smtp.messagingengine.com [66.111.4.28])
+	by ml01.01.org (Postfix) with ESMTP id E611E100EB33A;
+	Sat,  7 Aug 2021 13:08:38 -0700 (PDT)
+Received-SPF: Pass (mailfrom) identity=mailfrom; client-ip=66.111.4.29; helo=out5-smtp.messagingengine.com; envelope-from=mgreer@animalcreek.com; receiver=<UNKNOWN> 
+Received: from out5-smtp.messagingengine.com (out5-smtp.messagingengine.com [66.111.4.29])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits))
 	(No client certificate requested)
-	by ml01.01.org (Postfix) with ESMTPS id D4E82100EBBC4
-	for <linux-nfc@lists.01.org>; Thu,  5 Aug 2021 09:14:26 -0700 (PDT)
-Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
-	by mailout.nyi.internal (Postfix) with ESMTP id E1A865C012A;
-	Thu,  5 Aug 2021 12:14:25 -0400 (EDT)
+	by ml01.01.org (Postfix) with ESMTPS id BB9AC100EB338
+	for <linux-nfc@lists.01.org>; Sat,  7 Aug 2021 13:08:36 -0700 (PDT)
+Received: from compute6.internal (compute6.nyi.internal [10.202.2.46])
+	by mailout.nyi.internal (Postfix) with ESMTP id 9E88C5C007C;
+	Sat,  7 Aug 2021 16:08:35 -0400 (EDT)
 Received: from mailfrontend1 ([10.202.2.162])
-  by compute4.internal (MEProxy); Thu, 05 Aug 2021 12:14:25 -0400
+  by compute6.internal (MEProxy); Sat, 07 Aug 2021 16:08:35 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=animalcreek.com;
 	 h=date:from:to:cc:subject:message-id:references:mime-version
-	:content-type:in-reply-to; s=fm3; bh=dUQ4BK3OXzNzO0UIMgVfu5lznE4
-	fZzYyP93938I/YxM=; b=bXTq1fqD4w6QphKGXUwMMV5XFA82ht+Qycuu1I2PMQO
-	UPd3zq8LiTeSPr6qXFc0wcpqZOwkQPn+7pG9SieWio3PrfGExfKzcNgMJrbOQ8cT
-	0sCbfPsp9sILBR8KcmWOLYPE93PB+Dw+hC5GaJkjbt3vgZJgAfEY3AWJ9DYVe5gR
-	jDJyafflozgzwhSDExrz402xGdoxQb9p79KGS+/1BWnOHmavQNhHkE4Q/nx3bL9O
-	njomGezJ419Er+SVLsFmL4MYUWvxd9muHLjelAusEXhuO2U100/ccKiejha3i8af
-	6uU1EZdvCX1TDV6IkdSbkuvIEVXU239ZCb+Jihk80xw==
+	:content-type:in-reply-to; s=fm3; bh=wXTmEWkGfiqAMzTAk2XIak6OTDx
+	X2W/MEGofRnUtHLk=; b=hXGbRztkgA8GNaCqHcWuP18BcNEk2aLI07XYeuVK3+J
+	oULYNUddwuTTSDIVdmHAzide6dmlBCniOohfi1dWNXAZ+e8zJIOHbZgXJhdgmoi7
+	6062f2N7AuqCvemPMLBn6ITO/+JOOMSG04bMztxx7oDf6LYRUnvgHdIbB+9Z7+d1
+	ImFhU+rQ9sSEy5cQ8kNmeq2JycM3Ix/ao8oX/DNOP7gCksSzpNiv2QlEv4U8wdUB
+	Lcq42Dj8gcdxNbreza2XKLxjDwMALaCj26MuMfCeHiSWuGFI7XNkMigyzJxAHYT+
+	cwT+MvEDbp7xx6tykxpzhs/rH6uZXTaQdDYdkj4kadw==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
 	messagingengine.com; h=cc:content-type:date:from:in-reply-to
 	:message-id:mime-version:references:subject:to:x-me-proxy
-	:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; bh=dUQ4BK
-	3OXzNzO0UIMgVfu5lznE4fZzYyP93938I/YxM=; b=nshUBUt2wMDTaJWssnZ9Kn
-	Hne3/ZInbOk5Y9HZ+K7kM3kGDw+hQ+a5SCi0W+28NmSdiWCm86cVgKZiUpH9AXUH
-	SMN4Gc+W5+EAewsBgjLJn5yZIMrMqlrWtlZr1WpyN39YyM+XgBlJyN1l440J2DJ3
-	P4cUfd3KzLWvW52nvqjXp3oDQZ2Ci82+mhstVxCc6nMsuLXJ+bXu77Nt0tcPPubc
-	TEQgNwMEA17/iTkfTbG2y1FZqdofEs5no19hKRjPvkx7VWU85l3knc4X/XL/9rFr
-	bHOmDXE7zor7XsATTedHw7qqSeKTpH9ZFSXtPklSbF8e0y4VcbQbrqNWx55LWA0Q
+	:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; bh=wXTmEW
+	kGfiqAMzTAk2XIak6OTDxX2W/MEGofRnUtHLk=; b=IXJnK0x15MAC3wW3sJsBi6
+	iwotEGUzSPCgHfrvDzb3Ivm2Olse1/DjBF7trWL7TxbhG25TnWX7eHDusknCB5ll
+	SMlonrNro6uWrghx1AGrl5WKoB/GrGyM87AU+sxZ933Spanqm2Hi2QYUUgaZrzCz
+	TiY0LPyOAQt7YWVO3p3V120AsoN5BITYSD5gkIQf6AmNAgMDuVgJjnQLtVukx5uk
+	AbOA0GJdzBxySMlHbsbkAMLQ8PYcvgb2LfXp4rH6sNajsRmRUqTCYBVtBwsy7fNa
+	wA4I/iufa1K9xGAzdAyDiVTZI1o+zJZdLAHDdkD3ns37yZh34jxWZImbPuh8GB4w
 	==
-X-ME-Sender: <xms:YQ4MYZ_ynKC3C6xe4iBeROZxXSPV4YRG6Lqd-0uo5XGuffFzBdphVg>
-    <xme:YQ4MYdtDWDmIK8aS-e6d4f7CauYlz7-RarxZRlu7DpnPNRSe5Bbqt3zF_x4-hC_3j
-    xAOPZDVgPc3GlzW9w>
-X-ME-Received: <xmr:YQ4MYXD-zya7W33BNg2TnCOr_iCRjDsCSkoPBfPC5kL_9LUoOu0y9tltW9DVTl9kt-qIf3c_FhVP-29_KjnD-hBzaLb5H6DWGH1S5mk>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvtddrieelgdeliecutefuodetggdotefrodftvf
-    curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
-    uegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenuc
-    fjughrpeffhffvuffkfhggtggujghosehttdertddttddvnecuhfhrohhmpeforghrkhcu
-    ifhrvggvrhcuoehmghhrvggvrhesrghnihhmrghltghrvggvkhdrtghomheqnecuggftrf
-    grthhtvghrnhepieeugfdutdefiedtvdfftedufedvjeehgfevveefudfgjeffgeeiteet
-    jedufffhnecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehmrghilhhfrhhomh
-    epmhhgrhgvvghrsegrnhhimhgrlhgtrhgvvghkrdgtohhm
-X-ME-Proxy: <xmx:YQ4MYddhS1nHOX1wfmXUhB2YT3BZVc3tAxwn_NrjQpOZFdmE4ozHxQ>
-    <xmx:YQ4MYeOWd5_8ykSvuiyfMVpTqOqmyVl18DkoovIkt0H3_M--zBl3ug>
-    <xmx:YQ4MYfnMpct2J6mpNhml899QdVfYPILKKDSmS9JB-2PKf4ZCKMA_-A>
-    <xmx:YQ4MYQ0x5hygotPrdsfdFlesKNCXpUK0hZbNQLWjo5HQemSb3r5tSw>
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
- 5 Aug 2021 12:14:25 -0400 (EDT)
+X-ME-Sender: <xms:QugOYRAzJbL8ubpXgz6mSZ_JYlUhSaIIi3--R7CwQv7u1TeIzF2Q4g>
+    <xme:QugOYfg5bYCIp_kn55h4xXgeWPtdOTOjuYlBIfJ83c32J4PvW5VFyucXh0ydNtUcG
+    2ojIb7IDtW8Gon_ng>
+X-ME-Received: <xmr:QugOYcnWlkiN7ds62zDYgI-ubyFR9XTE_Qk0pwLyhnq97vSFVk6bMFUjlXRiD2wka4w41H7wI8gVuE-hGebMjFkRwNb-3SsAzmQnFW4>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvtddrjeefgddugeegucetufdoteggodetrfdotf
+    fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
+    uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
+    cujfgurhepfffhvffukfhfgggtuggjohesthdtredttddtvdenucfhrhhomhepofgrrhhk
+    ucfirhgvvghruceomhhgrhgvvghrsegrnhhimhgrlhgtrhgvvghkrdgtohhmqeenucggtf
+    frrghtthgvrhhnpedujeelgeejleegleevkeekvdevudfhteeuiedtleehtdduleelvdei
+    fffhvdehtdenucffohhmrghinhepkhgvrhhnvghlrdhorhhgnecuvehluhhsthgvrhfuih
+    iivgeptdenucfrrghrrghmpehmrghilhhfrhhomhepmhhgrhgvvghrsegrnhhimhgrlhgt
+    rhgvvghkrdgtohhm
+X-ME-Proxy: <xmx:QugOYbx1YQGaEvdOlJrRZ5t3pWYfHsrnKWZSXzjjw-xf1eucJKPEwQ>
+    <xmx:QugOYWTN2fMM9U395VE3vED9nxIghOppSTm_Z8IB0LfqIWOwPR830w>
+    <xmx:QugOYebnWhOmYs8IaOMg9vkT9k4E62DcDmNkNAmFPdQq3gAA-vgbag>
+    <xmx:Q-gOYZL8MpnguY3j-ZhXOQlLbZm6DGq5DR-MzeRnsPGl98Jg7FPo3A>
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Sat,
+ 7 Aug 2021 16:08:34 -0400 (EDT)
 Received: by blue.animalcreek.com (Postfix, from userid 1000)
-	id 90CD11360E11; Thu,  5 Aug 2021 09:14:24 -0700 (MST)
-Date: Thu, 5 Aug 2021 09:14:24 -0700
+	id 03994136009E; Sat,  7 Aug 2021 13:08:32 -0700 (MST)
+Date: Sat, 7 Aug 2021 13:08:32 -0700
 From: Mark Greer <mgreer@animalcreek.com>
 To: Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>
-Message-ID: <20210805161424.GA556298@animalcreek.com>
-References: <20210719110819.27340-1-krzysztof.kozlowski@canonical.com>
- <20210801231140.GA397941@animalcreek.com>
- <47b15b65-61cc-9cec-ca6c-c9a6d84ff7d5@canonical.com>
- <CA+Eumj6wuufroVja4PMk+NbmQm57AZEYhtECXZJRH-j08UtJng@mail.gmail.com>
+Message-ID: <20210807200832.GA124928@animalcreek.com>
+References: <20210804084218.14677-1-krzysztof.kozlowski@canonical.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <CA+Eumj6wuufroVja4PMk+NbmQm57AZEYhtECXZJRH-j08UtJng@mail.gmail.com>
+In-Reply-To: <20210804084218.14677-1-krzysztof.kozlowski@canonical.com>
 Organization: Animal Creek Technologies, Inc.
-Message-ID-Hash: JOLC6PCQCS3ASZDCJWWYHSY75AXAGI33
-X-Message-ID-Hash: JOLC6PCQCS3ASZDCJWWYHSY75AXAGI33
+Message-ID-Hash: DOWI2URAGG4NCRU2SIUT43MWAB4DB6Y6
+X-Message-ID-Hash: DOWI2URAGG4NCRU2SIUT43MWAB4DB6Y6
 X-MailFrom: mgreer@animalcreek.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency; loop; banned-address; member-moderation; nonmember-moderation; administrivia; implicit-dest; max-recipients; max-size; news-moderation; no-subject; suspicious-header
 CC: linux-nfc@lists.01.org
 X-Mailman-Version: 3.1.1
 Precedence: list
-Subject: [linux-nfc] Re: [neard][PATCH v2 00/73] combined fixes - warnings, memory leaks, memory corruption
+Subject: [linux-nfc] Re: [neard][PATCH v2 00/11] CI under Github
 List-Id: NFC on Linux <linux-nfc.lists.01.org>
-Archived-At: <https://lists.01.org/hyperkitty/list/linux-nfc@lists.01.org/message/JOLC6PCQCS3ASZDCJWWYHSY75AXAGI33/>
+Archived-At: <https://lists.01.org/hyperkitty/list/linux-nfc@lists.01.org/message/DOWI2URAGG4NCRU2SIUT43MWAB4DB6Y6/>
 List-Archive: <https://lists.01.org/hyperkitty/list/linux-nfc@lists.01.org/>
 List-Help: <mailto:linux-nfc-request@lists.01.org?subject=help>
 List-Post: <mailto:linux-nfc@lists.01.org>
@@ -88,22 +86,28 @@ List-Unsubscribe: <mailto:linux-nfc-leave@lists.01.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-On Wed, Aug 04, 2021 at 09:56:00AM +0200, Krzysztof Kozlowski wrote:
-> On Mon, 2 Aug 2021 at 09:51, Krzysztof Kozlowski
-> <krzysztof.kozlowski@canonical.com> wrote:
-> > > FYI, I built neard natively with these patches applied on an amd64
-> > > (ubuntu 20.04) and an ARM Cortext A8 (debian 10).  Both build cleanly
-> > > and I could read & write tags.
-> > >
-> > > My plans include:
-> > > - python3-ize the python test scripts
+On Wed, Aug 04, 2021 at 10:42:07AM +0200, Krzysztof Kozlowski wrote:
+> Hi,
 > 
-> I checked now Ubuntu/Debian packages and dependency on Python2 was
-> reason of removal of neard from their package repository.
-> Convertinging these to Python3 would allow bring it back, so it's
-> quite useful task.
+> Add a Continuous Integration builds under Github (with its Actions) to
+> build and unit test on several configurations.
+> 
+> Changes since v1 [1]:
+> 1. Rebase on latest master.
+> 2. Remove CI-unrelated patches from this set.
+> 3. Add CodeQL analysis.
+> 4. Add builds and tests with GCC sanitizers.
+> 5. Use matrix to extend the build configuration.
+> 
+> [1] https://lore.kernel.org/linux-nfc/20210710033859.3989-1-krzysztof.kozlowski@canonical.com/
+> 
+> 
+> Best regards,
+> Krzysztof
 
-Good to know.  Thanks for checking.
+Applied.
+
+Thank you.
 
 Mark
 --
