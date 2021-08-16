@@ -2,66 +2,67 @@ Return-Path: <linux-nfc-bounces@lists.01.org>
 X-Original-To: lists+linux-nfc@lfdr.de
 Delivered-To: lists+linux-nfc@lfdr.de
 Received: from ml01.01.org (ml01.01.org [IPv6:2001:19d0:306:5::1])
-	by mail.lfdr.de (Postfix) with ESMTPS id 302EE3EB221
-	for <lists+linux-nfc@lfdr.de>; Fri, 13 Aug 2021 10:02:45 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 332913ECD6C
+	for <lists+linux-nfc@lfdr.de>; Mon, 16 Aug 2021 06:06:18 +0200 (CEST)
 Received: from ml01.vlan13.01.org (localhost [IPv6:::1])
-	by ml01.01.org (Postfix) with ESMTP id 6C291100EBB61;
-	Fri, 13 Aug 2021 01:02:39 -0700 (PDT)
-Received-SPF: Pass (mailfrom) identity=mailfrom; client-ip=2607:f8b0:4864:20::635; helo=mail-pl1-x635.google.com; envelope-from=ricardo.ribalda@gmail.com; receiver=<UNKNOWN> 
-Received: from mail-pl1-x635.google.com (mail-pl1-x635.google.com [IPv6:2607:f8b0:4864:20::635])
+	by ml01.01.org (Postfix) with ESMTP id 30AED100EBB6E;
+	Sun, 15 Aug 2021 21:06:16 -0700 (PDT)
+Received-SPF: Pass (mailfrom) identity=mailfrom; client-ip=2607:f8b0:4864:20::1029; helo=mail-pj1-x1029.google.com; envelope-from=bongsu.jeon2@gmail.com; receiver=<UNKNOWN> 
+Received: from mail-pj1-x1029.google.com (mail-pj1-x1029.google.com [IPv6:2607:f8b0:4864:20::1029])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits))
 	(No client certificate requested)
-	by ml01.01.org (Postfix) with ESMTPS id 0961A100EBBCE
-	for <linux-nfc@lists.01.org>; Fri, 13 Aug 2021 01:02:35 -0700 (PDT)
-Received: by mail-pl1-x635.google.com with SMTP id f3so10860228plg.3
-        for <linux-nfc@lists.01.org>; Fri, 13 Aug 2021 01:02:35 -0700 (PDT)
+	by ml01.01.org (Postfix) with ESMTPS id B02D0100EBB6A
+	for <linux-nfc@lists.01.org>; Sun, 15 Aug 2021 21:06:13 -0700 (PDT)
+Received: by mail-pj1-x1029.google.com with SMTP id n5so3958142pjt.4
+        for <linux-nfc@lists.01.org>; Sun, 15 Aug 2021 21:06:13 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20161025;
-        h=mime-version:references:in-reply-to:from:date:message-id:subject:to
-         :cc;
-        bh=EjKqOZVUZ2jVaKTQKPscMwFqRGxOYt3snCKNzAcUiOQ=;
-        b=LHKrwzvvUzxFBtV8Nxf79q871FniW3zVeqdkYFtVUMy7aAR3c/HfTz+rvtXHHgWXNR
-         oCwd5z1Mg2iqBj8IqeOEySFRKb+trgOH8WBuy7SrE4Y0FlgvPm197Z6DOZ+TodoF22hb
-         l4fMPCb5u9sjqPsqgwYZUJ5xiYrGIOug1Nn0dnG9QrJrr1f057m5MkOeJB1EnBUEu3WL
-         KfYsnmN3j44AQGWZm1p1ACfjIaWsJQQ1FIt4NX+YOk/HulOpCIw0wXj8zKG1QA1RHDd1
-         vdYpFs/dIu6F7IATjzpHFlog6r639klhjnArV1S9T/l4/QVJYynlArKU6v0VpkQrmkam
-         0oGA==
+        h=from:to:cc:subject:date:message-id:mime-version
+         :content-transfer-encoding;
+        bh=CntWjWrVI+9wJAIhsJHxIdINWHX6K7GTLyHrHWRCF08=;
+        b=e1znWAlUSSTgSiqnm1x3W0BvHryyHeUABmR4Yua0EnOEqllg1EyMg1FfXA5e11oqOI
+         f5xuqOPj1wpYVGQ48CcAW7f3q2ZqodUF9CUu6dxgVzbpYL27qrf7INw1bWAFmQKAJ1Mi
+         JFqpKOtL3jHteCZWHH8KVkctbhDkWIK0Fnj1Zjcb6TOctzU8OMXNvIGJOXXdGHxqueHA
+         gT0iOjOI8vFtKtvLX83eOSdVJ6oX7FQtygmB75Kcfb0K6HrMz6qxHjLeZDC1BcD+n5Th
+         Ojt7FXAJSN4SyzWv3JMSG1SWUJimN5CCFw0rPJqtCmlGNOJxNCk4hsRfNyNsPENoTF68
+         hseQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
-         :message-id:subject:to:cc;
-        bh=EjKqOZVUZ2jVaKTQKPscMwFqRGxOYt3snCKNzAcUiOQ=;
-        b=JhgC4jlQMsNkoh468L/MNsHTPJJbGiTn72wzij1j1QazTOYyLWS3HljzlS4M7ZA7IY
-         b7kCmhekTTkSLI2rTq9WvWDpsmXPu9GDm5RHvP/Ix3aFmQYbzh0phZk9yG5P6/Q+E8pd
-         ybGM1kea6Fg4ju03b+FtXVBn0BahtzOu4bJ+fab+5+smS1HbBLYdmP0nYT3zeLCMRDWp
-         g4rlJQiLzK7ILU95fgcUmA4nsEJkPEZaDPQk2jkVgDT5toJrAPRFYr8xXThCTVMCV9eK
-         pvk2vTgMR5R9/T/Q1b40v3NqONS5iPgc887DeddiB9sO5+nCnXV0CDRoODtFU7GNNR8a
-         l4tQ==
-X-Gm-Message-State: AOAM5326/fma6TXYY15Uof+v3zfxGcrFcVVwBqoHn4tPjMd3bBg4KtfF
-	gncTKkj2cdNQYh2+Miqkev0/+ZukBZKRRCMjeOU=
-X-Google-Smtp-Source: ABdhPJz3x5XrXn4MFmlKbI54scbHA/4HCJOif4+2Y5c/dq80Cz+xPUoyHrKzGqnqVqyyYAkf7bRpkkJPQYI2Br6XBBE=
-X-Received: by 2002:a17:90b:1950:: with SMTP id nk16mr1407684pjb.11.1628841755490;
- Fri, 13 Aug 2021 01:02:35 -0700 (PDT)
+        h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+         :content-transfer-encoding;
+        bh=CntWjWrVI+9wJAIhsJHxIdINWHX6K7GTLyHrHWRCF08=;
+        b=qaxzIYZRX+gxbg/QWPFJVIrtODeAAkea/KDJT3tr8JZpHf1aRlpcavvz5Vvz1PgxeY
+         NnlbwF1n/yTVKCDCMFT6DXu1zg4iQhHBKZfxd441PwgQaJTE8aAOnSqVi1x36aTgGzDc
+         iSYDyIH4WKUSDQXw0pw0PBaO5739t574Gq7L1TB460MBx46SINapo5/P4JczcRsr0cP1
+         N3VC/QKaqIg79OGtyveOv4ER0rpTFtgmQt+ckq5jIC7ZqldT9yuZRI2OYLMOkBdJl12e
+         g3PZVhvusM8wnV8tsLqUEiQv/BNBq4rnYtQrfKk//c50Gn6agUYIyoDxc3xNNfU0xoRB
+         u/2w==
+X-Gm-Message-State: AOAM533TmJhrtvfAae+Wv0RsKjpCyc8OkVvM7wsGO5j758zYHAI4XWLu
+	1ZB9g6a6++ZuWyrX52otxOc=
+X-Google-Smtp-Source: ABdhPJzfmnPrEr1G6tjCFgUBixkUlgzS1mc8hBLf656um/VClXoPZe0tY2Sh931MohkQIC4G/8TKLw==
+X-Received: by 2002:a17:90a:7aca:: with SMTP id b10mr14848504pjl.172.1629086772531;
+        Sun, 15 Aug 2021 21:06:12 -0700 (PDT)
+Received: from ubuntu.localdomain ([182.226.226.37])
+        by smtp.gmail.com with ESMTPSA id i6sm9436998pfa.44.2021.08.15.21.06.09
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 15 Aug 2021 21:06:12 -0700 (PDT)
+From: bongsu.jeon2@gmail.com
+To: shuah@kernel.org,
+	krzysztof.kozlowski@canonical.com
+Date: Sun, 15 Aug 2021 21:05:57 -0700
+Message-Id: <20210816040600.175813-1-bongsu.jeon2@gmail.com>
+X-Mailer: git-send-email 2.32.0
 MIME-Version: 1.0
-References: <20180917094856.5961-1-ricardo.ribalda@gmail.com>
- <20180917233752.GA12491@animalcreek.com> <CAPybu_2=rY5g0MNNoztBZQQhbteXxgG7RdrgQAWT6HkaKvp8sA@mail.gmail.com>
- <20180919170359.GA16132@animalcreek.com> <20180921032904.GA19759@animalcreek.com>
- <20210808013830.GD124928@animalcreek.com>
-In-Reply-To: <20210808013830.GD124928@animalcreek.com>
-From: Ricardo Ribalda Delgado <ricardo.ribalda@gmail.com>
-Date: Fri, 13 Aug 2021 10:02:19 +0200
-Message-ID: <CAPybu_2tXU9w_dF_nGaD2j9pnri94FNN5ceELkS44S2YwCwhgA@mail.gmail.com>
-To: Mark Greer <mgreer@animalcreek.com>
-Message-ID-Hash: KNQSQD4KWJSSVSZXLHVH3XBVH6ANVFIR
-X-Message-ID-Hash: KNQSQD4KWJSSVSZXLHVH3XBVH6ANVFIR
-X-MailFrom: ricardo.ribalda@gmail.com
+Message-ID-Hash: JBYFPLALPRTAJ2EJOTJ2Q5DU3XL2HMPV
+X-Message-ID-Hash: JBYFPLALPRTAJ2EJOTJ2Q5DU3XL2HMPV
+X-MailFrom: bongsu.jeon2@gmail.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency; loop; banned-address; member-moderation; nonmember-moderation; administrivia; implicit-dest; max-recipients; max-size; news-moderation; no-subject; suspicious-header
-CC: linux-nfc@lists.01.org
+CC: netdev@vger.kernel.org, linux-nfc@lists.01.org, linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org, Bongsu Jeon <bongsu.jeon@samsung.com>
 X-Mailman-Version: 3.1.1
 Precedence: list
-Subject: [linux-nfc] Re: [PATCH] ndef: Only register interface for known records
+Subject: [linux-nfc] [PATCH net-next 0/3] Update the virtual NCI driver and the NCI selftests
 List-Id: NFC on Linux <linux-nfc.lists.01.org>
-Archived-At: <https://lists.01.org/hyperkitty/list/linux-nfc@lists.01.org/message/KNQSQD4KWJSSVSZXLHVH3XBVH6ANVFIR/>
+Archived-At: <https://lists.01.org/hyperkitty/list/linux-nfc@lists.01.org/message/JBYFPLALPRTAJ2EJOTJ2Q5DU3XL2HMPV/>
 List-Archive: <https://lists.01.org/hyperkitty/list/linux-nfc@lists.01.org/>
 List-Help: <mailto:linux-nfc-request@lists.01.org?subject=help>
 List-Post: <mailto:linux-nfc@lists.01.org>
@@ -70,33 +71,25 @@ List-Unsubscribe: <mailto:linux-nfc-leave@lists.01.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-Absolutely no worries.
+From: Bongsu Jeon <bongsu.jeon@samsung.com>
 
-Thanks for your work Mark :)
+This series updates the virtual NCI device driver and NCI selftest code
+and add the NCI test case in selftests.
+1/3 is the patch to use wait queue in virtual device driver.
+2/3 is the patch to remove the polling code in selftests.
+3/3 is the patch to add the NCI testcase in selftests.
 
-On Sun, Aug 8, 2021 at 3:38 AM Mark Greer <mgreer@animalcreek.com> wrote:
->
-> On Thu, Sep 20, 2018 at 08:29:04PM -0700, Mark Greer wrote:
-> > On Wed, Sep 19, 2018 at 10:03:59AM -0700, Mark Greer wrote:
-> >
-> > > Thanks for the data.  I'll decipher it later today.
-> >
-> > Hi Ricardo.  I sort of got hit with some stuff so it may be a few days.
-> >
-> > Sorry for the delay.
->
-> Well, a few days turned into a few years but it is in there now.
-> Thanks for your patience Ricardo.
->
-> Applied.
->
-> Mark
-> --
+Bongsu Jeon (3):
+  nfc: Change the virtual NCI device driver to use Wait Queue
+  selftests: Remove the polling code to read a NCI frame
+  selftests: Add the NCI testcase reading T4T Tag
 
-
+ drivers/nfc/virtual_ncidev.c          |  10 +-
+ tools/testing/selftests/nci/nci_dev.c | 417 ++++++++++++++++++++++----
+ 2 files changed, 362 insertions(+), 65 deletions(-)
 
 -- 
-Ricardo Ribalda
+2.32.0
 _______________________________________________
 Linux-nfc mailing list -- linux-nfc@lists.01.org
 To unsubscribe send an email to linux-nfc-leave@lists.01.org
