@@ -1,82 +1,86 @@
 Return-Path: <linux-nfc-bounces@lists.01.org>
 X-Original-To: lists+linux-nfc@lfdr.de
 Delivered-To: lists+linux-nfc@lfdr.de
-Received: from ml01.01.org (ml01.01.org [IPv6:2001:19d0:306:5::1])
-	by mail.lfdr.de (Postfix) with ESMTPS id 240B43F1C11
-	for <lists+linux-nfc@lfdr.de>; Thu, 19 Aug 2021 16:58:27 +0200 (CEST)
+Received: from ml01.01.org (ml01.01.org [198.145.21.10])
+	by mail.lfdr.de (Postfix) with ESMTPS id 3ECB83F2F80
+	for <lists+linux-nfc@lfdr.de>; Fri, 20 Aug 2021 17:31:34 +0200 (CEST)
 Received: from ml01.vlan13.01.org (localhost [IPv6:::1])
-	by ml01.01.org (Postfix) with ESMTP id 1D6A3100EB84F;
-	Thu, 19 Aug 2021 07:58:25 -0700 (PDT)
-Received-SPF: Pass (mailfrom) identity=mailfrom; client-ip=185.125.188.120; helo=smtp-relay-canonical-0.canonical.com; envelope-from=krzysztof.kozlowski@canonical.com; receiver=<UNKNOWN> 
-Received: from smtp-relay-canonical-0.canonical.com (smtp-relay-canonical-0.canonical.com [185.125.188.120])
+	by ml01.01.org (Postfix) with ESMTP id C9E8A100EB329;
+	Fri, 20 Aug 2021 08:31:31 -0700 (PDT)
+Received-SPF: Pass (mailfrom) identity=mailfrom; client-ip=66.111.4.26; helo=out2-smtp.messagingengine.com; envelope-from=mgreer@animalcreek.com; receiver=<UNKNOWN> 
+Received: from out2-smtp.messagingengine.com (out2-smtp.messagingengine.com [66.111.4.26])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits))
 	(No client certificate requested)
-	by ml01.01.org (Postfix) with ESMTPS id B1545100EB839
-	for <linux-nfc@lists.01.org>; Thu, 19 Aug 2021 07:58:22 -0700 (PDT)
-Received: from mail-ed1-f71.google.com (mail-ed1-f71.google.com [209.85.208.71])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-relay-canonical-0.canonical.com (Postfix) with ESMTPS id 776AC411D3
-	for <linux-nfc@lists.01.org>; Thu, 19 Aug 2021 14:58:20 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=canonical.com;
-	s=20210705; t=1629385100;
-	bh=wQiuLX/Xvn4Q37h7Mu5nwpojESQ/HSYYdmVtuyw8BcY=;
-	h=Subject:From:To:References:Message-ID:Date:MIME-Version:
-	 In-Reply-To:Content-Type;
-	b=r98Lf5U853s7PmYLeKeKITIqrQkz2yeB1Mar/HbyiL+bUY99KKnv/qQtkPv6bGYBq
-	 LYYqL5w+2PznyJzqncSU7rJTb1RH6l8eZNlSHV9iU78kCovcMhUHCXtvScO1/pJ7tP
-	 /hfHNJz99j7qxFEJLyLPAnSeZzp1yhJLQWKPI5Zulyl8eBLNgEt0Ho16f2XUL+A8KC
-	 SrkTLLzL1Nwwv8dQLjfUOcJgU+p/3zn//aUBBBafVABKgz95W7oZTuLPLJhSP1tI+t
-	 YfR3zmGW5ZiyNLjDWdQfPucBeK0zPM67S5Z4UcBojJWFo2j6Xa82LlJvnrS17YsfvR
-	 1JzqryKS2dLdQ==
-Received: by mail-ed1-f71.google.com with SMTP id l18-20020a0564021252b02903be7bdd65ccso2970274edw.12
-        for <linux-nfc@lists.01.org>; Thu, 19 Aug 2021 07:58:20 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:subject:from:to:references:message-id:date
-         :user-agent:mime-version:in-reply-to:content-language
-         :content-transfer-encoding;
-        bh=wQiuLX/Xvn4Q37h7Mu5nwpojESQ/HSYYdmVtuyw8BcY=;
-        b=Xjufq90mzSz2/dqbHttHRNLXHl3GvC0CBgXNKNXJODV9JjoFBMPbx1z3p5tFWOEII2
-         WRT+OujwEs8ciELERM/jtUFTF+XXirglcWz1mfJRTYFM8Q28zDzrdeoSqUR5QJmDAyEo
-         3EyuMPkhA5imiUCrSa6LAHU5B2ZuF6vyGWHuDirMkXVBI85tSXr5sk4UeIOAnm9g3tAf
-         4o7re9g1diylq2B50B6MER7PDo3jLMLAgEgWqApGh5584hx4vvu4Bj0qn/MPNNY9Y2EL
-         LJ/a1iOpjKqfCY+UsneJ7snHUyfhUBqaDttRniQGASg7QMSnzMRBDln6npQz+VaNjzsU
-         h7ew==
-X-Gm-Message-State: AOAM532stRGooiZbjizddXD0OVv0xwgEAwbzcb7Xa6xCRXqAUF6Lrdvg
-	yCUxoq/hYCnYzMUBbMxhI0d3ClWxxT5vfUtFas2+NumnRNZAJroEQaxA705f8I9oboqNrpqKEOD
-	37sh/za05SCQXRdfsY026ZdOQtVHRf+taeg==
-X-Received: by 2002:a17:906:3716:: with SMTP id d22mr16171134ejc.376.1629385100006;
-        Thu, 19 Aug 2021 07:58:20 -0700 (PDT)
-X-Google-Smtp-Source: ABdhPJz7cjsLyRDa+Jb4UZS3n7mrb3stwTeBOK9wBvs+ikE3e8cF/D0BtqIDDctUeqM9AZzfBaf2Tg==
-X-Received: by 2002:a17:906:3716:: with SMTP id d22mr16171117ejc.376.1629385099836;
-        Thu, 19 Aug 2021 07:58:19 -0700 (PDT)
-Received: from [192.168.8.102] ([86.32.42.198])
-        by smtp.gmail.com with ESMTPSA id v6sm1385704ejk.117.2021.08.19.07.58.18
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 19 Aug 2021 07:58:19 -0700 (PDT)
-From: Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>
-To: Oliver Neukum <oneukum@suse.com>, charles.gorand@effinnov.com,
- andy.shevchenko@gmail.com, linux-nfc@lists.01.org
-References: <20210819140228.15591-1-oneukum@suse.com>
- <7ff001e9-8e82-cecb-96af-458baac30dfc@canonical.com>
-Message-ID: <41c3e936-482a-9000-8fe3-4d6986f905a7@canonical.com>
-Date: Thu, 19 Aug 2021 16:58:18 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.11.0
+	by ml01.01.org (Postfix) with ESMTPS id 0084B100EB85D
+	for <linux-nfc@lists.01.org>; Fri, 20 Aug 2021 08:31:29 -0700 (PDT)
+Received: from compute6.internal (compute6.nyi.internal [10.202.2.46])
+	by mailout.nyi.internal (Postfix) with ESMTP id 5F9E35C0110;
+	Fri, 20 Aug 2021 11:31:28 -0400 (EDT)
+Received: from mailfrontend2 ([10.202.2.163])
+  by compute6.internal (MEProxy); Fri, 20 Aug 2021 11:31:28 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=animalcreek.com;
+	 h=date:from:to:cc:subject:message-id:references:mime-version
+	:content-type:in-reply-to; s=fm3; bh=/jqILAgOPao8gQXCUT2/aQkG3Ft
+	swPFm4GpV3YTE1qQ=; b=vVHEUz8BKR/0DoDw3Ai/vwKiPhjnXmnqxNjugZiLbP+
+	T4USUnzvq9Xxi2WypJiq44tIg9xp7TDL3lUkJsTZ293CMJUaanbSz2ryjWbpKAVN
+	aOHt1XcS8wg7V0kBwXV1Ag3S2Xl2ZEf7Mv1enx0KfpKwVDMUPdK3LoPE0MNDyGg1
+	Zqrmp169UVZva8zz9kYmifEQa5ih8HYv401SXlL79XzV8DVkfArKbf+JEfGoQENS
+	toqUkpb0Vf1zOtM9O6JAa35/gVln6TqN2mEJ3NXGT9xYRrSFczVSdAnkKUK6q3Rr
+	qGWfNOCmaahXmaPthJBY2YHPfiGFJn+05fKfxFqKx+A==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to:x-me-proxy
+	:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; bh=/jqILA
+	gOPao8gQXCUT2/aQkG3FtswPFm4GpV3YTE1qQ=; b=QrVeIXKyZS1cTvefJ4hkmE
+	NuYW7+DHLZJYANmVXwmN8xyeyLFfAbVbArJARmBoIbPQbGDwdGds55z1SvrSCnuz
+	BPF/FkjyZcdPhVZ6Th1EGM+/v2CaO15fokyByMWkIQyxkLY2Ejh54KUWMqIZHMwB
+	2UbMO9+A71g1h7aynJtaDXBDYdMlebqvqYI8QgXPGiGp8qn4jouB8mrUG/GRHEfP
+	FMfJgCfc+qdfm8zLO+vbufHqfbpH1Le05W7ERXf8u987M5JYwjzy8kAWFEFjgG8w
+	ihbFIAe9cZGvxSpqhJTnNEnFA9mwt4xEfVR2ALboxD++N45wUsWYG2Zq3u3/45kQ
+	==
+X-ME-Sender: <xms:zsofYX8JmSZUAhoTmzimGyInZ8KGvDIkt1tMwSvdUWe6LIvMEev3Vw>
+    <xme:zsofYTtBuxjNMGMTw-BE3dG2NOttZvAWf19xjQZ-qzd93CJ4e-UJ-R7uso1uJgN3d
+    0qR-FWAYseha4QQUw>
+X-ME-Received: <xmr:zsofYVAgGggBFIOov5pebThHmHFH4v8QqPdiJIyZJnkmko3m84wD4yVUnaoL-8AQifz3O7ntqefg-W41I1Wu-WtfxtIFRtlm1G7uoao>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvtddrleelgdekkecutefuodetggdotefrodftvf
+    curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
+    uegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenuc
+    fjughrpeffhffvuffkfhggtggujghosehttdertddttddvnecuhfhrohhmpeforghrkhcu
+    ifhrvggvrhcuoehmghhrvggvrhesrghnihhmrghltghrvggvkhdrtghomheqnecuggftrf
+    grthhtvghrnhepieeugfdutdefiedtvdfftedufedvjeehgfevveefudfgjeffgeeiteet
+    jedufffhnecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehmrghilhhfrhhomh
+    epmhhgrhgvvghrsegrnhhimhgrlhgtrhgvvghkrdgtohhm
+X-ME-Proxy: <xmx:z8ofYTcOy1qv4XCtmcwW1jUOL0zv2JO8yzkl44Ehhua3XrH4RL9fPg>
+    <xmx:z8ofYcM7MiCnHojpm6J1nvn3snQNHKDGOvLDcFsI11aQDsjX0sNeTQ>
+    <xmx:z8ofYVlAv4nnO8-ys9qCJcly-1fB2Z7y2S4tqPlLmMJh1JbTsMKhMg>
+    <xmx:0MofYVbekdaOgBMXVpgBSRdqbS1s7KgxdXD0_s2JCqXxCQAP5KdiJA>
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Fri,
+ 20 Aug 2021 11:31:26 -0400 (EDT)
+Received: by blue.animalcreek.com (Postfix, from userid 1000)
+	id 9D796136009A; Fri, 20 Aug 2021 08:31:25 -0700 (MST)
+Date: Fri, 20 Aug 2021 08:31:25 -0700
+From: Mark Greer <mgreer@animalcreek.com>
+To: Frieder Schrempf <frieder.schrempf@kontron.de>
+Message-ID: <20210820153125.GA355224@animalcreek.com>
+References: <20210316112210.50100-1-frieder.schrempf@kontron.de>
+ <AM0P122MB011340CE87F73F55335D040C826B9@AM0P122MB0113.EURP122.PROD.OUTLOOK.COM>
+ <e925f779-3be9-1d11-81ea-e8841f55381a@kontron.de>
+ <20210808015532.GE124928@animalcreek.com>
+ <47a612c7-2a97-fc31-1735-dec5648d6167@kontron.de>
 MIME-Version: 1.0
-In-Reply-To: <7ff001e9-8e82-cecb-96af-458baac30dfc@canonical.com>
-Content-Language: en-US
-Message-ID-Hash: C4CB6HK7RS6HJXP6JILOV4D6PDIJJ2GZ
-X-Message-ID-Hash: C4CB6HK7RS6HJXP6JILOV4D6PDIJJ2GZ
-X-MailFrom: krzysztof.kozlowski@canonical.com
+Content-Disposition: inline
+In-Reply-To: <47a612c7-2a97-fc31-1735-dec5648d6167@kontron.de>
+Organization: Animal Creek Technologies, Inc.
+Message-ID-Hash: OPVO2SZISVNNGQZOJGGXEVHZUSTRGEZ2
+X-Message-ID-Hash: OPVO2SZISVNNGQZOJGGXEVHZUSTRGEZ2
+X-MailFrom: mgreer@animalcreek.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency; loop; banned-address; member-moderation; nonmember-moderation; administrivia; implicit-dest; max-recipients; max-size; news-moderation; no-subject; suspicious-header
+CC: "linux-nfc@lists.01.org" <linux-nfc@lists.01.org>
 X-Mailman-Version: 3.1.1
 Precedence: list
-Subject: [linux-nfc] Re: [PATCH] NFC: NCI: make parent aware in PM terms
+Subject: [linux-nfc] Re: [PATCH v2] tag: Implement readout of tag UID via DBus interface
 List-Id: NFC on Linux <linux-nfc.lists.01.org>
-Archived-At: <https://lists.01.org/hyperkitty/list/linux-nfc@lists.01.org/message/C4CB6HK7RS6HJXP6JILOV4D6PDIJJ2GZ/>
+Archived-At: <https://lists.01.org/hyperkitty/list/linux-nfc@lists.01.org/message/OPVO2SZISVNNGQZOJGGXEVHZUSTRGEZ2/>
 List-Archive: <https://lists.01.org/hyperkitty/list/linux-nfc@lists.01.org/>
 List-Help: <mailto:linux-nfc-request@lists.01.org?subject=help>
 List-Post: <mailto:linux-nfc@lists.01.org>
@@ -85,87 +89,55 @@ List-Unsubscribe: <mailto:linux-nfc-leave@lists.01.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-On 19/08/2021 16:45, Krzysztof Kozlowski wrote:
+On Tue, Aug 10, 2021 at 11:58:31AM +0200, Frieder Schrempf wrote:
+> On 08.08.21 03:55, Mark Greer wrote:
+> > On Thu, Mar 18, 2021 at 05:14:35PM +0100, Frieder Schrempf wrote:
+> >> Hi Fabian,
+> >>
+> >> On 16.03.21 19:49, Gottstein, Fabian wrote:
+> >>> Hi Frieder,
+> >>>
+> >>> thanks for the patch.
+> >>
+> >> thanks for your feedback.
+> >>
+> >>>
+> >>> Could you please also consider the following situation:
+> >>> In the case of a NFC Tag Type 1, the identifier is delivered via the RID command (see NFC Digital Protocol). Thus, the Tag's nfcid property is updated in a later step.
+> >>> To inform the neard users, a property changed signal has to be emitted when nfcid has changed (in near_tag_set_nfcid). Also, a exists() handler for the new DBus property should be implemented.
+> >>
+> >> I'm new to NFC and D-Bus, so I don't know much about what use-cases and
+> >> requirements there are.
+> >>
+> >> Your request sounds reasonable and I think I have a rough understanding of
+> >> what is probably needed to implement this. Still to actually do this I need
+> >> to look at the specifications and the code more closely and I don't know
+> >> if/when I will find time to do this.
+> >>
+> >> Also I don't have any hardware to test this with NFC type 1 tags.
+> >>
+> >>>
+> >>> Another thing regarding building the response message:
+> >>> The following code snippet could simplify and improve the readability of the usage of the dbus message builder:
+> >>>
+> >>> dbus_message_iter_open_container(iter, DBUS_TYPE_ARRAY, DBUS_TYPE_BYTE_AS_STRING, &entry);
+> >>> dbus_message_iter_append_fixed_array(&entry, DBUS_TYPE_BYTE, &uid, len);
+> >>> dbus_message_iter_close_container(iter, &entry);
+> >>>
+> >> Thanks for the improved code, I will use this instead.
+> >>
+> >> Frieder
+> > 
+> > Hi Frieder.
+> > 
+> > Do you have an updated version of this patch (or did I miss it)?
 > 
-> On 19/08/2021 16:02, Oliver Neukum wrote:
->> The NCI device is a child of an i2c device.
->> If the i2c layer uses runtime PM the power to
->> the NFC device can be cut whenever the i2c
->> layer is done transmitting data to the NFC
->> device.
->> Under these conditions NFC can not work, as
->> it needs power to wait for reception of packets.
-> 
-> Hi,
-> 
-> Thanks for the patch.
-> However this
-> is unparseable.
-> Please wrap commit
-> message around 75th character:
-> https://elixir.bootlin.com/linux/v5.13/source/Documentation/process/submitting-patches.rst#L124
-> 
-> The subject prefix: "nfc: nxp-nci: "
-> 
-> Please also Cc all people and lists. You missed here netdev
-> and linux-kernel, so this cannot be applied.
-> 
->>
->> The necessary extension of runtime PM
->> to the NFC device requires that it
->> be activated as a child of the i2c device.
->> It is not necessary to do any runtime PM
->> operations. This will disable runtime PM
->> for this branch of the tree, but otherwise
->> the NFC device is inoperable.
->>
->> Signed-off-by: Oliver Neukum <oneukum@suse.com>
->> ---
->>  drivers/nfc/nxp-nci/i2c.c | 10 ++++++++++
->>  1 file changed, 10 insertions(+)
->>
->> diff --git a/drivers/nfc/nxp-nci/i2c.c b/drivers/nfc/nxp-nci/i2c.c
->> index 94f7f6d9cbad..dba78a5d217a 100644
->> --- a/drivers/nfc/nxp-nci/i2c.c
->> +++ b/drivers/nfc/nxp-nci/i2c.c
->> @@ -18,6 +18,7 @@
->>  #include <linux/interrupt.h>
->>  #include <linux/module.h>
->>  #include <linux/nfc.h>
->> +#include <linux/pm_runtime.h>
->>  #include <linux/gpio/consumer.h>
->>  #include <asm/unaligned.h>
->>  
->> @@ -261,6 +262,7 @@ static int nxp_nci_i2c_probe(struct i2c_client *client,
->>  {
->>  	struct device *dev = &client->dev;
->>  	struct nxp_nci_i2c_phy *phy;
->> +	struct nfc_dev *ndev;
->>  	int r;
->>  
->>  	if (!i2c_check_functionality(client->adapter, I2C_FUNC_I2C)) {
->> @@ -297,6 +299,11 @@ static int nxp_nci_i2c_probe(struct i2c_client *client,
->>  	if (r < 0)
->>  		return r;
->>  
->> +	ndev = phy->ndev->nfc_dev;
->> +	pm_runtime_set_active(&ndev->dev);
->> +	pm_runtime_enable(&ndev->dev);
->> +	pm_runtime_mark_last_busy(&ndev->dev);
-> 
-> Setting PM for someone else does not look correct. This breaks
-> encapsulation and separation of these files. The NCI device
-> (nxp_nci_probe() and other parts of core.c) should instead manage
-> it's own runtime PM.
-> 
+> No, unfortunately not. I implemented this fix for a project that is now discontinued. I can try to find some time in my spare time to implement at least Fabian's code improvement suggestion. But I don't know if it makes sense to upstream this without the changes Fabian suggested in regard to NFC Tag Type 1 and I currently have neither time to dig into this, nor hardware to test it.
 
-Except this, the code is really weird... there is no runtime PM in the
-drivers but this enables it. For what purpose? It also marks it as last
-busy but there is no autosuspend. I think I missed entirely the purpose
-of this code.
+Okay, no problem.
 
-Best regards,
-Krzysztof
+Mark
+--
 _______________________________________________
 Linux-nfc mailing list -- linux-nfc@lists.01.org
 To unsubscribe send an email to linux-nfc-leave@lists.01.org
