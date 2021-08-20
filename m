@@ -2,85 +2,83 @@ Return-Path: <linux-nfc-bounces@lists.01.org>
 X-Original-To: lists+linux-nfc@lfdr.de
 Delivered-To: lists+linux-nfc@lfdr.de
 Received: from ml01.01.org (ml01.01.org [198.145.21.10])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3ECB83F2F80
-	for <lists+linux-nfc@lfdr.de>; Fri, 20 Aug 2021 17:31:34 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0AC143F2F84
+	for <lists+linux-nfc@lfdr.de>; Fri, 20 Aug 2021 17:33:34 +0200 (CEST)
 Received: from ml01.vlan13.01.org (localhost [IPv6:::1])
-	by ml01.01.org (Postfix) with ESMTP id C9E8A100EB329;
-	Fri, 20 Aug 2021 08:31:31 -0700 (PDT)
+	by ml01.01.org (Postfix) with ESMTP id F37C2100EB32A;
+	Fri, 20 Aug 2021 08:33:30 -0700 (PDT)
 Received-SPF: Pass (mailfrom) identity=mailfrom; client-ip=66.111.4.26; helo=out2-smtp.messagingengine.com; envelope-from=mgreer@animalcreek.com; receiver=<UNKNOWN> 
 Received: from out2-smtp.messagingengine.com (out2-smtp.messagingengine.com [66.111.4.26])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits))
 	(No client certificate requested)
-	by ml01.01.org (Postfix) with ESMTPS id 0084B100EB85D
-	for <linux-nfc@lists.01.org>; Fri, 20 Aug 2021 08:31:29 -0700 (PDT)
-Received: from compute6.internal (compute6.nyi.internal [10.202.2.46])
-	by mailout.nyi.internal (Postfix) with ESMTP id 5F9E35C0110;
-	Fri, 20 Aug 2021 11:31:28 -0400 (EDT)
+	by ml01.01.org (Postfix) with ESMTPS id E9D5A100EB329
+	for <linux-nfc@lists.01.org>; Fri, 20 Aug 2021 08:33:29 -0700 (PDT)
+Received: from compute1.internal (compute1.nyi.internal [10.202.2.41])
+	by mailout.nyi.internal (Postfix) with ESMTP id AB1915C011B;
+	Fri, 20 Aug 2021 11:33:28 -0400 (EDT)
 Received: from mailfrontend2 ([10.202.2.163])
-  by compute6.internal (MEProxy); Fri, 20 Aug 2021 11:31:28 -0400
+  by compute1.internal (MEProxy); Fri, 20 Aug 2021 11:33:28 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=animalcreek.com;
 	 h=date:from:to:cc:subject:message-id:references:mime-version
-	:content-type:in-reply-to; s=fm3; bh=/jqILAgOPao8gQXCUT2/aQkG3Ft
-	swPFm4GpV3YTE1qQ=; b=vVHEUz8BKR/0DoDw3Ai/vwKiPhjnXmnqxNjugZiLbP+
-	T4USUnzvq9Xxi2WypJiq44tIg9xp7TDL3lUkJsTZ293CMJUaanbSz2ryjWbpKAVN
-	aOHt1XcS8wg7V0kBwXV1Ag3S2Xl2ZEf7Mv1enx0KfpKwVDMUPdK3LoPE0MNDyGg1
-	Zqrmp169UVZva8zz9kYmifEQa5ih8HYv401SXlL79XzV8DVkfArKbf+JEfGoQENS
-	toqUkpb0Vf1zOtM9O6JAa35/gVln6TqN2mEJ3NXGT9xYRrSFczVSdAnkKUK6q3Rr
-	qGWfNOCmaahXmaPthJBY2YHPfiGFJn+05fKfxFqKx+A==
+	:content-type:in-reply-to; s=fm3; bh=KnTVuMs2H5gzlN4B5psHvAa8Bfy
+	jO1A6i+S8P8kDpXs=; b=ngLzZcuQul7ySp4ZWjGOFn1D9s97e1vlwnADnPLUG1D
+	AzOYE2dMTE09SesInfTlozfxr9Sif4Epru3/Teamet5aPtfHsXXgogpKq/tREfnW
+	tEEUd4Rdk2uG8GuoXNMSWlkMw7Ideyy3HhwjiVLhpMdCiVGXDxDd8nQtU/ctU3QM
+	H4FiTF/Mbz4EEXZwVk+hU2vkb7aKlWGP+WjA8vdmCTLXvgVkjHXokebW83vsc3uy
+	kHHBHGzzHbbczpdQQ2D2huqpqIxkl7rYwdtWVJFzsyEdkqVMcq5vajS8VdPev+Tv
+	j173XEHTT5coUoEtmFvCV48qbsSQdFg13BkWuzEZGtg==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
 	messagingengine.com; h=cc:content-type:date:from:in-reply-to
 	:message-id:mime-version:references:subject:to:x-me-proxy
-	:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; bh=/jqILA
-	gOPao8gQXCUT2/aQkG3FtswPFm4GpV3YTE1qQ=; b=QrVeIXKyZS1cTvefJ4hkmE
-	NuYW7+DHLZJYANmVXwmN8xyeyLFfAbVbArJARmBoIbPQbGDwdGds55z1SvrSCnuz
-	BPF/FkjyZcdPhVZ6Th1EGM+/v2CaO15fokyByMWkIQyxkLY2Ejh54KUWMqIZHMwB
-	2UbMO9+A71g1h7aynJtaDXBDYdMlebqvqYI8QgXPGiGp8qn4jouB8mrUG/GRHEfP
-	FMfJgCfc+qdfm8zLO+vbufHqfbpH1Le05W7ERXf8u987M5JYwjzy8kAWFEFjgG8w
-	ihbFIAe9cZGvxSpqhJTnNEnFA9mwt4xEfVR2ALboxD++N45wUsWYG2Zq3u3/45kQ
+	:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; bh=KnTVuM
+	s2H5gzlN4B5psHvAa8BfyjO1A6i+S8P8kDpXs=; b=GjarI/m8tVKAZKs2HOJxTu
+	HrXMM6/v6Rmj9YCi7gn60hFGG4QmG3i2wMmVHJdhyLfvxMelwwr1+1P5XbPKSEJN
+	uNVatjWRLMPLxO++1xEMVm6y1+lUAkDsfZiXApQm1BsC9X1bqMlw8Zm2rG0VXmQo
+	SRYUeR+9mHQYtW8BXe4aqrkhFE/ZtpmNSyT9f8I3rZ26VsqUJCoU/wdFZ/asgWXI
+	Yo8btTGXbg6aiEGPGZBgAtO9d1/orHW0yomgqRTGlVb3OGbOG1hapRJ1om+Nujji
+	nfHZZJkkY7nVM6Vkzxdv3OERhTtK2IShur7H6gFJUmfkiZGLbFk7Uc9YockSedCg
 	==
-X-ME-Sender: <xms:zsofYX8JmSZUAhoTmzimGyInZ8KGvDIkt1tMwSvdUWe6LIvMEev3Vw>
-    <xme:zsofYTtBuxjNMGMTw-BE3dG2NOttZvAWf19xjQZ-qzd93CJ4e-UJ-R7uso1uJgN3d
-    0qR-FWAYseha4QQUw>
-X-ME-Received: <xmr:zsofYVAgGggBFIOov5pebThHmHFH4v8QqPdiJIyZJnkmko3m84wD4yVUnaoL-8AQifz3O7ntqefg-W41I1Wu-WtfxtIFRtlm1G7uoao>
+X-ME-Sender: <xms:R8sfYVMg0HGQyEdg1RClzGVYHzRdjTlWLcGwIgTRT5R13lE-g-0C7g>
+    <xme:R8sfYX9xIoHYPKskT6aydp6_GnBdK5ghMVoQya6fPmBCUXkDxcHJ5lAKG0iI09rFS
+    WhRvW55EToDTdclvA>
+X-ME-Received: <xmr:R8sfYUTFFqg3PRTNJQgz2UrqjYtQZlb_uUKOV_YTkBVo2tzNZY-8eVsOfEnwXI2eWBMPWvw89G2sYoK35R8MzkjfyFy05RpFK_rQXpc>
 X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvtddrleelgdekkecutefuodetggdotefrodftvf
     curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
     uegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenuc
     fjughrpeffhffvuffkfhggtggujghosehttdertddttddvnecuhfhrohhmpeforghrkhcu
     ifhrvggvrhcuoehmghhrvggvrhesrghnihhmrghltghrvggvkhdrtghomheqnecuggftrf
-    grthhtvghrnhepieeugfdutdefiedtvdfftedufedvjeehgfevveefudfgjeffgeeiteet
-    jedufffhnecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehmrghilhhfrhhomh
-    epmhhgrhgvvghrsegrnhhimhgrlhgtrhgvvghkrdgtohhm
-X-ME-Proxy: <xmx:z8ofYTcOy1qv4XCtmcwW1jUOL0zv2JO8yzkl44Ehhua3XrH4RL9fPg>
-    <xmx:z8ofYcM7MiCnHojpm6J1nvn3snQNHKDGOvLDcFsI11aQDsjX0sNeTQ>
-    <xmx:z8ofYVlAv4nnO8-ys9qCJcly-1fB2Z7y2S4tqPlLmMJh1JbTsMKhMg>
-    <xmx:0MofYVbekdaOgBMXVpgBSRdqbS1s7KgxdXD0_s2JCqXxCQAP5KdiJA>
+    grthhtvghrnhepveeltdelgfevteehuddvhffhfefhfeeigeelhfejveefgedvgefggfdu
+    geettdfgnecuffhomhgrihhnpehgihhthhhusgdrtghomhenucevlhhushhtvghrufhiii
+    gvpedtnecurfgrrhgrmhepmhgrihhlfhhrohhmpehmghhrvggvrhesrghnihhmrghltghr
+    vggvkhdrtghomh
+X-ME-Proxy: <xmx:R8sfYRuCgB5JAcX47HDnvhgla-PxgyklGUXBfCujW_JyV78pbgyWLg>
+    <xmx:R8sfYddrwwjJuJvLwZBoFqIuwCsGys-8QIUzWUYSJXofWGlHbiakaA>
+    <xmx:R8sfYd2wMquN06bspFse_7nZabdjrH9TpbcGrd9GSn2RlaMSTH9YJQ>
+    <xmx:SMsfYdGVnW0LfrqsLjzG1vapeFoUaA95fVRfsxXlSCuzEVuiva0WKQ>
 Received: by mail.messagingengine.com (Postfix) with ESMTPA; Fri,
- 20 Aug 2021 11:31:26 -0400 (EDT)
+ 20 Aug 2021 11:33:27 -0400 (EDT)
 Received: by blue.animalcreek.com (Postfix, from userid 1000)
-	id 9D796136009A; Fri, 20 Aug 2021 08:31:25 -0700 (MST)
-Date: Fri, 20 Aug 2021 08:31:25 -0700
+	id 90897136009A; Fri, 20 Aug 2021 08:33:26 -0700 (MST)
+Date: Fri, 20 Aug 2021 08:33:26 -0700
 From: Mark Greer <mgreer@animalcreek.com>
-To: Frieder Schrempf <frieder.schrempf@kontron.de>
-Message-ID: <20210820153125.GA355224@animalcreek.com>
-References: <20210316112210.50100-1-frieder.schrempf@kontron.de>
- <AM0P122MB011340CE87F73F55335D040C826B9@AM0P122MB0113.EURP122.PROD.OUTLOOK.COM>
- <e925f779-3be9-1d11-81ea-e8841f55381a@kontron.de>
- <20210808015532.GE124928@animalcreek.com>
- <47a612c7-2a97-fc31-1735-dec5648d6167@kontron.de>
+To: Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>
+Message-ID: <20210820153326.GB355224@animalcreek.com>
+References: <20210808022058.171350-1-mgreer@animalcreek.com>
+ <65c7b6ca-c1f6-6557-1b54-f8f666e3a5bf@canonical.com>
 MIME-Version: 1.0
 Content-Disposition: inline
-In-Reply-To: <47a612c7-2a97-fc31-1735-dec5648d6167@kontron.de>
+In-Reply-To: <65c7b6ca-c1f6-6557-1b54-f8f666e3a5bf@canonical.com>
 Organization: Animal Creek Technologies, Inc.
-Message-ID-Hash: OPVO2SZISVNNGQZOJGGXEVHZUSTRGEZ2
-X-Message-ID-Hash: OPVO2SZISVNNGQZOJGGXEVHZUSTRGEZ2
+Message-ID-Hash: TCXFAJLVSBXH4RG2RRONRDMETTS35QG3
+X-Message-ID-Hash: TCXFAJLVSBXH4RG2RRONRDMETTS35QG3
 X-MailFrom: mgreer@animalcreek.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency; loop; banned-address; member-moderation; nonmember-moderation; administrivia; implicit-dest; max-recipients; max-size; news-moderation; no-subject; suspicious-header
-CC: "linux-nfc@lists.01.org" <linux-nfc@lists.01.org>
+CC: linux-nfc@lists.01.org
 X-Mailman-Version: 3.1.1
 Precedence: list
-Subject: [linux-nfc] Re: [PATCH v2] tag: Implement readout of tag UID via DBus interface
+Subject: [linux-nfc] Re: [PATCH] [neard][RFC] test: Convert Python2 scripts to Python3
 List-Id: NFC on Linux <linux-nfc.lists.01.org>
-Archived-At: <https://lists.01.org/hyperkitty/list/linux-nfc@lists.01.org/message/OPVO2SZISVNNGQZOJGGXEVHZUSTRGEZ2/>
+Archived-At: <https://lists.01.org/hyperkitty/list/linux-nfc@lists.01.org/message/TCXFAJLVSBXH4RG2RRONRDMETTS35QG3/>
 List-Archive: <https://lists.01.org/hyperkitty/list/linux-nfc@lists.01.org/>
 List-Help: <mailto:linux-nfc-request@lists.01.org?subject=help>
 List-Post: <mailto:linux-nfc@lists.01.org>
@@ -89,52 +87,69 @@ List-Unsubscribe: <mailto:linux-nfc-leave@lists.01.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-On Tue, Aug 10, 2021 at 11:58:31AM +0200, Frieder Schrempf wrote:
-> On 08.08.21 03:55, Mark Greer wrote:
-> > On Thu, Mar 18, 2021 at 05:14:35PM +0100, Frieder Schrempf wrote:
-> >> Hi Fabian,
-> >>
-> >> On 16.03.21 19:49, Gottstein, Fabian wrote:
-> >>> Hi Frieder,
-> >>>
-> >>> thanks for the patch.
-> >>
-> >> thanks for your feedback.
-> >>
-> >>>
-> >>> Could you please also consider the following situation:
-> >>> In the case of a NFC Tag Type 1, the identifier is delivered via the RID command (see NFC Digital Protocol). Thus, the Tag's nfcid property is updated in a later step.
-> >>> To inform the neard users, a property changed signal has to be emitted when nfcid has changed (in near_tag_set_nfcid). Also, a exists() handler for the new DBus property should be implemented.
-> >>
-> >> I'm new to NFC and D-Bus, so I don't know much about what use-cases and
-> >> requirements there are.
-> >>
-> >> Your request sounds reasonable and I think I have a rough understanding of
-> >> what is probably needed to implement this. Still to actually do this I need
-> >> to look at the specifications and the code more closely and I don't know
-> >> if/when I will find time to do this.
-> >>
-> >> Also I don't have any hardware to test this with NFC type 1 tags.
-> >>
-> >>>
-> >>> Another thing regarding building the response message:
-> >>> The following code snippet could simplify and improve the readability of the usage of the dbus message builder:
-> >>>
-> >>> dbus_message_iter_open_container(iter, DBUS_TYPE_ARRAY, DBUS_TYPE_BYTE_AS_STRING, &entry);
-> >>> dbus_message_iter_append_fixed_array(&entry, DBUS_TYPE_BYTE, &uid, len);
-> >>> dbus_message_iter_close_container(iter, &entry);
-> >>>
-> >> Thanks for the improved code, I will use this instead.
-> >>
-> >> Frieder
+On Mon, Aug 09, 2021 at 12:35:07PM +0200, Krzysztof Kozlowski wrote:
+> On 08/08/2021 04:20, Mark Greer wrote:
+> > Python2 is deprecated so convert the neard test scripts, which are
+> > Python2, to Python3.
 > > 
-> > Hi Frieder.
+> > Signed-off-by: Mark Greer <mgreer@animalcreek.com>
+> > ---
+> > This is a first pass at converting the python scripts to Python3.
+> > Not a lot of testing yet.  It appears that the 'gobject' is not
+> > available anymore so I have to look into how to rework the code that
+> > uses it.
 > > 
-> > Do you have an updated version of this patch (or did I miss it)?
+> > I would appreciate any testing that you are willing to provide.
+> > 
+> > Also available at:
+> > 	https://github.com/linux-nfc/neard/tree/mag/python3-ize
+> > 
+> >  se/test/test-channel     | 18 +++++------
+> >  se/test/test-seel        | 38 +++++++++++-----------
+> >  test/bt-handover         |  8 ++---
+> >  test/handover-agent      | 34 +++++++++----------
+> >  test/monitor-near        |  8 ++---
+> >  test/ndef-agent          | 20 ++++++------
+> >  test/neard-ui.py         | 70 ++++++++++++++++++++--------------------
+> >  test/neardutils.py       | 14 ++++----
+> >  test/phdc-simple-manager | 50 ++++++++++++++--------------
+> >  test/test-adapter        | 16 ++++-----
+> >  test/test-device         | 34 +++++++++----------
+> >  test/test-tag            | 10 +++---
+> >  12 files changed, 160 insertions(+), 160 deletions(-)
+> > 
 > 
-> No, unfortunately not. I implemented this fix for a project that is now discontinued. I can try to find some time in my spare time to implement at least Fabian's code improvement suggestion. But I don't know if it makes sense to upstream this without the changes Fabian suggested in regard to NFC Tag Type 1 and I currently have neither time to dig into this, nor hardware to test it.
+> Few tests:
+> ------------
+> $ sudo python3 ./test/test-adapter poll nfc0 on
+> Traceback (most recent call last):
+>   File "./test/test-adapter", line 92, in <module>
+>     adapter.StartPollLoop(mode)
+>   File "/usr/lib/python3/dist-packages/dbus/proxies.py", line 72, in
+> __call__
+>     return self._proxy_method(*args, **keywords)
+>   File "/usr/lib/python3/dist-packages/dbus/proxies.py", line 141, in
+> __call__
+>     return self._connection.call_blocking(self._named_service,
+>   File "/usr/lib/python3/dist-packages/dbus/connection.py", line 652, in
+> call_blocking
+>     reply_message = self.send_message_with_reply_and_block(
+> dbus.exceptions.DBusException: org.neard.Error.Failed: No such device
+> 
+> During handling of the above exception, another exception occurred:
+> 
+> Traceback (most recent call last):
+>   File "./test/test-adapter", line 94, in <module>
+>     print("%s: %s" % (error._dbus_error_name, error.message))
+> AttributeError: 'DBusException' object has no attribute 'message'
+> ------------
 
-Okay, no problem.
+...
+
+Thanks for testing Krzysztof.  I was in too much of a rush.
+I'm in the thick of another project which include some upcoming travel
+so I won't get back to this for a couple more weeks.  But I will get
+back to it eventually.
 
 Mark
 --
