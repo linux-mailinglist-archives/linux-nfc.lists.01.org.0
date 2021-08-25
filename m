@@ -2,84 +2,78 @@ Return-Path: <linux-nfc-bounces@lists.01.org>
 X-Original-To: lists+linux-nfc@lfdr.de
 Delivered-To: lists+linux-nfc@lfdr.de
 Received: from ml01.01.org (ml01.01.org [IPv6:2001:19d0:306:5::1])
-	by mail.lfdr.de (Postfix) with ESMTPS id 603513F58F2
-	for <lists+linux-nfc@lfdr.de>; Tue, 24 Aug 2021 09:24:44 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id EA3DC3F773F
+	for <lists+linux-nfc@lfdr.de>; Wed, 25 Aug 2021 16:25:48 +0200 (CEST)
 Received: from ml01.vlan13.01.org (localhost [IPv6:::1])
-	by ml01.01.org (Postfix) with ESMTP id 1C9F9100EB835;
-	Tue, 24 Aug 2021 00:24:41 -0700 (PDT)
-Received-SPF: Pass (mailfrom) identity=mailfrom; client-ip=185.125.188.122; helo=smtp-relay-internal-0.canonical.com; envelope-from=krzysztof.kozlowski@canonical.com; receiver=<UNKNOWN> 
-Received: from smtp-relay-internal-0.canonical.com (smtp-relay-internal-0.canonical.com [185.125.188.122])
+	by ml01.01.org (Postfix) with ESMTP id BE251100EB845;
+	Wed, 25 Aug 2021 07:25:46 -0700 (PDT)
+Received-SPF: Pass (mailfrom) identity=mailfrom; client-ip=185.125.188.123; helo=smtp-relay-internal-1.canonical.com; envelope-from=krzysztof.kozlowski@canonical.com; receiver=<UNKNOWN> 
+Received: from smtp-relay-internal-1.canonical.com (smtp-relay-internal-1.canonical.com [185.125.188.123])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits))
 	(No client certificate requested)
-	by ml01.01.org (Postfix) with ESMTPS id 06212100EB82A
-	for <linux-nfc@lists.01.org>; Tue, 24 Aug 2021 00:24:38 -0700 (PDT)
-Received: from mail-ej1-f72.google.com (mail-ej1-f72.google.com [209.85.218.72])
+	by ml01.01.org (Postfix) with ESMTPS id 21A19100EBBC0
+	for <linux-nfc@lists.01.org>; Wed, 25 Aug 2021 07:25:43 -0700 (PDT)
+Received: from mail-wr1-f69.google.com (mail-wr1-f69.google.com [209.85.221.69])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by smtp-relay-internal-0.canonical.com (Postfix) with ESMTPS id 319F84032C
-	for <linux-nfc@lists.01.org>; Tue, 24 Aug 2021 07:24:37 +0000 (UTC)
+	by smtp-relay-internal-1.canonical.com (Postfix) with ESMTPS id 25B8C3F04D
+	for <linux-nfc@lists.01.org>; Wed, 25 Aug 2021 14:25:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=canonical.com;
-	s=20210705; t=1629789877;
-	bh=sQ1ouKwwZSaFuT6SxewsMZMkQUpMl5k1KbK7nlIucMw=;
-	h=To:References:From:Subject:Message-ID:Date:MIME-Version:
-	 In-Reply-To:Content-Type;
-	b=TzJJD8MBB8BsjRoe3Ld0UysnMYK3W9DEqVo9uGQXh/SR73iuWXzQ38/Kcw9OiG+hG
-	 w90PqmrTl5Vf2VL5KDnRwAJ8KfEiARK2G+9OcpvKbFt1tgFWTAlEKmyqudkVuQ//F8
-	 7BnFFH6SGE+l1bw/FpYBjJck09yHXWAEEnI4iVxHYKGClZzOaeJinJTKjdzD+5wRxj
-	 JjRZSikCelcef3tviz+lPYwObheE5RtyiS51BV1JsXv7xzue4N9zDRh3Z7cqfQu8+T
-	 SgTCnlhkyAqk+c3vwj8P9kBNYjsyis4bYocCLUDdb0u8nuWvPG3xlR03XIavWq64g6
-	 3G4wShdszaaJg==
-Received: by mail-ej1-f72.google.com with SMTP id s11-20020a170906060b00b005be824f15daso6687254ejb.2
-        for <linux-nfc@lists.01.org>; Tue, 24 Aug 2021 00:24:37 -0700 (PDT)
+	s=20210705; t=1629901542;
+	bh=dWQld40HyyuNpw/n+LSy4FsBoxLQ4dmEUGnFzO1qgBs=;
+	h=From:To:Subject:Date:Message-Id:MIME-Version;
+	b=q2LiEPDCrhumr2PIp5St7d+Xak8KLY0KqjvZYJmlNucM34HFc/aPqByx8eujWHh7y
+	 kbf2HTYXH+6gBcHChms3LUz2pT/RHjbA/5G04Xf9UKTdAyfJOHj/qFoVGhXXtTxJJJ
+	 mhgxzQfTjtQoteIT2xg3MYiV5GpIwwuLqM2l8kXDGZOp4F1V8birxO88EDIywJi2I7
+	 p2kWIYjp3QHawU7xlIDId+seYJD6bGmwME69Al3FsAG02ThTx9uY4hBL0UC3nE9fle
+	 VIOqzAzzZzn1+h7zOEsAUJsFTeAD0bnasmesE3K70F2Wraxeudmvv4F6nUzdpNBqLa
+	 e6Bwb2qmq7RsQ==
+Received: by mail-wr1-f69.google.com with SMTP id a9-20020a0560000509b029015485b95d0cso6721575wrf.5
+        for <linux-nfc@lists.01.org>; Wed, 25 Aug 2021 07:25:42 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:to:references:from:subject:message-id:date
-         :user-agent:mime-version:in-reply-to:content-language
+        h=x-gm-message-state:from:to:subject:date:message-id:mime-version
          :content-transfer-encoding;
-        bh=sQ1ouKwwZSaFuT6SxewsMZMkQUpMl5k1KbK7nlIucMw=;
-        b=kdRF+STSdWM5juMXh7cpHpksHw1ixwujayiRyfTQDyb6tGNjg7DtsjA59DNPeJcWph
-         iCZEs/PxnV2Adzh+bJ8wJ3LSXgHpZ24+sopIdL/74h8rq7DRqGcJVaWwxU7/07KkH+mY
-         Nn/l5UjFp1GWmwgLucr27OE9ybYfj07Ry+2ngsVqE2y5yyEI9XJUdaD+Dfwfn9BT83c5
-         x7lQWXjel/etr6v5NUUgfQnnfqG6FwqcZ3J1Ibp41Rpm70pU1DMs33p+QA0JuokJ1G4p
-         HsFrYY/Ka/ZCVhQCL8jP9s8dxNSRPl6W7jt3MCpaMjw2BBcrjJwU6CX/d3LXhpIJ79c0
-         Su9Q==
-X-Gm-Message-State: AOAM533/xWyapS6fqvu37HSiBzAt0W0WWWXDLIq2iaZIgKqVKP2UmofX
-	7tHAXMObOVu77J8RbGQ8tBg6+xJfF3c0mHy6T89mpQoh1QXfkxphk2UQmk59q6+Dsv/L1aQENed
-	95nIduuR4+LvpM8GzJrQ9TMfPcHebTRKpqg==
-X-Received: by 2002:a17:906:32cf:: with SMTP id k15mr40161934ejk.68.1629789876463;
-        Tue, 24 Aug 2021 00:24:36 -0700 (PDT)
-X-Google-Smtp-Source: ABdhPJz4upqSkel8yaFsU1Yt1ftt6JxIYncUhVIQnCUyjF3l69J5+hJhWlzK8THI47za7buriSGrBQ==
-X-Received: by 2002:a17:906:32cf:: with SMTP id k15mr40161915ejk.68.1629789876188;
-        Tue, 24 Aug 2021 00:24:36 -0700 (PDT)
-Received: from [192.168.0.102] ([79.98.114.235])
-        by smtp.gmail.com with ESMTPSA id y24sm1097844ejc.80.2021.08.24.00.24.35
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 24 Aug 2021 00:24:35 -0700 (PDT)
-To: Oliver Neukum <oneukum@suse.com>, charles.gorand@effinnov.com,
- andy.shevchenko@gmail.com, linux-nfc@lists.01.org
-References: <20210819140228.15591-1-oneukum@suse.com>
- <7ff001e9-8e82-cecb-96af-458baac30dfc@canonical.com>
- <3d825314-4fd5-ac5b-36e9-819cf2bbdb93@suse.com>
- <9219eca0-d6e9-5cec-3113-995743549332@canonical.com>
- <b9d1fd42-290e-e60e-92a0-5f0cf3003f90@suse.com>
+        bh=dWQld40HyyuNpw/n+LSy4FsBoxLQ4dmEUGnFzO1qgBs=;
+        b=Z6knj1E/3TO9oabSqUtL7MCYgO8jEeLAdy/91LopTxQ8SHGMtcDzUbEoBf5bC9te6E
+         E/OW0g1wd4VuR+KmiOZ3fj/8W44kVuxy7L5n62tKYCPbCPNdeYM3Tk7ofnq3s3i57JKi
+         9lyXG/A64SKJdkXLPAsJR2lwJ+yo6wPr069RggBt8gbg1X5fsAq6p0i4NLAH0gU5G1Pg
+         IQYYB41T2cEaV6q3OGfoJEWv13jHQAe4XlRnSnvfB6vmGDV6eJHJRX/98MTW+re99ToS
+         PXCf0uKD/5pJ5GVJmKaZnzEyMjX0pNAoQx9qvw17gx7ch7DTtTlOPb1C4+9U6sZuONEC
+         g0oA==
+X-Gm-Message-State: AOAM531HfAOWYW9ux1A96aq5QKhrxND32oxT0YxC79zV+cXY5VsXFdAc
+	sY5nL23wcfzwOXHFS8cZW0sMINmz1T/Q6ibql9qfysJbLwaNDx4IoQoQ+cMM+/n0rpz8qVyBGTm
+	vfR3fOzwKAqpZ3aJHe70pTU8DowZPYAPuSA==
+X-Received: by 2002:adf:e702:: with SMTP id c2mr25237465wrm.397.1629901541876;
+        Wed, 25 Aug 2021 07:25:41 -0700 (PDT)
+X-Google-Smtp-Source: ABdhPJxj7bYleGjuqJyKTtF7fT9/tz8jCKodiT+pN+DKFXdQTP4xquIQjc6L3KH5sb45BRycXVFuEA==
+X-Received: by 2002:adf:e702:: with SMTP id c2mr25237449wrm.397.1629901541768;
+        Wed, 25 Aug 2021 07:25:41 -0700 (PDT)
+Received: from localhost.localdomain ([79.98.113.233])
+        by smtp.gmail.com with ESMTPSA id i68sm60375wri.26.2021.08.25.07.25.40
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 25 Aug 2021 07:25:41 -0700 (PDT)
 From: Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>
-Message-ID: <4cdc831f-1db9-ead2-bac5-5b9ea9f06aa0@canonical.com>
-Date: Tue, 24 Aug 2021 09:24:34 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.11.0
+To: Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>,
+	"David S. Miller" <davem@davemloft.net>,
+	Jakub Kicinski <kuba@kernel.org>,
+	linux-nfc@lists.01.org,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Date: Wed, 25 Aug 2021 16:24:54 +0200
+Message-Id: <20210825142459.226168-1-krzysztof.kozlowski@canonical.com>
+X-Mailer: git-send-email 2.30.2
 MIME-Version: 1.0
-In-Reply-To: <b9d1fd42-290e-e60e-92a0-5f0cf3003f90@suse.com>
-Content-Language: en-US
-Message-ID-Hash: EPAV7E6ACXRKEQOXG5JTCHAXNO2TWQ3S
-X-Message-ID-Hash: EPAV7E6ACXRKEQOXG5JTCHAXNO2TWQ3S
+Message-ID-Hash: GTKPXEM3MK24FBJ7GW3BOVL3P4LNG7Z4
+X-Message-ID-Hash: GTKPXEM3MK24FBJ7GW3BOVL3P4LNG7Z4
 X-MailFrom: krzysztof.kozlowski@canonical.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency; loop; banned-address; member-moderation; nonmember-moderation; administrivia; implicit-dest; max-recipients; max-size; news-moderation; no-subject; suspicious-header
 X-Mailman-Version: 3.1.1
 Precedence: list
-Subject: [linux-nfc] Re: [PATCH] NFC: NCI: make parent aware in PM terms
+Subject: [linux-nfc] [PATCH 1/6] nfc: microread: remove unused header includes
 List-Id: NFC on Linux <linux-nfc.lists.01.org>
-Archived-At: <https://lists.01.org/hyperkitty/list/linux-nfc@lists.01.org/message/EPAV7E6ACXRKEQOXG5JTCHAXNO2TWQ3S/>
+Archived-At: <https://lists.01.org/hyperkitty/list/linux-nfc@lists.01.org/message/GTKPXEM3MK24FBJ7GW3BOVL3P4LNG7Z4/>
 List-Archive: <https://lists.01.org/hyperkitty/list/linux-nfc@lists.01.org/>
 List-Help: <mailto:linux-nfc-request@lists.01.org?subject=help>
 List-Post: <mailto:linux-nfc@lists.01.org>
@@ -88,56 +82,40 @@ List-Unsubscribe: <mailto:linux-nfc-leave@lists.01.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-On 23/08/2021 13:52, Oliver Neukum wrote:
-> 
-> On 23.08.21 13:29, Krzysztof Kozlowski wrote:
->> On 23/08/2021 12:50, Oliver Neukum wrote:
->>> On 19.08.21 16:45, Krzysztof Kozlowski wrote
-> 
-> 
-> Hi,
-> 
->>> I personally like it a lot because I have filters organized with it.
->>> Nowadays no one reads LKML itself (too big volume) so it is purely for
->>> archiving on lore.kernel.org for searching and for people's filters.
->>>
->>> Therefore unless someone here objects, I would prefer to Cc LKML as
->>> well. Anyway, netdev is important as it is tracked by patchwork.
-> very well, It shall be done.
->>> As far as I can tell I am doing this for the device noted in nfc_dev.
->>> Could you elaborate?
->> I meant that it looks unusual that you don't do it for your own device
->> (client->dev) but for device allocated in different unit. Here, you
->> receive client->dev and mostly you should play only with it.
->>
->> While I am looking at this more, there is another issue actually - you
->> touch runtime PM of NFC/NCI core device but it's the NFC/NCI core who
->> should handle it's own runtime PM.
-> 
-> Well, I looked into that and that was very difficult. The NFC core has
-> no idea what hardware it is running on. On my test hardware as far as
-> I can tell, the power supply of my NFC hardware is just tied to
-> the power supply of the i2c host controller, which is a PCI device.
-> 
-> It goes into D3cold when the i2c bus is not transferring anything.
-> That makes it impossible to actually communicate over NFC.
-> 
-> However, at least on USB sending a device into USB suspend with
-> remote wakeup should work. So I do not see how to put this into
-> NFC core.
+Do not include unnecessary headers.
 
-If I understand your case correctly, you have a tree of devices:
-PCI I2C bus controller
- - NXP NFC I2C device
-   - NFC NCI device
+Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>
+---
+ drivers/nfc/microread/mei.c       | 1 -
+ drivers/nfc/microread/microread.c | 1 -
+ 2 files changed, 2 deletions(-)
 
-and the only thing you care is to make PCI I2C bus resumed all the time.
-The simplest seems to add PM runtime to the NXP NFC I2C device (so
-i2c.c) with get_noresume+active+enable.
-
-
-Best regards,
-Krzysztof
+diff --git a/drivers/nfc/microread/mei.c b/drivers/nfc/microread/mei.c
+index 8fa7771085eb..8edf761a6b2a 100644
+--- a/drivers/nfc/microread/mei.c
++++ b/drivers/nfc/microread/mei.c
+@@ -10,7 +10,6 @@
+ #include <linux/module.h>
+ #include <linux/mod_devicetable.h>
+ #include <linux/nfc.h>
+-#include <net/nfc/hci.h>
+ #include <net/nfc/llc.h>
+ 
+ #include "../mei_phy.h"
+diff --git a/drivers/nfc/microread/microread.c b/drivers/nfc/microread/microread.c
+index 9d83ccebd434..bb4d029bb888 100644
+--- a/drivers/nfc/microread/microread.c
++++ b/drivers/nfc/microread/microread.c
+@@ -15,7 +15,6 @@
+ #include <linux/nfc.h>
+ #include <net/nfc/nfc.h>
+ #include <net/nfc/hci.h>
+-#include <net/nfc/llc.h>
+ 
+ #include "microread.h"
+ 
+-- 
+2.30.2
 _______________________________________________
 Linux-nfc mailing list -- linux-nfc@lists.01.org
 To unsubscribe send an email to linux-nfc-leave@lists.01.org
