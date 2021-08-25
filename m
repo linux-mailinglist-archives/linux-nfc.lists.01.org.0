@@ -2,59 +2,59 @@ Return-Path: <linux-nfc-bounces@lists.01.org>
 X-Original-To: lists+linux-nfc@lfdr.de
 Delivered-To: lists+linux-nfc@lfdr.de
 Received: from ml01.01.org (ml01.01.org [IPv6:2001:19d0:306:5::1])
-	by mail.lfdr.de (Postfix) with ESMTPS id 066F03F7740
-	for <lists+linux-nfc@lfdr.de>; Wed, 25 Aug 2021 16:25:49 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1DB833F7741
+	for <lists+linux-nfc@lfdr.de>; Wed, 25 Aug 2021 16:25:50 +0200 (CEST)
 Received: from ml01.vlan13.01.org (localhost [IPv6:::1])
-	by ml01.01.org (Postfix) with ESMTP id CC149100EB32A;
+	by ml01.01.org (Postfix) with ESMTP id E7C95100EB331;
 	Wed, 25 Aug 2021 07:25:46 -0700 (PDT)
 Received-SPF: Pass (mailfrom) identity=mailfrom; client-ip=185.125.188.122; helo=smtp-relay-internal-0.canonical.com; envelope-from=krzysztof.kozlowski@canonical.com; receiver=<UNKNOWN> 
 Received: from smtp-relay-internal-0.canonical.com (smtp-relay-internal-0.canonical.com [185.125.188.122])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits))
 	(No client certificate requested)
-	by ml01.01.org (Postfix) with ESMTPS id 301F2100EBBC0
+	by ml01.01.org (Postfix) with ESMTPS id 7F220100EBBC0
 	for <linux-nfc@lists.01.org>; Wed, 25 Aug 2021 07:25:45 -0700 (PDT)
-Received: from mail-wr1-f72.google.com (mail-wr1-f72.google.com [209.85.221.72])
+Received: from mail-wm1-f71.google.com (mail-wm1-f71.google.com [209.85.128.71])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by smtp-relay-internal-0.canonical.com (Postfix) with ESMTPS id 58029407A0
-	for <linux-nfc@lists.01.org>; Wed, 25 Aug 2021 14:25:43 +0000 (UTC)
+	by smtp-relay-internal-0.canonical.com (Postfix) with ESMTPS id 4AAD0407A1
+	for <linux-nfc@lists.01.org>; Wed, 25 Aug 2021 14:25:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=canonical.com;
-	s=20210705; t=1629901543;
-	bh=xADZ5MR3j2UoJgl2B5VMNlWhMMlwmkQewYypsYcTAYw=;
+	s=20210705; t=1629901544;
+	bh=/Sti3d7dTsAvFFog+hxbk2kz5ugUXJNgSZrotBprAFw=;
 	h=From:To:Subject:Date:Message-Id:In-Reply-To:References:
 	 MIME-Version;
-	b=TLejc506X+y5tBxBhOGMInvJZjganvJAIVesk9T8Em65Rq3yrBVWJ76uHoak+mc1Q
-	 Z+UwNB7Vlag/hrRqADVfKbTSoow4S6rpfc0f9fkLoVbrk02OaQ8bX23oBgsfkNQM1H
-	 6TNN9PvWp/PJi1OBDxOogW5k64Q58thVFmjW9W0zOZh9eVH/Mav//XICBzJLUIVgle
-	 0crA4/1a93gKn+VTi1rh6C+fQfnukUNwiSSnM8VQYw7mNqE1OojkNHVl0sRQhF0P0u
-	 N8bwGHRba4ir9FNUB1FktrC8sIBcp07jm15otkYUKrB82CfpraPXS+M4gkoAxE6qnV
-	 27p6pTTsPFCdw==
-Received: by mail-wr1-f72.google.com with SMTP id a9-20020a0560000509b029015485b95d0cso6721621wrf.5
-        for <linux-nfc@lists.01.org>; Wed, 25 Aug 2021 07:25:43 -0700 (PDT)
+	b=WWpJ20v0MS0PpUdRnaoVkD6soYjRUz6qwZ+i/xt+SfTomU0Icqfph7Si81KC8qkO2
+	 jv74gyzFZadn5GVJsWADF9UvJaPvXS2ynj31pqoVfP3gHleLrFZou4XFxX7ZNJuZQc
+	 9aBE80gl4uQYRFCNwa9p+KJm4ARXetqKTP1nWgM7OclbQ6fW8BbRu18FtTt5//qYOa
+	 +hl0tc2W7+uPZjCOFwHiQo9GaYjGElF/QbH5Mds2xgePV59+LftJifDlmdjdyisNRx
+	 d/LDyXNw5gdeUcakMu3WfVytpyR3ts2IaDExLecoz7UvhN4p5zRAonCKvC9jJevc5d
+	 eOKCJ1DWdKU/A==
+Received: by mail-wm1-f71.google.com with SMTP id z18-20020a1c7e120000b02902e69f6fa2e0so5362536wmc.9
+        for <linux-nfc@lists.01.org>; Wed, 25 Aug 2021 07:25:44 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:from:to:subject:date:message-id:in-reply-to
          :references:mime-version:content-transfer-encoding;
-        bh=xADZ5MR3j2UoJgl2B5VMNlWhMMlwmkQewYypsYcTAYw=;
-        b=r20It82DWM2ffTggJ1vPSgSQvJVxRH02lBI8/Z//YccysmYXQcjtSPaO26ibXQvqMX
-         /Obvz0ugOXGl9N6+Hlj4qtp7dHmT/eIYu3b5dLBHdKf90Hpn8udNjd2VSVJietACMEGG
-         KAnVoKbg4LjYner4EvnyNfcKBsNRQngogBmXlOkyfJEX4g/JVeIv3myjLzf/a63PP/bm
-         89Jena2zHm5xERAYmDWzpvETWmkjrr8tR1nv2Y+jRGhm31kaE63KeN2bbtR3pWlsesCz
-         +Bt6e1o6qV9P8gFb01oty0XoX4dGaWjz5gIQCPSJyhoz4xyte9uKfG+BO5KO11dXy4XG
-         O/pw==
-X-Gm-Message-State: AOAM530UZb+8mU5/4esCqdKV2+tWgDKkYURzAN9fcIyekvHEiveXK57C
-	0I275dwJVuEakNBraWoOoPOOYWOJzbqfxsxnzM1r4yjDGi/LAXzZIwSywogWL9MxIMwGHsNEMpe
-	bX0zSsq3zhlkA6mAtNWWBhJKsMsFL/u8vCg==
-X-Received: by 2002:adf:ea09:: with SMTP id q9mr25607294wrm.64.1629901542942;
-        Wed, 25 Aug 2021 07:25:42 -0700 (PDT)
-X-Google-Smtp-Source: ABdhPJxug4tswqoivqT7ijzKJIPir03HLyMSYUse/bfkgOkUwy2/0691p92fR8CeB10092meUcEfnw==
-X-Received: by 2002:adf:ea09:: with SMTP id q9mr25607278wrm.64.1629901542827;
-        Wed, 25 Aug 2021 07:25:42 -0700 (PDT)
+        bh=/Sti3d7dTsAvFFog+hxbk2kz5ugUXJNgSZrotBprAFw=;
+        b=T1AyPOAp1SZRdpbqp1NXB4OkGkU88Ufq1iMpFqU98wGAbAcXoifzNc59ON7eMtc5ph
+         PP5RYUVMQ4Y6vvxFdGQeKhTZHUUAC+Xh35sAq2Iu2mz1gPovrA1xQ8ZCIn3Iof7fhB6Z
+         plqLm1eW0pU09luG7BsbIEapC/wg3oshfKZdnsKxHyukE403Ah+gWn9SRzR5255ZxIlG
+         GcHrCY7HW21pfIHarxXT9ooWGQmstuHDdoYJUQ86v4WSWkDjQmSMNvrovffh1JUkI5yg
+         4BP9e1HlmuDZmP5oyqNX3GfY5WeVOegLoyoAt/pQ8iSqwtZklYGkA2ow3APrwj3YCqXT
+         tmsw==
+X-Gm-Message-State: AOAM530rBXvXZaogAFMVMsl3otyuvTqYhP2M8UnybsnOpp3eH/fXXNdp
+	aEnqoo7kjtF5RbIa8GdbEoFoRgiUgprj9piaegBAqulq7wtl1LG8X1hl3aJxAGcn+msukIYy40x
+	2Ygt5Omz0GU7LI+S7Ieh81PPfUz1mXRFetg==
+X-Received: by 2002:adf:f743:: with SMTP id z3mr18233456wrp.211.1629901544047;
+        Wed, 25 Aug 2021 07:25:44 -0700 (PDT)
+X-Google-Smtp-Source: ABdhPJwpfqvpRdkvZvU3MkWbfHGPyUtkfWdIQce42bWzJoCqPmksHWSzq/AF1H2GKY6BtbSsA66n2A==
+X-Received: by 2002:adf:f743:: with SMTP id z3mr18233446wrp.211.1629901543956;
+        Wed, 25 Aug 2021 07:25:43 -0700 (PDT)
 Received: from localhost.localdomain ([79.98.113.233])
-        by smtp.gmail.com with ESMTPSA id i68sm60375wri.26.2021.08.25.07.25.41
+        by smtp.gmail.com with ESMTPSA id i68sm60375wri.26.2021.08.25.07.25.42
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 25 Aug 2021 07:25:42 -0700 (PDT)
+        Wed, 25 Aug 2021 07:25:43 -0700 (PDT)
 From: Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>
 To: Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>,
 	"David S. Miller" <davem@davemloft.net>,
@@ -62,21 +62,21 @@ To: Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>,
 	linux-nfc@lists.01.org,
 	netdev@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Date: Wed, 25 Aug 2021 16:24:55 +0200
-Message-Id: <20210825142459.226168-2-krzysztof.kozlowski@canonical.com>
+Date: Wed, 25 Aug 2021 16:24:56 +0200
+Message-Id: <20210825142459.226168-3-krzysztof.kozlowski@canonical.com>
 X-Mailer: git-send-email 2.30.2
 In-Reply-To: <20210825142459.226168-1-krzysztof.kozlowski@canonical.com>
 References: <20210825142459.226168-1-krzysztof.kozlowski@canonical.com>
 MIME-Version: 1.0
-Message-ID-Hash: LOKFCP576X7NJ6IMIDKZ33VNT635U5ID
-X-Message-ID-Hash: LOKFCP576X7NJ6IMIDKZ33VNT635U5ID
+Message-ID-Hash: FKX4OUPYJS7CIT3ZJEJ7RMLMCBOEEB62
+X-Message-ID-Hash: FKX4OUPYJS7CIT3ZJEJ7RMLMCBOEEB62
 X-MailFrom: krzysztof.kozlowski@canonical.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency; loop; banned-address; member-moderation; nonmember-moderation; administrivia; implicit-dest; max-recipients; max-size; news-moderation; no-subject; suspicious-header
 X-Mailman-Version: 3.1.1
 Precedence: list
-Subject: [linux-nfc] [PATCH 2/6] nfc: mrvl: remove unused header includes
+Subject: [linux-nfc] [PATCH 3/6] nfc: pn544: remove unused header includes
 List-Id: NFC on Linux <linux-nfc.lists.01.org>
-Archived-At: <https://lists.01.org/hyperkitty/list/linux-nfc@lists.01.org/message/LOKFCP576X7NJ6IMIDKZ33VNT635U5ID/>
+Archived-At: <https://lists.01.org/hyperkitty/list/linux-nfc@lists.01.org/message/FKX4OUPYJS7CIT3ZJEJ7RMLMCBOEEB62/>
 List-Archive: <https://lists.01.org/hyperkitty/list/linux-nfc@lists.01.org/>
 List-Help: <mailto:linux-nfc-request@lists.01.org?subject=help>
 List-Post: <mailto:linux-nfc@lists.01.org>
@@ -89,43 +89,21 @@ Do not include unnecessary headers.
 
 Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>
 ---
- drivers/nfc/nfcmrvl/i2c.c | 3 ---
- drivers/nfc/nfcmrvl/spi.c | 3 ---
- 2 files changed, 6 deletions(-)
+ drivers/nfc/pn544/pn544.c | 1 -
+ 1 file changed, 1 deletion(-)
 
-diff --git a/drivers/nfc/nfcmrvl/i2c.c b/drivers/nfc/nfcmrvl/i2c.c
-index c38b228006fd..ceef81d93ac9 100644
---- a/drivers/nfc/nfcmrvl/i2c.c
-+++ b/drivers/nfc/nfcmrvl/i2c.c
-@@ -8,12 +8,9 @@
- #include <linux/module.h>
- #include <linux/interrupt.h>
- #include <linux/i2c.h>
--#include <linux/pm_runtime.h>
- #include <linux/nfc.h>
--#include <linux/gpio.h>
- #include <linux/delay.h>
- #include <linux/of_irq.h>
--#include <linux/of_gpio.h>
- #include <net/nfc/nci.h>
- #include <net/nfc/nci_core.h>
- #include "nfcmrvl.h"
-diff --git a/drivers/nfc/nfcmrvl/spi.c b/drivers/nfc/nfcmrvl/spi.c
-index b182ab2e03c0..5b833a9a83f8 100644
---- a/drivers/nfc/nfcmrvl/spi.c
-+++ b/drivers/nfc/nfcmrvl/spi.c
-@@ -7,11 +7,8 @@
+diff --git a/drivers/nfc/pn544/pn544.c b/drivers/nfc/pn544/pn544.c
+index 092f03b80a78..32a61a185142 100644
+--- a/drivers/nfc/pn544/pn544.c
++++ b/drivers/nfc/pn544/pn544.c
+@@ -13,7 +13,6 @@
  
- #include <linux/module.h>
- #include <linux/interrupt.h>
--#include <linux/pm_runtime.h>
  #include <linux/nfc.h>
--#include <linux/gpio.h>
- #include <linux/of_irq.h>
--#include <linux/of_gpio.h>
- #include <net/nfc/nci.h>
- #include <net/nfc/nci_core.h>
- #include <linux/spi/spi.h>
+ #include <net/nfc/hci.h>
+-#include <net/nfc/llc.h>
+ 
+ #include "pn544.h"
+ 
 -- 
 2.30.2
 _______________________________________________
