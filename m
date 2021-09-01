@@ -2,81 +2,43 @@ Return-Path: <linux-nfc-bounces@lists.01.org>
 X-Original-To: lists+linux-nfc@lfdr.de
 Delivered-To: lists+linux-nfc@lfdr.de
 Received: from ml01.01.org (ml01.01.org [IPv6:2001:19d0:306:5::1])
-	by mail.lfdr.de (Postfix) with ESMTPS id C03BA3F7745
-	for <lists+linux-nfc@lfdr.de>; Wed, 25 Aug 2021 16:25:54 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id F21193FD489
+	for <lists+linux-nfc@lfdr.de>; Wed,  1 Sep 2021 09:39:46 +0200 (CEST)
 Received: from ml01.vlan13.01.org (localhost [IPv6:::1])
-	by ml01.01.org (Postfix) with ESMTP id 1E0BA100EB33B;
-	Wed, 25 Aug 2021 07:25:52 -0700 (PDT)
-Received-SPF: Pass (mailfrom) identity=mailfrom; client-ip=185.125.188.122; helo=smtp-relay-internal-0.canonical.com; envelope-from=krzysztof.kozlowski@canonical.com; receiver=<UNKNOWN> 
-Received: from smtp-relay-internal-0.canonical.com (smtp-relay-internal-0.canonical.com [185.125.188.122])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits))
-	(No client certificate requested)
-	by ml01.01.org (Postfix) with ESMTPS id 6D759100EB325
-	for <linux-nfc@lists.01.org>; Wed, 25 Aug 2021 07:25:49 -0700 (PDT)
-Received: from mail-wr1-f69.google.com (mail-wr1-f69.google.com [209.85.221.69])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-relay-internal-0.canonical.com (Postfix) with ESMTPS id 44E7740792
-	for <linux-nfc@lists.01.org>; Wed, 25 Aug 2021 14:25:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=canonical.com;
-	s=20210705; t=1629901548;
-	bh=75IyrXuKwrcLVvdo4qEJ0WJWV94tMbWLl7mt5kzUBCE=;
-	h=From:To:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version;
-	b=MENpSEqAJaHaS/qDCpXN34NTkNYO4QeQYYfkjKwm/nFtJ2vjfF7OlG9hWepbxEn7F
-	 owMuPNj/ENK2TB/YMfvci4aFKMH2fp9cTORh3EF6Ys75zXO9E8Eh8CJlEHZdg1xH0u
-	 kD3hcrVemaKZRHFg4Y924p1SylcCc+WsjfCWNLcYTNOroP5MzPAK5JVknfM1guWWWj
-	 PlizWzuykQkSj+KxUd8BS/zKX4lTCO+0V4O4puNJNeirjl6E0L73Rt+AoTdPdOmQrc
-	 rKPq2A80Rgx+QDxd4qPT0tuwwdvAPVWeFzVlzDm+bySOD+5xvcIhAZAM9F1v+2uQX9
-	 ji/yxcjezuWKQ==
-Received: by mail-wr1-f69.google.com with SMTP id z15-20020adff74f000000b001577d70c98dso203825wrp.12
-        for <linux-nfc@lists.01.org>; Wed, 25 Aug 2021 07:25:48 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20161025;
-        h=x-gm-message-state:from:to:subject:date:message-id:in-reply-to
-         :references:mime-version:content-transfer-encoding;
-        bh=75IyrXuKwrcLVvdo4qEJ0WJWV94tMbWLl7mt5kzUBCE=;
-        b=pwGUvrWiZcvpvEOLsss3qZQN13f1VSgBvYHtzD0okXd89iDE1ifiOEsx2yJy9hV2w5
-         dB/PkgktEIvuW0ZhUkOb+7JLnHjqH/sqyY/9Z3GVp+A0DdeEvJpTYRcMqatq4CecOE5A
-         coq7PS8ikfwLx/CUIQwImWiLAgO70veENep+W8ndrzK5h0cHDeRp7k51GYjaO+kntGgO
-         FvTb67didheIJ2n4oEoeVfd41SLNlPPh8FyU1lWdTvVJ/AsmnTMCYJKrIPwY39Te8azy
-         qrQedqN/hjVL6bQHDWSgYpJpWebkk4ua+chKrC456OWCsYp6o3wHYAJAmOIxTxVpma2M
-         GzCw==
-X-Gm-Message-State: AOAM533UT77rUaBE2ZHYZDg1+3E2b51Lcg8tpP+wVp9sgkXgLUnESM2q
-	iotBtDQ1JljH8WjLz3qXTV9Id5rhl5LVU83apXjBqjPcW3Aulx04DhnYkgmUSOTaqIKmiqDeaie
-	OU745mHQUEzGxww1dNBs2Y5wNR8Ti6RSIuQ==
-X-Received: by 2002:adf:e101:: with SMTP id t1mr25641185wrz.215.1629901548032;
-        Wed, 25 Aug 2021 07:25:48 -0700 (PDT)
-X-Google-Smtp-Source: ABdhPJy0xFoz9LuF8pcrbV+A+y5xF/azh985EmDuG0RjLG0TyeZyGUZLIjZGjkNM/EhFi2oiQQqyHQ==
-X-Received: by 2002:adf:e101:: with SMTP id t1mr25641170wrz.215.1629901547865;
-        Wed, 25 Aug 2021 07:25:47 -0700 (PDT)
-Received: from localhost.localdomain ([79.98.113.233])
-        by smtp.gmail.com with ESMTPSA id i68sm60375wri.26.2021.08.25.07.25.46
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 25 Aug 2021 07:25:47 -0700 (PDT)
-From: Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>
-To: Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>,
-	"David S. Miller" <davem@davemloft.net>,
-	Jakub Kicinski <kuba@kernel.org>,
-	linux-nfc@lists.01.org,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Date: Wed, 25 Aug 2021 16:24:59 +0200
-Message-Id: <20210825142459.226168-6-krzysztof.kozlowski@canonical.com>
-X-Mailer: git-send-email 2.30.2
-In-Reply-To: <20210825142459.226168-1-krzysztof.kozlowski@canonical.com>
-References: <20210825142459.226168-1-krzysztof.kozlowski@canonical.com>
+	by ml01.01.org (Postfix) with ESMTP id 778A6100EB826;
+	Wed,  1 Sep 2021 00:39:44 -0700 (PDT)
+Received-SPF: Pass (mailfrom) identity=mailfrom; client-ip=61.164.42.155; helo=zju.edu.cn; envelope-from=linma@zju.edu.cn; receiver=<UNKNOWN> 
+Received: from zju.edu.cn (mail.zju.edu.cn [61.164.42.155])
+	by ml01.01.org (Postfix) with ESMTP id 08948100EBB9E
+	for <linux-nfc@lists.01.org>; Wed,  1 Sep 2021 00:39:38 -0700 (PDT)
+Received: by ajax-webmail-mail-app3 (Coremail) ; Wed, 1 Sep 2021 15:39:36
+ +0800 (GMT+08:00)
+X-Originating-IP: [10.192.42.255]
+Date: Wed, 1 Sep 2021 15:39:36 +0800 (GMT+08:00)
+X-CM-HeaderCharset: UTF-8
+From: LinMa <linma@zju.edu.cn>
+To: linux-nfc@lists.01.org
+X-Priority: 3
+X-Mailer: Coremail Webmail Server Version XT5.0.13 build 20210104(ab8c30b6)
+ Copyright (c) 2002-2021 www.mailtech.cn zju.edu.cn
 MIME-Version: 1.0
-Message-ID-Hash: HBZFLLO6H2L7LRDDIYSNZTTNGEVPYJIR
-X-Message-ID-Hash: HBZFLLO6H2L7LRDDIYSNZTTNGEVPYJIR
-X-MailFrom: krzysztof.kozlowski@canonical.com
+Message-ID: <5b6649e2.af5bf.17ba04c8d62.Coremail.linma@zju.edu.cn>
+X-Coremail-Locale: en_US
+X-CM-TRANSID: cC_KCgBXV2w4Li9hMwBPBA--.35388W
+X-CM-SenderInfo: qtrwiiyqvtljo62m3hxhgxhubq/1tbiAwQKElNG3D2ONAAVsE
+X-Coremail-Antispam: 1Ur529EdanIXcx71UUUUU7IcSsGvfJ3iIAIbVAYjsxI4VWxJw
+	CS07vEb4IE77IF4wCS07vE1I0E4x80FVAKz4kxMIAIbVAFxVCaYxvI4VCIwcAKzIAtYxBI
+	daVFxhVjvjDU=
+Message-ID-Hash: I7ZL66LC6HH2DNIEM7RHFZGYX3W7L37D
+X-Message-ID-Hash: I7ZL66LC6HH2DNIEM7RHFZGYX3W7L37D
+X-MailFrom: linma@zju.edu.cn
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency; loop; banned-address; member-moderation; nonmember-moderation; administrivia; implicit-dest; max-recipients; max-size; news-moderation; no-subject; suspicious-header
+X-Content-Filtered-By: Mailman/MimeDel 3.1.1
 X-Mailman-Version: 3.1.1
 Precedence: list
-Subject: [linux-nfc] [PATCH 6/6] nfc: st95hf: remove unused header includes
+Subject: [linux-nfc] set dev->rfkill to NULL in device cleanup routine
 List-Id: NFC on Linux <linux-nfc.lists.01.org>
-Archived-At: <https://lists.01.org/hyperkitty/list/linux-nfc@lists.01.org/message/HBZFLLO6H2L7LRDDIYSNZTTNGEVPYJIR/>
+Archived-At: <https://lists.01.org/hyperkitty/list/linux-nfc@lists.01.org/message/I7ZL66LC6HH2DNIEM7RHFZGYX3W7L37D/>
 List-Archive: <https://lists.01.org/hyperkitty/list/linux-nfc@lists.01.org/>
 List-Help: <mailto:linux-nfc-request@lists.01.org?subject=help>
 List-Post: <mailto:linux-nfc@lists.01.org>
@@ -85,27 +47,81 @@ List-Unsubscribe: <mailto:linux-nfc-leave@lists.01.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-Do not include unnecessary headers.
+In nfc_unregister_device() function, the dev->rfkill is forgotten to set to NULL after the rfkill_destroy(). This may lead to possible cocurrency UAF in other functions like nfc_dev_up().
 
-Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>
+
+
+The FREE chain is like
+
+
+void nfc_unregister_device(struct nfc_dev *dev)
+{
+  int rc;
+  pr_debug("dev_name=%s\n", dev_name(&dev->dev));
+  if (dev->rfkill) {
+    rfkill_unregister(dev->rfkill);
+    rfkill_destroy(dev->rfkill);
+  // ......
+}
+
+
+
+The USE chain is like
+
+
+static int nfc_genl_dev_up(struct sk_buff *skb, struct genl_info *info)
+{
+  struct nfc_dev *dev;
+  int rc;
+  u32 idx;
+  if (!info->attrs[NFC_ATTR_DEVICE_INDEX])
+    return -EINVAL;
+  idx = nla_get_u32(info->attrs[NFC_ATTR_DEVICE_INDEX]);
+  dev = nfc_get_device(idx);
+  if (!dev)
+    return -ENODEV;
+  rc = nfc_dev_up(dev);
+
+  // ......
+}
+
+
+int nfc_dev_up(struct nfc_dev *dev)
+{
+  int rc = 0;
+  pr_debug("dev_name=%s\n", dev_name(&dev->dev));
+  device_lock(&dev->dev);
+  if (dev->rfkill && rfkill_blocked(dev->rfkill)) { // dev->rfkill is not NULL here
+    rc = -ERFKILL;
+    goto error;
+  }
+  // ......
+}
+
+
+The FREE chain and USE chain can be like below (as there is no locking protection).
+
+
+Therefore, the below patch can be added.
+
+
+Signed-off-by: Lin Ma <linma@zju.edu.cn>
 ---
- drivers/nfc/st95hf/core.c | 1 -
- 1 file changed, 1 deletion(-)
-
-diff --git a/drivers/nfc/st95hf/core.c b/drivers/nfc/st95hf/core.c
-index 993818742570..d16cf3ff644e 100644
---- a/drivers/nfc/st95hf/core.c
-+++ b/drivers/nfc/st95hf/core.c
-@@ -16,7 +16,6 @@
- #include <linux/nfc.h>
- #include <linux/of_gpio.h>
- #include <linux/of.h>
--#include <linux/of_irq.h>
- #include <linux/property.h>
- #include <linux/regulator/consumer.h>
- #include <linux/wait.h>
--- 
-2.30.2
+ net/nfc/core.c | 1 +
+ 1 file changed, 1 insertion(+)
+diff --git a/net/nfc/core.c b/net/nfc/core.c
+index 573c80c6ff7a..d0b3224e65d7 100644
+--- a/net/nfc/core.c
++++ b/net/nfc/core.c
+@@ -1157,6 +1157,7 @@ void nfc_unregister_device(struct nfc_dev *dev)
+  if (dev->rfkill) {
+  rfkill_unregister(dev->rfkill);
+  rfkill_destroy(dev->rfkill);
++ dev->rfkill = NULL;
+  }
+  if (dev->ops->check_presence) {
+--
+2.32.0
 _______________________________________________
 Linux-nfc mailing list -- linux-nfc@lists.01.org
 To unsubscribe send an email to linux-nfc-leave@lists.01.org
