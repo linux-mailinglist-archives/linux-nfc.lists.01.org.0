@@ -2,59 +2,59 @@ Return-Path: <linux-nfc-bounces@lists.01.org>
 X-Original-To: lists+linux-nfc@lfdr.de
 Delivered-To: lists+linux-nfc@lfdr.de
 Received: from ml01.01.org (ml01.01.org [IPv6:2001:19d0:306:5::1])
-	by mail.lfdr.de (Postfix) with ESMTPS id D2B23402858
-	for <lists+linux-nfc@lfdr.de>; Tue,  7 Sep 2021 14:18:31 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C329F402859
+	for <lists+linux-nfc@lfdr.de>; Tue,  7 Sep 2021 14:18:33 +0200 (CEST)
 Received: from ml01.vlan13.01.org (localhost [IPv6:::1])
-	by ml01.01.org (Postfix) with ESMTP id D8649100EBB97;
+	by ml01.01.org (Postfix) with ESMTP id F0CE0100EBB9F;
 	Tue,  7 Sep 2021 05:18:29 -0700 (PDT)
-Received-SPF: Pass (mailfrom) identity=mailfrom; client-ip=185.125.188.123; helo=smtp-relay-internal-1.canonical.com; envelope-from=krzysztof.kozlowski@canonical.com; receiver=<UNKNOWN> 
-Received: from smtp-relay-internal-1.canonical.com (smtp-relay-internal-1.canonical.com [185.125.188.123])
+Received-SPF: Pass (mailfrom) identity=mailfrom; client-ip=185.125.188.122; helo=smtp-relay-internal-0.canonical.com; envelope-from=krzysztof.kozlowski@canonical.com; receiver=<UNKNOWN> 
+Received: from smtp-relay-internal-0.canonical.com (smtp-relay-internal-0.canonical.com [185.125.188.122])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits))
 	(No client certificate requested)
-	by ml01.01.org (Postfix) with ESMTPS id E1B92100EBB6E
-	for <linux-nfc@lists.01.org>; Tue,  7 Sep 2021 05:18:25 -0700 (PDT)
-Received: from mail-wm1-f69.google.com (mail-wm1-f69.google.com [209.85.128.69])
+	by ml01.01.org (Postfix) with ESMTPS id 822B5100EBB8F
+	for <linux-nfc@lists.01.org>; Tue,  7 Sep 2021 05:18:27 -0700 (PDT)
+Received: from mail-wm1-f72.google.com (mail-wm1-f72.google.com [209.85.128.72])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by smtp-relay-internal-1.canonical.com (Postfix) with ESMTPS id DABCF40793
-	for <linux-nfc@lists.01.org>; Tue,  7 Sep 2021 12:18:24 +0000 (UTC)
+	by smtp-relay-internal-0.canonical.com (Postfix) with ESMTPS id EB21F40191
+	for <linux-nfc@lists.01.org>; Tue,  7 Sep 2021 12:18:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=canonical.com;
-	s=20210705; t=1631017104;
-	bh=ygx+SrZOuhDRvL55hE9xxzLOd3db853TUebx3pnrgoQ=;
+	s=20210705; t=1631017105;
+	bh=Lf3U+DHYhMpuIl7nTJH6GPAYe+llXfLG7+wtuS7r1DY=;
 	h=From:To:Subject:Date:Message-Id:In-Reply-To:References:
 	 MIME-Version;
-	b=jyUbkNv7nILzyveTW7jxCZgSs1rmx3R2NggqiL9rX23ZlrjOC7qGYwo/Z6Pl+9bXQ
-	 tY7dz1GeYGgl0Vd0IEAuuSzQPQxIRHoXsNDXy8QLlZcu1eCMOKRRjuN8AK+yvcSboU
-	 Nn/tFodei3Qi1jtn6JunhDAWaI//CRW32IT9vhGwHjffOD2ZEdVXVOOx2PvZTh8Ydg
-	 lPiA6b00V28yMRED0VYTvk9mW0rsb5ld/FMBKZsdby5wNjSci6vWmbGz5uaPb70dLb
-	 uR1YhGwze5n0qDdsw2BtTucZBcpTkz2aio/8L/agf2RgEP3GDDTGBm6/Dp2Qt/mMdx
-	 xNIROWBFIGfiw==
-Received: by mail-wm1-f69.google.com with SMTP id x125-20020a1c3183000000b002e73f079eefso1131601wmx.0
-        for <linux-nfc@lists.01.org>; Tue, 07 Sep 2021 05:18:24 -0700 (PDT)
+	b=nnymz8kp/mgzjScIEynJSLO0Mz2YcEfaFbhDyohlg4NxN8OWavup8s34wsYvdgt2+
+	 Sps/J7Upxp7riu4drfB6OlQ9kwBSRfv1vcMAC34509xEIQP/iIXsiOkOpZooL7VArD
+	 HOgmVq12UXlLzuv8bmtgbjWS4u4JvsVGkEhTtk33yWchKmOd53MjTAZoPMCqy/0MJX
+	 uTJMSQHAKzLaTBfMUoMGXJM4qfk9lWxSis1yxZb+GRjzQMlAXJq+uaF4I7Ta5JqG4I
+	 yyQAfDyorNATsnr2h4eNVIuoif7U9ZdVPQToTbUgRGs09JsFAHamlvtuk6VW+ryl3y
+	 hVs99MdtojFoA==
+Received: by mail-wm1-f72.google.com with SMTP id 5-20020a1c00050000b02902e67111d9f0so3318673wma.4
+        for <linux-nfc@lists.01.org>; Tue, 07 Sep 2021 05:18:25 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:from:to:subject:date:message-id:in-reply-to
          :references:mime-version:content-transfer-encoding;
-        bh=ygx+SrZOuhDRvL55hE9xxzLOd3db853TUebx3pnrgoQ=;
-        b=U6MZjPjT+QNQ8Buo+uQvvm8R9MDW5Tu1qJ05zVO4JrDVR5GJWhpC4RgngHcPT7Nb9B
-         VzlEU45yHaqBZ8wve6gKinmtLK99nKQEr/MNENwZw8i7XKXCtV/t7e3N2uqTqsofWmxn
-         VOfY6/VefbYpIOOCJeWwH1wcS7uBUt+tW/LJuFcU51kq9M7I4r0EXrNILiY2EdolwYA+
-         g9w/eK8fPy2ehrXlibkpOKZ3kSbdXnq/H6yaskiH214FEXPBIu8AvlkDmz9MoBJQ6TO6
-         8z7bOaTcKC9Gkk5OQYdhqn2OhrAkgrbdm74riPzz9TlL3p9lzZcmUG2aNdvls3ZOxIea
-         +6Tg==
-X-Gm-Message-State: AOAM532n50T66ThVgA36XEwhILC/M/hNsSY3niHHswaRVkGqdtJKy5A9
-	31a8IhNhHIqw0Jc0hWt8T4om18hiBuddB9tKSUmpcrIc8gDUsVFnrcXQCmki50noOkw8J9sM5AR
-	oB9SRxmI1wvzW9WNHe0vewfRCUrEWSK7vmg==
-X-Received: by 2002:a05:600c:210a:: with SMTP id u10mr3576586wml.127.1631017104502;
-        Tue, 07 Sep 2021 05:18:24 -0700 (PDT)
-X-Google-Smtp-Source: ABdhPJyB9lpSYRjC+nwBj78YNN3ZDlBL5vpXCZ8sbbrL5Cjob2y7j5eoJJP5w2OFbtm4kDLZhWgyyA==
-X-Received: by 2002:a05:600c:210a:: with SMTP id u10mr3576575wml.127.1631017104347;
-        Tue, 07 Sep 2021 05:18:24 -0700 (PDT)
+        bh=Lf3U+DHYhMpuIl7nTJH6GPAYe+llXfLG7+wtuS7r1DY=;
+        b=sp04yOc556OY010VCglDpLfLmEpOcsPqlIy0zjaBzdKq56jssuRvYimg19qVGdfB33
+         mVN7dFq2ijCQgSGL8BvfA27mx7/AX3Mw06+RbTWgCAy16ZcN+o+yXQMLZsrp8CwU83jH
+         BcA18vH5gMtq/PnQ9FbmlfJ0y/Bt1tW77s6IsHRpaWK7jwezz8ITBjm3I1fRKRIrn7qs
+         wOgEglynbNJ7AbjsRv7AqishaE+fUVtzVEXeVP7qeyBc1O2TpO/QJRs0G+c4sZ7Xx5+a
+         EJa1c5g4WNu0ceuxJTkDvAG6LtkNPZ+3du3wvYLMPvsgqNuxr3+Kx4nA3hfK5zWuQ5tI
+         7y+Q==
+X-Gm-Message-State: AOAM531AVQerqhWxcIr8V26eczWRXJYY/A9ULAUhV4DrHkqHKJWcDUXY
+	TPn/pY2ioSozLTH4nEOg3RoRU3/mScyMB2HElOCxwimTXQnPCFT2h5H30D3CNz2LVJ3+7/YpERu
+	4mHlhkmSKHjZIJxdX6hcZjd7L7Sa/iqMe1g==
+X-Received: by 2002:a05:600c:a49:: with SMTP id c9mr3543978wmq.159.1631017105645;
+        Tue, 07 Sep 2021 05:18:25 -0700 (PDT)
+X-Google-Smtp-Source: ABdhPJwGnITbLQyBPqv15Y5qGEl25iI8Aaoxxgo0CFdcBuZBhKAuVcx8mn1j6CPUzijO1vm85/0Uww==
+X-Received: by 2002:a05:600c:a49:: with SMTP id c9mr3543965wmq.159.1631017105503;
+        Tue, 07 Sep 2021 05:18:25 -0700 (PDT)
 Received: from kozik-lap.lan ([79.98.113.47])
-        by smtp.gmail.com with ESMTPSA id m3sm13525216wrg.45.2021.09.07.05.18.23
+        by smtp.gmail.com with ESMTPSA id m3sm13525216wrg.45.2021.09.07.05.18.24
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 07 Sep 2021 05:18:23 -0700 (PDT)
+        Tue, 07 Sep 2021 05:18:25 -0700 (PDT)
 From: Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>
 To: Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>,
 	Krzysztof Opasiak <k.opasiak@samsung.com>,
@@ -65,21 +65,21 @@ To: Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>,
 	netdev@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	linux-wireless@vger.kernel.org
-Date: Tue,  7 Sep 2021 14:18:03 +0200
-Message-Id: <20210907121816.37750-3-krzysztof.kozlowski@canonical.com>
+Date: Tue,  7 Sep 2021 14:18:04 +0200
+Message-Id: <20210907121816.37750-4-krzysztof.kozlowski@canonical.com>
 X-Mailer: git-send-email 2.30.2
 In-Reply-To: <20210907121816.37750-1-krzysztof.kozlowski@canonical.com>
 References: <20210907121816.37750-1-krzysztof.kozlowski@canonical.com>
 MIME-Version: 1.0
-Message-ID-Hash: IJSMWHSQDHDFIK7474EVIN27XRN2DJDW
-X-Message-ID-Hash: IJSMWHSQDHDFIK7474EVIN27XRN2DJDW
+Message-ID-Hash: DOAIHOFZVKS7A6TXBBOAUESPSFKDUFRP
+X-Message-ID-Hash: DOAIHOFZVKS7A6TXBBOAUESPSFKDUFRP
 X-MailFrom: krzysztof.kozlowski@canonical.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency; loop; banned-address; member-moderation; nonmember-moderation; administrivia; implicit-dest; max-recipients; max-size; news-moderation; no-subject; suspicious-header
 X-Mailman-Version: 3.1.1
 Precedence: list
-Subject: [linux-nfc] [PATCH 02/15] nfc: do not break pr_debug() call into separate lines
+Subject: [linux-nfc] [PATCH 03/15] nfc: nci: replace GPLv2 boilerplate with SPDX
 List-Id: NFC on Linux <linux-nfc.lists.01.org>
-Archived-At: <https://lists.01.org/hyperkitty/list/linux-nfc@lists.01.org/message/IJSMWHSQDHDFIK7474EVIN27XRN2DJDW/>
+Archived-At: <https://lists.01.org/hyperkitty/list/linux-nfc@lists.01.org/message/DOAIHOFZVKS7A6TXBBOAUESPSFKDUFRP/>
 List-Archive: <https://lists.01.org/hyperkitty/list/linux-nfc@lists.01.org/>
 List-Help: <mailto:linux-nfc-request@lists.01.org?subject=help>
 List-Post: <mailto:linux-nfc@lists.01.org>
@@ -88,75 +88,40 @@ List-Unsubscribe: <mailto:linux-nfc-leave@lists.01.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-Remove unneeded line break between pr_debug and arguments.
+Replace standard GPLv2 only license text with SPDX tag.
 
 Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>
 ---
- net/nfc/hci/llc_shdlc.c | 23 +++++++++--------------
- 1 file changed, 9 insertions(+), 14 deletions(-)
+ net/nfc/nci/uart.c | 16 ++--------------
+ 1 file changed, 2 insertions(+), 14 deletions(-)
 
-diff --git a/net/nfc/hci/llc_shdlc.c b/net/nfc/hci/llc_shdlc.c
-index 78b2ceb8ae6e..e90f70385813 100644
---- a/net/nfc/hci/llc_shdlc.c
-+++ b/net/nfc/hci/llc_shdlc.c
-@@ -201,8 +201,7 @@ static void llc_shdlc_reset_t2(struct llc_shdlc *shdlc, int y_nr)
- 			del_timer_sync(&shdlc->t2_timer);
- 			shdlc->t2_active = false;
- 
--			pr_debug
--			    ("All sent frames acked. Stopped T2(retransmit)\n");
-+			pr_debug("All sent frames acked. Stopped T2(retransmit)\n");
- 		}
- 	} else {
- 		skb = skb_peek(&shdlc->ack_pending_q);
-@@ -211,8 +210,7 @@ static void llc_shdlc_reset_t2(struct llc_shdlc *shdlc, int y_nr)
- 			  msecs_to_jiffies(SHDLC_T2_VALUE_MS));
- 		shdlc->t2_active = true;
- 
--		pr_debug
--		    ("Start T2(retransmit) for remaining unacked sent frames\n");
-+		pr_debug("Start T2(retransmit) for remaining unacked sent frames\n");
- 	}
- }
- 
-@@ -518,12 +516,11 @@ static void llc_shdlc_handle_send_queue(struct llc_shdlc *shdlc)
- 	unsigned long time_sent;
- 
- 	if (shdlc->send_q.qlen)
--		pr_debug
--		    ("sendQlen=%d ns=%d dnr=%d rnr=%s w_room=%d unackQlen=%d\n",
--		     shdlc->send_q.qlen, shdlc->ns, shdlc->dnr,
--		     shdlc->rnr == false ? "false" : "true",
--		     shdlc->w - llc_shdlc_w_used(shdlc->ns, shdlc->dnr),
--		     shdlc->ack_pending_q.qlen);
-+		pr_debug("sendQlen=%d ns=%d dnr=%d rnr=%s w_room=%d unackQlen=%d\n",
-+			 shdlc->send_q.qlen, shdlc->ns, shdlc->dnr,
-+			 shdlc->rnr == false ? "false" : "true",
-+			 shdlc->w - llc_shdlc_w_used(shdlc->ns, shdlc->dnr),
-+			 shdlc->ack_pending_q.qlen);
- 
- 	while (shdlc->send_q.qlen && shdlc->ack_pending_q.qlen < shdlc->w &&
- 	       (shdlc->rnr == false)) {
-@@ -641,8 +638,7 @@ static void llc_shdlc_sm_work(struct work_struct *work)
- 		llc_shdlc_handle_send_queue(shdlc);
- 
- 		if (shdlc->t1_active && timer_pending(&shdlc->t1_timer) == 0) {
--			pr_debug
--			    ("Handle T1(send ack) elapsed (T1 now inactive)\n");
-+			pr_debug("Handle T1(send ack) elapsed (T1 now inactive)\n");
- 
- 			shdlc->t1_active = false;
- 			r = llc_shdlc_send_s_frame(shdlc, S_FRAME_RR,
-@@ -652,8 +648,7 @@ static void llc_shdlc_sm_work(struct work_struct *work)
- 		}
- 
- 		if (shdlc->t2_active && timer_pending(&shdlc->t2_timer) == 0) {
--			pr_debug
--			    ("Handle T2(retransmit) elapsed (T2 inactive)\n");
-+			pr_debug("Handle T2(retransmit) elapsed (T2 inactive)\n");
- 
- 			shdlc->t2_active = false;
- 
+diff --git a/net/nfc/nci/uart.c b/net/nfc/nci/uart.c
+index 502e7a3f8948..65814dd72618 100644
+--- a/net/nfc/nci/uart.c
++++ b/net/nfc/nci/uart.c
+@@ -1,20 +1,8 @@
++// SPDX-License-Identifier: GPL-2.0
+ /*
+  * Copyright (C) 2015, Marvell International Ltd.
+  *
+- * This software file (the "File") is distributed by Marvell International
+- * Ltd. under the terms of the GNU General Public License Version 2, June 1991
+- * (the "License").  You may use, redistribute and/or modify this File in
+- * accordance with the terms and conditions of the License, a copy of which
+- * is available on the worldwide web at
+- * http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt.
+- *
+- * THE FILE IS DISTRIBUTED AS-IS, WITHOUT WARRANTY OF ANY KIND, AND THE
+- * IMPLIED WARRANTIES OF MERCHANTABILITY OR FITNESS FOR A PARTICULAR PURPOSE
+- * ARE EXPRESSLY DISCLAIMED.  The License provides additional details about
+- * this warranty disclaimer.
+- */
+-
+-/* Inspired (hugely) by HCI LDISC implementation in Bluetooth.
++ * Inspired (hugely) by HCI LDISC implementation in Bluetooth.
+  *
+  *  Copyright (C) 2000-2001  Qualcomm Incorporated
+  *  Copyright (C) 2002-2003  Maxim Krasnyansky <maxk@qualcomm.com>
 -- 
 2.30.2
 _______________________________________________
