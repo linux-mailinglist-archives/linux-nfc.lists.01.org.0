@@ -2,82 +2,81 @@ Return-Path: <linux-nfc-bounces@lists.01.org>
 X-Original-To: lists+linux-nfc@lfdr.de
 Delivered-To: lists+linux-nfc@lfdr.de
 Received: from ml01.01.org (ml01.01.org [198.145.21.10])
-	by mail.lfdr.de (Postfix) with ESMTPS id 57B583FD556
-	for <lists+linux-nfc@lfdr.de>; Wed,  1 Sep 2021 10:27:28 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C98FF402856
+	for <lists+linux-nfc@lfdr.de>; Tue,  7 Sep 2021 14:18:29 +0200 (CEST)
 Received: from ml01.vlan13.01.org (localhost [IPv6:::1])
-	by ml01.01.org (Postfix) with ESMTP id B3D91100EB826;
-	Wed,  1 Sep 2021 01:27:26 -0700 (PDT)
-Received-SPF: Pass (mailfrom) identity=mailfrom; client-ip=185.125.188.122; helo=smtp-relay-internal-0.canonical.com; envelope-from=krzysztof.kozlowski@canonical.com; receiver=<UNKNOWN> 
-Received: from smtp-relay-internal-0.canonical.com (smtp-relay-internal-0.canonical.com [185.125.188.122])
+	by ml01.01.org (Postfix) with ESMTP id AE7BB100EBB72;
+	Tue,  7 Sep 2021 05:18:26 -0700 (PDT)
+Received-SPF: Pass (mailfrom) identity=mailfrom; client-ip=185.125.188.123; helo=smtp-relay-internal-1.canonical.com; envelope-from=krzysztof.kozlowski@canonical.com; receiver=<UNKNOWN> 
+Received: from smtp-relay-internal-1.canonical.com (smtp-relay-internal-1.canonical.com [185.125.188.123])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits))
 	(No client certificate requested)
-	by ml01.01.org (Postfix) with ESMTPS id 2E58A100EBB9C
-	for <linux-nfc@lists.01.org>; Wed,  1 Sep 2021 01:27:23 -0700 (PDT)
-Received: from mail-wm1-f70.google.com (mail-wm1-f70.google.com [209.85.128.70])
+	by ml01.01.org (Postfix) with ESMTPS id 623EC100EBB6E
+	for <linux-nfc@lists.01.org>; Tue,  7 Sep 2021 05:18:24 -0700 (PDT)
+Received: from mail-wm1-f72.google.com (mail-wm1-f72.google.com [209.85.128.72])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by smtp-relay-internal-0.canonical.com (Postfix) with ESMTPS id 335B040187
-	for <linux-nfc@lists.01.org>; Wed,  1 Sep 2021 08:27:22 +0000 (UTC)
+	by smtp-relay-internal-1.canonical.com (Postfix) with ESMTPS id 870E740784
+	for <linux-nfc@lists.01.org>; Tue,  7 Sep 2021 12:18:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=canonical.com;
-	s=20210705; t=1630484842;
-	bh=aY9gv2ACWx7j3apMcyMOxIKcp1JCAh1Z5IMtKt0nhIM=;
-	h=To:References:From:Subject:Message-ID:Date:MIME-Version:
-	 In-Reply-To:Content-Type;
-	b=k24WAxYapbiTmVS95ZYcF4i4FfTwhCGSl6QhO4EjgzhQx4qbO/1BKFH+RoliJ0/dy
-	 NyJkauhA3BBtUPiHle6ZrfXCF40l1/POiHGlU3RduYxMt5JDqY8LGQ2pFiRTLsUZ11
-	 kLhttF5vOLMQwkzpfb8rR6mo3wpO7BUsWx5Y1I/7mO+TEDInYT20x/EU618UslDiSP
-	 k8H4mlAb7ZmnW7atunfYOwAChMyoW0dLKH6eufU//PCpqO56/0ov3caWLgn5HxkwPX
-	 SaVfWhyM7tesMWyHljOkP2LX+mEU4pCB78CBoDdIJDfUMNlRs5a8A0R8u0LPIsVixY
-	 3ByOJ1e4CzTIQ==
-Received: by mail-wm1-f70.google.com with SMTP id f19-20020a1c1f13000000b002e6bd83c344so744730wmf.3
-        for <linux-nfc@lists.01.org>; Wed, 01 Sep 2021 01:27:22 -0700 (PDT)
+	s=20210705; t=1631017102;
+	bh=YRlo3nZk5ArGV6WwvlTiTe3l09axCD12jul04F8OPD4=;
+	h=From:To:Subject:Date:Message-Id:MIME-Version;
+	b=nzJtVJmbtzaqIcDkqC8KMC1uJbexdfbAydVpFsHbABcEbUA1AuqGNaMAyhgcBBbcS
+	 7TSFFzaOKRgUBtShpccXsXcLvL3BDWEqgJFWLE3pgTzWYWRU+kleg+cKeYl0KA0CN6
+	 qBYzhSUXjzLCSSlFGVCo8Rd6tnZR3HHxiMrVR9x0onW2wXaj4dJBeE5K7OLt6zG84W
+	 SSroVuzvxwq+Qevnhgd5k/YtwVjJ+V6vdy7SFJJT+mwhkd/xdFKz/jQZA8lSftv9Me
+	 phteiQe+KzXheg4EqTCkXmhZfnetUX4FE0BiDTo7bKS16SqRXvhukh266sBt9aFsex
+	 oztXPYn9dpUaQ==
+Received: by mail-wm1-f72.google.com with SMTP id m16-20020a7bca50000000b002ee5287d4bfso1029440wml.7
+        for <linux-nfc@lists.01.org>; Tue, 07 Sep 2021 05:18:22 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:to:references:from:subject:message-id:date
-         :user-agent:mime-version:in-reply-to:content-language
+        h=x-gm-message-state:from:to:subject:date:message-id:mime-version
          :content-transfer-encoding;
-        bh=aY9gv2ACWx7j3apMcyMOxIKcp1JCAh1Z5IMtKt0nhIM=;
-        b=Spx7AZ/QO3MJdGgu4gANlPLEdHosw5GCS32qhxbYDuvbOHTC2nWOdzBro24wvOlVOb
-         gWd3iXC6gbopTtPNQLkz5WPhPzg/G0zjViGo8X1/YRjyASWTmXvucE33Q+g/teNhmbk+
-         yNRzDneURHdpXrhfTni3ZAUYOQZcxQr5NhDnYaa+xfYzybI7BF9JYLg2cHAo+a+Ft4Ix
-         ISyjyHqbGkF3MAqIPoo7yZoQ+s35hNubgcBR2tLxyjxfp6L0BzFRt0YjNrK2MSeZ3QM5
-         LtjTEs8iYZOUWmPCDPPe3SUep0wvLscJpVRVsbDg4Q+jGU1xwnZ4FJxkjfj1+vKMrH/I
-         fCtw==
-X-Gm-Message-State: AOAM533BNOz8ppPn6WZL186M35xsho3eOleNMtbaKp6yo8rm/FADAsVY
-	YQx1PTUBeXt88T6FAfBhcXEG2Qk1qx3+XVvJe94tl6p26RKMPNU6Vlngfhvgo9PrkDLjSORZyRb
-	JZ5spS7T+/cqvPd5LwLXyB/R9aRIW+4TMLQ==
-X-Received: by 2002:adf:dcc7:: with SMTP id x7mr35684098wrm.173.1630484841916;
-        Wed, 01 Sep 2021 01:27:21 -0700 (PDT)
-X-Google-Smtp-Source: ABdhPJzWt9eZtbHgzVv7IfVksi6sTwwtO+mAxETcyROAjIvwdGWXWrsH9fTsBf5WMpK8rR6D6C8zwQ==
-X-Received: by 2002:adf:dcc7:: with SMTP id x7mr35684070wrm.173.1630484841615;
-        Wed, 01 Sep 2021 01:27:21 -0700 (PDT)
-Received: from [192.168.3.211] ([79.98.113.249])
-        by smtp.gmail.com with ESMTPSA id c13sm20767112wru.73.2021.09.01.01.27.20
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 01 Sep 2021 01:27:21 -0700 (PDT)
-To: LinMa <linma@zju.edu.cn>, linux-nfc@lists.01.org,
- "David S. Miller" <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>,
- Networking <netdev@vger.kernel.org>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>
-References: <5b6649e2.af5bf.17ba04c8d62.Coremail.linma@zju.edu.cn>
+        bh=YRlo3nZk5ArGV6WwvlTiTe3l09axCD12jul04F8OPD4=;
+        b=ntKrXMZYFb//ZeV8XdQOZaUQL5wqSzVhmgq/d8iKPkczvdtQxy1qw8FHTMT9nJAt05
+         +pPHMEW3qvh7shUE51v2zFfWwxPtYzmfTTAM73dRtC9kbJtcXzvjQPUg5XYrrUDzKswb
+         U1jK4nIvtY1i/C+vJU6Vyl57ioh8Vf/wOn8nr0Yv9UO9lXnKPFeC0B4D5+ftjFBHR6GV
+         1+URYhYtEF6kwBsQfh0B7szLjO5MGDqV3C3R3woZXmLSjGhB9sA6iRRIPTxnLSeuQedK
+         X+klB+JKGwHatohqC3lPEtjb43kODXCibtfkmdiy/rht1wRZPhOhwAZ6BoJGVXc1DGgo
+         29Zw==
+X-Gm-Message-State: AOAM533I5PJ59RGmZv5coAyFQlBOOpKSkMMnmHsQrjh1ljY0Yq0g1TxL
+	d9ysDjmPRvOdQSnk9miLT7cZeu0HTFieg5vyrVIOpRH6e52Z4kz298+aPUxL8vtZH3wd1XJUyA7
+	3kP2Oy6SsPDVTElPW3ifdjlXhqzx/NxmUOg==
+X-Received: by 2002:a5d:4043:: with SMTP id w3mr18531837wrp.15.1631017102198;
+        Tue, 07 Sep 2021 05:18:22 -0700 (PDT)
+X-Google-Smtp-Source: ABdhPJx7BsAVATcBM4EgZcgR0syj5gOVbXmAk+X5F/H8PDMeYrVY2fTt9ht8q++8LSzCq0F5JNa9Eg==
+X-Received: by 2002:a5d:4043:: with SMTP id w3mr18531794wrp.15.1631017101859;
+        Tue, 07 Sep 2021 05:18:21 -0700 (PDT)
+Received: from kozik-lap.lan ([79.98.113.47])
+        by smtp.gmail.com with ESMTPSA id m3sm13525216wrg.45.2021.09.07.05.18.20
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 07 Sep 2021 05:18:21 -0700 (PDT)
 From: Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>
-Message-ID: <2a052383-6c82-d3a4-fc61-5ecd7b7c49d9@canonical.com>
-Date: Wed, 1 Sep 2021 10:27:20 +0200
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
- Thunderbird/78.11.0
+To: Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>,
+	Krzysztof Opasiak <k.opasiak@samsung.com>,
+	Mark Greer <mgreer@animalcreek.com>,
+	"David S. Miller" <davem@davemloft.net>,
+	Jakub Kicinski <kuba@kernel.org>,
+	linux-nfc@lists.01.org,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-wireless@vger.kernel.org
+Date: Tue,  7 Sep 2021 14:18:01 +0200
+Message-Id: <20210907121816.37750-1-krzysztof.kozlowski@canonical.com>
+X-Mailer: git-send-email 2.30.2
 MIME-Version: 1.0
-In-Reply-To: <5b6649e2.af5bf.17ba04c8d62.Coremail.linma@zju.edu.cn>
-Content-Language: en-US
-Message-ID-Hash: MHO7XDB4SJBR7ROCM7VVCYZCQINKHBXD
-X-Message-ID-Hash: MHO7XDB4SJBR7ROCM7VVCYZCQINKHBXD
+Message-ID-Hash: KN66TNPCKKDM2VPK7QSOK36XNHE3JW67
+X-Message-ID-Hash: KN66TNPCKKDM2VPK7QSOK36XNHE3JW67
 X-MailFrom: krzysztof.kozlowski@canonical.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency; loop; banned-address; member-moderation; nonmember-moderation; administrivia; implicit-dest; max-recipients; max-size; news-moderation; no-subject; suspicious-header
 X-Mailman-Version: 3.1.1
 Precedence: list
-Subject: [linux-nfc] Re: set dev->rfkill to NULL in device cleanup routine
+Subject: [linux-nfc] [PATCH 00/15] nfc: minor printk cleanup
 List-Id: NFC on Linux <linux-nfc.lists.01.org>
-Archived-At: <https://lists.01.org/hyperkitty/list/linux-nfc@lists.01.org/message/MHO7XDB4SJBR7ROCM7VVCYZCQINKHBXD/>
+Archived-At: <https://lists.01.org/hyperkitty/list/linux-nfc@lists.01.org/message/KN66TNPCKKDM2VPK7QSOK36XNHE3JW67/>
 List-Archive: <https://lists.01.org/hyperkitty/list/linux-nfc@lists.01.org/>
 List-Help: <mailto:linux-nfc-request@lists.01.org?subject=help>
 List-Post: <mailto:linux-nfc@lists.01.org>
@@ -86,124 +85,59 @@ List-Unsubscribe: <mailto:linux-nfc-leave@lists.01.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-On 01/09/2021 09:39, LinMa wrote:
-> In nfc_unregister_device() function, the dev->rfkill is forgotten to set to NULL after the rfkill_destroy(). This may lead to possible cocurrency UAF in other functions like nfc_dev_up().
+Hi,
 
-Commit msg should be wrapper at 75 char.
-https://elixir.bootlin.com/linux/v5.13/source/Documentation/process/submitting-patches.rst#L124
-
-
-Use also scripts/get_maintainers.pl to get list of people and lists
-you need to CC. You skipped Networking maintainers and two mailing lists.
-
-> 
-> The FREE chain is like
-> 
-
-Please trim multiple blank lines and organize the commit msg to be readable.
-No need to paste existing code into the commit msg.
-
-> 
-> void nfc_unregister_device(struct nfc_dev *dev)
-> {
->   int rc;
->   pr_debug("dev_name=%s\n", dev_name(&dev->dev));
->   if (dev->rfkill) {
->     rfkill_unregister(dev->rfkill);
->     rfkill_destroy(dev->rfkill);
->   // ......
-> }
-> 
-> 
-> 
-> The USE chain is like
-> 
-> 
-> static int nfc_genl_dev_up(struct sk_buff *skb, struct genl_info *info)
-> {
->   struct nfc_dev *dev;
->   int rc;
->   u32 idx;
->   if (!info->attrs[NFC_ATTR_DEVICE_INDEX])
->     return -EINVAL;
->   idx = nla_get_u32(info->attrs[NFC_ATTR_DEVICE_INDEX]);
->   dev = nfc_get_device(idx);
->   if (!dev)
->     return -ENODEV;
->   rc = nfc_dev_up(dev);
-> 
->   // ......
-> }
-> 
-> 
-> int nfc_dev_up(struct nfc_dev *dev)
-> {
->   int rc = 0;
->   pr_debug("dev_name=%s\n", dev_name(&dev->dev));
->   device_lock(&dev->dev);
->   if (dev->rfkill && rfkill_blocked(dev->rfkill)) { // dev->rfkill is not NULL here
->     rc = -ERFKILL;
->     goto error;
->   }
->   // ......
-> }
-> 
-> 
-> The FREE chain and USE chain can be like below (as there is no locking protection).
-
-Something is missing.
-
-> 
-> 
-> Therefore, the below patch can be added.
-
-Use imperative form:
-https://elixir.bootlin.com/linux/v5.13/source/Documentation/process/submitting-patches.rst#L89
-
-> 
-> 
-> Signed-off-by: Lin Ma <linma@zju.edu.cn>
-> ---
->  net/nfc/core.c | 1 +
->  1 file changed, 1 insertion(+)
-> diff --git a/net/nfc/core.c b/net/nfc/core.c
-> index 573c80c6ff7a..d0b3224e65d7 100644
-> --- a/net/nfc/core.c
-> +++ b/net/nfc/core.c
-> @@ -1157,6 +1157,7 @@ void nfc_unregister_device(struct nfc_dev *dev)
->   if (dev->rfkill) {
->   rfkill_unregister(dev->rfkill);
->   rfkill_destroy(dev->rfkill);
-> + dev->rfkill = NULL;
-
-This is not a valid patch. Does not match the code.
-For example, use git format-patch and git send-email.
-
-About the topic:
-Your code does not prevent a race condition, since you say there is no
-locking. Even if you move dev->rfkill=NULL before rfkill_unregister(),
-still nfc_dev_up() could happen between.
-
-The questions are:
-1. Whether nfc_unregister_device() can happen after nfc_get_device()?
-2. Whether netlink nfc_genl_dev_up() can happen after nfc_unregister_device()
-started.
-
-
-
->   }
->   if (dev->ops->check_presence) {
-> --
-> 2.32.0
-> _______________________________________________
-> Linux-nfc mailing list -- linux-nfc@lists.01.org
-> To unsubscribe send an email to linux-nfc-leave@lists.01.org
-> %(web_page_url)slistinfo%(cgiext)s/%(_internal_name)s
-> 
-
+No dependencies, patches can be picked up as is.
 
 Best regards,
 Krzysztof
+
+
+Krzysztof Kozlowski (15):
+  nfc: drop unneeded debug prints
+  nfc: do not break pr_debug() call into separate lines
+  nfc: nci: replace GPLv2 boilerplate with SPDX
+  nfc: fdp: drop unneeded debug prints
+  nfc: pn533: drop unneeded debug prints
+  nfc: pn533: use dev_err() instead of pr_err()
+  nfc: pn544: drop unneeded debug prints
+  nfc: pn544: drop unneeded memory allocation fail messages
+  nfc: s3fwrn5: simplify dereferencing pointer to struct device
+  nfc: st-nci: drop unneeded debug prints
+  nfc: st21nfca: drop unneeded debug prints
+  nfc: trf7970a: drop unneeded debug prints
+  nfc: microread: drop unneeded debug prints
+  nfc: microread: drop unneeded memory allocation fail messages
+  nfc: mrvl: drop unneeded memory allocation fail messages
+
+ drivers/nfc/fdp/i2c.c          |  1 -
+ drivers/nfc/microread/i2c.c    |  4 ----
+ drivers/nfc/microread/mei.c    |  6 +-----
+ drivers/nfc/nfcmrvl/fw_dnld.c  |  4 +---
+ drivers/nfc/pn533/i2c.c        |  1 -
+ drivers/nfc/pn533/pn533.c      |  4 +---
+ drivers/nfc/pn544/mei.c        |  8 +-------
+ drivers/nfc/s3fwrn5/firmware.c | 29 +++++++++++-----------------
+ drivers/nfc/s3fwrn5/nci.c      | 18 +++++++----------
+ drivers/nfc/st-nci/i2c.c       |  4 ----
+ drivers/nfc/st-nci/ndlc.c      |  4 ----
+ drivers/nfc/st-nci/se.c        |  6 ------
+ drivers/nfc/st-nci/spi.c       |  4 ----
+ drivers/nfc/st21nfca/i2c.c     |  4 ----
+ drivers/nfc/st21nfca/se.c      |  4 ----
+ drivers/nfc/trf7970a.c         |  8 --------
+ net/nfc/hci/command.c          | 16 ----------------
+ net/nfc/hci/llc_shdlc.c        | 35 +++++++++-------------------------
+ net/nfc/llcp_commands.c        |  8 --------
+ net/nfc/llcp_core.c            |  5 +----
+ net/nfc/nci/core.c             |  4 ----
+ net/nfc/nci/hci.c              |  4 ----
+ net/nfc/nci/ntf.c              |  9 ---------
+ net/nfc/nci/uart.c             | 16 ++--------------
+ 24 files changed, 34 insertions(+), 172 deletions(-)
+
+-- 
+2.30.2
 _______________________________________________
 Linux-nfc mailing list -- linux-nfc@lists.01.org
 To unsubscribe send an email to linux-nfc-leave@lists.01.org
