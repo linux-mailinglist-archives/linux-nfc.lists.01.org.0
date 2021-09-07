@@ -1,60 +1,60 @@
 Return-Path: <linux-nfc-bounces@lists.01.org>
 X-Original-To: lists+linux-nfc@lfdr.de
 Delivered-To: lists+linux-nfc@lfdr.de
-Received: from ml01.01.org (ml01.01.org [IPv6:2001:19d0:306:5::1])
-	by mail.lfdr.de (Postfix) with ESMTPS id 54FAC40286A
-	for <lists+linux-nfc@lfdr.de>; Tue,  7 Sep 2021 14:18:49 +0200 (CEST)
+Received: from ml01.01.org (ml01.01.org [198.145.21.10])
+	by mail.lfdr.de (Postfix) with ESMTPS id 99FCD40286B
+	for <lists+linux-nfc@lfdr.de>; Tue,  7 Sep 2021 14:18:50 +0200 (CEST)
 Received: from ml01.vlan13.01.org (localhost [IPv6:::1])
-	by ml01.01.org (Postfix) with ESMTP id F321D100EB339;
-	Tue,  7 Sep 2021 05:18:41 -0700 (PDT)
-Received-SPF: Pass (mailfrom) identity=mailfrom; client-ip=185.125.188.123; helo=smtp-relay-internal-1.canonical.com; envelope-from=krzysztof.kozlowski@canonical.com; receiver=<UNKNOWN> 
-Received: from smtp-relay-internal-1.canonical.com (smtp-relay-internal-1.canonical.com [185.125.188.123])
+	by ml01.01.org (Postfix) with ESMTP id 1C335100EB835;
+	Tue,  7 Sep 2021 05:18:44 -0700 (PDT)
+Received-SPF: Pass (mailfrom) identity=mailfrom; client-ip=185.125.188.122; helo=smtp-relay-internal-0.canonical.com; envelope-from=krzysztof.kozlowski@canonical.com; receiver=<UNKNOWN> 
+Received: from smtp-relay-internal-0.canonical.com (smtp-relay-internal-0.canonical.com [185.125.188.122])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits))
 	(No client certificate requested)
-	by ml01.01.org (Postfix) with ESMTPS id 6CD04100EBB78
-	for <linux-nfc@lists.01.org>; Tue,  7 Sep 2021 05:18:40 -0700 (PDT)
-Received: from mail-wm1-f71.google.com (mail-wm1-f71.google.com [209.85.128.71])
+	by ml01.01.org (Postfix) with ESMTPS id B22BD100EB339
+	for <linux-nfc@lists.01.org>; Tue,  7 Sep 2021 05:18:41 -0700 (PDT)
+Received: from mail-wm1-f69.google.com (mail-wm1-f69.google.com [209.85.128.69])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by smtp-relay-internal-1.canonical.com (Postfix) with ESMTPS id 66D023F329
-	for <linux-nfc@lists.01.org>; Tue,  7 Sep 2021 12:18:39 +0000 (UTC)
+	by smtp-relay-internal-0.canonical.com (Postfix) with ESMTPS id A77A4407A7
+	for <linux-nfc@lists.01.org>; Tue,  7 Sep 2021 12:18:40 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=canonical.com;
-	s=20210705; t=1631017119;
-	bh=KQ0ijwIeFsveeXdiNAQIdSvmUM7JWh6ALRqQaOVckDE=;
+	s=20210705; t=1631017120;
+	bh=IGi454bY1uM8p5QRZSKGDo9YXvHCL/LufQFtzz+SznM=;
 	h=From:To:Subject:Date:Message-Id:In-Reply-To:References:
 	 MIME-Version;
-	b=wdnn4Cu+1kPZwLD8NSz8v4+gilcSmMUNzV19dgbI8z7OTYIm2VXD0H26q7CVS0LZj
-	 yljS/ufJWBhbS/vOu54tXmjjowYXkYptc6MqU18Wu+GLPJlOKcSag9KpzRK6VWHUI5
-	 1UaA7r+j6H8qnaWHjz902P+1V2FL2pYJB1kMH6o2b57CIKo7Lj8XUYHNk8EUlefj4Z
-	 /dqXgfX117aM2QSFadNarzKjSA520y5UEYG2gUt+GsfJge7We8YCLW+HoMusrEaUJP
-	 0Glsx42KKI0/e3z4u5KoSbsxyo9sqE8RhUF9U//V8EP2zp3H+3p6wXArsOsrhXbo54
-	 dTAhJ7X/hTHqA==
-Received: by mail-wm1-f71.google.com with SMTP id p29-20020a1c545d000000b002f88d28e1f1so3319355wmi.7
-        for <linux-nfc@lists.01.org>; Tue, 07 Sep 2021 05:18:39 -0700 (PDT)
+	b=BKgQmkFGobUvYp4GFsCJgQW/pS4+dZHWtVS2CgD0+/SI7oAylF4qKPMClkPE2XS9K
+	 KiZgUKdoGhiybUMClbmES0ASH/vud9PeZBpFkNjWyNt1E5o1XhJkp7Rpx++N8C3zW6
+	 Ho1loJ4DQ2kx8RN6QMF24nvlqOSbTPQAKgfAid2UyNRputTZHAaoQs+OO5q23+jOtk
+	 x6M9WFETDet2o8tUchLOwI9jxOtL8VKItU8ahicahuLk/ImV0VX/13u7+cHFhCxhbQ
+	 ZXqRG6pQpbHxYhkM5caBjQto37Wy/nRNpkqVFkWT+0GhNR+RcCyPMu8vz/LMs5nc6E
+	 2oXBE6+0V5CTw==
+Received: by mail-wm1-f69.google.com with SMTP id x10-20020a7bc20a000000b002f8cf761457so496558wmi.1
+        for <linux-nfc@lists.01.org>; Tue, 07 Sep 2021 05:18:40 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
         h=x-gm-message-state:from:to:subject:date:message-id:in-reply-to
          :references:mime-version:content-transfer-encoding;
-        bh=KQ0ijwIeFsveeXdiNAQIdSvmUM7JWh6ALRqQaOVckDE=;
-        b=CUzP0Zvh2UzEtXbFMviRgQkTAS9i/tQkEA9eWCAY8ymCdn5OHv+kdhx0Pwq1LoClAW
-         YmoLH/PlAsb9y/rdesTS5eLe+EW+Hx2L30Gu5h2GE1HnxpK/XSN766ek/+qG/5fcTAKT
-         1m/ujZWwT9npflEcxWGIG9yUaiyiyuj1317BLC3e/VLoA3KprM+nytplpKXUoxMO4vFN
-         L+wxePTwaCvxwXWlSsSacRYpCHfGOIlc1BdweIhDSQ63DTFk8rUXaAkKJSwTLjbgZDKo
-         V0JUEJZWfTX8MIPYa8XZgkMlaubuLIC5AKL+4u5K4atXFcUY4cocQ1Hl0txQcSGaWVs5
-         oT0A==
-X-Gm-Message-State: AOAM532+6U17CBZl/SDpN7r7rBSwCQyUcFINmQdExZpAx8tmqaFMnJUo
-	aektpPT1FuZMbf5XtR+7be7914gQ4Oajs/p+dw12G9E9FOGbrkpHHR61TsL6bxVeWBfMuXQ+ZCp
-	cse9fKecHYLS83qeVlC52MU0eAYfMzeaTHw==
-X-Received: by 2002:a1c:4e02:: with SMTP id g2mr3721763wmh.64.1631017119172;
-        Tue, 07 Sep 2021 05:18:39 -0700 (PDT)
-X-Google-Smtp-Source: ABdhPJxQnetzmuiPkZxY5ujifiMc0ZSDMSRGclmWVVBN7PzhHJltL2XOpfe1Q53piPXGFgUJqPpP0w==
-X-Received: by 2002:a1c:4e02:: with SMTP id g2mr3721745wmh.64.1631017119053;
-        Tue, 07 Sep 2021 05:18:39 -0700 (PDT)
+        bh=IGi454bY1uM8p5QRZSKGDo9YXvHCL/LufQFtzz+SznM=;
+        b=VZrNpR5yjOPSWOoaHXQiJ8LkxxBU7XCmJdjRenPM48CbTuyIsq1uQqT//DxS/kMaIu
+         4PMtQbKtTIBYUmJlE7Rv+WxYz2L0eAZ5V5M4fHq6TDSkJcACSaTrIUgzhQTMSYd5L8+U
+         fTI95pp2C7kBB6+1wOqbnbLwULY5h5u8w3Eh9MSg4AnK+1eZoUvIykavzv//KhtSHPSd
+         buEC4a/LcBLrsjW5k4cAawLLlxQlxkD0e7/OSDrbdaYejNZGM63XxoRFnA/FiRN9fgRz
+         xc7s/2aWlDicJDqvOXWEh1V6EgbPc5+78N8Gwt8HF5srXKEBCYb2D7/39FKkSWuusp7o
+         Ufzg==
+X-Gm-Message-State: AOAM532Zb9OEQzjKJIXKiQO18EE2JHvhONR5uYoxwLUCipEttektq4Fh
+	PkKNVxHQs3OmWdIvQ7rLW5X7W1iGjtYuqxYVPpA+DLCbmq22o9euGqLMjvinZI9rgOgs5xdZIvI
+	XVuSLvJSsTChZftA/O0y5RcTIvg3UifNzxQ==
+X-Received: by 2002:a05:600c:1d27:: with SMTP id l39mr3629439wms.146.1631017120415;
+        Tue, 07 Sep 2021 05:18:40 -0700 (PDT)
+X-Google-Smtp-Source: ABdhPJxzkQReT6hqXvnsRi4xVMvPv5mwLHDY/KqHilLqyCDbOJpRRpQ8tjRRU7brxn8w70vPDRKkmA==
+X-Received: by 2002:a05:600c:1d27:: with SMTP id l39mr3629425wms.146.1631017120289;
+        Tue, 07 Sep 2021 05:18:40 -0700 (PDT)
 Received: from kozik-lap.lan ([79.98.113.47])
-        by smtp.gmail.com with ESMTPSA id m3sm13525216wrg.45.2021.09.07.05.18.37
+        by smtp.gmail.com with ESMTPSA id m3sm13525216wrg.45.2021.09.07.05.18.39
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 07 Sep 2021 05:18:38 -0700 (PDT)
+        Tue, 07 Sep 2021 05:18:39 -0700 (PDT)
 From: Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>
 To: Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>,
 	Krzysztof Opasiak <k.opasiak@samsung.com>,
@@ -65,21 +65,21 @@ To: Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>,
 	netdev@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	linux-wireless@vger.kernel.org
-Date: Tue,  7 Sep 2021 14:18:15 +0200
-Message-Id: <20210907121816.37750-15-krzysztof.kozlowski@canonical.com>
+Date: Tue,  7 Sep 2021 14:18:16 +0200
+Message-Id: <20210907121816.37750-16-krzysztof.kozlowski@canonical.com>
 X-Mailer: git-send-email 2.30.2
 In-Reply-To: <20210907121816.37750-1-krzysztof.kozlowski@canonical.com>
 References: <20210907121816.37750-1-krzysztof.kozlowski@canonical.com>
 MIME-Version: 1.0
-Message-ID-Hash: DQGP3GOYGTZLKIVKXMCZYFFDKWO5PIAN
-X-Message-ID-Hash: DQGP3GOYGTZLKIVKXMCZYFFDKWO5PIAN
+Message-ID-Hash: Y5CBEKYCN7U3YCSS3HJSAKHT6H4UTOQN
+X-Message-ID-Hash: Y5CBEKYCN7U3YCSS3HJSAKHT6H4UTOQN
 X-MailFrom: krzysztof.kozlowski@canonical.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency; loop; banned-address; member-moderation; nonmember-moderation; administrivia; implicit-dest; max-recipients; max-size; news-moderation; no-subject; suspicious-header
 X-Mailman-Version: 3.1.1
 Precedence: list
-Subject: [linux-nfc] [PATCH 14/15] nfc: microread: drop unneeded memory allocation fail messages
+Subject: [linux-nfc] [PATCH 15/15] nfc: mrvl: drop unneeded memory allocation fail messages
 List-Id: NFC on Linux <linux-nfc.lists.01.org>
-Archived-At: <https://lists.01.org/hyperkitty/list/linux-nfc@lists.01.org/message/DQGP3GOYGTZLKIVKXMCZYFFDKWO5PIAN/>
+Archived-At: <https://lists.01.org/hyperkitty/list/linux-nfc@lists.01.org/message/Y5CBEKYCN7U3YCSS3HJSAKHT6H4UTOQN/>
 List-Archive: <https://lists.01.org/hyperkitty/list/linux-nfc@lists.01.org/>
 List-Help: <mailto:linux-nfc-request@lists.01.org?subject=help>
 List-Post: <mailto:linux-nfc@lists.01.org>
@@ -88,30 +88,30 @@ List-Unsubscribe: <mailto:linux-nfc-leave@lists.01.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-nfc_mei_phy_alloc() already prints an error message on memory allocation
+nci_skb_alloc() already prints an error message on memory allocation
 failure.
 
 Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>
 ---
- drivers/nfc/microread/mei.c | 4 +---
+ drivers/nfc/nfcmrvl/fw_dnld.c | 4 +---
  1 file changed, 1 insertion(+), 3 deletions(-)
 
-diff --git a/drivers/nfc/microread/mei.c b/drivers/nfc/microread/mei.c
-index 686be3381727..e2a77a5fc887 100644
---- a/drivers/nfc/microread/mei.c
-+++ b/drivers/nfc/microread/mei.c
-@@ -24,10 +24,8 @@ static int microread_mei_probe(struct mei_cl_device *cldev,
- 	int r;
+diff --git a/drivers/nfc/nfcmrvl/fw_dnld.c b/drivers/nfc/nfcmrvl/fw_dnld.c
+index edac56b01fd1..e83f65596a88 100644
+--- a/drivers/nfc/nfcmrvl/fw_dnld.c
++++ b/drivers/nfc/nfcmrvl/fw_dnld.c
+@@ -76,10 +76,8 @@ static struct sk_buff *alloc_lc_skb(struct nfcmrvl_private *priv, uint8_t plen)
+ 	struct nci_data_hdr *hdr;
  
- 	phy = nfc_mei_phy_alloc(cldev);
--	if (!phy) {
--		pr_err("Cannot allocate memory for microread mei phy.\n");
-+	if (!phy)
- 		return -ENOMEM;
+ 	skb = nci_skb_alloc(priv->ndev, (NCI_DATA_HDR_SIZE + plen), GFP_KERNEL);
+-	if (!skb) {
+-		pr_err("no memory for data\n");
++	if (!skb)
+ 		return NULL;
 -	}
  
- 	r = microread_probe(phy, &mei_phy_ops, LLC_NOP_NAME,
- 			    MEI_NFC_HEADER_SIZE, 0, MEI_NFC_MAX_HCI_PAYLOAD,
+ 	hdr = skb_put(skb, NCI_DATA_HDR_SIZE);
+ 	hdr->conn_id = NCI_CORE_LC_CONNID_PROP_FW_DL;
 -- 
 2.30.2
 _______________________________________________
