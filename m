@@ -2,84 +2,84 @@ Return-Path: <linux-nfc-bounces@lists.01.org>
 X-Original-To: lists+linux-nfc@lfdr.de
 Delivered-To: lists+linux-nfc@lfdr.de
 Received: from ml01.01.org (ml01.01.org [198.145.21.10])
-	by mail.lfdr.de (Postfix) with ESMTPS id 99FCD40286B
-	for <lists+linux-nfc@lfdr.de>; Tue,  7 Sep 2021 14:18:50 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7C619402C8D
+	for <lists+linux-nfc@lfdr.de>; Tue,  7 Sep 2021 18:05:33 +0200 (CEST)
 Received: from ml01.vlan13.01.org (localhost [IPv6:::1])
-	by ml01.01.org (Postfix) with ESMTP id 1C335100EB835;
-	Tue,  7 Sep 2021 05:18:44 -0700 (PDT)
+	by ml01.01.org (Postfix) with ESMTP id BC391100EBB9F;
+	Tue,  7 Sep 2021 09:05:31 -0700 (PDT)
 Received-SPF: Pass (mailfrom) identity=mailfrom; client-ip=185.125.188.122; helo=smtp-relay-internal-0.canonical.com; envelope-from=krzysztof.kozlowski@canonical.com; receiver=<UNKNOWN> 
 Received: from smtp-relay-internal-0.canonical.com (smtp-relay-internal-0.canonical.com [185.125.188.122])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits))
 	(No client certificate requested)
-	by ml01.01.org (Postfix) with ESMTPS id B22BD100EB339
-	for <linux-nfc@lists.01.org>; Tue,  7 Sep 2021 05:18:41 -0700 (PDT)
-Received: from mail-wm1-f69.google.com (mail-wm1-f69.google.com [209.85.128.69])
+	by ml01.01.org (Postfix) with ESMTPS id D1746100EBB72
+	for <linux-nfc@lists.01.org>; Tue,  7 Sep 2021 09:05:29 -0700 (PDT)
+Received: from mail-wm1-f72.google.com (mail-wm1-f72.google.com [209.85.128.72])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by smtp-relay-internal-0.canonical.com (Postfix) with ESMTPS id A77A4407A7
-	for <linux-nfc@lists.01.org>; Tue,  7 Sep 2021 12:18:40 +0000 (UTC)
+	by smtp-relay-internal-0.canonical.com (Postfix) with ESMTPS id 1825840191
+	for <linux-nfc@lists.01.org>; Tue,  7 Sep 2021 16:05:28 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=canonical.com;
-	s=20210705; t=1631017120;
-	bh=IGi454bY1uM8p5QRZSKGDo9YXvHCL/LufQFtzz+SznM=;
-	h=From:To:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version;
-	b=BKgQmkFGobUvYp4GFsCJgQW/pS4+dZHWtVS2CgD0+/SI7oAylF4qKPMClkPE2XS9K
-	 KiZgUKdoGhiybUMClbmES0ASH/vud9PeZBpFkNjWyNt1E5o1XhJkp7Rpx++N8C3zW6
-	 Ho1loJ4DQ2kx8RN6QMF24nvlqOSbTPQAKgfAid2UyNRputTZHAaoQs+OO5q23+jOtk
-	 x6M9WFETDet2o8tUchLOwI9jxOtL8VKItU8ahicahuLk/ImV0VX/13u7+cHFhCxhbQ
-	 ZXqRG6pQpbHxYhkM5caBjQto37Wy/nRNpkqVFkWT+0GhNR+RcCyPMu8vz/LMs5nc6E
-	 2oXBE6+0V5CTw==
-Received: by mail-wm1-f69.google.com with SMTP id x10-20020a7bc20a000000b002f8cf761457so496558wmi.1
-        for <linux-nfc@lists.01.org>; Tue, 07 Sep 2021 05:18:40 -0700 (PDT)
+	s=20210705; t=1631030728;
+	bh=YP2/VludKZxfn7ZssReTEMfvwdfhQuuxVwCMuWtoV0M=;
+	h=Subject:To:References:From:Message-ID:Date:MIME-Version:
+	 In-Reply-To:Content-Type;
+	b=c71l0eoYBrO8abEIrs8JLOdXxaabnmWKIjlUsW4eXasrmVpuH5y9PMmz4uHMnfrHf
+	 +i9p5jrra7pr2X76DHjHWAk4/NanrpUUimyTICw8uovb2/+Bv3WKDyF7PooUqOkS4F
+	 QPpTnxur97AHw6qH5lYHO8HlHlnfn8j0tQAwKpIPqwf/iykR0o3D592S4FXO3I/dDB
+	 GOQITrjDugbAe7uzLbxYfH9D72D4yUAb90jdy+lMAUGFjkgY/mMi1nYtlkQ3iIOCdt
+	 3pTVyxMoR5wGKmGb+08dyV3ZpkCIn4Dox5H+kxwFM15ojzFOC5A7VOWgTty1/cmqk+
+	 Ql6yLwvHmxbog==
+Received: by mail-wm1-f72.google.com with SMTP id p29-20020a1c545d000000b002f88d28e1f1so3572183wmi.7
+        for <linux-nfc@lists.01.org>; Tue, 07 Sep 2021 09:05:28 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20161025;
-        h=x-gm-message-state:from:to:subject:date:message-id:in-reply-to
-         :references:mime-version:content-transfer-encoding;
-        bh=IGi454bY1uM8p5QRZSKGDo9YXvHCL/LufQFtzz+SznM=;
-        b=VZrNpR5yjOPSWOoaHXQiJ8LkxxBU7XCmJdjRenPM48CbTuyIsq1uQqT//DxS/kMaIu
-         4PMtQbKtTIBYUmJlE7Rv+WxYz2L0eAZ5V5M4fHq6TDSkJcACSaTrIUgzhQTMSYd5L8+U
-         fTI95pp2C7kBB6+1wOqbnbLwULY5h5u8w3Eh9MSg4AnK+1eZoUvIykavzv//KhtSHPSd
-         buEC4a/LcBLrsjW5k4cAawLLlxQlxkD0e7/OSDrbdaYejNZGM63XxoRFnA/FiRN9fgRz
-         xc7s/2aWlDicJDqvOXWEh1V6EgbPc5+78N8Gwt8HF5srXKEBCYb2D7/39FKkSWuusp7o
-         Ufzg==
-X-Gm-Message-State: AOAM532Zb9OEQzjKJIXKiQO18EE2JHvhONR5uYoxwLUCipEttektq4Fh
-	PkKNVxHQs3OmWdIvQ7rLW5X7W1iGjtYuqxYVPpA+DLCbmq22o9euGqLMjvinZI9rgOgs5xdZIvI
-	XVuSLvJSsTChZftA/O0y5RcTIvg3UifNzxQ==
-X-Received: by 2002:a05:600c:1d27:: with SMTP id l39mr3629439wms.146.1631017120415;
-        Tue, 07 Sep 2021 05:18:40 -0700 (PDT)
-X-Google-Smtp-Source: ABdhPJxzkQReT6hqXvnsRi4xVMvPv5mwLHDY/KqHilLqyCDbOJpRRpQ8tjRRU7brxn8w70vPDRKkmA==
-X-Received: by 2002:a05:600c:1d27:: with SMTP id l39mr3629425wms.146.1631017120289;
-        Tue, 07 Sep 2021 05:18:40 -0700 (PDT)
-Received: from kozik-lap.lan ([79.98.113.47])
-        by smtp.gmail.com with ESMTPSA id m3sm13525216wrg.45.2021.09.07.05.18.39
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 07 Sep 2021 05:18:39 -0700 (PDT)
-From: Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>
-To: Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>,
-	Krzysztof Opasiak <k.opasiak@samsung.com>,
-	Mark Greer <mgreer@animalcreek.com>,
-	"David S. Miller" <davem@davemloft.net>,
-	Jakub Kicinski <kuba@kernel.org>,
-	linux-nfc@lists.01.org,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-wireless@vger.kernel.org
-Date: Tue,  7 Sep 2021 14:18:16 +0200
-Message-Id: <20210907121816.37750-16-krzysztof.kozlowski@canonical.com>
-X-Mailer: git-send-email 2.30.2
-In-Reply-To: <20210907121816.37750-1-krzysztof.kozlowski@canonical.com>
+        h=x-gm-message-state:subject:to:references:from:message-id:date
+         :user-agent:mime-version:in-reply-to:content-language
+         :content-transfer-encoding;
+        bh=YP2/VludKZxfn7ZssReTEMfvwdfhQuuxVwCMuWtoV0M=;
+        b=tLyIsWNqnVYOz08sUnUk3rrceZGnsj5kp3Nk8IMNqYKvM9yZQ4c3O360BBB0dfni7w
+         fPbpEwxrGQd4FYT+fGDURmNizMI7VvzLYJdGy2JcOf0lwu6rAMMFTG2G7IlhDxtlwuuF
+         sZhNP79k3gufID25mJbv6tTY5INB27arZcbYOTTv5L0ToJJTkvyzBDTln74Jxr7Tx258
+         YYv6kSc6L6XyFPB9YlOIsGdH3ypvv2xstJjCe63ntRRJaiGCiwMCpioIbu2bcwXa4au1
+         w3LJXVY5VNagI+uCkzoEnHlvBrSPnfNQq0QE0/LKAo6WXSsiyrFf+XabZGZz38hS5UjO
+         P5Ng==
+X-Gm-Message-State: AOAM532poHif7L51etoeiMVKiPFA5H3OuTPcrGoOSs2vmggu7KoN7gMX
+	OG39lgU2GF66VEHSvCxCG0kpi0iwd5ennyDOieV0SyEg8Xlkt9dtZYEuhVb8IuBDXuIHvaLO6jk
+	Zl2u9oOzSStJVi8QJJ1TB2K0nsccNAAdvug==
+X-Received: by 2002:adf:e606:: with SMTP id p6mr19733174wrm.231.1631030727408;
+        Tue, 07 Sep 2021 09:05:27 -0700 (PDT)
+X-Google-Smtp-Source: ABdhPJx2vXes2sOGaOH/wZ20TblF6w1HjcLY8vGDnXm94khUXSoLOVYKf88pEQi2Y8AMLrFkz7eqTg==
+X-Received: by 2002:adf:e606:: with SMTP id p6mr19733161wrm.231.1631030727289;
+        Tue, 07 Sep 2021 09:05:27 -0700 (PDT)
+Received: from [192.168.3.211] ([79.98.113.63])
+        by smtp.gmail.com with ESMTPSA id u25sm2772784wmj.10.2021.09.07.09.05.26
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 07 Sep 2021 09:05:26 -0700 (PDT)
+To: Krzysztof Opasiak <k.opasiak@samsung.com>,
+ Mark Greer <mgreer@animalcreek.com>, "David S. Miller"
+ <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>,
+ linux-nfc@lists.01.org, netdev@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-wireless@vger.kernel.org
 References: <20210907121816.37750-1-krzysztof.kozlowski@canonical.com>
+ <20210907121816.37750-6-krzysztof.kozlowski@canonical.com>
+From: Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>
+Message-ID: <35626061-ff2e-cb01-21ff-87a6f776dc28@canonical.com>
+Date: Tue, 7 Sep 2021 18:05:25 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.13.0
 MIME-Version: 1.0
-Message-ID-Hash: Y5CBEKYCN7U3YCSS3HJSAKHT6H4UTOQN
-X-Message-ID-Hash: Y5CBEKYCN7U3YCSS3HJSAKHT6H4UTOQN
+In-Reply-To: <20210907121816.37750-6-krzysztof.kozlowski@canonical.com>
+Content-Language: en-US
+Message-ID-Hash: UIS7NXY5VPVRYCDMRAN457D2PSMKK3T4
+X-Message-ID-Hash: UIS7NXY5VPVRYCDMRAN457D2PSMKK3T4
 X-MailFrom: krzysztof.kozlowski@canonical.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency; loop; banned-address; member-moderation; nonmember-moderation; administrivia; implicit-dest; max-recipients; max-size; news-moderation; no-subject; suspicious-header
 X-Mailman-Version: 3.1.1
 Precedence: list
-Subject: [linux-nfc] [PATCH 15/15] nfc: mrvl: drop unneeded memory allocation fail messages
+Subject: [linux-nfc] Re: [PATCH 05/15] nfc: pn533: drop unneeded debug prints
 List-Id: NFC on Linux <linux-nfc.lists.01.org>
-Archived-At: <https://lists.01.org/hyperkitty/list/linux-nfc@lists.01.org/message/Y5CBEKYCN7U3YCSS3HJSAKHT6H4UTOQN/>
+Archived-At: <https://lists.01.org/hyperkitty/list/linux-nfc@lists.01.org/message/UIS7NXY5VPVRYCDMRAN457D2PSMKK3T4/>
 List-Archive: <https://lists.01.org/hyperkitty/list/linux-nfc@lists.01.org/>
 List-Help: <mailto:linux-nfc-request@lists.01.org?subject=help>
 List-Post: <mailto:linux-nfc@lists.01.org>
@@ -88,32 +88,32 @@ List-Unsubscribe: <mailto:linux-nfc-leave@lists.01.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-nci_skb_alloc() already prints an error message on memory allocation
-failure.
+On 07/09/2021 14:18, Krzysztof Kozlowski wrote:
+> ftrace is a preferred and standard way to debug entering and exiting
+> functions so drop useless debug prints.
+> 
+> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>
+> ---
+>  drivers/nfc/pn533/i2c.c   | 1 -
+>  drivers/nfc/pn533/pn533.c | 2 --
+>  2 files changed, 3 deletions(-)
+> 
+> diff --git a/drivers/nfc/pn533/i2c.c b/drivers/nfc/pn533/i2c.c
+> index e6bf8cfe3aa7..91d4a035eb63 100644
+> --- a/drivers/nfc/pn533/i2c.c
+> +++ b/drivers/nfc/pn533/i2c.c
+> @@ -138,7 +138,6 @@ static irqreturn_t pn533_i2c_irq_thread_fn(int irq, void *data)
+>  	}
+>  
+>  	client = phy->i2c_dev;
 
-Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>
----
- drivers/nfc/nfcmrvl/fw_dnld.c | 4 +---
- 1 file changed, 1 insertion(+), 3 deletions(-)
+This line should also be removed (reported by kbuild robot).
 
-diff --git a/drivers/nfc/nfcmrvl/fw_dnld.c b/drivers/nfc/nfcmrvl/fw_dnld.c
-index edac56b01fd1..e83f65596a88 100644
---- a/drivers/nfc/nfcmrvl/fw_dnld.c
-+++ b/drivers/nfc/nfcmrvl/fw_dnld.c
-@@ -76,10 +76,8 @@ static struct sk_buff *alloc_lc_skb(struct nfcmrvl_private *priv, uint8_t plen)
- 	struct nci_data_hdr *hdr;
- 
- 	skb = nci_skb_alloc(priv->ndev, (NCI_DATA_HDR_SIZE + plen), GFP_KERNEL);
--	if (!skb) {
--		pr_err("no memory for data\n");
-+	if (!skb)
- 		return NULL;
--	}
- 
- 	hdr = skb_put(skb, NCI_DATA_HDR_SIZE);
- 	hdr->conn_id = NCI_CORE_LC_CONNID_PROP_FW_DL;
--- 
-2.30.2
+I will send a v2.
+
+
+Best regards,
+Krzysztof
 _______________________________________________
 Linux-nfc mailing list -- linux-nfc@lists.01.org
 To unsubscribe send an email to linux-nfc-leave@lists.01.org
