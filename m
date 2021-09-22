@@ -1,78 +1,78 @@
 Return-Path: <linux-nfc-bounces@lists.01.org>
 X-Original-To: lists+linux-nfc@lfdr.de
 Delivered-To: lists+linux-nfc@lfdr.de
-Received: from ml01.01.org (ml01.01.org [198.145.21.10])
-	by mail.lfdr.de (Postfix) with ESMTPS id 89E09414DCE
-	for <lists+linux-nfc@lfdr.de>; Wed, 22 Sep 2021 18:12:10 +0200 (CEST)
+Received: from ml01.01.org (ml01.01.org [IPv6:2001:19d0:306:5::1])
+	by mail.lfdr.de (Postfix) with ESMTPS id 9396E414DCF
+	for <lists+linux-nfc@lfdr.de>; Wed, 22 Sep 2021 18:12:12 +0200 (CEST)
 Received: from ml01.vlan13.01.org (localhost [IPv6:::1])
-	by ml01.01.org (Postfix) with ESMTP id 6D9E3100EB84F;
-	Wed, 22 Sep 2021 09:12:08 -0700 (PDT)
+	by ml01.01.org (Postfix) with ESMTP id 79ACE100EB85C;
+	Wed, 22 Sep 2021 09:12:09 -0700 (PDT)
 Received-SPF: Pass (mailfrom) identity=mailfrom; client-ip=185.125.188.123; helo=smtp-relay-internal-1.canonical.com; envelope-from=krzysztof.kozlowski@canonical.com; receiver=<UNKNOWN> 
 Received: from smtp-relay-internal-1.canonical.com (smtp-relay-internal-1.canonical.com [185.125.188.123])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits))
 	(No client certificate requested)
-	by ml01.01.org (Postfix) with ESMTPS id 07D64100EBBC4
-	for <linux-nfc@lists.01.org>; Wed, 22 Sep 2021 09:12:06 -0700 (PDT)
+	by ml01.01.org (Postfix) with ESMTPS id B1B22100EBBC4
+	for <linux-nfc@lists.01.org>; Wed, 22 Sep 2021 09:12:07 -0700 (PDT)
 Received: from mail-ed1-f72.google.com (mail-ed1-f72.google.com [209.85.208.72])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by smtp-relay-internal-1.canonical.com (Postfix) with ESMTPS id 3A5EB3F4BC
-	for <linux-nfc@lists.01.org>; Wed, 22 Sep 2021 16:12:05 +0000 (UTC)
+	by smtp-relay-internal-1.canonical.com (Postfix) with ESMTPS id 97E5C3FE01
+	for <linux-nfc@lists.01.org>; Wed, 22 Sep 2021 16:12:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=canonical.com;
-	s=20210705; t=1632327125;
-	bh=B2j3ytjlhPWW8P09M8QKTsnYcwI+yrsB4wd4NjdG+Cc=;
+	s=20210705; t=1632327126;
+	bh=0iNXc2bs0QSw7A6Qrku0STtXf3Z2yyGtB67W2RqOHoI=;
 	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
 	 MIME-Version;
-	b=AGnugPyyDkSRlCM/IG8xb7JXHcSl/1k0fn/fMKzgHZU4NvEUcbkSXRDULcALOWlA1
-	 Kw2CyGo9Rz5SaWcDLRHycIt0ARhMq0R5x17c2G8VYWfccLL0qQjQywGhcUJD1zUf/e
-	 sc/BjFWYI515xyiMArpnDTAN5QYfpB9O3DClisr9ZPQoU3vxnHCJN+Tbads+dkokhx
-	 NF+W8qTUQiqpOAXfuyjSIwcQb6yLEd7nbWfbiZppl5tP20ocqJ8aqgCsEx9qwMdaIk
-	 SgfdPig/f2QgOtc5hqlLzD6TbFwHSzZpIP8Wae5Dc5xhmx9At+rxYCXv9ioCx9Ut4D
-	 pCif6My45XB6A==
-Received: by mail-ed1-f72.google.com with SMTP id h24-20020a50cdd8000000b003d8005fe2f8so3648820edj.6
-        for <linux-nfc@lists.01.org>; Wed, 22 Sep 2021 09:12:05 -0700 (PDT)
+	b=upkhUwQ1GaAjhbC5LF+rClPH2/98jntg7+hZ6Ll00uTpAFh3n5RANEffM6kX6+0Q/
+	 bOsc1Fv5WxannCIvhdnZmHGlamWw/4uo+OwP6gp2mlk+9wbGfFZSJBQP/rOfZc5P7E
+	 oNC3Twy1/25RvhpYenWUKGF4g+RXT+1cpvSWrmK9pSI6PvyQUK/dN2MF/5nJHg3s7C
+	 CnCinZVjBXZps+va5THhDmHNRI9XttTCxUGv4Hp2RWkLhwwt2DgCKaS1ESBUpi+p8i
+	 vtvfllei6WYoZn6xI4FDwxcdgNUR2WvsaoNtaPWlp0PVB3ccHja41b74OY8BVJk9Vo
+	 vhNjKi4QlHFbA==
+Received: by mail-ed1-f72.google.com with SMTP id h6-20020a50c386000000b003da01adc065so3631219edf.7
+        for <linux-nfc@lists.01.org>; Wed, 22 Sep 2021 09:12:06 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
         h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
          :references:mime-version:content-transfer-encoding;
-        bh=B2j3ytjlhPWW8P09M8QKTsnYcwI+yrsB4wd4NjdG+Cc=;
-        b=rwZChCpFTTjP5nvKy4aBh6VWWKCim9PzbkH2kTclQBclMTKvM50R76psTwScJEah4u
-         pWaF9VFSpUJzCBk0qPkobQMP5xccEMlvi9s73EN4ee5KsS9lng56LpauuRLIgNe2cY2E
-         5UWAZOkjJt/hH2zZ4X1bIbigI96NBTQaFXPSrvUIKtGp4Yzq7RCv//Fi8tWbVjmOlWxX
-         fbusB9NQUWwKyJJYZqZOQKk6S45yR1vMXGXk0kMtoW7jwWHGmR70l8zrNPH365T3yMSZ
-         xUV0NI7QsiDf0ojyv29Kazlvy7kWDP96rZMyhCAhAvmOnuppGHjGdYxe1PdZK9xDG0pt
-         VtJQ==
-X-Gm-Message-State: AOAM530cIub+wyMYg++aHvJsJWCC9j8WCAtlfCH9OpSI09Eh+D+kkOG/
-	FSDA7ou5UxH+YxlS7KmM6UiLFHpM1Yl5HDvxlPRw+wLXT1ULTW537Ur8DjISq+pN0We4F6jzTPH
-	O3OMA7qE2Q3SaoDNLYZZmDbnr4kbGu3HjFQ==
-X-Received: by 2002:a17:906:144e:: with SMTP id q14mr370981ejc.19.1632327124639;
-        Wed, 22 Sep 2021 09:12:04 -0700 (PDT)
-X-Google-Smtp-Source: ABdhPJy4gZrcnR+yS5YNdw4VN1wt5imSxHxaroxwDHqYfLU4ecim1DUkeLU9/xylz7zOPZjr+SB0Nw==
-X-Received: by 2002:a17:906:144e:: with SMTP id q14mr370962ejc.19.1632327124462;
-        Wed, 22 Sep 2021 09:12:04 -0700 (PDT)
+        bh=0iNXc2bs0QSw7A6Qrku0STtXf3Z2yyGtB67W2RqOHoI=;
+        b=qIEKBKGoIIM44aftrwtc8D4m2v3X6IQwD3SOxIxDb5rAiYnrfMhCvKOuKPmcA277E1
+         mMjNWwUO6vFzazYRsphT0QGy7/rISPlAWe54NJuh+czW+3q84/cmOmnwN+AT0c1lbJu/
+         HFuWVA1KXgj84wWyyeRr+vg1ZSzXNdtWkLGjbjZuF1gcckDuj/wzIpW1NpkRhyN2QRf3
+         nCluBM9m5S0ciptr7qtYJDPRDoeVMI8w5fxWoIO2p2urt4RS0ZtdozExNj+fCIlByHAz
+         yY/lCzpXoefaxatl0tV7Eq9WFAAyB65VCR+M9pvxritkxYdx/ts8GNSvKetJ3EBtPeBh
+         hvHg==
+X-Gm-Message-State: AOAM531pRtzB4Cz6Xo1tx6X70CWBRZxFpE7mhgO1OYdd1ylF0qNY9QEP
+	p+GzHvr+U2cqTUadUR2S7513pgLJxQTFJkLemTd6AkU8fG3s85f9h3FWCO1+mj0eUluzRfp+frN
+	xO+5cmpq5zJJO9o0amvb9Ecf7Hb4PWd1uOA==
+X-Received: by 2002:a17:906:7fc4:: with SMTP id r4mr390978ejs.75.1632327126097;
+        Wed, 22 Sep 2021 09:12:06 -0700 (PDT)
+X-Google-Smtp-Source: ABdhPJzadcEEr7Fi33Ki0BxOQ1KWYBIUcg0qNRq/Trn57ZWXVALqnEsNlayl6UGsDbmDzc/vXuEZBg==
+X-Received: by 2002:a17:906:7fc4:: with SMTP id r4mr390963ejs.75.1632327125956;
+        Wed, 22 Sep 2021 09:12:05 -0700 (PDT)
 Received: from localhost.localdomain (lk.84.20.244.219.dc.cable.static.lj-kabel.net. [84.20.244.219])
-        by smtp.gmail.com with ESMTPSA id b38sm1409122edf.46.2021.09.22.09.12.03
+        by smtp.gmail.com with ESMTPSA id b38sm1409122edf.46.2021.09.22.09.12.04
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 22 Sep 2021 09:12:03 -0700 (PDT)
+        Wed, 22 Sep 2021 09:12:05 -0700 (PDT)
 From: Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>
 To: linux-nfc@lists.01.org
-Date: Wed, 22 Sep 2021 18:11:07 +0200
-Message-Id: <20210922161113.142758-2-krzysztof.kozlowski@canonical.com>
+Date: Wed, 22 Sep 2021 18:11:08 +0200
+Message-Id: <20210922161113.142758-3-krzysztof.kozlowski@canonical.com>
 X-Mailer: git-send-email 2.30.2
 In-Reply-To: <20210922161113.142758-1-krzysztof.kozlowski@canonical.com>
 References: <20210922161113.142758-1-krzysztof.kozlowski@canonical.com>
 MIME-Version: 1.0
-Message-ID-Hash: WYJAS4SG252PKCS2WSCH5N3OTWDHEN4H
-X-Message-ID-Hash: WYJAS4SG252PKCS2WSCH5N3OTWDHEN4H
+Message-ID-Hash: 7AEITSOEZEFJ6TRLJNHTPOKZZHY2VYQ3
+X-Message-ID-Hash: 7AEITSOEZEFJ6TRLJNHTPOKZZHY2VYQ3
 X-MailFrom: krzysztof.kozlowski@canonical.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency; loop; banned-address; member-moderation; nonmember-moderation; administrivia; implicit-dest; max-recipients; max-size; news-moderation; no-subject; suspicious-header
 CC: Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>
 X-Mailman-Version: 3.1.1
 Precedence: list
-Subject: [linux-nfc] [neard][PATCH 2/8] build: replace deprecated AC_HELP_STRING
+Subject: [linux-nfc] [neard][PATCH 3/8] ci: switch to dnf on Fedora
 List-Id: NFC on Linux <linux-nfc.lists.01.org>
-Archived-At: <https://lists.01.org/hyperkitty/list/linux-nfc@lists.01.org/message/WYJAS4SG252PKCS2WSCH5N3OTWDHEN4H/>
+Archived-At: <https://lists.01.org/hyperkitty/list/linux-nfc@lists.01.org/message/7AEITSOEZEFJ6TRLJNHTPOKZZHY2VYQ3/>
 List-Archive: <https://lists.01.org/hyperkitty/list/linux-nfc@lists.01.org/>
 List-Help: <mailto:linux-nfc-request@lists.01.org?subject=help>
 List-Post: <mailto:linux-nfc@lists.01.org>
@@ -81,49 +81,35 @@ List-Unsubscribe: <mailto:linux-nfc-leave@lists.01.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-AC_HELP_STRING is deprecated in favor of AS_HELP_STRING at least since
-autoconf v2.60.  In autoconf v2.71 (used on current ArchLinux and Fedora
-Rawhide) this causes error:
-
-  configure.ac:112: warning: The macro `AC_HELP_STRING' is obsolete.
-  configure.ac:112: You should run autoupdate.
+dnf is the new package manager on Fedora.
 
 Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>
 ---
- configure.ac | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+ ci/fedora.sh | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/configure.ac b/configure.ac
-index a1f7bd8bf56a..2cf9a19e4fab 100644
---- a/configure.ac
-+++ b/configure.ac
-@@ -109,7 +109,7 @@ save_LIBS=$LIBS
- AC_CHECK_LIB(asan, _init)
- LIBS=$save_LIBS
+diff --git a/ci/fedora.sh b/ci/fedora.sh
+index c5a67d237e91..f054f7d296d4 100755
+--- a/ci/fedora.sh
++++ b/ci/fedora.sh
+@@ -15,7 +15,7 @@ case $CC in
+ 	;;
+ esac
  
--AC_ARG_ENABLE(asan, AC_HELP_STRING([--enable-asan],
-+AC_ARG_ENABLE(asan, AS_HELP_STRING([--enable-asan],
- 			[enable linking with address sanitizer]), [
- 	if (test "${enableval}" = "yes" &&
- 				test "${ac_cv_lib_asan__init}" = "yes" &&
-@@ -123,7 +123,7 @@ save_LIBS=$LIBS
- AC_CHECK_LIB(lsan, _init)
- LIBS=$save_LIBS
+-yum -y install \
++dnf -y install \
+ 	autoconf \
+ 	autoconf-archive \
+ 	automake \
+@@ -27,7 +27,7 @@ yum -y install \
+ 	$PKGS_CC
  
--AC_ARG_ENABLE(lsan, AC_HELP_STRING([--enable-lsan],
-+AC_ARG_ENABLE(lsan, AS_HELP_STRING([--enable-lsan],
- 			[enable linking with leak sanitizer]), [
- 	if (test "${enableval}" = "yes" &&
- 				test "${ac_cv_lib_lsan__init}" = "yes" &&
-@@ -137,7 +137,7 @@ save_LIBS=$LIBS
- AC_CHECK_LIB(ubsan, _init)
- LIBS=$save_LIBS
+ # Packages needed by CI
+-yum -y install \
++dnf -y install \
+ 	file
  
--AC_ARG_ENABLE(ubsan, AC_HELP_STRING([--enable-ubsan],
-+AC_ARG_ENABLE(ubsan, AS_HELP_STRING([--enable-ubsan],
- 			[enable linking with undefined behavior sanitizer]), [
- 	if (test "${enableval}" = "yes" &&
- 				test "${ac_cv_lib_ubsan__init}" = "yes" &&
+ echo "Install finished: $0"
 -- 
 2.30.2
 _______________________________________________
