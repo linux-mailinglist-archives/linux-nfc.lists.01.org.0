@@ -2,77 +2,77 @@ Return-Path: <linux-nfc-bounces@lists.01.org>
 X-Original-To: lists+linux-nfc@lfdr.de
 Delivered-To: lists+linux-nfc@lfdr.de
 Received: from ml01.01.org (ml01.01.org [198.145.21.10])
-	by mail.lfdr.de (Postfix) with ESMTPS id D5F8B414DD1
-	for <lists+linux-nfc@lfdr.de>; Wed, 22 Sep 2021 18:12:15 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 27706414DD2
+	for <lists+linux-nfc@lfdr.de>; Wed, 22 Sep 2021 18:12:17 +0200 (CEST)
 Received: from ml01.vlan13.01.org (localhost [IPv6:::1])
-	by ml01.01.org (Postfix) with ESMTP id 9B154100EB855;
-	Wed, 22 Sep 2021 09:12:13 -0700 (PDT)
-Received-SPF: Pass (mailfrom) identity=mailfrom; client-ip=185.125.188.122; helo=smtp-relay-internal-0.canonical.com; envelope-from=krzysztof.kozlowski@canonical.com; receiver=<UNKNOWN> 
-Received: from smtp-relay-internal-0.canonical.com (smtp-relay-internal-0.canonical.com [185.125.188.122])
+	by ml01.01.org (Postfix) with ESMTP id AB25D100EB329;
+	Wed, 22 Sep 2021 09:12:14 -0700 (PDT)
+Received-SPF: Pass (mailfrom) identity=mailfrom; client-ip=185.125.188.123; helo=smtp-relay-internal-1.canonical.com; envelope-from=krzysztof.kozlowski@canonical.com; receiver=<UNKNOWN> 
+Received: from smtp-relay-internal-1.canonical.com (smtp-relay-internal-1.canonical.com [185.125.188.123])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits))
 	(No client certificate requested)
-	by ml01.01.org (Postfix) with ESMTPS id 06A36100EB847
-	for <linux-nfc@lists.01.org>; Wed, 22 Sep 2021 09:12:11 -0700 (PDT)
-Received: from mail-ed1-f69.google.com (mail-ed1-f69.google.com [209.85.208.69])
+	by ml01.01.org (Postfix) with ESMTPS id 8A58C100EB85F
+	for <linux-nfc@lists.01.org>; Wed, 22 Sep 2021 09:12:12 -0700 (PDT)
+Received: from mail-ed1-f70.google.com (mail-ed1-f70.google.com [209.85.208.70])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by smtp-relay-internal-0.canonical.com (Postfix) with ESMTPS id AC66B3F22C
-	for <linux-nfc@lists.01.org>; Wed, 22 Sep 2021 16:12:09 +0000 (UTC)
+	by smtp-relay-internal-1.canonical.com (Postfix) with ESMTPS id 451B23F048
+	for <linux-nfc@lists.01.org>; Wed, 22 Sep 2021 16:12:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=canonical.com;
-	s=20210705; t=1632327129;
-	bh=/28fqyPjDfb3lojmcgFEBy/BwlXWTuV5+X9h8cYAlk4=;
+	s=20210705; t=1632327131;
+	bh=Et90PqM6ZW/NDOJc1KbIxD3o6i8Hjqte++10k2ov3cc=;
 	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
 	 MIME-Version;
-	b=ilcMbL30DMdWp7bOeIUDfhNGlfOakmmKGmgzF4DC0oOiZew2KcNlpqjXM6pGaK6PO
-	 rU2iP0mg0EVEtB4Gmc3MMMFgn7QJWy2abg8cFQ5KKdLmsg/pN8ixbTvlr1P9a6ygWc
-	 jaM86hDK6PRetZ6cfY++FMcZ1Nx1z6VrVp9pLoKvz03KJZ2jKrs3rWc41V3vrYR7IT
-	 /lvu/QhdLwf66GRlh4HGCnrK1LY7OE6HtuABoDK3DgoeKHYaMAQIa9wZgZMsm9wDjv
-	 Q4CrUbdTyiFuqO0vbIBbcJM9Q56b33S/PPeKsFBFWH9EehaL6ir/ShxS74bepzdZHu
-	 tpn1SjX+MNPPg==
-Received: by mail-ed1-f69.google.com with SMTP id m30-20020a50999e000000b003cdd7680c8cso3614324edb.11
-        for <linux-nfc@lists.01.org>; Wed, 22 Sep 2021 09:12:09 -0700 (PDT)
+	b=OPQ5HBFBKWQiStOQTu60vI5I/MFgbzofnMa3kdnX23ffAjmdzKW95HC2pnVo0aveh
+	 TYapfw/Un6Pu7NPvb736L3Nyb0m5zD/DCc/I4QOeotTjy0J7Wj5PHQcqoQNdB3KpoN
+	 xgfto+Rwtcv3hAJrGB9cSEg7lH5q7ai9SWaIz+IPpcpf0E930B/oM6xC3PD3Iph34Y
+	 tMHy1M0OAGE43MmXnkkNgnVmGxwyF4BYy0LccsF3dxJwKa0R/4hY8Ty8ehGhTYnvwz
+	 MxlLaWt+zpFVAscA1AcBpRHufc2FddtN8/ejcN/MkUKXrDpVj8tiSsfTOv0E/wjD1R
+	 yAFCVBMZJHYKQ==
+Received: by mail-ed1-f70.google.com with SMTP id 2-20020a508e02000000b003d871759f5dso3623625edw.10
+        for <linux-nfc@lists.01.org>; Wed, 22 Sep 2021 09:12:11 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
         h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
          :references:mime-version:content-transfer-encoding;
-        bh=/28fqyPjDfb3lojmcgFEBy/BwlXWTuV5+X9h8cYAlk4=;
-        b=39pztfqDyLqMfmm6/zDW5FIhDuOdPMMasaOaPVrQMnoZ95KXJ1qCjPjfR/NjO/DzAV
-         XLxvKjllh2NIceWQN+cxAmfG0SNbnY5r34oIf3P0c67hsrLBtnp2vCGiurX0rfMQEONm
-         JLkuXPH89Rmb2mc++18fqIxax25QCIpmWBuLQGZctnPGovonVKjTyzpmxZhZs+To0Osu
-         l9aSKhMkaw0d2DDbV7JfgyaI4+F9iXTWKl+175adG+ok/vif9MFyBOWRNt3XLie9QZsx
-         bdiRxrQG0AzDD3tSTrQzz5gXdbvtSm8YEuNZYVe/Q3DCRKr8NeGWX7ZGfX77yaPDQKY3
-         YL/g==
-X-Gm-Message-State: AOAM530l0QGomBinlLuRdZiVANVlvX9tfl8SDfs+24c2RZxFx5xIVUm+
-	lkzYRkzIxA/veJj0evLtC6VVZuR4FLp+eipYRnfc5ZpeLXTKwaoCjHy1zljEdzdOe+OK3ZYlFGt
-	WXKVAxFmhWycgHbXhbySY16Vf8fkkv+CIwA==
-X-Received: by 2002:aa7:cdd1:: with SMTP id h17mr38846edw.346.1632327128819;
-        Wed, 22 Sep 2021 09:12:08 -0700 (PDT)
-X-Google-Smtp-Source: ABdhPJyBY4MTd1PIQvEal77Kcy1i92JX8WW3t1tU6WZMzUSmbBSIK4QoIEMmQwEw654U6F/ZzsHzaw==
-X-Received: by 2002:aa7:cdd1:: with SMTP id h17mr38826edw.346.1632327128603;
-        Wed, 22 Sep 2021 09:12:08 -0700 (PDT)
+        bh=Et90PqM6ZW/NDOJc1KbIxD3o6i8Hjqte++10k2ov3cc=;
+        b=oY/3nKOMWKHKgaYZHTrMsuBd9sWjr/Az/h7vQpHaa83ifuPoY8xbQAXk5KJ5M5NXdP
+         YborO314qk0swC7x2EsWxnT5GjJTH5or05vnzfk7kK2YsOlvma/KA/M+Bh3Ff0mL0GeL
+         mdhpHRd1L+2+6wdBhB5XYJefyoqH6C1vrTelhCR2mRQMfytN6uuTZYxr0TDkcbKuzEAH
+         d098YL9foEuksfsfZXEemIDO83UM4SGOy6nFzSgmyueC4U6BeiMm7+CVsp6Vr2L/CF9S
+         Lgs5OKmw4KJvtOMKsapU5aZaSvkJ6CTZeotT94DIburpnMf7VUbnwxfe/cYDNWHDaR82
+         3rmg==
+X-Gm-Message-State: AOAM530gEZNuLupuAnw6d3Wdc6Ode+p7A2puIBvYNq/jty6OM/EtyZZs
+	sZQfmm6l0Ohm3pY4mqTTyoQ+RHL1KC3Z3om9gsKQrsBt553XouWG8YwToUtv11zHZN6+sMjdkEF
+	PvnzgX95Em8eN59ahLiVMRXsyakgEYIde5w==
+X-Received: by 2002:a17:906:c20d:: with SMTP id d13mr361170ejz.259.1632327130654;
+        Wed, 22 Sep 2021 09:12:10 -0700 (PDT)
+X-Google-Smtp-Source: ABdhPJxRs23/BNW1mYgFNTJqh+yHeE67vXLq9sS8jVHSsxBwdXv5GmSomuPoM5HxPc8eILhSXE4Uxw==
+X-Received: by 2002:a17:906:c20d:: with SMTP id d13mr361146ejz.259.1632327130434;
+        Wed, 22 Sep 2021 09:12:10 -0700 (PDT)
 Received: from localhost.localdomain (lk.84.20.244.219.dc.cable.static.lj-kabel.net. [84.20.244.219])
-        by smtp.gmail.com with ESMTPSA id b38sm1409122edf.46.2021.09.22.09.12.07
+        by smtp.gmail.com with ESMTPSA id b38sm1409122edf.46.2021.09.22.09.12.08
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 22 Sep 2021 09:12:08 -0700 (PDT)
+        Wed, 22 Sep 2021 09:12:09 -0700 (PDT)
 From: Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>
 To: linux-nfc@lists.01.org
-Date: Wed, 22 Sep 2021 18:11:10 +0200
-Message-Id: <20210922161113.142758-5-krzysztof.kozlowski@canonical.com>
+Date: Wed, 22 Sep 2021 18:11:11 +0200
+Message-Id: <20210922161113.142758-6-krzysztof.kozlowski@canonical.com>
 X-Mailer: git-send-email 2.30.2
 In-Reply-To: <20210922161113.142758-1-krzysztof.kozlowski@canonical.com>
 References: <20210922161113.142758-1-krzysztof.kozlowski@canonical.com>
 MIME-Version: 1.0
-Message-ID-Hash: ZY5EEMIROTFKF3OE7D46IHR7Q7TDPLBE
-X-Message-ID-Hash: ZY5EEMIROTFKF3OE7D46IHR7Q7TDPLBE
+Message-ID-Hash: ELS43E6PS3QPQ446RRTEIT3OZNSUTB2O
+X-Message-ID-Hash: ELS43E6PS3QPQ446RRTEIT3OZNSUTB2O
 X-MailFrom: krzysztof.kozlowski@canonical.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency; loop; banned-address; member-moderation; nonmember-moderation; administrivia; implicit-dest; max-recipients; max-size; news-moderation; no-subject; suspicious-header
 CC: Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>
 X-Mailman-Version: 3.1.1
 Precedence: list
-Subject: [linux-nfc] [neard][PATCH 5/8] ci: add ArchLinux container
+Subject: [linux-nfc] [neard][PATCH 6/8] ci: install pkg-config
 List-Id: NFC on Linux <linux-nfc.lists.01.org>
-Archived-At: <https://lists.01.org/hyperkitty/list/linux-nfc@lists.01.org/message/ZY5EEMIROTFKF3OE7D46IHR7Q7TDPLBE/>
+Archived-At: <https://lists.01.org/hyperkitty/list/linux-nfc@lists.01.org/message/ELS43E6PS3QPQ446RRTEIT3OZNSUTB2O/>
 List-Archive: <https://lists.01.org/hyperkitty/list/linux-nfc@lists.01.org/>
 List-Help: <mailto:linux-nfc-request@lists.01.org?subject=help>
 List-Post: <mailto:linux-nfc@lists.01.org>
@@ -81,63 +81,59 @@ List-Unsubscribe: <mailto:linux-nfc-leave@lists.01.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-Build in ArchLinux latest container.
+Some newer distros (e.g. Fedora 35) might not pull pkg-config and print
+confusing errors like:
+
+  configure.ac:61: error: possibly undefined macro: AC_MSG_ERROR
+  If this token and others are legitimate, please use m4_pattern_allow.
+  See the Autoconf documentation.
+  configure.ac:179: error: possibly undefined macro: AC_DEFINE
+
+Configure explicitly uses pkg-config so install it always.
 
 Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>
 ---
- .github/workflows/ci.yml |  1 +
- ci/archlinux.sh          | 30 ++++++++++++++++++++++++++++++
- 2 files changed, 31 insertions(+)
- create mode 100755 ci/archlinux.sh
+ HACKING      | 1 +
+ ci/alpine.sh | 1 +
+ ci/debian.sh | 1 +
+ 3 files changed, 3 insertions(+)
 
-diff --git a/.github/workflows/ci.yml b/.github/workflows/ci.yml
-index cc977670e380..734969325692 100644
---- a/.github/workflows/ci.yml
-+++ b/.github/workflows/ci.yml
-@@ -23,6 +23,7 @@ jobs:
-         compiler: [gcc, clang]
-         container:
-           - alpine:latest
-+          - archlinux:latest
-           - debian:testing
-           - debian:stable
-           # Fails on configure on GCC and clang (process restrictions?)
-diff --git a/ci/archlinux.sh b/ci/archlinux.sh
-new file mode 100755
-index 000000000000..b08069ad2589
---- /dev/null
-+++ b/ci/archlinux.sh
-@@ -0,0 +1,30 @@
-+#!/bin/sh
-+# SPDX-License-Identifier: GPL-2.0
-+#
-+# Copyright (c) 2021 Canonical Ltd.
-+# Author: Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>
-+#                             <krzk@kernel.org>
-+#
-+
-+set -ex
-+
-+PKGS_CC="gcc"
-+case $CC in
-+	clang*)
-+		PKGS_CC="clang"
-+	;;
-+esac
-+
-+pacman -Sy --noconfirm \
-+	autoconf \
-+	autoconf-archive \
-+	automake \
-+	dbus \
-+	glib2 \
-+	libnl \
-+	libtool \
-+	make \
+diff --git a/HACKING b/HACKING
+index 40bde2fb3c8b..db75f0d11a17 100644
+--- a/HACKING
++++ b/HACKING
+@@ -16,6 +16,7 @@ Required packages and tools:
+   libnl-3
+   libnl-genl-3
+   make
++  pkg-config
+ 
+ See also installation scripts for  Continuous Integration in ci/ directory.
+ 
+diff --git a/ci/alpine.sh b/ci/alpine.sh
+index 56449dd7c969..bf87068228f3 100755
+--- a/ci/alpine.sh
++++ b/ci/alpine.sh
+@@ -33,6 +33,7 @@ apk add \
+ 	libtool \
+ 	make \
+ 	musl-dev \
++	pkgconfig \
+ 	$PKGS_CC
+ 
+ # Packages needed by CI
+diff --git a/ci/debian.sh b/ci/debian.sh
+index 962e554304ee..adb683eadf81 100755
+--- a/ci/debian.sh
++++ b/ci/debian.sh
+@@ -36,6 +36,7 @@ apt install -y --no-install-recommends \
+ 	libnl-genl-3-dev \
+ 	libtool \
+ 	make \
 +	pkg-config \
-+	$PKGS_CC
-+
-+echo "Install finished: $0"
+ 	$PKGS_CC
+ 
+ echo "Install finished: $0"
 -- 
 2.30.2
 _______________________________________________
