@@ -2,82 +2,79 @@ Return-Path: <linux-nfc-bounces@lists.01.org>
 X-Original-To: lists+linux-nfc@lfdr.de
 Delivered-To: lists+linux-nfc@lfdr.de
 Received: from ml01.01.org (ml01.01.org [198.145.21.10])
-	by mail.lfdr.de (Postfix) with ESMTPS id 716CB409A2F
-	for <lists+linux-nfc@lfdr.de>; Mon, 13 Sep 2021 18:58:05 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 51C6441488C
+	for <lists+linux-nfc@lfdr.de>; Wed, 22 Sep 2021 14:13:17 +0200 (CEST)
 Received: from ml01.vlan13.01.org (localhost [IPv6:::1])
-	by ml01.01.org (Postfix) with ESMTP id E8856100EB831;
-	Mon, 13 Sep 2021 09:58:03 -0700 (PDT)
-Received-SPF: Pass (mailfrom) identity=mailfrom; client-ip=66.111.4.29; helo=out5-smtp.messagingengine.com; envelope-from=mgreer@animalcreek.com; receiver=<UNKNOWN> 
-Received: from out5-smtp.messagingengine.com (out5-smtp.messagingengine.com [66.111.4.29])
+	by ml01.01.org (Postfix) with ESMTP id 1EBA2100EB83B;
+	Wed, 22 Sep 2021 05:13:15 -0700 (PDT)
+Received-SPF: Pass (mailfrom) identity=mailfrom; client-ip=185.125.188.123; helo=smtp-relay-internal-1.canonical.com; envelope-from=krzysztof.kozlowski@canonical.com; receiver=<UNKNOWN> 
+Received: from smtp-relay-internal-1.canonical.com (smtp-relay-internal-1.canonical.com [185.125.188.123])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits))
 	(No client certificate requested)
-	by ml01.01.org (Postfix) with ESMTPS id 7CD7A100EB82B
-	for <linux-nfc@lists.01.org>; Mon, 13 Sep 2021 09:58:01 -0700 (PDT)
-Received: from compute2.internal (compute2.nyi.internal [10.202.2.42])
-	by mailout.nyi.internal (Postfix) with ESMTP id 7158D5C016A;
-	Mon, 13 Sep 2021 12:58:00 -0400 (EDT)
-Received: from mailfrontend1 ([10.202.2.162])
-  by compute2.internal (MEProxy); Mon, 13 Sep 2021 12:58:00 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=animalcreek.com;
-	 h=date:from:to:cc:subject:message-id:references:mime-version
-	:content-type:in-reply-to; s=fm3; bh=/YX5Udt6vbjGSgSU1tjpoD4Md1W
-	98inn3an5jk9WL1U=; b=u1c7uP9SPx6sFGOlB/+nkW/0sGKfMLaHiTpv/V7LELi
-	ens5F1SgPWJqHS8Md41mkuxMGaEmSkHWt0yf+9TSkZE0IgQWYwVKvJreuDPrvZH/
-	c4p/QFwCxkJbwW2qjikySgBThAw8gpIX60U6mBhhucLeXkdIccDkW68fBLBz6G/1
-	RYB/SBQ/WsGBfyyyV8NuBCQcwWnJoH6p138BRjjHgzB0C2qfAGtMn4axmCSsAVd/
-	yXsF/3CYrjvG5FPmvTcwWik56FA/FRbIWkDS/Myale83xcQAzQEWbBNZIDeMYXQp
-	HRpo9U+xRoK875YhR0F3jVJa3MBMhEJ/lxE8LIgRwJw==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to:x-me-proxy
-	:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; bh=/YX5Ud
-	t6vbjGSgSU1tjpoD4Md1W98inn3an5jk9WL1U=; b=V7ry8qo/HLWyAagg+DF6QW
-	XrqsxPfmZHPhyAWQ8LdxrwK73BnRSTodSvAQet0mbUrfRecGzl1BWwN2hzPEE/rA
-	cvBoumIccmSUMWzcPwqXC3fZXPHIHPPg1zNMPwOGiTR5aN+lZNz6Yw6evUxFcx6R
-	oRWd1HSZtfQ+2LZGWTuy9GMG0w6GzWWjBO5zHOK31fuUQzCBR44ExIXIryUrOpu9
-	/tC5f6ARSMjvQaH74zCXP/kmh0nSGotj6okjlYdMAM9LD/ruf7n6oAB/AjsTehc7
-	8DTaLQaOrM3Tq5ruO5WFRzhs3o2+I/4iCALVG4lI7u1xvNkdlCuoqEKVWpXO9I6Q
-	==
-X-ME-Sender: <xms:FoM_YZWcwZT3Tfltlz7UmYcbmEMk2Mvm7VVwBbgIYZnSp9l2i-DYvw>
-    <xme:FoM_YZmlbyDSufF9TGroWQxa_i0y40lQtvu0DQTQ2ZQLRQOoHRRBdqf4tx-ZSNj90
-    HpSGGIw1cnLuQVgxQ>
-X-ME-Received: <xmr:FoM_YVZQvWysZfXDBhV_MQGByhwWmuTmKWzZRWet_SaPrN5fOYqSxFXHdufCVz1R7hQvF8qgSaAQdqPm_TeGQTSiiSktFYjBaAtet-I>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvtddrudegjedguddtgecutefuodetggdotefrod
-    ftvfcurfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfgh
-    necuuegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmd
-    enucfjughrpeffhffvuffkfhggtggujghosehttdertddttddvnecuhfhrohhmpeforghr
-    khcuifhrvggvrhcuoehmghhrvggvrhesrghnihhmrghltghrvggvkhdrtghomheqnecugg
-    ftrfgrthhtvghrnhepieeugfdutdefiedtvdfftedufedvjeehgfevveefudfgjeffgeei
-    teetjedufffhnecuvehluhhsthgvrhfuihiivgeptdenucfrrghrrghmpehmrghilhhfrh
-    homhepmhhgrhgvvghrsegrnhhimhgrlhgtrhgvvghkrdgtohhm
-X-ME-Proxy: <xmx:FoM_YcXk80oBL9lH3Wrx2Rx_zIs0eTxhtaJTGGwPz9GyRUd-TNpr2g>
-    <xmx:FoM_YTkqQQGWf06rahVdEFa6kkDqoj0QKV4yNRJn_ioERDbaRYZOWw>
-    <xmx:FoM_YZfMIPADBfBPhJ_HOXz0WsULCVEyoUnwcrrRuUn2huCOdnGlrA>
-    <xmx:GIM_YRXIYXcEckZQibekN4gcwbGUiB8P9Pe9HV-fFpOvuQV77VOevA>
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
- 13 Sep 2021 12:57:58 -0400 (EDT)
-Received: by blue.animalcreek.com (Postfix, from userid 1000)
-	id EB1C2136014F; Mon, 13 Sep 2021 09:57:57 -0700 (MST)
-Date: Mon, 13 Sep 2021 09:57:57 -0700
-From: Mark Greer <mgreer@animalcreek.com>
-To: Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>
-Message-ID: <20210913165757.GA1309751@animalcreek.com>
-References: <20210913132035.242870-1-krzysztof.kozlowski@canonical.com>
- <20210913132035.242870-13-krzysztof.kozlowski@canonical.com>
+	by ml01.01.org (Postfix) with ESMTPS id 7A538100EBBCE
+	for <linux-nfc@lists.01.org>; Wed, 22 Sep 2021 05:13:12 -0700 (PDT)
+Received: from mail-wr1-f70.google.com (mail-wr1-f70.google.com [209.85.221.70])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-relay-internal-1.canonical.com (Postfix) with ESMTPS id 39A673F4BC
+	for <linux-nfc@lists.01.org>; Wed, 22 Sep 2021 12:13:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=canonical.com;
+	s=20210705; t=1632312789;
+	bh=hP2w8Q1bmRd7QsbJSWuw/qEx96Jo8lROQWYodGYqF1k=;
+	h=To:Cc:From:Subject:Message-ID:Date:MIME-Version:Content-Type;
+	b=qluV3r/7/EaNV5Yb/Re6wvjqVdMCjzZA9he+7erkmkxiVLUZdQ3UNBo8HZDHXiQsM
+	 mcM7FCxKI+01+fgUYLuWiMJDDIrpwALrw0t4Tgnj5V0lRMeIe9LJYOzYfDmU4pd275
+	 SwqMetA6rao+Gd9v2JFdl/WGH40jvDaUJ6wKPMh9Zx0LPB7cjlSg7gEHngIaadqzVS
+	 k5WygabJa5Fj1ZVN5dGVf3x4iskkwlLjDJq7evP9Q9VfkJ2KgxQv8IMkYIbhrzN9U+
+	 y9xbflMRnMgbYdtCEH+GaHeYkMMjm1dP9Y/p6bCZDTy26Yh/XgI50RRGDDhcSUF9JY
+	 ppBoa8aVX78lg==
+Received: by mail-wr1-f70.google.com with SMTP id j16-20020adfa550000000b0016012acc443so1956971wrb.14
+        for <linux-nfc@lists.01.org>; Wed, 22 Sep 2021 05:13:09 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20210112;
+        h=x-gm-message-state:to:cc:from:subject:message-id:date:user-agent
+         :mime-version:content-language:content-transfer-encoding;
+        bh=hP2w8Q1bmRd7QsbJSWuw/qEx96Jo8lROQWYodGYqF1k=;
+        b=1yDtPfsXHcIWC5JzyGVr0gRaVEfKK1wIZvAVjfPbdMoPGVWGyGjQsZILNdrvXA3Pa9
+         iJlIQBz8AkC1xjjm+mIemI3zG5INMbzHFaS5tdQ0MwxMn8koojfZn8qWXtjouxhx7i2l
+         G1DS1yV51oa6DedTEW9HrYSg0akdpYqbbg3hbxFe/nBr4cJ6KqHdCeIWlZpq8eXVNwu3
+         pflVyPAELWUsHtbKBTPhBmelN9sln+4lG3j4b2xeDc/mgeXZrEyKBDrizauvuXhppZch
+         Od/YcdZuHJ+mXqlkNKsZP4byQTlzZwyh0trUB97CWL2c6+wz7OrWjRKSyHJrNIkxSM30
+         sRGQ==
+X-Gm-Message-State: AOAM5338tbgIcfA5ulP+yNpdSuJj5FsSGMJGxOP+7+0/yqjA7Dbi5wa2
+	CxWFcKUCT8TRKwXl4JgjhrmSZbkJ4erwEXQmoyz3qNMFS10G54qGCuliZzMlGjWmkoiT2KljHWA
+	52H70l+DnGMzcJGkNLpyLo1/t0n/BrCEhiw==
+X-Received: by 2002:a7b:ce06:: with SMTP id m6mr10228308wmc.85.1632312788942;
+        Wed, 22 Sep 2021 05:13:08 -0700 (PDT)
+X-Google-Smtp-Source: ABdhPJy6RcbWQVWI9dXldtPewpPa4PrqTW+ts4ENjpUypUVVACFIqnLduFSWsT10CZrGiuDO42igJw==
+X-Received: by 2002:a7b:ce06:: with SMTP id m6mr10228285wmc.85.1632312788799;
+        Wed, 22 Sep 2021 05:13:08 -0700 (PDT)
+Received: from [192.168.0.134] (lk.84.20.244.219.dc.cable.static.lj-kabel.net. [84.20.244.219])
+        by smtp.gmail.com with ESMTPSA id b188sm1890703wmd.39.2021.09.22.05.13.07
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 22 Sep 2021 05:13:08 -0700 (PDT)
+To: linux-nfc@lists.01.org,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ Networking <netdev@vger.kernel.org>, aur-general@lists.archlinux.org,
+ devel@lists.fedoraproject.org, packaging@lists.opensuse.org
+From: Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>
+Message-ID: <f3701543-8ee0-fefa-c57d-590832a1f951@canonical.com>
+Date: Wed, 22 Sep 2021 14:13:06 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.13.0
 MIME-Version: 1.0
-Content-Disposition: inline
-In-Reply-To: <20210913132035.242870-13-krzysztof.kozlowski@canonical.com>
-Organization: Animal Creek Technologies, Inc.
-Message-ID-Hash: GZVHJVK6AH34QTP7524JSKT2MKOEN2SE
-X-Message-ID-Hash: GZVHJVK6AH34QTP7524JSKT2MKOEN2SE
-X-MailFrom: mgreer@animalcreek.com
+Content-Language: en-US
+Message-ID-Hash: J3AQP4LFAKAKV26TCNEXVPPFLO4BP7LI
+X-Message-ID-Hash: J3AQP4LFAKAKV26TCNEXVPPFLO4BP7LI
+X-MailFrom: krzysztof.kozlowski@canonical.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency; loop; banned-address; member-moderation; nonmember-moderation; administrivia; implicit-dest; max-recipients; max-size; news-moderation; no-subject; suspicious-header
-CC: "David S. Miller" <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>, linux-nfc@lists.01.org, netdev@vger.kernel.org, linux-kernel@vger.kernel.org, linux-wireless@vger.kernel.org
+CC: Krzysztof Kozlowski <krzk@kernel.org>, Cody P Schafer <dev@codyps.com>, Dave Olsthoorn <daveo@fedoraproject.org>, Dirk Mueller <dmueller@suse.com>
 X-Mailman-Version: 3.1.1
 Precedence: list
-Subject: [linux-nfc] Re: [PATCH v2 12/15] nfc: trf7970a: drop unneeded debug prints
+Subject: [linux-nfc] [neard] neard release v0.17
 List-Id: NFC on Linux <linux-nfc.lists.01.org>
-Archived-At: <https://lists.01.org/hyperkitty/list/linux-nfc@lists.01.org/message/GZVHJVK6AH34QTP7524JSKT2MKOEN2SE/>
+Archived-At: <https://lists.01.org/hyperkitty/list/linux-nfc@lists.01.org/message/J3AQP4LFAKAKV26TCNEXVPPFLO4BP7LI/>
 List-Archive: <https://lists.01.org/hyperkitty/list/linux-nfc@lists.01.org/>
 List-Help: <mailto:linux-nfc-request@lists.01.org?subject=help>
 List-Post: <mailto:linux-nfc@lists.01.org>
@@ -86,59 +83,38 @@ List-Unsubscribe: <mailto:linux-nfc-leave@lists.01.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-On Mon, Sep 13, 2021 at 03:20:32PM +0200, Krzysztof Kozlowski wrote:
-> ftrace is a preferred and standard way to debug entering and exiting
-> functions so drop useless debug prints.
-> 
-> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>
-> ---
->  drivers/nfc/trf7970a.c | 8 --------
->  1 file changed, 8 deletions(-)
-> 
-> diff --git a/drivers/nfc/trf7970a.c b/drivers/nfc/trf7970a.c
-> index 8890fcd59c39..29ca9c328df2 100644
-> --- a/drivers/nfc/trf7970a.c
-> +++ b/drivers/nfc/trf7970a.c
-> @@ -2170,8 +2170,6 @@ static int trf7970a_suspend(struct device *dev)
->  	struct spi_device *spi = to_spi_device(dev);
->  	struct trf7970a *trf = spi_get_drvdata(spi);
->  
-> -	dev_dbg(dev, "Suspend\n");
-> -
->  	mutex_lock(&trf->lock);
->  
->  	trf7970a_shutdown(trf);
-> @@ -2187,8 +2185,6 @@ static int trf7970a_resume(struct device *dev)
->  	struct trf7970a *trf = spi_get_drvdata(spi);
->  	int ret;
->  
-> -	dev_dbg(dev, "Resume\n");
-> -
->  	mutex_lock(&trf->lock);
->  
->  	ret = trf7970a_startup(trf);
-> @@ -2206,8 +2202,6 @@ static int trf7970a_pm_runtime_suspend(struct device *dev)
->  	struct trf7970a *trf = spi_get_drvdata(spi);
->  	int ret;
->  
-> -	dev_dbg(dev, "Runtime suspend\n");
-> -
->  	mutex_lock(&trf->lock);
->  
->  	ret = trf7970a_power_down(trf);
-> @@ -2223,8 +2217,6 @@ static int trf7970a_pm_runtime_resume(struct device *dev)
->  	struct trf7970a *trf = spi_get_drvdata(spi);
->  	int ret;
->  
-> -	dev_dbg(dev, "Runtime resume\n");
-> -
->  	ret = trf7970a_power_up(trf);
->  	if (!ret)
->  		pm_runtime_mark_last_busy(dev);
-> -- 
-> 2.30.2
+Hi all,
 
-Acked-by: Mark Greer <mgreer@animalcreek.com>
+v0.17
+=====
+After quiet period, the neard user-space counterpart of Linux kernel NFC
+stack, gets a new release - v0.17.
+
+The release includes several fixes (including potential security fixes)
+and improvements, plus few new features.
+
+Source code release:
+https://git.kernel.org/pub/scm/network/nfc/neard.git/tag/?h=v0.17
+https://git.kernel.org/pub/scm/network/nfc/neard.git/snapshot/neard-0.17.tar.gz
+
+Few notes on new names and maintainers
+======================================
+The neard package was previously maintained Samuel Ortiz and Marcel
+Holtmann, which were also main contributors. Last years Mark Greer was
+looking after neard. I joined in 2021, both as a maintainer of Linux
+kernel NFC stack and the neard.
+
+The project development still happens via linux-nfc mailing list but
+also got a second home on GitHub:
+https://github.com/linux-nfc/neard
+
+Under GitHub I set up also Continuous Integration:
+https://github.com/linux-nfc/neard/actions
+
+Feel free join and hack via both channels.
+
+Best regards,
+Krzysztof
 _______________________________________________
 Linux-nfc mailing list -- linux-nfc@lists.01.org
 To unsubscribe send an email to linux-nfc-leave@lists.01.org
