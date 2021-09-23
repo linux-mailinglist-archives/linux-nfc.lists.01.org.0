@@ -2,77 +2,80 @@ Return-Path: <linux-nfc-bounces@lists.01.org>
 X-Original-To: lists+linux-nfc@lfdr.de
 Delivered-To: lists+linux-nfc@lfdr.de
 Received: from ml01.01.org (ml01.01.org [198.145.21.10])
-	by mail.lfdr.de (Postfix) with ESMTPS id E0A8E414DD4
-	for <lists+linux-nfc@lfdr.de>; Wed, 22 Sep 2021 18:12:21 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id DD9BE416289
+	for <lists+linux-nfc@lfdr.de>; Thu, 23 Sep 2021 17:54:50 +0200 (CEST)
 Received: from ml01.vlan13.01.org (localhost [IPv6:::1])
-	by ml01.01.org (Postfix) with ESMTP id CF142100EB323;
-	Wed, 22 Sep 2021 09:12:17 -0700 (PDT)
+	by ml01.01.org (Postfix) with ESMTP id 53277100EB34A;
+	Thu, 23 Sep 2021 08:54:48 -0700 (PDT)
 Received-SPF: Pass (mailfrom) identity=mailfrom; client-ip=185.125.188.123; helo=smtp-relay-internal-1.canonical.com; envelope-from=krzysztof.kozlowski@canonical.com; receiver=<UNKNOWN> 
 Received: from smtp-relay-internal-1.canonical.com (smtp-relay-internal-1.canonical.com [185.125.188.123])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits))
 	(No client certificate requested)
-	by ml01.01.org (Postfix) with ESMTPS id 9F6A3100EB85D
-	for <linux-nfc@lists.01.org>; Wed, 22 Sep 2021 09:12:15 -0700 (PDT)
-Received: from mail-ed1-f72.google.com (mail-ed1-f72.google.com [209.85.208.72])
+	by ml01.01.org (Postfix) with ESMTPS id E5A9C100EBBA2
+	for <linux-nfc@lists.01.org>; Thu, 23 Sep 2021 08:54:45 -0700 (PDT)
+Received: from mail-wr1-f72.google.com (mail-wr1-f72.google.com [209.85.221.72])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by smtp-relay-internal-1.canonical.com (Postfix) with ESMTPS id 7E69D3F048
-	for <linux-nfc@lists.01.org>; Wed, 22 Sep 2021 16:12:14 +0000 (UTC)
+	by smtp-relay-internal-1.canonical.com (Postfix) with ESMTPS id C4F8940264
+	for <linux-nfc@lists.01.org>; Thu, 23 Sep 2021 15:54:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=canonical.com;
-	s=20210705; t=1632327134;
-	bh=2nb4v17Bd6whMVbBlBoxLVJjofeb6VLtV35I2WZ+aGo=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version;
-	b=gIsZA0pT+qTL+AOoX/1GwnKQoLfHFdfe3vpP4I4aagbzDpaDvmIxacbYVB58A7jP4
-	 fxt+KOpqpRzrnw8mjb4j+ANfgSCXIEtlK4NMiOU6u+EBV4gDgDMxCc+MkauAAyvPmX
-	 RhckZqKvb7XzulRuyxO1lYlYC+DObAZm+jeHrFujy5NB9xWctv5Qy03QZ10Ev1a0p9
-	 iq0yGS9T9CkSsQ8N5L3x+Fu7S7qdALFjyyhJsIgj22/LiusqXz3MNjCQuhifgyLIEB
-	 cYc5sik485f1+hxt8/KRVHkuih77ITTqL3RGETeaxHrmdBglvOx3+frX5t3xvpS+9B
-	 cWT4m+u4ICVfw==
-Received: by mail-ed1-f72.google.com with SMTP id o23-20020a509b17000000b003d739e2931dso3653517edi.4
-        for <linux-nfc@lists.01.org>; Wed, 22 Sep 2021 09:12:14 -0700 (PDT)
+	s=20210705; t=1632412483;
+	bh=RpNIIqsG4ktzWwJMj9n7TezeCNMWkufILMGcYlWLh8M=;
+	h=Subject:To:Cc:References:From:Message-ID:Date:MIME-Version:
+	 In-Reply-To:Content-Type;
+	b=ozSD73NCcjIBZ3w75Y64MuaY3/FvMFfwMg6g/LOfi2yHyMtu8dascZiD+zV2M5vNl
+	 kEDewuLhiqg1k061/ZB0I0TxpDAUrfIwTNBcAJ+5KE0VEt1c1Oq/Ex6RiyjSi5wLSz
+	 kyJKpQpsaBIoAnO2j1+eXSb+tUYwCaaD7MyEbC19nuPsQHvHe2rSHA0sDIer38hzDb
+	 TFwPclQeepNzPUweul4fHO7lif1znVIuHrtt4CdR5ojxzjmYmG2GHUUADgLH1hhW4B
+	 q485MvQ6kJzE3u090dA4AxfY3vYUqKbCtd7XKWWAlcSGEx5n6ssKgpil5AGPpglzBt
+	 LSL4Af47vcJ+g==
+Received: by mail-wr1-f72.google.com with SMTP id r15-20020adfce8f000000b0015df1098ccbso5563886wrn.4
+        for <linux-nfc@lists.01.org>; Thu, 23 Sep 2021 08:54:43 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
-        h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
-         :references:mime-version:content-transfer-encoding;
-        bh=2nb4v17Bd6whMVbBlBoxLVJjofeb6VLtV35I2WZ+aGo=;
-        b=qcv9yDneOj6wloE0XisShkWHNXocVCploL5ou2vFq2lgpzlzBzJFYgjbXycKlg7KPM
-         V/oCXCkOiO57URhanUvWbiV3omoG9u3XpR5Vrdeki7h2WSabIm53cXmOGzWy+TSMj3CV
-         BU5fykNb0sJLeR4AK4zpodBbVi/eUiUbRtmW17kPvwURLKw9EMQt7Mxloj9IaEEAvFzt
-         K0loxYoaIVlqXILkn5cpUp3dodDpPJQeuRtMoGBgHtA1r2fW7rBXsSZ+qg/59EvNRPLy
-         qy2JCLg/ujteDCxwHWp/FzFoFMXK8iyQ7xJWYAZFOE6zKI8EaU0rLQG85MtEvt0LmGd6
-         5huA==
-X-Gm-Message-State: AOAM530QtCMf74qOrtH1JLwE7jrmtOdulG3sHGIba/ufiIW2VqoTpebD
-	zIvg79bHl6bxVIqiRAgPBim4FAUWh5hcFs5e7+0vT2i1JAR6wqq3ej4IV7Ngk/vlOHgtG1aZD1i
-	Z7IduO0S268W0ZG6ygs3m1bc4Ao1V0N0dOw==
-X-Received: by 2002:a17:906:2ed1:: with SMTP id s17mr374055eji.261.1632327133285;
-        Wed, 22 Sep 2021 09:12:13 -0700 (PDT)
-X-Google-Smtp-Source: ABdhPJw+x1YPI5l7vrGukoz/w35QZXmHUUIsWL3JYWMU2thI7AcUkHFmqf1T+BxYgOYVakxU8YInTA==
-X-Received: by 2002:a17:906:2ed1:: with SMTP id s17mr374036eji.261.1632327133096;
-        Wed, 22 Sep 2021 09:12:13 -0700 (PDT)
-Received: from localhost.localdomain (lk.84.20.244.219.dc.cable.static.lj-kabel.net. [84.20.244.219])
-        by smtp.gmail.com with ESMTPSA id b38sm1409122edf.46.2021.09.22.09.12.11
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 22 Sep 2021 09:12:12 -0700 (PDT)
-From: Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>
+        h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+         :user-agent:mime-version:in-reply-to:content-language
+         :content-transfer-encoding;
+        bh=RpNIIqsG4ktzWwJMj9n7TezeCNMWkufILMGcYlWLh8M=;
+        b=Y7sPt7LZGb3/08oMlOVPjpwlDaDLfeTHEpSsJVKHKVJJL90PxocogAvQXtzR3C/QFj
+         l7sBSzDmlbd4r9fLqmEaAQtFrO753pk6OxRFqvHErPhtigBnDXK/874c4+WiBxAl8LQC
+         M/Oxnm+tB9mn5O3kBRQaGHFG8LIrxopHxwFKSGF7OorQJgO/yA7wb1xL6RHsORj9CdX2
+         Z7r9odki0fQy46Z2VqlzIBKAkZm0/GWML0Zz/I5EeWWihGe59uQRC9x5Aeuo2ME9vfp2
+         p+D8zZvrYYeGFPzWdr3p53/5p+SmBn+9VSAG3+jO3hlfjOgwaDxz2LeePmrhJPaED94o
+         JIMQ==
+X-Gm-Message-State: AOAM532xgNP8gTk8reJJcW3egWmDeXhuGBh96gqITeoGnXmC5AumcKf7
+	AK355p3mFu75FAbB/OrnTasmK4nfEcdMJnjcsnX1SI+Ex/48wwvMC8e2nKh8xv67HPj1jqu4weg
+	ynNYOcKMNMiryCRGUEEMlr8rpzCPBxVfARg==
+X-Received: by 2002:a1c:7219:: with SMTP id n25mr5284140wmc.107.1632412483220;
+        Thu, 23 Sep 2021 08:54:43 -0700 (PDT)
+X-Google-Smtp-Source: ABdhPJzRwBiyLe86hiVAeIPS6fGY13BXN794FF7P1o8rmMW1rV8vhQODA9KjoacWe+lqSwAFX3M30w==
+X-Received: by 2002:a1c:7219:: with SMTP id n25mr5284123wmc.107.1632412483005;
+        Thu, 23 Sep 2021 08:54:43 -0700 (PDT)
+Received: from [192.168.0.134] (lk.84.20.244.219.dc.cable.static.lj-kabel.net. [84.20.244.219])
+        by smtp.gmail.com with ESMTPSA id x17sm6028183wrc.51.2021.09.23.08.54.42
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 23 Sep 2021 08:54:42 -0700 (PDT)
 To: linux-nfc@lists.01.org
-Date: Wed, 22 Sep 2021 18:11:13 +0200
-Message-Id: <20210922161113.142758-8-krzysztof.kozlowski@canonical.com>
-X-Mailer: git-send-email 2.30.2
-In-Reply-To: <20210922161113.142758-1-krzysztof.kozlowski@canonical.com>
+Cc: Mark Greer <mgreer@animalcreek.com>
 References: <20210922161113.142758-1-krzysztof.kozlowski@canonical.com>
+From: Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>
+Message-ID: <16360c35-bc5d-c2f6-4a44-1521b3b67962@canonical.com>
+Date: Thu, 23 Sep 2021 17:54:41 +0200
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.13.0
 MIME-Version: 1.0
-Message-ID-Hash: IWMEL3OSCFYA4JJJ7DCZCWLUG7NRX3WM
-X-Message-ID-Hash: IWMEL3OSCFYA4JJJ7DCZCWLUG7NRX3WM
+In-Reply-To: <20210922161113.142758-1-krzysztof.kozlowski@canonical.com>
+Content-Language: en-US
+Message-ID-Hash: IQRXLDP5GJBGUTV52P6GL5QPNGUOJKAR
+X-Message-ID-Hash: IQRXLDP5GJBGUTV52P6GL5QPNGUOJKAR
 X-MailFrom: krzysztof.kozlowski@canonical.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency; loop; banned-address; member-moderation; nonmember-moderation; administrivia; implicit-dest; max-recipients; max-size; news-moderation; no-subject; suspicious-header
-CC: Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>
 X-Mailman-Version: 3.1.1
 Precedence: list
-Subject: [linux-nfc] [neard][PATCH 8/8] ci: group package installation on Alpine
+Subject: [linux-nfc] Re: [neard][PATCH 1/8] build: adjust configure.ac syntax to match autoupdate
 List-Id: NFC on Linux <linux-nfc.lists.01.org>
-Archived-At: <https://lists.01.org/hyperkitty/list/linux-nfc@lists.01.org/message/IWMEL3OSCFYA4JJJ7DCZCWLUG7NRX3WM/>
+Archived-At: <https://lists.01.org/hyperkitty/list/linux-nfc@lists.01.org/message/IQRXLDP5GJBGUTV52P6GL5QPNGUOJKAR/>
 List-Archive: <https://lists.01.org/hyperkitty/list/linux-nfc@lists.01.org/>
 List-Help: <mailto:linux-nfc-request@lists.01.org?subject=help>
 List-Post: <mailto:linux-nfc@lists.01.org>
@@ -81,40 +84,32 @@ List-Unsubscribe: <mailto:linux-nfc-leave@lists.01.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>
----
- ci/alpine.sh | 10 +++++-----
- 1 file changed, 5 insertions(+), 5 deletions(-)
+On 22/09/2021 18:11, Krzysztof Kozlowski wrote:
+> Effect of autoupdate, without changing the version.
+> 
+> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>
+> ---
+>  configure.ac | 4 ++--
+>  1 file changed, 2 insertions(+), 2 deletions(-)
+> 
+> diff --git a/configure.ac b/configure.ac
+> index 25b12b9a85d8..a1f7bd8bf56a 100644
+> --- a/configure.ac
+> +++ b/configure.ac
+> @@ -1,5 +1,5 @@
+> -AC_PREREQ(2.60)
+> -AC_INIT(neard, 0.17, [linux-nfc@lists.01.org])
+> +AC_PREREQ([2.60])
+> +AC_INIT([neard],[0.17],[linux-nfc@lists.01.org])
+>  AC_CONFIG_MACRO_DIR([m4])
+>  
+>  AM_INIT_AUTOMAKE([foreign subdir-objects color-tests])
+> 
 
-diff --git a/ci/alpine.sh b/ci/alpine.sh
-index bf87068228f3..550bf86370bf 100755
---- a/ci/alpine.sh
-+++ b/ci/alpine.sh
-@@ -20,6 +20,9 @@ case $CC in
- 	;;
- esac
- 
-+# Packages needed by CI
-+PKGS_MORE="file"
-+
- # gzip: for distcheck
- apk add \
- 	autoconf \
-@@ -34,10 +37,7 @@ apk add \
- 	make \
- 	musl-dev \
- 	pkgconfig \
--	$PKGS_CC
--
--# Packages needed by CI
--apk add \
--	file
-+	$PKGS_CC \
-+	$PKGS_MORE
- 
- echo "Install finished: $0"
--- 
-2.30.2
+All applied to master in https://github.com/linux-nfc/neard
+
+Best regards,
+Krzysztof
 _______________________________________________
 Linux-nfc mailing list -- linux-nfc@lists.01.org
 To unsubscribe send an email to linux-nfc-leave@lists.01.org
