@@ -2,84 +2,80 @@ Return-Path: <linux-nfc-bounces@lists.01.org>
 X-Original-To: lists+linux-nfc@lfdr.de
 Delivered-To: lists+linux-nfc@lfdr.de
 Received: from ml01.01.org (ml01.01.org [IPv6:2001:19d0:306:5::1])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0C3F3425455
-	for <lists+linux-nfc@lfdr.de>; Thu,  7 Oct 2021 15:38:34 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8DD0B4259B5
+	for <lists+linux-nfc@lfdr.de>; Thu,  7 Oct 2021 19:45:08 +0200 (CEST)
 Received: from ml01.vlan13.01.org (localhost [IPv6:::1])
-	by ml01.01.org (Postfix) with ESMTP id 7B25C100EA2AA;
-	Thu,  7 Oct 2021 06:38:30 -0700 (PDT)
+	by ml01.01.org (Postfix) with ESMTP id 0DBEF100EA2A8;
+	Thu,  7 Oct 2021 10:45:07 -0700 (PDT)
 Received-SPF: Pass (mailfrom) identity=mailfrom; client-ip=185.125.188.123; helo=smtp-relay-internal-1.canonical.com; envelope-from=krzysztof.kozlowski@canonical.com; receiver=<UNKNOWN> 
 Received: from smtp-relay-internal-1.canonical.com (smtp-relay-internal-1.canonical.com [185.125.188.123])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits))
 	(No client certificate requested)
-	by ml01.01.org (Postfix) with ESMTPS id D0C94100EA934
-	for <linux-nfc@lists.01.org>; Thu,  7 Oct 2021 06:38:28 -0700 (PDT)
-Received: from mail-ed1-f69.google.com (mail-ed1-f69.google.com [209.85.208.69])
+	by ml01.01.org (Postfix) with ESMTPS id 584D4100EA2A4
+	for <linux-nfc@lists.01.org>; Thu,  7 Oct 2021 10:45:05 -0700 (PDT)
+Received: from mail-ed1-f70.google.com (mail-ed1-f70.google.com [209.85.208.70])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by smtp-relay-internal-1.canonical.com (Postfix) with ESMTPS id 39A563FFF5
-	for <linux-nfc@lists.01.org>; Thu,  7 Oct 2021 13:38:27 +0000 (UTC)
+	by smtp-relay-internal-1.canonical.com (Postfix) with ESMTPS id 66AB03FFEF
+	for <linux-nfc@lists.01.org>; Thu,  7 Oct 2021 17:45:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=canonical.com;
-	s=20210705; t=1633613907;
-	bh=Caod7f/lk82yPL9l72YPa9/xdZxrVhuurClzVai7YFo=;
-	h=From:To:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version;
-	b=wNNOXXlUwtFaXTccXUa4tqqTzfXMxsemp87Xwj23vUQ5ne22j84qPlN6VGN4iZOqY
-	 qLtwj+0JrpLosbJGup63J5OKwLm0QXilUxALXquwHarMmHj+6s8EDjztpTaiRQ+FpG
-	 BrfHzOBQ6lEz22HK7tK7I92K1gTkEmFDmYxG45jVurM9Cjq+2aRTJ1KQ1chqE/Rs6j
-	 qrYuHO48O5dLXQKbhZ3aHYQLW3CLJBn9U2LV0uNTgmfUxCwO9s67CGru28dDDaQL+E
-	 NnVLbU9h9sOIXmwDzUwQw/KdoWq2aqzQF00rB332BRyke3aVpmhT1cj9bMYFp29ur6
-	 Noiza3ShjE0Aw==
-Received: by mail-ed1-f69.google.com with SMTP id x5-20020a50f185000000b003db0f796903so5887270edl.18
-        for <linux-nfc@lists.01.org>; Thu, 07 Oct 2021 06:38:27 -0700 (PDT)
+	s=20210705; t=1633628703;
+	bh=Coe08tkAG3DLADP+J9knykBNBTwMfZOYcNMbzRGgajM=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version;
+	b=kYC7oH6Pq/+x2J9TxxpklkV86xXqxZqDguDhQJXe+Euo/E+STOQWV/5EJtDt2Z9M0
+	 y/A044R9zBivmyN3kthkJ5dcsk3VWrR60hfs3P3DSovkvUZy+sqwdXJmNhGZcOEOug
+	 DJM5eyqiot5RGBHXkNPsdpWfPfkgPHeSJpXGKLjtUSdV/082aHg78/7IdYp6Bgs0Qq
+	 7izRAjDOj026LDXApZ5MJfWDrb/83fSEtspJnFUL52QWXoRFWVpX9GUd3BZy9tZ0m0
+	 6kndb94O5O7OwyUInoPnzS0MnTKbQLspwbNQWjgl1E20LjrlKcH7aUitF+j8hK8qFs
+	 G6TXbwiC/WaeA==
+Received: by mail-ed1-f70.google.com with SMTP id p13-20020a056402044d00b003db3256e4f2so6684845edw.3
+        for <linux-nfc@lists.01.org>; Thu, 07 Oct 2021 10:45:03 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
-        h=x-gm-message-state:from:to:subject:date:message-id:in-reply-to
-         :references:mime-version:content-transfer-encoding;
-        bh=Caod7f/lk82yPL9l72YPa9/xdZxrVhuurClzVai7YFo=;
-        b=PHh+6Q2jGXNbDydUFGLTfzZDj/fIJYFs+TojzDZsrHsh4mMFWfRJQlKNx52dBJdjLY
-         v+AR1/VYXoaY44z7LKNiQY6d6f0YBsANxqw0+jxlD0bt3A+mgABm8TUj0Prb+RecSIeH
-         /xg7OSsS1YqafP+/tBiUCpO2w2tGTu0+m0+DG4HT8rguO4kjgvlyDRPYjo07+SmlUcte
-         KRGqRkEXmbKsAi1SDT1PEqlNrjW8GkQn8Gu2O7uv1xxKJXhzKC26eMs5Ypm+2yM6GZL2
-         +85iqCldOzVtymFXB+X60C9TX75dbC5yMbKDlqCp4KZHE03q6lYxlKuOP01r0Ekfj+no
-         upGQ==
-X-Gm-Message-State: AOAM533uY9SYLLU5Eu+tlmbsQQrkmAINm8v1bE3DjxKNPQD/gN9ShsFi
-	RujTOtVvJMuMAcC+zgIdXDvvV1B0lza76s5YQW0eY7/vTxm4Otd8MoU4XBOONf0Qe0tVslw4Zhy
-	gR5Zx7znaCGjTMx2BU8bdBcnXS2QA42IjMQ==
-X-Received: by 2002:a17:906:ae14:: with SMTP id le20mr5850201ejb.89.1633613906950;
-        Thu, 07 Oct 2021 06:38:26 -0700 (PDT)
-X-Google-Smtp-Source: ABdhPJwhM44QMJ2eosub/50WjbhCTf/eolBEhiGbo3QX3lfBJRMrgvITyIbkdtt7+Q73mJANGS4yFA==
-X-Received: by 2002:a17:906:ae14:: with SMTP id le20mr5850180ejb.89.1633613906761;
-        Thu, 07 Oct 2021 06:38:26 -0700 (PDT)
+        h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+         :content-transfer-encoding;
+        bh=Coe08tkAG3DLADP+J9knykBNBTwMfZOYcNMbzRGgajM=;
+        b=yYgIYTof5+jHjvFpFukCSlOqqTaUxUihyvoy0HWihkvDcRKSLXlGcA5H2tgGLRA7XM
+         hIYidhtX8SNLApqOKIsCt16Mcze+2GB0cmSy02ExBX9y/+tTzN5ZlrNBrUbjHJxhDj2E
+         aiyGMdz7IiMMde7MR5lLEgaF7w3Gr9TkW+OcS9K/BWkCfUJjONhHgAxU1L6VLQXin3XU
+         1r4dzPraOuQvf43KDbsXN1nOGvD4YriLJx3JKj+mbrgTxhr83rH09FDhY6m/NYzPXO7g
+         LlwyMkN5q4sJSV0e9p2RzaFpnZWpwIBxv2Hg1XisWYXCDiOFCtFRbvLL9WyHNAM1IesA
+         uktA==
+X-Gm-Message-State: AOAM5316i3C6YzguS1bZJLn+m1tyCK/RzwKhfGIjH1eIR3r3yxznc3NW
+	iG765cH6lkWw4CoWywF7fsNUX3SDQTj10UcvHvQc5oZl4QOVeXLXFMyjicMpEfe4o07b5VCoWxQ
+	zrq+hOWWYBGD+IA+EuN7N2y1HMW2wsSkZQQ==
+X-Received: by 2002:a05:6402:40f:: with SMTP id q15mr7790473edv.333.1633628703102;
+        Thu, 07 Oct 2021 10:45:03 -0700 (PDT)
+X-Google-Smtp-Source: ABdhPJy/cRrFbBE0AEAY1wTn0RkOd29OzBi3ThqVg6eaCa0cLj3RymI+vrrOi/pDfxhLH7N7JZpaZg==
+X-Received: by 2002:a05:6402:40f:: with SMTP id q15mr7790386edv.333.1633628702498;
+        Thu, 07 Oct 2021 10:45:02 -0700 (PDT)
 Received: from localhost.localdomain (xdsl-188-155-186-13.adslplus.ch. [188.155.186.13])
-        by smtp.gmail.com with ESMTPSA id ay19sm8585613edb.20.2021.10.07.06.38.25
+        by smtp.gmail.com with ESMTPSA id u23sm24243ejx.99.2021.10.07.10.45.01
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 07 Oct 2021 06:38:26 -0700 (PDT)
+        Thu, 07 Oct 2021 10:45:02 -0700 (PDT)
 From: Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>
 To: Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>,
-	Krzysztof Opasiak <k.opasiak@samsung.com>,
-	Mark Greer <mgreer@animalcreek.com>,
 	"David S. Miller" <davem@davemloft.net>,
 	Jakub Kicinski <kuba@kernel.org>,
+	Lin Ma <linma@zju.edu.cn>,
 	linux-nfc@lists.01.org,
 	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-wireless@vger.kernel.org
-Date: Thu,  7 Oct 2021 15:30:21 +0200
-Message-Id: <20211007133021.32704-8-krzysztof.kozlowski@canonical.com>
+	linux-kernel@vger.kernel.org
+Date: Thu,  7 Oct 2021 19:44:30 +0200
+Message-Id: <20211007174430.62558-1-krzysztof.kozlowski@canonical.com>
 X-Mailer: git-send-email 2.30.2
-In-Reply-To: <20211007133021.32704-1-krzysztof.kozlowski@canonical.com>
-References: <20211007133021.32704-1-krzysztof.kozlowski@canonical.com>
 MIME-Version: 1.0
-Message-ID-Hash: TL7TYV7ZQTDJAM6HXFREJLOMJMNR62GI
-X-Message-ID-Hash: TL7TYV7ZQTDJAM6HXFREJLOMJMNR62GI
+Message-ID-Hash: SCOPQND7LLIMHFDS6SYLO664GVRVJ2SC
+X-Message-ID-Hash: SCOPQND7LLIMHFDS6SYLO664GVRVJ2SC
 X-MailFrom: krzysztof.kozlowski@canonical.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency; loop; banned-address; member-moderation; nonmember-moderation; administrivia; implicit-dest; max-recipients; max-size; news-moderation; no-subject; suspicious-header
+CC: Greg KH <greg@kroah.com>, Will Deacon <will@kernel.org>
 X-Mailman-Version: 3.1.1
 Precedence: list
-Subject: [linux-nfc] [RESEND PATCH v2 7/7] nfc: microread: drop unneeded debug prints
+Subject: [linux-nfc] [PATCH] nfc: nci: fix the UAF of rf_conn_info object
 List-Id: NFC on Linux <linux-nfc.lists.01.org>
-Archived-At: <https://lists.01.org/hyperkitty/list/linux-nfc@lists.01.org/message/TL7TYV7ZQTDJAM6HXFREJLOMJMNR62GI/>
+Archived-At: <https://lists.01.org/hyperkitty/list/linux-nfc@lists.01.org/message/SCOPQND7LLIMHFDS6SYLO664GVRVJ2SC/>
 List-Archive: <https://lists.01.org/hyperkitty/list/linux-nfc@lists.01.org/>
 List-Help: <mailto:linux-nfc-request@lists.01.org?subject=help>
 List-Post: <mailto:linux-nfc@lists.01.org>
@@ -88,50 +84,33 @@ List-Unsubscribe: <mailto:linux-nfc-leave@lists.01.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-ftrace is a preferred and standard way to debug entering and exiting
-functions so drop useless debug prints.
+From: Lin Ma <linma@zju.edu.cn>
 
+The nci_core_conn_close_rsp_packet() function will release the conn_info
+with given conn_id. However, it needs to set the rf_conn_info to NULL to
+prevent other routines like nci_rf_intf_activated_ntf_packet() to trigger
+the UAF.
+
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>
+Signed-off-by: Lin Ma <linma@zju.edu.cn>
 Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>
 ---
- drivers/nfc/microread/i2c.c | 4 ----
- drivers/nfc/microread/mei.c | 2 --
- 2 files changed, 6 deletions(-)
+ net/nfc/nci/rsp.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/drivers/nfc/microread/i2c.c b/drivers/nfc/microread/i2c.c
-index 86f593c73ed6..067295124eb9 100644
---- a/drivers/nfc/microread/i2c.c
-+++ b/drivers/nfc/microread/i2c.c
-@@ -237,8 +237,6 @@ static int microread_i2c_probe(struct i2c_client *client,
- 	struct microread_i2c_phy *phy;
- 	int r;
- 
--	dev_dbg(&client->dev, "client %p\n", client);
--
- 	phy = devm_kzalloc(&client->dev, sizeof(struct microread_i2c_phy),
- 			   GFP_KERNEL);
- 	if (!phy)
-@@ -262,8 +260,6 @@ static int microread_i2c_probe(struct i2c_client *client,
- 	if (r < 0)
- 		goto err_irq;
- 
--	nfc_info(&client->dev, "Probed\n");
--
- 	return 0;
- 
- err_irq:
-diff --git a/drivers/nfc/microread/mei.c b/drivers/nfc/microread/mei.c
-index 00689e18dc46..e2a77a5fc887 100644
---- a/drivers/nfc/microread/mei.c
-+++ b/drivers/nfc/microread/mei.c
-@@ -23,8 +23,6 @@ static int microread_mei_probe(struct mei_cl_device *cldev,
- 	struct nfc_mei_phy *phy;
- 	int r;
- 
--	pr_info("Probing NFC microread\n");
--
- 	phy = nfc_mei_phy_alloc(cldev);
- 	if (!phy)
- 		return -ENOMEM;
+diff --git a/net/nfc/nci/rsp.c b/net/nfc/nci/rsp.c
+index a2e72c003805..b911ab78bed9 100644
+--- a/net/nfc/nci/rsp.c
++++ b/net/nfc/nci/rsp.c
+@@ -334,6 +334,8 @@ static void nci_core_conn_close_rsp_packet(struct nci_dev *ndev,
+ 							 ndev->cur_conn_id);
+ 		if (conn_info) {
+ 			list_del(&conn_info->list);
++			if (conn_info == ndev->rf_conn_info)
++				ndev->rf_conn_info = NULL;
+ 			devm_kfree(&ndev->nfc_dev->dev, conn_info);
+ 		}
+ 	}
 -- 
 2.30.2
 _______________________________________________
