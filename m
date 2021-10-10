@@ -2,59 +2,59 @@ Return-Path: <linux-nfc-bounces@lists.01.org>
 X-Original-To: lists+linux-nfc@lfdr.de
 Delivered-To: lists+linux-nfc@lfdr.de
 Received: from ml01.01.org (ml01.01.org [198.145.21.10])
-	by mail.lfdr.de (Postfix) with ESMTPS id 98CA04281C4
+	by mail.lfdr.de (Postfix) with ESMTPS id F0E9E4281C5
 	for <lists+linux-nfc@lfdr.de>; Sun, 10 Oct 2021 16:23:41 +0200 (CEST)
 Received: from ml01.vlan13.01.org (localhost [IPv6:::1])
-	by ml01.01.org (Postfix) with ESMTP id 9240C100EA907;
-	Sun, 10 Oct 2021 07:23:36 -0700 (PDT)
+	by ml01.01.org (Postfix) with ESMTP id CE03C100EAB64;
+	Sun, 10 Oct 2021 07:23:38 -0700 (PDT)
 Received-SPF: Pass (mailfrom) identity=mailfrom; client-ip=185.125.188.122; helo=smtp-relay-internal-0.canonical.com; envelope-from=krzysztof.kozlowski@canonical.com; receiver=<UNKNOWN> 
 Received: from smtp-relay-internal-0.canonical.com (smtp-relay-internal-0.canonical.com [185.125.188.122])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits))
 	(No client certificate requested)
-	by ml01.01.org (Postfix) with ESMTPS id 1F8A3100EAB5D
-	for <linux-nfc@lists.01.org>; Sun, 10 Oct 2021 07:23:34 -0700 (PDT)
-Received: from mail-ed1-f71.google.com (mail-ed1-f71.google.com [209.85.208.71])
+	by ml01.01.org (Postfix) with ESMTPS id 3B8C7100EAB58
+	for <linux-nfc@lists.01.org>; Sun, 10 Oct 2021 07:23:36 -0700 (PDT)
+Received: from mail-ed1-f72.google.com (mail-ed1-f72.google.com [209.85.208.72])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by smtp-relay-internal-0.canonical.com (Postfix) with ESMTPS id C7D0F4001A
-	for <linux-nfc@lists.01.org>; Sun, 10 Oct 2021 14:23:32 +0000 (UTC)
+	by smtp-relay-internal-0.canonical.com (Postfix) with ESMTPS id 624A34001A
+	for <linux-nfc@lists.01.org>; Sun, 10 Oct 2021 14:23:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=canonical.com;
-	s=20210705; t=1633875812;
-	bh=CPCA02s/SUPanw77EF1mmKLV8dt3hzeoEjW66M7WKxY=;
+	s=20210705; t=1633875814;
+	bh=sEh5KUYuxEm3bzH5hsUc+ps6L/VdQWx+zLSKJvPfz9w=;
 	h=From:To:Subject:Date:Message-Id:In-Reply-To:References:
 	 MIME-Version;
-	b=dtp6vHtHK2dgxQugSt4bQEvW57xyiijD6Uq4HmVtwKO/1GVyBbUrCVkIPhmLkg1ZA
-	 HdyppH+mAqoNFYx4aj28xUVhLrFOsRWdk3gv8zQCkAsyDjgS4B+GniJV2M9lvdlvtY
-	 /YrlrKz46Un6F/eIKx5yvixekpryqVTxEvAP9f6Ik1WyVCyusg9TNdqpz3LWOAi83b
-	 rfJpq2Xl9u8y7HXLaMiv3uncDj4Wz4+kshU8m8FGa8dU3DPS0JtHdqjCtoq0CfVwjh
-	 pLHJhCwmSCRBuM2mC3rWU9ClTuVc3xgf7y/wJ44xbddEZMSXr5EAdN8Q5ystcCmiIN
-	 W5lbddWYvjKhQ==
-Received: by mail-ed1-f71.google.com with SMTP id t28-20020a508d5c000000b003dad7fc5caeso13438084edt.11
-        for <linux-nfc@lists.01.org>; Sun, 10 Oct 2021 07:23:32 -0700 (PDT)
+	b=VyZZtcASe1pO0P0rxz7P52CCOO7yZRO6uVw+boMSt57xIVSaPAfNu+MB1wtm3Gyu4
+	 t+5AyxUWrKZB7BfhPtUgm+Elyf2JhUjuQNT0uc0i18BChkG8RJcmMc+37DIUbPu34G
+	 jWhm9ctI6QBv9Q83L2EAtgmiZxXOoB5Dr70prdCb4tFDMrGg8brzIQdy12gokrp2ju
+	 NmuBNbxfwGGqwuMQzDeBLRBR9FnzwbeujgY8nIZDGcRF7rsYCQ8im8CUP1GAFK4IqX
+	 AteorF92Eo1imfVsX4zq+PsP2ryVzb3M0y1tMUXv3dHG0Ve25jiafwbVbSFvzyZrqr
+	 6cNtVSKySkPdQ==
+Received: by mail-ed1-f72.google.com with SMTP id 14-20020a508e4e000000b003d84544f33eso13492736edx.2
+        for <linux-nfc@lists.01.org>; Sun, 10 Oct 2021 07:23:34 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
         h=x-gm-message-state:from:to:subject:date:message-id:in-reply-to
          :references:mime-version:content-transfer-encoding;
-        bh=CPCA02s/SUPanw77EF1mmKLV8dt3hzeoEjW66M7WKxY=;
-        b=aZB1vEFCCJ8i6t+TVYXHUq+977V6rWvc5mIPfQkONp5RN3bmEkSuQ0CZsxUGTJqDtS
-         130DA4h1eN3YXNC6V/7a/MPJY8hEwr7DSClIPdR/LxSHGCyRZrr6IWX/WJPcWIU/t43u
-         aW8WjbTXB3fe/YXH0rRhLUv70xBu3gXtqX7JO1wQ8euu+G6laRMEV0ViyHCDqtPdjnDi
-         gr+mFa0pviwwJARkSkBt8swZ6niYICsQE6oraKN3gGF1yU/XOq2aiyCtzM30VRGWYDr3
-         8zsiDtZ/hxdI4W434cBcyqLI4ZN8QlVg0gUo8zoJ82ekuhyM3W22iplamTrtuSCDhrgZ
-         QUNw==
-X-Gm-Message-State: AOAM533uKuhBP1/qetzYZiRaBq90SE+FTtpkIZU5qWUZyTVVs0CSZpWX
-	erCherIfvoD3ocLJpTgDaeLLbF1c5F1jGUtA+Hsr9o17updy/o6aFXBDDDh0RyOFYesXT78VqN7
-	EE9rPtOXrJ3RXubkBMRLg7tqWuI9EAqm2Wg==
-X-Received: by 2002:a17:907:2bdf:: with SMTP id gv31mr19454199ejc.521.1633875812410;
-        Sun, 10 Oct 2021 07:23:32 -0700 (PDT)
-X-Google-Smtp-Source: ABdhPJxEAeeDmZxwq28FqWcAXIumFiXDUd8MdJmi+k2l7hERmlAm2/SrnIL/odhbbw/P7JNHcqhsUA==
-X-Received: by 2002:a17:907:2bdf:: with SMTP id gv31mr19454172ejc.521.1633875812184;
-        Sun, 10 Oct 2021 07:23:32 -0700 (PDT)
+        bh=sEh5KUYuxEm3bzH5hsUc+ps6L/VdQWx+zLSKJvPfz9w=;
+        b=Ja42NsYokA91xAvXEPRiEhc1TPurzpVLQQl6DwqJvQZyL7tRLQSXgOOxudlD2poEQG
+         QbEqb5nPRCdNslh+bVUaDJZBZEkABDuYXmpFNZyuioKfdfOKwawdgfkitJqXapNVBbua
+         qZNkjV8/3efIf3QMAO1fJHi+3N77XVuNUmFyvjLSZ+1ccVHCLGaIAjn95yNnrptmKxMp
+         UyxgRMYVtCOs26Rmm0BuT3H6qzQOsCD2Ss55I4GhoVv9FdeIaauMEc4hLP9dUnSjV0zz
+         7IdcmhVUhmrkG3pZoBQZEZU8INWVXC2wLUQyTs5NeHZZvRjXCmNEMaZl9h0s2waMLQsK
+         AEVQ==
+X-Gm-Message-State: AOAM530SrP8hGwOVIhkr4+aYnVOdfS37w08z6xKgkPz/dIrE71oynpcX
+	S88RDbeis+ECEX2ubJiChLEsCZaPhjdF+Y2G9H4NCaM1Gk7RVjZIrU/iDjL9pTktMUD6/Sphi0j
+	BHrryrEPSG4A20/tpFJYW3OBf/uFevHM8NQ==
+X-Received: by 2002:a05:6402:4402:: with SMTP id y2mr24480398eda.222.1633875813939;
+        Sun, 10 Oct 2021 07:23:33 -0700 (PDT)
+X-Google-Smtp-Source: ABdhPJzSm8Z9KjucD039kn/b+DLN9Na+qvLcx4ZvjArJNxoedCFKyLu8nt+Jwvf6H9WcO3menFHzzw==
+X-Received: by 2002:a05:6402:4402:: with SMTP id y2mr24480345eda.222.1633875813587;
+        Sun, 10 Oct 2021 07:23:33 -0700 (PDT)
 Received: from localhost.localdomain (78-11-189-27.static.ip.netia.com.pl. [78.11.189.27])
-        by smtp.gmail.com with ESMTPSA id 6sm2129017ejx.82.2021.10.10.07.23.31
+        by smtp.gmail.com with ESMTPSA id 6sm2129017ejx.82.2021.10.10.07.23.32
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 10 Oct 2021 07:23:31 -0700 (PDT)
+        Sun, 10 Oct 2021 07:23:33 -0700 (PDT)
 From: Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>
 To: Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>,
 	"David S. Miller" <davem@davemloft.net>,
@@ -67,21 +67,21 @@ To: Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>,
 	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	linux-wireless@vger.kernel.org
-Date: Sun, 10 Oct 2021 16:23:16 +0200
-Message-Id: <20211010142317.168259-6-krzysztof.kozlowski@canonical.com>
+Date: Sun, 10 Oct 2021 16:23:17 +0200
+Message-Id: <20211010142317.168259-7-krzysztof.kozlowski@canonical.com>
 X-Mailer: git-send-email 2.30.2
 In-Reply-To: <20211010142317.168259-1-krzysztof.kozlowski@canonical.com>
 References: <20211010142317.168259-1-krzysztof.kozlowski@canonical.com>
 MIME-Version: 1.0
-Message-ID-Hash: FW7PGEWV5UXNYMQ4MHUC5APSU7KJLCTQ
-X-Message-ID-Hash: FW7PGEWV5UXNYMQ4MHUC5APSU7KJLCTQ
+Message-ID-Hash: SQLAU6LKBRKSHSC4ONJCVVODVO4HQ6EU
+X-Message-ID-Hash: SQLAU6LKBRKSHSC4ONJCVVODVO4HQ6EU
 X-MailFrom: krzysztof.kozlowski@canonical.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency; loop; banned-address; member-moderation; nonmember-moderation; administrivia; implicit-dest; max-recipients; max-size; news-moderation; no-subject; suspicious-header
 X-Mailman-Version: 3.1.1
 Precedence: list
-Subject: [linux-nfc] [PATCH 6/7] dt-bindings: nfc: ti,trf7970a: convert to dtschema
+Subject: [linux-nfc] [PATCH 7/7] dt-bindings: nfc: marvell,nfc: convert to dtschema
 List-Id: NFC on Linux <linux-nfc.lists.01.org>
-Archived-At: <https://lists.01.org/hyperkitty/list/linux-nfc@lists.01.org/message/FW7PGEWV5UXNYMQ4MHUC5APSU7KJLCTQ/>
+Archived-At: <https://lists.01.org/hyperkitty/list/linux-nfc@lists.01.org/message/SQLAU6LKBRKSHSC4ONJCVVODVO4HQ6EU/>
 List-Archive: <https://lists.01.org/hyperkitty/list/linux-nfc@lists.01.org/>
 List-Help: <mailto:linux-nfc-request@lists.01.org?subject=help>
 List-Post: <mailto:linux-nfc@lists.01.org>
@@ -90,89 +90,131 @@ List-Unsubscribe: <mailto:linux-nfc-leave@lists.01.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-Convert the TI TRF7970A NFC to DT schema format.
+Convert the Marvell NCI NFC controller to DT schema format.
 
 Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>
 ---
- .../bindings/net/nfc/ti,trf7970a.yaml         | 98 +++++++++++++++++++
- .../devicetree/bindings/net/nfc/trf7970a.txt  | 43 --------
- MAINTAINERS                                   |  2 +-
- 3 files changed, 99 insertions(+), 44 deletions(-)
- create mode 100644 Documentation/devicetree/bindings/net/nfc/ti,trf7970a.yaml
- delete mode 100644 Documentation/devicetree/bindings/net/nfc/trf7970a.txt
+ .../bindings/net/nfc/marvell,nci.yaml         | 170 ++++++++++++++++++
+ .../devicetree/bindings/net/nfc/nfcmrvl.txt   |  84 ---------
+ 2 files changed, 170 insertions(+), 84 deletions(-)
+ create mode 100644 Documentation/devicetree/bindings/net/nfc/marvell,nci.yaml
+ delete mode 100644 Documentation/devicetree/bindings/net/nfc/nfcmrvl.txt
 
-diff --git a/Documentation/devicetree/bindings/net/nfc/ti,trf7970a.yaml b/Documentation/devicetree/bindings/net/nfc/ti,trf7970a.yaml
+diff --git a/Documentation/devicetree/bindings/net/nfc/marvell,nci.yaml b/Documentation/devicetree/bindings/net/nfc/marvell,nci.yaml
 new file mode 100644
-index 000000000000..40da2ac98978
+index 000000000000..15a45db3899a
 --- /dev/null
-+++ b/Documentation/devicetree/bindings/net/nfc/ti,trf7970a.yaml
-@@ -0,0 +1,98 @@
++++ b/Documentation/devicetree/bindings/net/nfc/marvell,nci.yaml
+@@ -0,0 +1,170 @@
 +# SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
 +%YAML 1.2
 +---
-+$id: http://devicetree.org/schemas/net/nfc/ti,trf7970a.yaml#
++$id: http://devicetree.org/schemas/net/nfc/marvell,nci.yaml#
 +$schema: http://devicetree.org/meta-schemas/core.yaml#
 +
-+title: Texas Instruments TRF7970A RFID/NFC/15693 Transceiver
++title: Marvell International Ltd. NCI NFC controller
 +
 +maintainers:
 +  - Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>
-+  - Mark Greer <mgreer@animalcreek.com>
 +
 +properties:
 +  compatible:
-+    const: ti,trf7970a
++    enum:
++      - marvell,nfc-i2c
++      - marvell,nfc-spi
++      - marvell,nfc-uart
 +
-+  autosuspend-delay:
-+    $ref: /schemas/types.yaml#/definitions/uint32
-+    description: |
-+      Specify autosuspend delay in milliseconds.
-+
-+  clock-frequency:
-+    description: |
-+      Set to specify that the input frequency to the trf7970a is 13560000Hz or
-+      27120000Hz
-+
-+  en2-rf-quirk:
++  hci-muxed:
 +    type: boolean
 +    description: |
-+      Specify that the trf7970a being used has the "EN2 RF" erratum
++      Specifies that the chip is muxing NCI over HCI frames
 +
 +  interrupts:
 +    maxItems: 1
 +
-+  irq-status-read-quirk:
-+    type: boolean
-+    description: |
-+      Specify that the trf7970a being used has the "IRQ Status Read" erratum
-+
 +  reg:
 +    maxItems: 1
 +
++  reset-n-io:
++    $ref: "/schemas/types.yaml#/definitions/phandle-array"
++    maxItems: 1
++    description: |
++      Output GPIO pin used to reset the chip (active low)
++
++  i2c-int-falling:
++    type: boolean
++    description: |
++      For I2C type of connection. Specifies that the chip read event shall be
++      trigged on falling edge.
++
++  i2c-int-rising:
++    type: boolean
++    description: |
++      For I2C type of connection.  Specifies that the chip read event shall be
++      trigged on rising edge.
++
++  break-control:
++    type: boolean
++    description: |
++      For UART type of connection. Specifies that the chip needs specific break
++      management.
++
++  flow-control:
++    type: boolean
++    description: |
++      For UART type of connection. Specifies that the chip is using RTS/CTS.
++
++  spi-cpha: true
++  spi-cpol: true
 +  spi-max-frequency: true
-+
-+  ti,enable-gpios:
-+    minItems: 1
-+    maxItems: 2
-+    description: |
-+      One or two GPIO entries used for 'EN' and 'EN2' pins on the TRF7970A. EN2
-+      is optional.
-+
-+  vdd-io-supply:
-+    description: |
-+      Regulator specifying voltage for VDD-IO
-+
-+  vin-supply:
-+    description: |
-+      Regulator for supply voltage to VIN pin
 +
 +required:
 +  - compatible
-+  - interrupts
-+  - reg
-+  - spi-max-frequency
-+  - ti,enable-gpios
-+  - vin-supply
++
++allOf:
++  - if:
++      properties:
++        compatible:
++          contains:
++            const: marvell,nfc-i2c
++    then:
++      properties:
++        break-control: false
++        flow-control: false
++        spi-cpha: false
++        spi-cpol: false
++        spi-max-frequency: false
++      required:
++        - reg
++
++  - if:
++      properties:
++        compatible:
++          contains:
++            const: marvell,nfc-spi
++    then:
++      properties:
++        break-control: false
++        flow-control: false
++        i2c-int-falling: false
++        i2c-int-rising: false
++      required:
++        - reg
++
++  - if:
++      properties:
++        compatible:
++          contains:
++            const: marvell,nfc-uart
++    then:
++      properties:
++        i2c-int-falling: false
++        i2c-int-rising: false
++        interrupts: false
++        spi-cpha: false
++        spi-cpol: false
++        spi-max-frequency: false
++        reg: false
 +
 +additionalProperties: false
 +
@@ -185,88 +227,145 @@ index 000000000000..40da2ac98978
 +        #address-cells = <1>;
 +        #size-cells = <0>;
 +
-+        nfc@0 {
-+            compatible = "ti,trf7970a";
-+            reg = <0>;
++        nfc@8 {
++            compatible = "marvell,nfc-i2c";
++            reg = <0x8>;
 +
-+            pinctrl-names = "default";
-+            pinctrl-0 = <&trf7970a_default>;
-+            spi-max-frequency = <2000000>;
-+            interrupt-parent = <&gpio2>;
-+            interrupts = <14 0>;
++            interrupt-parent = <&gpio3>;
++            interrupts = <21 IRQ_TYPE_EDGE_RISING>;
 +
-+            ti,enable-gpios = <&gpio2 2 GPIO_ACTIVE_HIGH>,
-+                              <&gpio2 5 GPIO_ACTIVE_HIGH>;
-+            vin-supply = <&ldo3_reg>;
-+            vdd-io-supply = <&ldo2_reg>;
-+            autosuspend-delay = <30000>;
-+            irq-status-read-quirk;
-+            en2-rf-quirk;
-+            clock-frequency = <27120000>;
++            i2c-int-rising;
++
++            reset-n-io = <&gpio3 19 GPIO_ACTIVE_HIGH>;
 +        };
 +    };
-diff --git a/Documentation/devicetree/bindings/net/nfc/trf7970a.txt b/Documentation/devicetree/bindings/net/nfc/trf7970a.txt
++
++  - |
++    #include <dt-bindings/gpio/gpio.h>
++    #include <dt-bindings/interrupt-controller/irq.h>
++
++    spi {
++        #address-cells = <1>;
++        #size-cells = <0>;
++
++        nfc@0 {
++            compatible = "marvell,nfc-spi";
++            reg = <0>;
++
++            spi-max-frequency = <3000000>;
++            spi-cpha;
++            spi-cpol;
++
++            interrupt-parent = <&gpio1>;
++            interrupts = <17 IRQ_TYPE_EDGE_RISING>;
++
++            reset-n-io = <&gpio3 19 GPIO_ACTIVE_HIGH>;
++        };
++    };
++
++  - |
++    #include <dt-bindings/gpio/gpio.h>
++
++    uart {
++        nfc {
++            compatible = "marvell,nfc-uart";
++
++            reset-n-io = <&gpio3 16 GPIO_ACTIVE_HIGH>;
++
++            hci-muxed;
++            flow-control;
++        };
++    };
+diff --git a/Documentation/devicetree/bindings/net/nfc/nfcmrvl.txt b/Documentation/devicetree/bindings/net/nfc/nfcmrvl.txt
 deleted file mode 100644
-index ba1934b950e5..000000000000
---- a/Documentation/devicetree/bindings/net/nfc/trf7970a.txt
+index c9b35251bb20..000000000000
+--- a/Documentation/devicetree/bindings/net/nfc/nfcmrvl.txt
 +++ /dev/null
-@@ -1,43 +0,0 @@
--* Texas Instruments TRF7970A RFID/NFC/15693 Transceiver
+@@ -1,84 +0,0 @@
+-* Marvell International Ltd. NCI NFC Controller
 -
 -Required properties:
--- compatible: Should be "ti,trf7970a".
--- spi-max-frequency: Maximum SPI frequency (<= 2000000).
--- interrupts: A single interrupt specifier.
--- ti,enable-gpios: One or two GPIO entries used for 'EN' and 'EN2' pins on the
--  TRF7970A. EN2 is optional.
--- vin-supply: Regulator for supply voltage to VIN pin
+-- compatible: Should be:
+-  - "marvell,nfc-uart" or "mrvl,nfc-uart" for UART devices
+-  - "marvell,nfc-i2c" for I2C devices
+-  - "marvell,nfc-spi" for SPI devices
 -
--Optional SoC Specific Properties:
+-Optional SoC specific properties:
 -- pinctrl-names: Contains only one value - "default".
 -- pintctrl-0: Specifies the pin control groups used for this controller.
--- autosuspend-delay: Specify autosuspend delay in milliseconds.
--- irq-status-read-quirk: Specify that the trf7970a being used has the
--  "IRQ Status Read" erratum.
--- en2-rf-quirk: Specify that the trf7970a being used has the "EN2 RF"
--  erratum.
--- vdd-io-supply: Regulator specifying voltage for vdd-io
--- clock-frequency: Set to specify that the input frequency to the trf7970a is 13560000Hz or 27120000Hz
+-- reset-n-io: Output GPIO pin used to reset the chip (active low).
+-- hci-muxed: Specifies that the chip is muxing NCI over HCI frames.
 -
--Example (for ARM-based BeagleBone with TRF7970A on SPI1):
+-Optional UART-based chip specific properties:
+-- flow-control: Specifies that the chip is using RTS/CTS.
+-- break-control: Specifies that the chip needs specific break management.
 -
--&spi1 {
+-Optional I2C-based chip specific properties:
+-- i2c-int-falling: Specifies that the chip read event shall be trigged on
+-  		   falling edge.
+-- i2c-int-rising: Specifies that the chip read event shall be trigged on
+-  		  rising edge.
 -
--	nfc@0 {
--		compatible = "ti,trf7970a";
--		reg = <0>;
--		pinctrl-names = "default";
--		pinctrl-0 = <&trf7970a_default>;
--		spi-max-frequency = <2000000>;
--		interrupt-parent = <&gpio2>;
--		interrupts = <14 0>;
--		ti,enable-gpios = <&gpio2 2 GPIO_ACTIVE_HIGH>,
--				  <&gpio2 5 GPIO_ACTIVE_HIGH>;
--		vin-supply = <&ldo3_reg>;
--		vdd-io-supply = <&ldo2_reg>;
--		autosuspend-delay = <30000>;
--		irq-status-read-quirk;
--		en2-rf-quirk;
--		clock-frequency = <27120000>;
+-Example (for ARM-based BeagleBoard Black with 88W8887 on UART5):
+-
+-&uart5 {
+-
+-	nfcmrvluart: nfcmrvluart@5 {
+-		compatible = "marvell,nfc-uart";
+-
+-		reset-n-io = <&gpio3 16 0>;
+-
+-		hci-muxed;
+-		flow-control;
+-        }
+-};
+-
+-
+-Example (for ARM-based BeagleBoard Black with 88W8887 on I2C1):
+-
+-&i2c1 {
+-	clock-frequency = <400000>;
+-
+-	nfcmrvli2c0: i2c@1 {
+-		compatible = "marvell,nfc-i2c";
+-
+-		reg = <0x8>;
+-
+-		/* I2C INT configuration */
+-		interrupt-parent = <&gpio3>;
+-		interrupts = <21 0>;
+-
+-		/* I2C INT trigger configuration */
+-		i2c-int-rising;
+-
+-		/* Reset IO */
+-		reset-n-io = <&gpio3 19 0>;
 -	};
 -};
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 3294aaf5e56c..23dd7aac38a0 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -18916,7 +18916,7 @@ M:	Mark Greer <mgreer@animalcreek.com>
- L:	linux-wireless@vger.kernel.org
- L:	linux-nfc@lists.01.org (subscribers-only)
- S:	Supported
--F:	Documentation/devicetree/bindings/net/nfc/trf7970a.txt
-+F:	Documentation/devicetree/bindings/net/nfc/ti,trf7970a.yaml
- F:	drivers/nfc/trf7970a.c
- 
- TI TSC2046 ADC DRIVER
+-
+-
+-Example (for ARM-based BeagleBoard Black on SPI0):
+-
+-&spi0 {
+-
+-	mrvlnfcspi0: spi@0 {
+-		compatible = "marvell,nfc-spi";
+-
+-		reg = <0>;
+-
+-		/* SPI Bus configuration */
+-		spi-max-frequency = <3000000>;
+-		spi-cpha;
+-		spi-cpol;
+-
+-		/* SPI INT configuration */
+-		interrupt-parent = <&gpio1>;
+-		interrupts = <17 0>;
+-
+-		/* Reset IO */
+-       		reset-n-io = <&gpio3 19 0>;
+-	};
+-};
 -- 
 2.30.2
 _______________________________________________
