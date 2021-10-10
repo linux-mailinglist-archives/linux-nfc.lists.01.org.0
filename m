@@ -1,75 +1,74 @@
 Return-Path: <linux-nfc-bounces@lists.01.org>
 X-Original-To: lists+linux-nfc@lfdr.de
 Delivered-To: lists+linux-nfc@lfdr.de
-Received: from ml01.01.org (ml01.01.org [198.145.21.10])
-	by mail.lfdr.de (Postfix) with ESMTPS id C61ED428068
-	for <lists+linux-nfc@lfdr.de>; Sun, 10 Oct 2021 12:18:30 +0200 (CEST)
+Received: from ml01.01.org (ml01.01.org [IPv6:2001:19d0:306:5::1])
+	by mail.lfdr.de (Postfix) with ESMTPS id 905A94280D8
+	for <lists+linux-nfc@lfdr.de>; Sun, 10 Oct 2021 13:37:18 +0200 (CEST)
 Received: from ml01.vlan13.01.org (localhost [IPv6:::1])
-	by ml01.01.org (Postfix) with ESMTP id 0AE74100F227A;
-	Sun, 10 Oct 2021 03:18:27 -0700 (PDT)
+	by ml01.01.org (Postfix) with ESMTP id EA656100EAB48;
+	Sun, 10 Oct 2021 04:37:15 -0700 (PDT)
 Received-SPF: Pass (mailfrom) identity=mailfrom; client-ip=185.125.188.123; helo=smtp-relay-internal-1.canonical.com; envelope-from=krzysztof.kozlowski@canonical.com; receiver=<UNKNOWN> 
 Received: from smtp-relay-internal-1.canonical.com (smtp-relay-internal-1.canonical.com [185.125.188.123])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits))
 	(No client certificate requested)
-	by ml01.01.org (Postfix) with ESMTPS id 452FF100EC1EB
-	for <linux-nfc@lists.01.org>; Sun, 10 Oct 2021 03:18:25 -0700 (PDT)
-Received: from mail-ed1-f69.google.com (mail-ed1-f69.google.com [209.85.208.69])
+	by ml01.01.org (Postfix) with ESMTPS id EBFD8100EAB47
+	for <linux-nfc@lists.01.org>; Sun, 10 Oct 2021 04:37:13 -0700 (PDT)
+Received: from mail-ed1-f72.google.com (mail-ed1-f72.google.com [209.85.208.72])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by smtp-relay-internal-1.canonical.com (Postfix) with ESMTPS id 878753F2FF
-	for <linux-nfc@lists.01.org>; Sun, 10 Oct 2021 10:18:21 +0000 (UTC)
+	by smtp-relay-internal-1.canonical.com (Postfix) with ESMTPS id 424103FFF0
+	for <linux-nfc@lists.01.org>; Sun, 10 Oct 2021 11:37:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=canonical.com;
-	s=20210705; t=1633861101;
-	bh=819cRlsVNO79v7ICQu+D0OpZzx4PM/RPXaVTFQlQyKU=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version;
-	b=LpFCUlGVyTtKjku9LKZLoK1/U/CxDGpjwBPIOQg8kWBs66qy+IEfvwLIjsNW9wHaS
-	 oWKs3D+ubDgFEt1ug84EiHDvRg4212pCtrZUM5xiDRdDsExJ5S/77tiKVqFLoMsa3+
-	 o8WXSiOv0uJTx3Znj/Md7B4tjwnnRaMHD441sJPrJ8IVHDKmj26XAUAKvwRvQyG0oi
-	 Huy/T9PYJ0iQQB3SqcX/rOPqhwW+YnteKl9KewJk6J4n3wOmTH1vFjiOK8BrSrCkcK
-	 QzgOj+N3G3FwbZ/aUYGvAjiutkv5NVzFOPazU47EIxcNpfIk33iG2lYG9bQtFpIT4o
-	 AcPxVn8TC8mvw==
-Received: by mail-ed1-f69.google.com with SMTP id t28-20020a508d5c000000b003dad7fc5caeso13139693edt.11
-        for <linux-nfc@lists.01.org>; Sun, 10 Oct 2021 03:18:21 -0700 (PDT)
+	s=20210705; t=1633865831;
+	bh=3aL2g6ASYJjmJXLGE2td/GKebrEEfp5cYtOVSOPNOjE=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type;
+	b=RatrrUBM0raRQ9o99r5tsntg+AojFT1r+xlDCozpBhnbeWwHh6dk7sgiyeQB9p+RE
+	 F59A+Xo4Ee9pOJmWnm3ldFzK4rfdF6v2caoSjSGBIiUirB7bre4wavbvdpLL2lNYLr
+	 Chh5/Rxlm69N9QlHACBT6HdzaD2mn9DIEBII/Wcg4Tuct28Wzj+iIh3kFFaM4dy1LW
+	 v+Uuuc1RrPCbNJJM5cKsH0oze/RWEq/unwQZPWYu3wHr0tbbOVqBALC/EpGVPJHxiS
+	 vqIO4SjkN5UKXgXwUofVPt584F+DJ3b/qZwkaNqGq4A6hWHucYrrTomxfXXT6o7PpD
+	 HSVtr0I3G9IhA==
+Received: by mail-ed1-f72.google.com with SMTP id r11-20020aa7cfcb000000b003d4fbd652b9so11215416edy.14
+        for <linux-nfc@lists.01.org>; Sun, 10 Oct 2021 04:37:11 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
-        h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
-         :content-transfer-encoding;
-        bh=819cRlsVNO79v7ICQu+D0OpZzx4PM/RPXaVTFQlQyKU=;
-        b=F6UTWdp7duR5BgFlTAGF0XjfMdf+fkQXm96pCjKhnxVfqRjfVDEwh7Hguf5YkNLBfK
-         odDHPbvp7ko8l1rLOeWOwuwRHqS95YFd0XAhLomuR1LirJj1RX7kTtbvBd8MGRnfHWRk
-         XZhgM2oW4LEKBpZSELLrOnpsgnWtG/qUgi+NK0H7hm/119VG2L0B2R4UB4tc5Q5OOQpj
-         iA7I6YUMjU+dXHFuHLp521v4x1D+EuUdSwRdFmPW7PV3zSN4rdpy1lXlSpVQkGh8RqI8
-         8qBNBh1OlCfUHNZckpAE4sKH6n7AToc4zsMQ8kQF0mOaW0PCX9gtnDXXKDTJE56G3gFB
-         9d6w==
-X-Gm-Message-State: AOAM533rqpJRn8w69G838AIxk106Qei6gdQgbaJmo3bkmFsBx23wtdRZ
-	cF+VbsWmBb+GNJTmZnQCMPcIaDOrQVQVXATeFphQj4WcA/NU6tFQA00OVV3+lhNMSYImUDFny0b
-	qbK+4nQOLVmpoXvqJQArDNqNPJcDyJu90Cw==
-X-Received: by 2002:a17:906:cd11:: with SMTP id oz17mr18654861ejb.67.1633861100766;
-        Sun, 10 Oct 2021 03:18:20 -0700 (PDT)
-X-Google-Smtp-Source: ABdhPJxiGOHnMpPm92kkQDSwc0F1Q6q6DLTR9dz1U6TGneNCQ9VHXfchnC8F5HoUPJ+33IfCrRIZZQ==
-X-Received: by 2002:a17:906:cd11:: with SMTP id oz17mr18654826ejb.67.1633861100365;
-        Sun, 10 Oct 2021 03:18:20 -0700 (PDT)
-Received: from localhost.localdomain (78-11-189-27.static.ip.netia.com.pl. [78.11.189.27])
-        by smtp.gmail.com with ESMTPSA id bx11sm1930016ejb.107.2021.10.10.03.18.19
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 10 Oct 2021 03:18:19 -0700 (PDT)
-From: Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>
-To: linux-nfc@lists.01.org
-Date: Sun, 10 Oct 2021 12:18:15 +0200
-Message-Id: <20211010101815.17964-1-krzysztof.kozlowski@canonical.com>
-X-Mailer: git-send-email 2.30.2
+        h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+         :message-id:subject:to:cc;
+        bh=3aL2g6ASYJjmJXLGE2td/GKebrEEfp5cYtOVSOPNOjE=;
+        b=G1KmAeUlMQuh1ZH6dWizunFSs7BoyWjoI56dMmL3QcC0rxp5TAqqR1tx1cWVA3bbZ5
+         cjRM5kyh7DYOyksiXSNYEO+rbDdpTEOed2vlt5pI6N65DioK8ZRRZnuRINMamnRvubF/
+         PkFRAZIdQ6h9AyIZxupHuQhmbYaRbtMGWn+VFwl/nCJRsFi8wxyyPZUtxkZH6+VN071c
+         Z2y7k68T1AIoxXR3zgrF7hwW9VrXZ6hBa2/YUbrLQp8rVI/ZpQ2f+TJo5MnmJlvm+ydf
+         PdvdeX31an5l6/04Coe6gkxPx3GGwT2Ka6vT0f3LPJ/cnH2sCLs1bAVx6y7mhs4b47Gn
+         39zQ==
+X-Gm-Message-State: AOAM533EgqVF7txP4xcE1wd45vzjF2mFNtE9O3Hl00aRwxMgvo2r+v23
+	SX3Jq7obLLmXqNn1y60BcNZ9xnJnbDQf0eSsVkRd7+sQbX8VuZGVXHoN2QI/trIGzVGhRvh5a1F
+	zzC6f6g5uEWtIthOm0z2xDvTetp6qWF1TBYhts97ABneOxAJpMA==
+X-Received: by 2002:a17:906:919:: with SMTP id i25mr17554110ejd.171.1633865830569;
+        Sun, 10 Oct 2021 04:37:10 -0700 (PDT)
+X-Google-Smtp-Source: ABdhPJzmGfXRax8w6ByvvioynebBatQTyi+KnMs4IdARMtMQVkKFfh4370Xu091DRaFkuwupjNT9l7lw+PWQutb8gQQ=
+X-Received: by 2002:a17:906:919:: with SMTP id i25mr17554102ejd.171.1633865830425;
+ Sun, 10 Oct 2021 04:37:10 -0700 (PDT)
 MIME-Version: 1.0
-Message-ID-Hash: USMZDQSZLP6GFPTHTJQIOQG63QQ47HPD
-X-Message-ID-Hash: USMZDQSZLP6GFPTHTJQIOQG63QQ47HPD
+References: <20211007133021.32704-1-krzysztof.kozlowski@canonical.com>
+ <20211008.111646.1874039740182175606.davem@davemloft.net> <CA+Eumj5k9K9DUsPifDchNixj0QG5WrTJX+dzADmAgYSFe49+4g@mail.gmail.com>
+In-Reply-To: <CA+Eumj5k9K9DUsPifDchNixj0QG5WrTJX+dzADmAgYSFe49+4g@mail.gmail.com>
+From: Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>
+Date: Sun, 10 Oct 2021 13:36:59 +0200
+Message-ID: <CA+Eumj65krM_LhEgbBe2hxAZhYZLmuo3zMoVcq6zp9xKa+n_Jg@mail.gmail.com>
+To: David Miller <davem@davemloft.net>
+Message-ID-Hash: 3LQOMCFU422WWJWGF7DXUZIEFAKVF6YC
+X-Message-ID-Hash: 3LQOMCFU422WWJWGF7DXUZIEFAKVF6YC
 X-MailFrom: krzysztof.kozlowski@canonical.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency; loop; banned-address; member-moderation; nonmember-moderation; administrivia; implicit-dest; max-recipients; max-size; news-moderation; no-subject; suspicious-header
-CC: Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>
+CC: kuba@kernel.org, linux-nfc@lists.01.org, netdev@vger.kernel.org, "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, linux-wireless@vger.kernel.org
 X-Mailman-Version: 3.1.1
 Precedence: list
-Subject: [linux-nfc] [neard][PATCH] adapter: use sockaddr_storage to solve uninitialized sa_data access
+Subject: [linux-nfc] Re: [RESEND PATCH v2 0/7] nfc: minor printk cleanup
 List-Id: NFC on Linux <linux-nfc.lists.01.org>
-Archived-At: <https://lists.01.org/hyperkitty/list/linux-nfc@lists.01.org/message/USMZDQSZLP6GFPTHTJQIOQG63QQ47HPD/>
+Archived-At: <https://lists.01.org/hyperkitty/list/linux-nfc@lists.01.org/message/3LQOMCFU422WWJWGF7DXUZIEFAKVF6YC/>
 List-Archive: <https://lists.01.org/hyperkitty/list/linux-nfc@lists.01.org/>
 List-Help: <mailto:linux-nfc-request@lists.01.org?subject=help>
 List-Post: <mailto:linux-nfc@lists.01.org>
@@ -78,83 +77,33 @@ List-Unsubscribe: <mailto:linux-nfc-leave@lists.01.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-On x86_64 valgrind complains when reading a tag:
+On Fri, 8 Oct 2021 at 12:18, Krzysztof Kozlowski
+<krzysztof.kozlowski@canonical.com> wrote:
+>
+> On Fri, 8 Oct 2021 at 12:17, David Miller <davem@davemloft.net> wrote:
+> >
+> > From: Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>
+> > Date: Thu,  7 Oct 2021 15:30:14 +0200
+> >
+> > > Hi,
+> > >
+> > > This is a rebase and resend of v2. No other changes.
+> > >
+> > > Changes since v1:
+> > > 1. Remove unused variable in pn533 (reported by kbuild).
+> >
+> > Please CC: netdev for nfc patches otherwise they will not get tracked
+> > and applied.
+>
+> netdev@vger.kernel.org is here. Which address I missed?
 
-    neard[15754]: src/tag.c:tag_initialize()
-    neard[15754]: src/tag.c:set_tag_type() protocol 0x8 sens_res 0x0 sel_res 0x0
-    neard[15754]: src/tag.c:set_tag_type() tag type 0x3
-    neard[15754]: src/tag.c:__near_tag_add() connection 0x513aeb0
-    neard[15754]: src/adapter.c:near_adapter_connect() idx 0
-    ==15754== Syscall param socketcall.connect(serv_addr.sa_data) points to uninitialised byte(s)
-    ==15754==    at 0x4B45057: connect (connect.c:26)
-    ==15754==    by 0x1306D8: near_adapter_connect (adapter.c:1068)
-    ==15754==    by 0x130BB3: adapter_add_tag (adapter.c:754)
-    ==15754==    by 0x130BB3: __near_adapter_add_target (adapter.c:841)
-    ==15754==    by 0x13462D: get_targets_handler (netlink.c:574)
-    ==15754==    by 0x4A11DF0: nl_recvmsgs_report (in /usr/lib/x86_64-linux-gnu/libnl-3.so.200.26.0)
-    ==15754==    by 0x4A122CC: nl_recvmsgs (in /usr/lib/x86_64-linux-gnu/libnl-3.so.200.26.0)
-    ==15754==    by 0x134262: __nl_send_msg (netlink.c:151)
-    ==15754==    by 0x13494E: nfc_netlink_event_targets_found.isra.0 (netlink.c:627)
-    ==15754==    by 0x134DB4: nfc_netlink_event (netlink.c:780)
-    ==15754==    by 0x4A11DF0: nl_recvmsgs_report (in /usr/lib/x86_64-linux-gnu/libnl-3.so.200.26.0)
-    ==15754==    by 0x4A122CC: nl_recvmsgs (in /usr/lib/x86_64-linux-gnu/libnl-3.so.200.26.0)
-    ==15754==    by 0x13483B: __nfc_netlink_event (netlink.c:837)
-    ==15754==    by 0x13483B: __nfc_netlink_event (netlink.c:821)
-    ==15754==  Address 0x1ffefffa82 is on thread 1's stack
-    ==15754==  in frame #1, created by near_adapter_connect (adapter.c:1038)
-    ==15754==
-    neard[15754]: src/tag.c:__near_tag_read() type 0x3
-    neard[15754]: src/adapter.c:__near_adapter_stop_check_presence()
-    neard[15754]: src/tag.c:__near_tag_read() driver type 0x1
-    neard[15754]: src/tag.c:__near_tag_read() driver type 0x2
-    neard[15754]: src/tag.c:__near_tag_read() driver type 0x3
+The patchset reached patchwork:
+https://patchwork.kernel.org/project/netdevbpf/list/?series=559153&state=*
+although for some reason it is marked as "changes requested". Are
+there any other changes needed except Joe's comment for one patch?
 
-Due to alignment the actual sizeof(sockaddr_nfc) is 16 bytes, but only
-first 14 bytes are initialized.  Valgrind complains about remaining two
-bytes.  Solve it by using more generic storage - sockaddr_storage.
-
-Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>
----
- src/adapter.c | 14 ++++++++------
- 1 file changed, 8 insertions(+), 6 deletions(-)
-
-diff --git a/src/adapter.c b/src/adapter.c
-index e0ab8c5d6055..a0042b9dce87 100644
---- a/src/adapter.c
-+++ b/src/adapter.c
-@@ -1036,9 +1036,10 @@ static gboolean adapter_recv_event(GIOChannel *channel, GIOCondition condition,
- 
- int near_adapter_connect(uint32_t idx, uint32_t target_idx, uint8_t protocol)
- {
-+	struct sockaddr_storage addr_storage = {};
- 	struct near_adapter *adapter;
-+	struct sockaddr_nfc *addr;
- 	struct near_tag *tag;
--	struct sockaddr_nfc addr;
- 	int err, sock;
- 
- 	DBG("idx %u", idx);
-@@ -1059,12 +1060,13 @@ int near_adapter_connect(uint32_t idx, uint32_t target_idx, uint8_t protocol)
- 	if (sock == -1)
- 		return -errno;
- 
--	addr.sa_family = AF_NFC;
--	addr.dev_idx = idx;
--	addr.target_idx = target_idx;
--	addr.nfc_protocol = protocol;
-+	addr = (struct sockaddr_nfc *)&addr_storage;
-+	addr->sa_family = AF_NFC;
-+	addr->dev_idx = idx;
-+	addr->target_idx = target_idx;
-+	addr->nfc_protocol = protocol;
- 
--	err = connect(sock, (struct sockaddr *) &addr, sizeof(addr));
-+	err = connect(sock, (struct sockaddr *) addr, sizeof(*addr));
- 	if (err) {
- 		close(sock);
- 		return -errno;
--- 
-2.30.2
+Best regards,
+Krzysztof
 _______________________________________________
 Linux-nfc mailing list -- linux-nfc@lists.01.org
 To unsubscribe send an email to linux-nfc-leave@lists.01.org
