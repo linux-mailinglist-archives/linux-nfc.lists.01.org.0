@@ -2,73 +2,73 @@ Return-Path: <linux-nfc-bounces@lists.01.org>
 X-Original-To: lists+linux-nfc@lfdr.de
 Delivered-To: lists+linux-nfc@lfdr.de
 Received: from ml01.01.org (ml01.01.org [IPv6:2001:19d0:306:5::1])
-	by mail.lfdr.de (Postfix) with ESMTPS id C6E2A428398
-	for <lists+linux-nfc@lfdr.de>; Sun, 10 Oct 2021 22:53:02 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 92D7C4283A3
+	for <lists+linux-nfc@lfdr.de>; Sun, 10 Oct 2021 22:59:06 +0200 (CEST)
 Received: from ml01.vlan13.01.org (localhost [IPv6:::1])
-	by ml01.01.org (Postfix) with ESMTP id 9D697100EAB78;
-	Sun, 10 Oct 2021 13:53:01 -0700 (PDT)
+	by ml01.01.org (Postfix) with ESMTP id 29075100EAB7D;
+	Sun, 10 Oct 2021 13:59:05 -0700 (PDT)
 Received-SPF: Pass (mailfrom) identity=mailfrom; client-ip=185.125.188.122; helo=smtp-relay-internal-0.canonical.com; envelope-from=krzysztof.kozlowski@canonical.com; receiver=<UNKNOWN> 
 Received: from smtp-relay-internal-0.canonical.com (smtp-relay-internal-0.canonical.com [185.125.188.122])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits))
 	(No client certificate requested)
-	by ml01.01.org (Postfix) with ESMTPS id 3A30B100EAB77
-	for <linux-nfc@lists.01.org>; Sun, 10 Oct 2021 13:53:00 -0700 (PDT)
+	by ml01.01.org (Postfix) with ESMTPS id E2B24100EAB79
+	for <linux-nfc@lists.01.org>; Sun, 10 Oct 2021 13:59:02 -0700 (PDT)
 Received: from mail-ed1-f71.google.com (mail-ed1-f71.google.com [209.85.208.71])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by smtp-relay-internal-0.canonical.com (Postfix) with ESMTPS id 9FB1D40016
-	for <linux-nfc@lists.01.org>; Sun, 10 Oct 2021 20:52:58 +0000 (UTC)
+	by smtp-relay-internal-0.canonical.com (Postfix) with ESMTPS id 9C70040013
+	for <linux-nfc@lists.01.org>; Sun, 10 Oct 2021 20:59:01 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=canonical.com;
-	s=20210705; t=1633899178;
-	bh=VUoZvUcEz5W61r6JJ0vnYx7Iv2cJ136M8cBt3vNkKRo=;
+	s=20210705; t=1633899541;
+	bh=vbA6KQmT88TPosyqyyvRSbT6u/s6NWq+qTxHMzpWCdA=;
 	h=Subject:To:Cc:References:From:Message-ID:Date:MIME-Version:
 	 In-Reply-To:Content-Type;
-	b=Cg6GwNaIpXwBsjoB2F2R5WeCYlJG/1vXNWTvJjDwvb401T8dudGZIiZ6AJKwmhvcW
-	 /WxPq4qGvcFzqPXCSStGIlh/8avTGjkhoCTuTCirk/a02BOKESLkUicK1ssuk+4+8/
-	 2LkLhjnrPcajpYOHpOpeg2NmbfN94M8WxGnnfgUXw5JwJRzGTrRXa5he+v0lMT4QNn
-	 0M4AHLCp1AW35YVwqgHRH9mE3x17hbCbhpAozLD4k72pop/Y/P8WIfl3r8UAmOwXly
-	 jvr624nYId3tlIApY95NN7y7VrLDIi/yigCILsUmfMnHxyA7zzafW+ENwlFbDd0KUX
-	 tbF6vwg8Ak6mg==
-Received: by mail-ed1-f71.google.com with SMTP id e14-20020a056402088e00b003db6ebb9526so4339000edy.22
-        for <linux-nfc@lists.01.org>; Sun, 10 Oct 2021 13:52:58 -0700 (PDT)
+	b=aafMjLiidKOfsoeaHM20W+8ZulnVY8h64S3f2lL0Tno1x5kCfuGvMWH3BUYRAM+t7
+	 NXmC7wXvSoh8XdQ33xM4nOD12sSM7Ej1sfMpQ4xNUmOTqVjn3LiFM3xljxa7G1PVle
+	 MLacPZYnipHWZY65L+IhVDSegidceVU1uQlBvT9/Xl1E4iS1vXJBlvfyMgAhRVIqi0
+	 IChraGyGK0wMiLfMZbzJOI2ioEDP6YqlV6TT+2WedGkk5VEZcuIl6LDU+ICtL4eu9w
+	 lafKR3Xto5h0HnWLl6gNrBf6mufPBAlwPraDSdK3NOA008yccTM3/7f+2LePYvh7O3
+	 I5rBP990MTXWw==
+Received: by mail-ed1-f71.google.com with SMTP id e14-20020a056402088e00b003db6ebb9526so4345256edy.22
+        for <linux-nfc@lists.01.org>; Sun, 10 Oct 2021 13:59:01 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
         h=x-gm-message-state:subject:to:cc:references:from:message-id:date
          :user-agent:mime-version:in-reply-to:content-language
          :content-transfer-encoding;
-        bh=VUoZvUcEz5W61r6JJ0vnYx7Iv2cJ136M8cBt3vNkKRo=;
-        b=FgnOsgBIxuLGOheoEKjV17cpiE1Ehtc9WiqAQzwd+s1bqcHFJjY5KcPAdO7jhMC2F+
-         yG/XDyWMRG4g2kHpfJdCYGCZAqI9rlJGdTSGOMGp0bYtITxof+Z9aJG4ZR+5+4f9/ak2
-         Yxe48vbwd2arLkfql/KOmT080/TtGA9UQqde6h+GamJHhrgGnVSdnse3IuJqh13dc9ZK
-         DJd8psyC5yY0KTmAjPYevzjMhpDCTyE3jIZLFknMBHLSe9O9+omgD3TIA0VwckOfYvTX
-         PRNKqB7BgX+YjXhE+ZdAI188zzp8iwIBAAgJsRQ6hm6zE9fCjQUOJxKLxzoyo0t4Z1rC
-         Zcbg==
-X-Gm-Message-State: AOAM533kDz5AxupGLU8WiAF+OtzKlv+9uW/8rFpIHkAvIwLkPD/8l1ys
-	CINb4FErPcv8BW52PtVf4R42VTH/86dKxXuICcxZVs7+u+s0W8EvV1MyLeRdFXQX0Jt5n/pkI3L
-	+Xf9WAgz5AC4t7+FZ/cX5ROmvrBG+OUjv1g==
-X-Received: by 2002:a17:906:d0c3:: with SMTP id bq3mr21252742ejb.277.1633899178186;
-        Sun, 10 Oct 2021 13:52:58 -0700 (PDT)
-X-Google-Smtp-Source: ABdhPJzUsaX5GVNNhedfg3aGctYY89+Bp8z44cavbVqI0d3fIzvOES2m0gz5xMXHfGP+pcKi3YgXYA==
-X-Received: by 2002:a17:906:d0c3:: with SMTP id bq3mr21252732ejb.277.1633899178038;
-        Sun, 10 Oct 2021 13:52:58 -0700 (PDT)
+        bh=vbA6KQmT88TPosyqyyvRSbT6u/s6NWq+qTxHMzpWCdA=;
+        b=i+rCRdnziNIiUO025A5tKaSKWWvrvn5Z7xgLw0MEZfe2IVtFl5sCp4uXUntx2sqpB/
+         TNPRIJa07PeL6MPbWj53Hnhb4dQCD53x2AHXe3HMEnl+SgC71sXdqFCOENXFlBFg4+BL
+         c6VOEB873XrlkHMFuq00UxHKF69w5HL9M7kapUwEaz72f987DlixILmevEzxbzLxzLj9
+         zWW4Us08LCDwsZRak8+Nm3DHxu4PY73vM/sOhWvTa718f4envBFhPy6cQ2m35pUfV2GC
+         FHcpj80zUFGAGtgT04X+RpchFFHgHdFCm9NhHnp6fXoIwORpAwA9FyvVJJp4n9L5yq1/
+         bASw==
+X-Gm-Message-State: AOAM530C0gC3HxDJH7SWmfA1fK0JtbjkchrJPVgYnwETC27TuJ+eR2QS
+	g9buAXlzy/5TA0ZJJdreOTASjfRYVqT+5K6xJ6oHzwOARrTWfDfhkk3rhKk2P+pDhg95j838/G2
+	yuofsgERlIRP5B6se4jL6yquhRC0tN7QSCw==
+X-Received: by 2002:a05:6402:1941:: with SMTP id f1mr8554631edz.3.1633899541310;
+        Sun, 10 Oct 2021 13:59:01 -0700 (PDT)
+X-Google-Smtp-Source: ABdhPJyFdhFoFHiozNsDRv0hkz318JVGkZTHVd/QS3nQ6sTbPFwP2FFLCChwQCYgJKHsOaeft+JO3g==
+X-Received: by 2002:a05:6402:1941:: with SMTP id f1mr8554606edz.3.1633899541074;
+        Sun, 10 Oct 2021 13:59:01 -0700 (PDT)
 Received: from [192.168.0.20] (78-11-189-27.static.ip.netia.com.pl. [78.11.189.27])
-        by smtp.gmail.com with ESMTPSA id w2sm3061619edj.44.2021.10.10.13.52.56
+        by smtp.gmail.com with ESMTPSA id fx4sm2495638ejb.113.2021.10.10.13.58.59
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sun, 10 Oct 2021 13:52:57 -0700 (PDT)
+        Sun, 10 Oct 2021 13:59:00 -0700 (PDT)
 To: Rob Herring <robh@kernel.org>
 References: <20211010142317.168259-1-krzysztof.kozlowski@canonical.com>
  <1633894316.441793.3158669.nullmailer@robh.at.kernel.org>
 From: Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>
-Message-ID: <0e26d0e6-9468-63b5-a357-af4c4e7ec677@canonical.com>
-Date: Sun, 10 Oct 2021 22:52:56 +0200
+Message-ID: <f955726a-eb2d-7b3e-9c5f-978358710eb6@canonical.com>
+Date: Sun, 10 Oct 2021 22:58:59 +0200
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
  Thunderbird/78.13.0
 MIME-Version: 1.0
 In-Reply-To: <1633894316.441793.3158669.nullmailer@robh.at.kernel.org>
 Content-Language: en-US
-Message-ID-Hash: LYCQKAKD4COUYUYCPU7RE7IIGA7ALYLC
-X-Message-ID-Hash: LYCQKAKD4COUYUYCPU7RE7IIGA7ALYLC
+Message-ID-Hash: T4PZBMHFXQQCA3ADG3S3POPMW23DSKLA
+X-Message-ID-Hash: T4PZBMHFXQQCA3ADG3S3POPMW23DSKLA
 X-MailFrom: krzysztof.kozlowski@canonical.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency; loop; banned-address; member-moderation; nonmember-moderation; administrivia; implicit-dest; max-recipients; max-size; news-moderation; no-subject; suspicious-header
 CC: linux-nfc@lists.01.org, devicetree@vger.kernel.org, Jakub Kicinski <kuba@kernel.org>, linux-wireless@vger.kernel.org, linux-kernel@vger.kernel.org, "David S. Miller" <davem@davemloft.net>, netdev@vger.kernel.org, Rob Herring <robh+dt@kernel.org>, Charles Gorand <charles.gorand@effinnov.com>
@@ -76,7 +76,7 @@ X-Mailman-Version: 3.1.1
 Precedence: list
 Subject: [linux-nfc] Re: [PATCH 1/7] dt-bindings: nfc: nxp,nci: convert to dtschema
 List-Id: NFC on Linux <linux-nfc.lists.01.org>
-Archived-At: <https://lists.01.org/hyperkitty/list/linux-nfc@lists.01.org/message/LYCQKAKD4COUYUYCPU7RE7IIGA7ALYLC/>
+Archived-At: <https://lists.01.org/hyperkitty/list/linux-nfc@lists.01.org/message/T4PZBMHFXQQCA3ADG3S3POPMW23DSKLA/>
 List-Archive: <https://lists.01.org/hyperkitty/list/linux-nfc@lists.01.org/>
 List-Help: <mailto:linux-nfc-request@lists.01.org?subject=help>
 List-Post: <mailto:linux-nfc@lists.01.org>
@@ -112,30 +112,14 @@ On 10/10/2021 21:31, Rob Herring wrote:
 > nfc@28: 'clock-frequency' is a required property
 > 	arch/arm64/boot/dts/qcom/msm8916-huawei-g7.dt.yaml
 > 
-> nfc@28: compatible:0: 'nxp,nxp-nci-i2c' was expected
-> 	arch/arm64/boot/dts/qcom/msm8916-huawei-g7.dt.yaml
-> 
-> nfc@28: compatible: Additional items are not allowed ('nxp,nxp-nci-i2c' was unexpected)
-> 	arch/arm64/boot/dts/qcom/msm8916-huawei-g7.dt.yaml
-> 
-> nfc@28: compatible: ['nxp,pn547', 'nxp,nxp-nci-i2c'] is too long
-> 	arch/arm64/boot/dts/qcom/msm8916-huawei-g7.dt.yaml
-> 
-> nfc@30: 'clock-frequency' is a required property
-> 	arch/arm/boot/dts/ste-ux500-samsung-janice.dt.yaml
-> 
-> nfc@30: compatible:0: 'nxp,nxp-nci-i2c' was expected
-> 	arch/arm/boot/dts/ste-ux500-samsung-janice.dt.yaml
-> 
-> nfc@30: compatible: Additional items are not allowed ('nxp,nxp-nci-i2c' was unexpected)
-> 	arch/arm/boot/dts/ste-ux500-samsung-janice.dt.yaml
-> 
-> nfc@30: compatible: ['nxp,pn547', 'nxp,nxp-nci-i2c'] is too long
-> 	arch/arm/boot/dts/ste-ux500-samsung-janice.dt.yaml
-> 
 
-I missed that new compatible. I'll send a patch adding nxp,nxp-nci-i2c
-and try to fix the DTS (missing clock-frequency).
+Hmm, this actually looks as mistake in bindings. First, clock-frequency
+is a property of a I2C bus, not I2C child device. Second, it should not
+be a required property anyway, as I2C will choose a default one matching
+driver (e.g. standard speed of 100 kHz).
+
+Except the trf7970a NFC driver, none of other NFC drivers parse the
+clock-frequency.
 
 Best regards,
 Krzysztof
