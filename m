@@ -1,60 +1,60 @@
 Return-Path: <linux-nfc-bounces@lists.01.org>
 X-Original-To: lists+linux-nfc@lfdr.de
 Delivered-To: lists+linux-nfc@lfdr.de
-Received: from ml01.01.org (ml01.01.org [IPv6:2001:19d0:306:5::1])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3284B4281C3
-	for <lists+linux-nfc@lfdr.de>; Sun, 10 Oct 2021 16:23:39 +0200 (CEST)
+Received: from ml01.01.org (ml01.01.org [198.145.21.10])
+	by mail.lfdr.de (Postfix) with ESMTPS id 98CA04281C4
+	for <lists+linux-nfc@lfdr.de>; Sun, 10 Oct 2021 16:23:41 +0200 (CEST)
 Received: from ml01.vlan13.01.org (localhost [IPv6:::1])
-	by ml01.01.org (Postfix) with ESMTP id 78ED1100EAB6B;
+	by ml01.01.org (Postfix) with ESMTP id 9240C100EA907;
 	Sun, 10 Oct 2021 07:23:36 -0700 (PDT)
 Received-SPF: Pass (mailfrom) identity=mailfrom; client-ip=185.125.188.122; helo=smtp-relay-internal-0.canonical.com; envelope-from=krzysztof.kozlowski@canonical.com; receiver=<UNKNOWN> 
 Received: from smtp-relay-internal-0.canonical.com (smtp-relay-internal-0.canonical.com [185.125.188.122])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits))
 	(No client certificate requested)
-	by ml01.01.org (Postfix) with ESMTPS id B2387100EAB6A
-	for <linux-nfc@lists.01.org>; Sun, 10 Oct 2021 07:23:32 -0700 (PDT)
-Received: from mail-ed1-f72.google.com (mail-ed1-f72.google.com [209.85.208.72])
+	by ml01.01.org (Postfix) with ESMTPS id 1F8A3100EAB5D
+	for <linux-nfc@lists.01.org>; Sun, 10 Oct 2021 07:23:34 -0700 (PDT)
+Received: from mail-ed1-f71.google.com (mail-ed1-f71.google.com [209.85.208.71])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by smtp-relay-internal-0.canonical.com (Postfix) with ESMTPS id 7C0CC40012
-	for <linux-nfc@lists.01.org>; Sun, 10 Oct 2021 14:23:31 +0000 (UTC)
+	by smtp-relay-internal-0.canonical.com (Postfix) with ESMTPS id C7D0F4001A
+	for <linux-nfc@lists.01.org>; Sun, 10 Oct 2021 14:23:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=canonical.com;
-	s=20210705; t=1633875811;
-	bh=ONDFWAF3Os4f+pjgFsy5pB3Qg13aS7WOCaakfyRRUkQ=;
+	s=20210705; t=1633875812;
+	bh=CPCA02s/SUPanw77EF1mmKLV8dt3hzeoEjW66M7WKxY=;
 	h=From:To:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version:Content-Type;
-	b=bmf+It+Lv5rmH7YVUEfLV17+FhabRynBscSEgRSovOORfQKuCCdCCVk0MV+7aLQ5Q
-	 uYJe1zvj0RWuwsML2jaQK1aS2TiSZWrmJAvMum2jac+VoH4uUYFp5Km0Id3ufEGnJh
-	 M0TitLc170s5fi+a0dxGyEDG4aUmz6psq4dR9/VgB/NS32d9UTRjAXsd4gQJjhGJ7N
-	 nPIdp/2Ah1yypNTBgAMVK0vtN22VkXiYMPzo1mc4FJMOiXWPaAou7j/5saN2BoKyKg
-	 TRSm+FcGN+JkY6cuFjSf2grYGmyy4vpm6MU+5vdS0qm9nb6ac2+k79oChAW/tJbmhL
-	 GBnguC7F9Zsyw==
-Received: by mail-ed1-f72.google.com with SMTP id c30-20020a50f61e000000b003daf3955d5aso13481792edn.4
-        for <linux-nfc@lists.01.org>; Sun, 10 Oct 2021 07:23:31 -0700 (PDT)
+	 MIME-Version;
+	b=dtp6vHtHK2dgxQugSt4bQEvW57xyiijD6Uq4HmVtwKO/1GVyBbUrCVkIPhmLkg1ZA
+	 HdyppH+mAqoNFYx4aj28xUVhLrFOsRWdk3gv8zQCkAsyDjgS4B+GniJV2M9lvdlvtY
+	 /YrlrKz46Un6F/eIKx5yvixekpryqVTxEvAP9f6Ik1WyVCyusg9TNdqpz3LWOAi83b
+	 rfJpq2Xl9u8y7HXLaMiv3uncDj4Wz4+kshU8m8FGa8dU3DPS0JtHdqjCtoq0CfVwjh
+	 pLHJhCwmSCRBuM2mC3rWU9ClTuVc3xgf7y/wJ44xbddEZMSXr5EAdN8Q5ystcCmiIN
+	 W5lbddWYvjKhQ==
+Received: by mail-ed1-f71.google.com with SMTP id t28-20020a508d5c000000b003dad7fc5caeso13438084edt.11
+        for <linux-nfc@lists.01.org>; Sun, 10 Oct 2021 07:23:32 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
         h=x-gm-message-state:from:to:subject:date:message-id:in-reply-to
          :references:mime-version:content-transfer-encoding;
-        bh=ONDFWAF3Os4f+pjgFsy5pB3Qg13aS7WOCaakfyRRUkQ=;
-        b=JlvtE7yh8rMayaEB5YBcG+3AkOBYGApvW7r1JwDuGnDCXfDL4lpFHAyc/qAM9E9+Fi
-         JOKjLYiNWfcsVD1B4srrNIgXQtr7LYD9zJlE2uMvshkzFAbSWuXTtRFuBWJhsGiSOCPK
-         MW99F0rGYaz4Xei2ZWfOKdJdo08jyK6g+BvpqfUN0yu7R8a7VOd2bqXHF/jN20r9iZWF
-         19yk4lTOQl490rIDfk0LWpa/k6qdukWH2AMb6/LxKdW7ufU0XxPNW6aWCr/sfiWdBBg0
-         zhYEm2EFxupt9sQel2N2TWbba5+iGiyYVczOmKWgxAtb+ajD1/XGTCNtUt2fqjhv4xwj
-         mXFg==
-X-Gm-Message-State: AOAM530tCS/EjCPMN6+rujwaO9d9VUnu4Xvw+vcf9DLS67nx5guVGGFF
-	PL9vhrjjtIfAqRLx2nZdtqABh4BMPWv2EPBptp0UVemJFUTNAPoweymqYCecZKGlg2lvjVRR9fW
-	JH1rG85ClOeCl2EHVEnaLWdyeHqdR0SJv7A==
-X-Received: by 2002:a17:906:1451:: with SMTP id q17mr19043458ejc.214.1633875811148;
-        Sun, 10 Oct 2021 07:23:31 -0700 (PDT)
-X-Google-Smtp-Source: ABdhPJwlSwwBZr023ecljsU2pQ+A6KOmi11yj/gJpFXKdoIY7MpnIneA4rpONBq3izjUZIE6KvWMpg==
-X-Received: by 2002:a17:906:1451:: with SMTP id q17mr19043445ejc.214.1633875810951;
-        Sun, 10 Oct 2021 07:23:30 -0700 (PDT)
+        bh=CPCA02s/SUPanw77EF1mmKLV8dt3hzeoEjW66M7WKxY=;
+        b=aZB1vEFCCJ8i6t+TVYXHUq+977V6rWvc5mIPfQkONp5RN3bmEkSuQ0CZsxUGTJqDtS
+         130DA4h1eN3YXNC6V/7a/MPJY8hEwr7DSClIPdR/LxSHGCyRZrr6IWX/WJPcWIU/t43u
+         aW8WjbTXB3fe/YXH0rRhLUv70xBu3gXtqX7JO1wQ8euu+G6laRMEV0ViyHCDqtPdjnDi
+         gr+mFa0pviwwJARkSkBt8swZ6niYICsQE6oraKN3gGF1yU/XOq2aiyCtzM30VRGWYDr3
+         8zsiDtZ/hxdI4W434cBcyqLI4ZN8QlVg0gUo8zoJ82ekuhyM3W22iplamTrtuSCDhrgZ
+         QUNw==
+X-Gm-Message-State: AOAM533uKuhBP1/qetzYZiRaBq90SE+FTtpkIZU5qWUZyTVVs0CSZpWX
+	erCherIfvoD3ocLJpTgDaeLLbF1c5F1jGUtA+Hsr9o17updy/o6aFXBDDDh0RyOFYesXT78VqN7
+	EE9rPtOXrJ3RXubkBMRLg7tqWuI9EAqm2Wg==
+X-Received: by 2002:a17:907:2bdf:: with SMTP id gv31mr19454199ejc.521.1633875812410;
+        Sun, 10 Oct 2021 07:23:32 -0700 (PDT)
+X-Google-Smtp-Source: ABdhPJxEAeeDmZxwq28FqWcAXIumFiXDUd8MdJmi+k2l7hERmlAm2/SrnIL/odhbbw/P7JNHcqhsUA==
+X-Received: by 2002:a17:907:2bdf:: with SMTP id gv31mr19454172ejc.521.1633875812184;
+        Sun, 10 Oct 2021 07:23:32 -0700 (PDT)
 Received: from localhost.localdomain (78-11-189-27.static.ip.netia.com.pl. [78.11.189.27])
-        by smtp.gmail.com with ESMTPSA id 6sm2129017ejx.82.2021.10.10.07.23.29
+        by smtp.gmail.com with ESMTPSA id 6sm2129017ejx.82.2021.10.10.07.23.31
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 10 Oct 2021 07:23:30 -0700 (PDT)
+        Sun, 10 Oct 2021 07:23:31 -0700 (PDT)
 From: Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>
 To: Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>,
 	"David S. Miller" <davem@davemloft.net>,
@@ -67,138 +67,209 @@ To: Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>,
 	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	linux-wireless@vger.kernel.org
-Date: Sun, 10 Oct 2021 16:23:15 +0200
-Message-Id: <20211010142317.168259-5-krzysztof.kozlowski@canonical.com>
+Date: Sun, 10 Oct 2021 16:23:16 +0200
+Message-Id: <20211010142317.168259-6-krzysztof.kozlowski@canonical.com>
 X-Mailer: git-send-email 2.30.2
 In-Reply-To: <20211010142317.168259-1-krzysztof.kozlowski@canonical.com>
 References: <20211010142317.168259-1-krzysztof.kozlowski@canonical.com>
 MIME-Version: 1.0
-Message-ID-Hash: R7R2VVPVMFQVUUK6TXHQPTDGCZIQ6XKW
-X-Message-ID-Hash: R7R2VVPVMFQVUUK6TXHQPTDGCZIQ6XKW
+Message-ID-Hash: FW7PGEWV5UXNYMQ4MHUC5APSU7KJLCTQ
+X-Message-ID-Hash: FW7PGEWV5UXNYMQ4MHUC5APSU7KJLCTQ
 X-MailFrom: krzysztof.kozlowski@canonical.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency; loop; banned-address; member-moderation; nonmember-moderation; administrivia; implicit-dest; max-recipients; max-size; news-moderation; no-subject; suspicious-header
 X-Mailman-Version: 3.1.1
 Precedence: list
-Subject: [linux-nfc] [PATCH 5/7] dt-bindings: nfc: st,nci: convert to dtschema
+Subject: [linux-nfc] [PATCH 6/7] dt-bindings: nfc: ti,trf7970a: convert to dtschema
 List-Id: NFC on Linux <linux-nfc.lists.01.org>
-Archived-At: <https://lists.01.org/hyperkitty/list/linux-nfc@lists.01.org/message/R7R2VVPVMFQVUUK6TXHQPTDGCZIQ6XKW/>
+Archived-At: <https://lists.01.org/hyperkitty/list/linux-nfc@lists.01.org/message/FW7PGEWV5UXNYMQ4MHUC5APSU7KJLCTQ/>
 List-Archive: <https://lists.01.org/hyperkitty/list/linux-nfc@lists.01.org/>
 List-Help: <mailto:linux-nfc-request@lists.01.org?subject=help>
 List-Post: <mailto:linux-nfc@lists.01.org>
 List-Subscribe: <mailto:linux-nfc-join@lists.01.org>
 List-Unsubscribe: <mailto:linux-nfc-leave@lists.01.org>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 
-Q29udmVydCB0aGUgU1QgTkNJIChTVDIxTkZDQikgTkZDIGNvbnRyb2xsZXIgdG8gRFQgc2NoZW1h
-IGZvcm1hdC4NCg0KU2lnbmVkLW9mZi1ieTogS3J6eXN6dG9mIEtvemxvd3NraSA8a3J6eXN6dG9m
-Lmtvemxvd3NraUBjYW5vbmljYWwuY29tPg0KLS0tDQogLi4uL2JpbmRpbmdzL25ldC9uZmMvc3Qs
-c3QtbmNpLnlhbWwgICAgICAgICAgIHwgMTE0ICsrKysrKysrKysrKysrKysrKw0KIC4uLi9iaW5k
-aW5ncy9uZXQvbmZjL3N0LW5jaS1pMmMudHh0ICAgICAgICAgICB8ICAzOCAtLS0tLS0NCiAuLi4v
-YmluZGluZ3MvbmV0L25mYy9zdC1uY2ktc3BpLnR4dCAgICAgICAgICAgfCAgMzYgLS0tLS0tDQog
-MyBmaWxlcyBjaGFuZ2VkLCAxMTQgaW5zZXJ0aW9ucygrKSwgNzQgZGVsZXRpb25zKC0pDQogY3Jl
-YXRlIG1vZGUgMTAwNjQ0IERvY3VtZW50YXRpb24vZGV2aWNldHJlZS9iaW5kaW5ncy9uZXQvbmZj
-L3N0LHN0LW5jaS55YW1sDQogZGVsZXRlIG1vZGUgMTAwNjQ0IERvY3VtZW50YXRpb24vZGV2aWNl
-dHJlZS9iaW5kaW5ncy9uZXQvbmZjL3N0LW5jaS1pMmMudHh0DQogZGVsZXRlIG1vZGUgMTAwNjQ0
-IERvY3VtZW50YXRpb24vZGV2aWNldHJlZS9iaW5kaW5ncy9uZXQvbmZjL3N0LW5jaS1zcGkudHh0
-DQoNCmRpZmYgLS1naXQgYS9Eb2N1bWVudGF0aW9uL2RldmljZXRyZWUvYmluZGluZ3MvbmV0L25m
-Yy9zdCxzdC1uY2kueWFtbCBiL0RvY3VtZW50YXRpb24vZGV2aWNldHJlZS9iaW5kaW5ncy9uZXQv
-bmZjL3N0LHN0LW5jaS55YW1sDQpuZXcgZmlsZSBtb2RlIDEwMDY0NA0KaW5kZXggMDAwMDAwMDAw
-MDAwLi40NDg2YWU3NWY4YTINCi0tLSAvZGV2L251bGwNCisrKyBiL0RvY3VtZW50YXRpb24vZGV2
-aWNldHJlZS9iaW5kaW5ncy9uZXQvbmZjL3N0LHN0LW5jaS55YW1sDQpAQCAtMCwwICsxLDExNCBA
-QA0KKyMgU1BEWC1MaWNlbnNlLUlkZW50aWZpZXI6IEdQTC0yLjAtb25seSBPUiBCU0QtMi1DbGF1
-c2UNCislWUFNTCAxLjINCistLS0NCiskaWQ6IGh0dHA6Ly9kZXZpY2V0cmVlLm9yZy9zY2hlbWFz
-L25ldC9uZmMvc3Qsc3QtbmNpLnlhbWwjDQorJHNjaGVtYTogaHR0cDovL2RldmljZXRyZWUub3Jn
-L21ldGEtc2NoZW1hcy9jb3JlLnlhbWwjDQorDQordGl0bGU6IFNUTWljcm9lbGVjdHJvbmljcyBT
-VCBOQ0kgTkZDIGNvbnRyb2xsZXINCisNCittYWludGFpbmVyczoNCisgIC0gS3J6eXN6dG9mIEtv
-emxvd3NraSA8a3J6eXN6dG9mLmtvemxvd3NraUBjYW5vbmljYWwuY29tPg0KKw0KK3Byb3BlcnRp
-ZXM6DQorICBjb21wYXRpYmxlOg0KKyAgICBlbnVtOg0KKyAgICAgIC0gc3Qsc3QyMW5mY2ItaTJj
-DQorICAgICAgLSBzdCxzdDIxbmZjYi1zcGkNCisgICAgICAtIHN0LHN0MjFuZmNjLWkyYw0KKw0K
-KyAgY2xvY2stZnJlcXVlbmN5OiB0cnVlDQorDQorICByZXNldC1ncGlvczoNCisgICAgZGVzY3Jp
-cHRpb246IE91dHB1dCBHUElPIHBpbiB1c2VkIGZvciByZXNldHRpbmcgdGhlIGNvbnRyb2xsZXIN
-CisNCisgIGVzZS1wcmVzZW50Og0KKyAgICB0eXBlOiBib29sZWFuDQorICAgIGRlc2NyaXB0aW9u
-OiB8DQorICAgICAgU3BlY2lmaWVzIHRoYXQgYW4gZXNlIGlzIHBoeXNpY2FsbHkgY29ubmVjdGVk
-IHRvIHRoZSBjb250cm9sbGVyDQorDQorICBpbnRlcnJ1cHRzOg0KKyAgICBtYXhJdGVtczogMQ0K
-Kw0KKyAgcmVnOg0KKyAgICBtYXhJdGVtczogMQ0KKw0KKyAgc3BpLW1heC1mcmVxdWVuY3k6IHRy
-dWUNCisNCisgIHVpY2MtcHJlc2VudDoNCisgICAgdHlwZTogYm9vbGVhbg0KKyAgICBkZXNjcmlw
-dGlvbjogfA0KKyAgICAgIFNwZWNpZmllcyB0aGF0IHRoZSB1aWNjIHN3cCBzaWduYWwgY2FuIGJl
-IHBoeXNpY2FsbHkgY29ubmVjdGVkIHRvIHRoZQ0KKyAgICAgIGNvbnRyb2xsZXINCisNCityZXF1
-aXJlZDoNCisgIC0gY29tcGF0aWJsZQ0KKyAgLSBpbnRlcnJ1cHRzDQorICAtIHJlZw0KKyAgLSBy
-ZXNldC1ncGlvcw0KKw0KK2lmOg0KKyAgcHJvcGVydGllczoNCisgICAgY29tcGF0aWJsZToNCisg
-ICAgICBjb250YWluczoNCisgICAgICAgIGVudW06DQorICAgICAgICAgIC0gc3Qsc3QyMW5mY2It
-aTJjDQorICAgICAgICAgIC0gc3Qsc3QyMW5mY2MtaTJjDQordGhlbjoNCisgIHByb3BlcnRpZXM6
-DQorICAgIHNwaS1tYXgtZnJlcXVlbmN5OiBmYWxzZQ0KKyAgcmVxdWlyZWQ6DQorICAgIC0gY2xv
-Y2stZnJlcXVlbmN5DQorZWxzZToNCisgIHByb3BlcnRpZXM6DQorICAgIGNsb2NrLWZyZXF1ZW5j
-eTogZmFsc2UNCisgIHJlcXVpcmVkOg0KKyAgICAtIHNwaS1tYXgtZnJlcXVlbmN5DQorDQorYWRk
-aXRpb25hbFByb3BlcnRpZXM6IGZhbHNlDQorDQorZXhhbXBsZXM6DQorICAtIHwNCisgICAgI2lu
-Y2x1ZGUgPGR0LWJpbmRpbmdzL2dwaW8vZ3Bpby5oPg0KKyAgICAjaW5jbHVkZSA8ZHQtYmluZGlu
-Z3MvaW50ZXJydXB0LWNvbnRyb2xsZXIvaXJxLmg+DQorDQorICAgIGkyYyB7DQorICAgICAgICAj
-YWRkcmVzcy1jZWxscyA9IDwxPjsNCisgICAgICAgICNzaXplLWNlbGxzID0gPDA+Ow0KKw0KKyAg
-ICAgICAgbmZjQDggew0KKyAgICAgICAgICAgIGNvbXBhdGlibGUgPSAic3Qsc3QyMW5mY2ItaTJj
-IjsNCisgICAgICAgICAgICByZWcgPSA8MHgwOD47DQorDQorICAgICAgICAgICAgY2xvY2stZnJl
-cXVlbmN5ID0gPDQwMDAwMD47DQorDQorICAgICAgICAgICAgaW50ZXJydXB0LXBhcmVudCA9IDwm
-Z3BpbzU+Ow0KKyAgICAgICAgICAgIGludGVycnVwdHMgPSA8MiBJUlFfVFlQRV9MRVZFTF9ISUdI
-PjsNCisgICAgICAgICAgICByZXNldC1ncGlvcyA9IDwmZ3BpbzUgMjkgR1BJT19BQ1RJVkVfSElH
-SD47DQorDQorICAgICAgICAgICAgZXNlLXByZXNlbnQ7DQorICAgICAgICAgICAgdWljYy1wcmVz
-ZW50Ow0KKyAgICAgICAgfTsNCisgICAgfTsNCisNCisgIC0gfA0KKyAgICAjaW5jbHVkZSA8ZHQt
-YmluZGluZ3MvZ3Bpby9ncGlvLmg+DQorICAgICNpbmNsdWRlIDxkdC1iaW5kaW5ncy9pbnRlcnJ1
-cHQtY29udHJvbGxlci9pcnEuaD4NCisNCisgICAgc3BpIHsNCisgICAgICAgICNhZGRyZXNzLWNl
-bGxzID0gPDE+Ow0KKyAgICAgICAgI3NpemUtY2VsbHMgPSA8MD47DQorDQorICAgICAgICBuZmNA
-MCB7DQorICAgICAgICAgICAgY29tcGF0aWJsZSA9ICJzdCxzdDIxbmZjYi1zcGkiOw0KKyAgICAg
-ICAgICAgIHJlZyA9IDwwPjsNCisNCisgICAgICAgICAgICBzcGktbWF4LWZyZXF1ZW5jeSA9IDw0
-MDAwMDAwPjsNCisNCisgICAgICAgICAgICBpbnRlcnJ1cHQtcGFyZW50ID0gPCZncGlvNT47DQor
-ICAgICAgICAgICAgaW50ZXJydXB0cyA9IDwyIElSUV9UWVBFX0VER0VfUklTSU5HPjsNCisgICAg
-ICAgICAgICByZXNldC1ncGlvcyA9IDwmZ3BpbzUgMjkgR1BJT19BQ1RJVkVfSElHSD47DQorDQor
-ICAgICAgICAgICAgZXNlLXByZXNlbnQ7DQorICAgICAgICAgICAgdWljYy1wcmVzZW50Ow0KKyAg
-ICAgICAgfTsNCisgICAgfTsNCmRpZmYgLS1naXQgYS9Eb2N1bWVudGF0aW9uL2RldmljZXRyZWUv
-YmluZGluZ3MvbmV0L25mYy9zdC1uY2ktaTJjLnR4dCBiL0RvY3VtZW50YXRpb24vZGV2aWNldHJl
-ZS9iaW5kaW5ncy9uZXQvbmZjL3N0LW5jaS1pMmMudHh0DQpkZWxldGVkIGZpbGUgbW9kZSAxMDA2
-NDQNCmluZGV4IGJhYThmODEzM2QxOS4uMDAwMDAwMDAwMDAwDQotLS0gYS9Eb2N1bWVudGF0aW9u
-L2RldmljZXRyZWUvYmluZGluZ3MvbmV0L25mYy9zdC1uY2ktaTJjLnR4dA0KKysrIC9kZXYvbnVs
-bA0KQEAgLTEsMzggKzAsMCBAQA0KLSogU1RNaWNyb2VsZWN0cm9uaWNzIFNBUy4gU1QgTkNJIE5G
-QyBDb250cm9sbGVyDQotDQotUmVxdWlyZWQgcHJvcGVydGllczoNCi0tIGNvbXBhdGlibGU6IFNo
-b3VsZCBiZSAic3Qsc3QyMW5mY2ItaTJjIiBvciAic3Qsc3QyMW5mY2MtaTJjIi4NCi0tIGNsb2Nr
-LWZyZXF1ZW5jeTogScKyQyB3b3JrIGZyZXF1ZW5jeS4NCi0tIHJlZzogYWRkcmVzcyBvbiB0aGUg
-YnVzDQotLSBpbnRlcnJ1cHRzOiBHUElPIGludGVycnVwdCB0byB3aGljaCB0aGUgY2hpcCBpcyBj
-b25uZWN0ZWQNCi0tIHJlc2V0LWdwaW9zOiBPdXRwdXQgR1BJTyBwaW4gdXNlZCB0byByZXNldCB0
-aGUgU1QyMU5GQ0INCi0NCi1PcHRpb25hbCBTb0MgU3BlY2lmaWMgUHJvcGVydGllczoNCi0tIHBp
-bmN0cmwtbmFtZXM6IENvbnRhaW5zIG9ubHkgb25lIHZhbHVlIC0gImRlZmF1bHQiLg0KLS0gcGlu
-dGN0cmwtMDogU3BlY2lmaWVzIHRoZSBwaW4gY29udHJvbCBncm91cHMgdXNlZCBmb3IgdGhpcyBj
-b250cm9sbGVyLg0KLS0gZXNlLXByZXNlbnQ6IFNwZWNpZmllcyB0aGF0IGFuIGVzZSBpcyBwaHlz
-aWNhbGx5IGNvbm5lY3RlZCB0byB0aGUgbmZjDQotY29udHJvbGxlci4NCi0tIHVpY2MtcHJlc2Vu
-dDogU3BlY2lmaWVzIHRoYXQgdGhlIHVpY2Mgc3dwIHNpZ25hbCBjYW4gYmUgcGh5c2ljYWxseQ0K
-LWNvbm5lY3RlZCB0byB0aGUgbmZjIGNvbnRyb2xsZXIuDQotDQotRXhhbXBsZSAoZm9yIEFSTS1i
-YXNlZCBCZWFnbGVCb2FyZCB4TSB3aXRoIFNUMjFORkNCIG9uIEkyQzIpOg0KLQ0KLSZpMmMyIHsN
-Ci0NCi0NCi0Jc3QyMW5mY2I6IHN0MjFuZmNiQDggew0KLQ0KLQkJY29tcGF0aWJsZSA9ICJzdCxz
-dDIxbmZjYi1pMmMiOw0KLQ0KLQkJcmVnID0gPDB4MDg+Ow0KLQkJY2xvY2stZnJlcXVlbmN5ID0g
-PDQwMDAwMD47DQotDQotCQlpbnRlcnJ1cHQtcGFyZW50ID0gPCZncGlvNT47DQotCQlpbnRlcnJ1
-cHRzID0gPDIgSVJRX1RZUEVfTEVWRUxfSElHSD47DQotDQotCQlyZXNldC1ncGlvcyA9IDwmZ3Bp
-bzUgMjkgR1BJT19BQ1RJVkVfSElHSD47DQotDQotCQllc2UtcHJlc2VudDsNCi0JCXVpY2MtcHJl
-c2VudDsNCi0JfTsNCi19Ow0KZGlmZiAtLWdpdCBhL0RvY3VtZW50YXRpb24vZGV2aWNldHJlZS9i
-aW5kaW5ncy9uZXQvbmZjL3N0LW5jaS1zcGkudHh0IGIvRG9jdW1lbnRhdGlvbi9kZXZpY2V0cmVl
-L2JpbmRpbmdzL25ldC9uZmMvc3QtbmNpLXNwaS50eHQNCmRlbGV0ZWQgZmlsZSBtb2RlIDEwMDY0
-NA0KaW5kZXggZDMzMzQzMzMwYjk0Li4wMDAwMDAwMDAwMDANCi0tLSBhL0RvY3VtZW50YXRpb24v
-ZGV2aWNldHJlZS9iaW5kaW5ncy9uZXQvbmZjL3N0LW5jaS1zcGkudHh0DQorKysgL2Rldi9udWxs
-DQpAQCAtMSwzNiArMCwwIEBADQotKiBTVE1pY3JvZWxlY3Ryb25pY3MgU0FTLiBTVCBOQ0kgTkZD
-IENvbnRyb2xsZXINCi0NCi1SZXF1aXJlZCBwcm9wZXJ0aWVzOg0KLS0gY29tcGF0aWJsZTogU2hv
-dWxkIGJlICJzdCxzdDIxbmZjYi1zcGkiDQotLSBzcGktbWF4LWZyZXF1ZW5jeTogTWF4aW11bSBT
-UEkgZnJlcXVlbmN5ICg8PSA0MDAwMDAwKS4NCi0tIGludGVycnVwdHM6IEdQSU8gaW50ZXJydXB0
-IHRvIHdoaWNoIHRoZSBjaGlwIGlzIGNvbm5lY3RlZA0KLS0gcmVzZXQtZ3Bpb3M6IE91dHB1dCBH
-UElPIHBpbiB1c2VkIHRvIHJlc2V0IHRoZSBTVDIxTkZDQg0KLQ0KLU9wdGlvbmFsIFNvQyBTcGVj
-aWZpYyBQcm9wZXJ0aWVzOg0KLS0gcGluY3RybC1uYW1lczogQ29udGFpbnMgb25seSBvbmUgdmFs
-dWUgLSAiZGVmYXVsdCIuDQotLSBwaW50Y3RybC0wOiBTcGVjaWZpZXMgdGhlIHBpbiBjb250cm9s
-IGdyb3VwcyB1c2VkIGZvciB0aGlzIGNvbnRyb2xsZXIuDQotLSBlc2UtcHJlc2VudDogU3BlY2lm
-aWVzIHRoYXQgYW4gZXNlIGlzIHBoeXNpY2FsbHkgY29ubmVjdGVkIHRvIHRoZSBuZmMNCi1jb250
-cm9sbGVyLg0KLS0gdWljYy1wcmVzZW50OiBTcGVjaWZpZXMgdGhhdCB0aGUgdWljYyBzd3Agc2ln
-bmFsIGNhbiBiZSBwaHlzaWNhbGx5DQotY29ubmVjdGVkIHRvIHRoZSBuZmMgY29udHJvbGxlci4N
-Ci0NCi1FeGFtcGxlIChmb3IgQVJNLWJhc2VkIEJlYWdsZUJvYXJkIHhNIHdpdGggU1QyMU5GQ0Ig
-b24gU1BJNCk6DQotDQotJm1jc3BpNCB7DQotDQotDQotCXN0MjFuZmNiOiBzdDIxbmZjYkAwIHsN
-Ci0NCi0JCWNvbXBhdGlibGUgPSAic3Qsc3QyMW5mY2Itc3BpIjsNCi0NCi0JCWNsb2NrLWZyZXF1
-ZW5jeSA9IDw0MDAwMDAwPjsNCi0NCi0JCWludGVycnVwdC1wYXJlbnQgPSA8JmdwaW81PjsNCi0J
-CWludGVycnVwdHMgPSA8MiBJUlFfVFlQRV9FREdFX1JJU0lORz47DQotDQotCQlyZXNldC1ncGlv
-cyA9IDwmZ3BpbzUgMjkgR1BJT19BQ1RJVkVfSElHSD47DQotDQotCQllc2UtcHJlc2VudDsNCi0J
-CXVpY2MtcHJlc2VudDsNCi0JfTsNCi19Ow0KLS0gDQoyLjMwLjINCl9fX19fX19fX19fX19fX19f
-X19fX19fX19fX19fX19fX19fX19fX19fX19fX19fCkxpbnV4LW5mYyBtYWlsaW5nIGxpc3QgLS0g
-bGludXgtbmZjQGxpc3RzLjAxLm9yZwpUbyB1bnN1YnNjcmliZSBzZW5kIGFuIGVtYWlsIHRvIGxp
-bnV4LW5mYy1sZWF2ZUBsaXN0cy4wMS5vcmcKJSh3ZWJfcGFnZV91cmwpc2xpc3RpbmZvJShjZ2ll
-eHQpcy8lKF9pbnRlcm5hbF9uYW1lKXM=
+Convert the TI TRF7970A NFC to DT schema format.
+
+Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>
+---
+ .../bindings/net/nfc/ti,trf7970a.yaml         | 98 +++++++++++++++++++
+ .../devicetree/bindings/net/nfc/trf7970a.txt  | 43 --------
+ MAINTAINERS                                   |  2 +-
+ 3 files changed, 99 insertions(+), 44 deletions(-)
+ create mode 100644 Documentation/devicetree/bindings/net/nfc/ti,trf7970a.yaml
+ delete mode 100644 Documentation/devicetree/bindings/net/nfc/trf7970a.txt
+
+diff --git a/Documentation/devicetree/bindings/net/nfc/ti,trf7970a.yaml b/Documentation/devicetree/bindings/net/nfc/ti,trf7970a.yaml
+new file mode 100644
+index 000000000000..40da2ac98978
+--- /dev/null
++++ b/Documentation/devicetree/bindings/net/nfc/ti,trf7970a.yaml
+@@ -0,0 +1,98 @@
++# SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/net/nfc/ti,trf7970a.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: Texas Instruments TRF7970A RFID/NFC/15693 Transceiver
++
++maintainers:
++  - Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>
++  - Mark Greer <mgreer@animalcreek.com>
++
++properties:
++  compatible:
++    const: ti,trf7970a
++
++  autosuspend-delay:
++    $ref: /schemas/types.yaml#/definitions/uint32
++    description: |
++      Specify autosuspend delay in milliseconds.
++
++  clock-frequency:
++    description: |
++      Set to specify that the input frequency to the trf7970a is 13560000Hz or
++      27120000Hz
++
++  en2-rf-quirk:
++    type: boolean
++    description: |
++      Specify that the trf7970a being used has the "EN2 RF" erratum
++
++  interrupts:
++    maxItems: 1
++
++  irq-status-read-quirk:
++    type: boolean
++    description: |
++      Specify that the trf7970a being used has the "IRQ Status Read" erratum
++
++  reg:
++    maxItems: 1
++
++  spi-max-frequency: true
++
++  ti,enable-gpios:
++    minItems: 1
++    maxItems: 2
++    description: |
++      One or two GPIO entries used for 'EN' and 'EN2' pins on the TRF7970A. EN2
++      is optional.
++
++  vdd-io-supply:
++    description: |
++      Regulator specifying voltage for VDD-IO
++
++  vin-supply:
++    description: |
++      Regulator for supply voltage to VIN pin
++
++required:
++  - compatible
++  - interrupts
++  - reg
++  - spi-max-frequency
++  - ti,enable-gpios
++  - vin-supply
++
++additionalProperties: false
++
++examples:
++  - |
++    #include <dt-bindings/gpio/gpio.h>
++    #include <dt-bindings/interrupt-controller/irq.h>
++
++    i2c {
++        #address-cells = <1>;
++        #size-cells = <0>;
++
++        nfc@0 {
++            compatible = "ti,trf7970a";
++            reg = <0>;
++
++            pinctrl-names = "default";
++            pinctrl-0 = <&trf7970a_default>;
++            spi-max-frequency = <2000000>;
++            interrupt-parent = <&gpio2>;
++            interrupts = <14 0>;
++
++            ti,enable-gpios = <&gpio2 2 GPIO_ACTIVE_HIGH>,
++                              <&gpio2 5 GPIO_ACTIVE_HIGH>;
++            vin-supply = <&ldo3_reg>;
++            vdd-io-supply = <&ldo2_reg>;
++            autosuspend-delay = <30000>;
++            irq-status-read-quirk;
++            en2-rf-quirk;
++            clock-frequency = <27120000>;
++        };
++    };
+diff --git a/Documentation/devicetree/bindings/net/nfc/trf7970a.txt b/Documentation/devicetree/bindings/net/nfc/trf7970a.txt
+deleted file mode 100644
+index ba1934b950e5..000000000000
+--- a/Documentation/devicetree/bindings/net/nfc/trf7970a.txt
++++ /dev/null
+@@ -1,43 +0,0 @@
+-* Texas Instruments TRF7970A RFID/NFC/15693 Transceiver
+-
+-Required properties:
+-- compatible: Should be "ti,trf7970a".
+-- spi-max-frequency: Maximum SPI frequency (<= 2000000).
+-- interrupts: A single interrupt specifier.
+-- ti,enable-gpios: One or two GPIO entries used for 'EN' and 'EN2' pins on the
+-  TRF7970A. EN2 is optional.
+-- vin-supply: Regulator for supply voltage to VIN pin
+-
+-Optional SoC Specific Properties:
+-- pinctrl-names: Contains only one value - "default".
+-- pintctrl-0: Specifies the pin control groups used for this controller.
+-- autosuspend-delay: Specify autosuspend delay in milliseconds.
+-- irq-status-read-quirk: Specify that the trf7970a being used has the
+-  "IRQ Status Read" erratum.
+-- en2-rf-quirk: Specify that the trf7970a being used has the "EN2 RF"
+-  erratum.
+-- vdd-io-supply: Regulator specifying voltage for vdd-io
+-- clock-frequency: Set to specify that the input frequency to the trf7970a is 13560000Hz or 27120000Hz
+-
+-Example (for ARM-based BeagleBone with TRF7970A on SPI1):
+-
+-&spi1 {
+-
+-	nfc@0 {
+-		compatible = "ti,trf7970a";
+-		reg = <0>;
+-		pinctrl-names = "default";
+-		pinctrl-0 = <&trf7970a_default>;
+-		spi-max-frequency = <2000000>;
+-		interrupt-parent = <&gpio2>;
+-		interrupts = <14 0>;
+-		ti,enable-gpios = <&gpio2 2 GPIO_ACTIVE_HIGH>,
+-				  <&gpio2 5 GPIO_ACTIVE_HIGH>;
+-		vin-supply = <&ldo3_reg>;
+-		vdd-io-supply = <&ldo2_reg>;
+-		autosuspend-delay = <30000>;
+-		irq-status-read-quirk;
+-		en2-rf-quirk;
+-		clock-frequency = <27120000>;
+-	};
+-};
+diff --git a/MAINTAINERS b/MAINTAINERS
+index 3294aaf5e56c..23dd7aac38a0 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -18916,7 +18916,7 @@ M:	Mark Greer <mgreer@animalcreek.com>
+ L:	linux-wireless@vger.kernel.org
+ L:	linux-nfc@lists.01.org (subscribers-only)
+ S:	Supported
+-F:	Documentation/devicetree/bindings/net/nfc/trf7970a.txt
++F:	Documentation/devicetree/bindings/net/nfc/ti,trf7970a.yaml
+ F:	drivers/nfc/trf7970a.c
+ 
+ TI TSC2046 ADC DRIVER
+-- 
+2.30.2
+_______________________________________________
+Linux-nfc mailing list -- linux-nfc@lists.01.org
+To unsubscribe send an email to linux-nfc-leave@lists.01.org
+%(web_page_url)slistinfo%(cgiext)s/%(_internal_name)s
