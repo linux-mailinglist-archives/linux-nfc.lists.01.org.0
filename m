@@ -1,75 +1,78 @@
 Return-Path: <linux-nfc-bounces@lists.01.org>
 X-Original-To: lists+linux-nfc@lfdr.de
 Delivered-To: lists+linux-nfc@lfdr.de
-Received: from ml01.01.org (ml01.01.org [198.145.21.10])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6B72B447482
+Received: from ml01.01.org (ml01.01.org [IPv6:2001:19d0:306:5::1])
+	by mail.lfdr.de (Postfix) with ESMTPS id 72DE0447483
 	for <lists+linux-nfc@lfdr.de>; Sun,  7 Nov 2021 18:26:32 +0100 (CET)
 Received: from ml01.vlan13.01.org (localhost [IPv6:::1])
-	by ml01.01.org (Postfix) with ESMTP id 9E6F7100F47AD;
+	by ml01.01.org (Postfix) with ESMTP id B79FB100F47B3;
 	Sun,  7 Nov 2021 09:26:28 -0800 (PST)
 Received-SPF: Pass (mailfrom) identity=mailfrom; client-ip=185.125.188.122; helo=smtp-relay-internal-0.canonical.com; envelope-from=krzysztof.kozlowski@canonical.com; receiver=<UNKNOWN> 
 Received: from smtp-relay-internal-0.canonical.com (smtp-relay-internal-0.canonical.com [185.125.188.122])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits))
 	(No client certificate requested)
-	by ml01.01.org (Postfix) with ESMTPS id 48E92100EB82B
+	by ml01.01.org (Postfix) with ESMTPS id 49C76100F47AD
 	for <linux-nfc@lists.01.org>; Sun,  7 Nov 2021 09:26:26 -0800 (PST)
 Received: from mail-lj1-f199.google.com (mail-lj1-f199.google.com [209.85.208.199])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by smtp-relay-internal-0.canonical.com (Postfix) with ESMTPS id 512403F16F
+	by smtp-relay-internal-0.canonical.com (Postfix) with ESMTPS id C1DA43F1B3
 	for <linux-nfc@lists.01.org>; Sun,  7 Nov 2021 17:26:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=canonical.com;
 	s=20210705; t=1636305984;
-	bh=ugbtSPZ1/63s0mmPO3DuFZgDoOXJoGCwSqcw4kC1ODU=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version;
-	b=OpjQorWz3ZCpCCyqIhAMCym9tKCcEvGjG5EiAy79FVknlfHv/9Ft4j9zVAw/lhHAp
-	 u2xOLQQ6s5myY62ZdtO8vY/67ywX54MxsvkBOpLBDgUr24JqJ8ucnUV2BNi29rtjbB
-	 gjvKDFUzs7qyAdfRCq+HcjHAKdlKP0nqMekxrhkyuBZ9ZXJCrfM6FS2IQ7sKqFcmn2
-	 FNEvIMJZKcEs4r21QvnUJGKNfAefRJEwTLOltbs99eRg8O1YmZ4xGBvwFLsv95eFZY
-	 htV30W0V6VJclvVIdMutWqltcY2R6JyzsB4x49PV6f64jqpAksSr3O1+EeEhhXJEzN
-	 eBM5OH3/ABQKA==
-Received: by mail-lj1-f199.google.com with SMTP id d20-20020a05651c111400b00218c6372b7eso648560ljo.16
+	bh=XoNaXdoMELjp7YvRENBwZULqeuXerEmKN1JKrEDAd7w=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version;
+	b=EQKRzjyeEAmbfYNSdsseiwQ10BKcF7fux2S89cS4GqXg7yLDkFuhXPHY8j4vH0AUh
+	 sIOW447VTtBRCi5imDNQsTw/voblMSLXnzNcpQiLIRlzQzuOlfLcFzn6anCMfzKsIU
+	 of4cwnChzUuIQxXuScwnV+w/QjsKc2XEw/HhVul7nxgOABdQ02gfMwOamEJcJfp3zf
+	 0CaslsghRPAM0gMfMSszcI2PZMeMbHqZF3at9J0EdvdjvD4Jq8oZokhIrkRS/fBKMP
+	 yJwORfzp6lf8ZLfISdQbcuXwWous7vYmJPdWvhMFWD4kj0Tzz0OJ8nE9P4PGbMF6no
+	 ktVpaXlBiq8DA==
+Received: by mail-lj1-f199.google.com with SMTP id y23-20020a2e3217000000b00218c6ede162so571283ljy.23
         for <linux-nfc@lists.01.org>; Sun, 07 Nov 2021 09:26:24 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
-        h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
-         :content-transfer-encoding;
-        bh=ugbtSPZ1/63s0mmPO3DuFZgDoOXJoGCwSqcw4kC1ODU=;
-        b=Rcr/xspFO+GIfe9h0YKpc1G7ohsBQl4Q6d2MtJefoPLzdA2cWaFrJxAh00QorvO8mb
-         OoSxIa1t/16hoTJjp2FIYbxRrOPV7aIAt/0Rke0HhidcTI1uIND8qHv+8CBmN/KPG9X2
-         PVdJnOvaueorPbQNR6JwplNQV9LG9lF5zSxDPw9WADLFmbVYuL0YgePXJjjdKicolgI0
-         hsgwMEz4/RSilb3GBVvxT/B/aXwNjSty5Xv+n/2VBFx9BHWq2IOI4oU3p4RNp3W/bqKt
-         CKI6yTUEfDDZfXEQxfv6G2UFPHBKrJtfQp0i/0kw3lD9f3TmJ7vGhjujNY2nMrCVOkba
-         Nduw==
-X-Gm-Message-State: AOAM531UvskGaYuAcWSpbO1uJJ7jyTENWFnw6iRdUbDwi4bxkH4fF6Nf
-	VxVYUw3uqhUKgBRtfTJfHT1QUeTMzOq3cI3RMYi+7783Qw74rla0/atSrs71tiNmnF8KRQdf3Gb
-	OuPQOWUwSQdXJq6y+WDdXdLMtJiaipyqN9g==
-X-Received: by 2002:ac2:4114:: with SMTP id b20mr67417589lfi.92.1636305983336;
+        h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
+         :references:mime-version:content-transfer-encoding;
+        bh=XoNaXdoMELjp7YvRENBwZULqeuXerEmKN1JKrEDAd7w=;
+        b=EVPE2L8Q8obn6qQksEEDB8FzEoLwBICgyHj/oA9ncNdC60kqB5z/sgc2LIVd52+6Gb
+         ap4lSjYW9iYv75oHQ6fsuPae81LYSxavIVL1B2rDpGkot+lGO9grXYuAmWuKsumIwE0D
+         L/ueosBV4lvLSWmorof0lg3xg3bOXZdpQ93y+Cgi+3O/RtlJKyHM4TXhI69OS1ivBdQg
+         al8QOgOBPD9qeWOFKQdb+QXxAkVMRm3QGrhzgMMTZKBxqOTyPz9Lnl64OZbvCcap027A
+         KH7YUACE1gGdXPU/gh/TjXbJeJUQxbzsGuFdv0UDkVhZcAj7DaoF45hfpSSmZSRVOFr+
+         i5Hw==
+X-Gm-Message-State: AOAM532bobH1RJxZmGgAXL8DhwIrjZMiX9xGklpqktjkA7EAdoXrWxCD
+	ZAsEcuOn0hHWOqFEvZU1DhwW5+cM/2BFvwy5K6IqunFAMart1XKxJwKzdqh5+AFTYj9JvTz+UKj
+	zsu47rOQm1xb5ZvlxiHQ0YCvCXv7OfsRIEg==
+X-Received: by 2002:ac2:4e47:: with SMTP id f7mr30652406lfr.248.1636305983827;
         Sun, 07 Nov 2021 09:26:23 -0800 (PST)
-X-Google-Smtp-Source: ABdhPJzaLKp2bNozZdr8x4mzLrhyHqrcs/ZtMREDQJENf+9SujHGtS496JV/mQHW2D3Q+PgBHfOrRA==
-X-Received: by 2002:ac2:4114:: with SMTP id b20mr67417557lfi.92.1636305982996;
-        Sun, 07 Nov 2021 09:26:22 -0800 (PST)
+X-Google-Smtp-Source: ABdhPJylHUkwp8uzZL6Ze1fX0OWb0g1tyNb4hfcNZxSiEN0kMeh+zFN0+Wewk6GYFjHyhv37kzk20A==
+X-Received: by 2002:ac2:4e47:: with SMTP id f7mr30652394lfr.248.1636305983663;
+        Sun, 07 Nov 2021 09:26:23 -0800 (PST)
 Received: from krzk-bin.lan (89-77-68-124.dynamic.chello.pl. [89.77.68.124])
-        by smtp.gmail.com with ESMTPSA id b17sm618433lfv.264.2021.11.07.09.26.22
+        by smtp.gmail.com with ESMTPSA id b17sm618433lfv.264.2021.11.07.09.26.23
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 07 Nov 2021 09:26:22 -0800 (PST)
+        Sun, 07 Nov 2021 09:26:23 -0800 (PST)
 From: Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>
 To: linux-nfc@lists.01.org
-Date: Sun,  7 Nov 2021 18:26:16 +0100
-Message-Id: <20211107172619.13560-1-krzysztof.kozlowski@canonical.com>
+Date: Sun,  7 Nov 2021 18:26:17 +0100
+Message-Id: <20211107172619.13560-2-krzysztof.kozlowski@canonical.com>
 X-Mailer: git-send-email 2.32.0
+In-Reply-To: <20211107172619.13560-1-krzysztof.kozlowski@canonical.com>
+References: <20211107172619.13560-1-krzysztof.kozlowski@canonical.com>
 MIME-Version: 1.0
-Message-ID-Hash: ECXGJOIV5ZRGGVZ25SYWXV2EH53ZA2YD
-X-Message-ID-Hash: ECXGJOIV5ZRGGVZ25SYWXV2EH53ZA2YD
+Message-ID-Hash: 6553GMFJBPGBL3JZ4SS55PLRPZGXTXTL
+X-Message-ID-Hash: 6553GMFJBPGBL3JZ4SS55PLRPZGXTXTL
 X-MailFrom: krzysztof.kozlowski@canonical.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency; loop; banned-address; member-moderation; nonmember-moderation; administrivia; implicit-dest; max-recipients; max-size; news-moderation; no-subject; suspicious-header
 CC: Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>
 X-Mailman-Version: 3.1.1
 Precedence: list
-Subject: [linux-nfc] [neard][PATCH 1/4] include: include endian.h to fix missing __BYTE_ORDER definition on Debian Stretch
+Subject: [linux-nfc] [neard][PATCH 2/4] ci: add Ubuntu Impish (21.10)
 List-Id: NFC on Linux <linux-nfc.lists.01.org>
-Archived-At: <https://lists.01.org/hyperkitty/list/linux-nfc@lists.01.org/message/ECXGJOIV5ZRGGVZ25SYWXV2EH53ZA2YD/>
+Archived-At: <https://lists.01.org/hyperkitty/list/linux-nfc@lists.01.org/message/6553GMFJBPGBL3JZ4SS55PLRPZGXTXTL/>
 List-Archive: <https://lists.01.org/hyperkitty/list/linux-nfc@lists.01.org/>
 List-Help: <mailto:linux-nfc-request@lists.01.org?subject=help>
 List-Post: <mailto:linux-nfc@lists.01.org>
@@ -78,31 +81,59 @@ List-Unsubscribe: <mailto:linux-nfc-leave@lists.01.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-Code should pull explicitly headers for necessary symbols instead of
-relying on dependencies.  Lack of endian.h caused build failures on
-Debian Stretch:
-
-    In file included from tools/nfctool/ndef-decode.c:28:0:
-    include/near/types.h:43:5: error: "__BYTE_ORDER" is not defined [-Werror=undef]
-     #if __BYTE_ORDER == __LITTLE_ENDIAN
+Build on newest Ubuntu 21.10.
 
 Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>
 ---
- include/types.h | 1 +
- 1 file changed, 1 insertion(+)
+ .github/workflows/ci.yml | 21 +++++++++++++++++++++
+ 1 file changed, 21 insertions(+)
 
-diff --git a/include/types.h b/include/types.h
-index c4a8d6a31886..1dd8de530d58 100644
---- a/include/types.h
-+++ b/include/types.h
-@@ -23,6 +23,7 @@
- #define __NEAR_TYPES_H
+diff --git a/.github/workflows/ci.yml b/.github/workflows/ci.yml
+index 734969325692..5540ad2ebc39 100644
+--- a/.github/workflows/ci.yml
++++ b/.github/workflows/ci.yml
+@@ -31,6 +31,7 @@ jobs:
+           - fedora:latest
+           - fedora:33
+           - fedora:32
++          - ubuntu:impish
+           - ubuntu:hirsute
+           - ubuntu:focal
+           - ubuntu:bionic
+@@ -97,6 +98,20 @@ jobs:
+             variant: sanitizers
  
- #include <byteswap.h>
-+#include <endian.h>
+           # Ubuntu 32-bit builds
++          - container: "ubuntu:impish"
++            arch: i386
++            compiler: gcc -m32
++            cross_compile: i686-linux-gnu
++            mode: maintainer
++            variant: i386
++
++          - container: "ubuntu:impish"
++            arch: i386
++            compiler: gcc -m32
++            cross_compile: i686-linux-gnu
++            mode: no-maintainer
++            variant: i386
++
+           - container: "ubuntu:hirsute"
+             arch: i386
+             compiler: gcc -m32
+@@ -126,6 +141,12 @@ jobs:
+             variant: i386
  
- #define near_get_unaligned(ptr)			\
- ({						\
+           # Ubuntu GCC sanitizer builds
++          - container: "ubuntu:impish"
++            arch: x86-64
++            compiler: gcc
++            mode: maintainer
++            variant: sanitizers
++
+           - container: "ubuntu:hirsute"
+             arch: x86-64
+             compiler: gcc
 -- 
 2.32.0
 _______________________________________________
