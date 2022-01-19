@@ -1,60 +1,60 @@
 Return-Path: <linux-nfc-bounces@lists.01.org>
 X-Original-To: lists+linux-nfc@lfdr.de
 Delivered-To: lists+linux-nfc@lfdr.de
-Received: from ml01.01.org (ml01.01.org [198.145.21.10])
-	by mail.lfdr.de (Postfix) with ESMTPS id DAAED4935D8
+Received: from ml01.01.org (ml01.01.org [IPv6:2001:19d0:306:5::1])
+	by mail.lfdr.de (Postfix) with ESMTPS id 73BB04935D7
 	for <lists+linux-nfc@lfdr.de>; Wed, 19 Jan 2022 08:53:19 +0100 (CET)
 Received: from ml01.vlan13.01.org (localhost [IPv6:::1])
-	by ml01.01.org (Postfix) with ESMTP id 09BFE100F3959;
-	Tue, 18 Jan 2022 23:53:18 -0800 (PST)
+	by ml01.01.org (Postfix) with ESMTP id DF22D100F3952;
+	Tue, 18 Jan 2022 23:53:17 -0800 (PST)
 Received-SPF: Pass (mailfrom) identity=mailfrom; client-ip=185.125.188.123; helo=smtp-relay-internal-1.canonical.com; envelope-from=krzysztof.kozlowski@canonical.com; receiver=<UNKNOWN> 
 Received: from smtp-relay-internal-1.canonical.com (smtp-relay-internal-1.canonical.com [185.125.188.123])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits))
 	(No client certificate requested)
-	by ml01.01.org (Postfix) with ESMTPS id 35E04100F3952
+	by ml01.01.org (Postfix) with ESMTPS id 2DE31100F3951
 	for <linux-nfc@lists.01.org>; Tue, 18 Jan 2022 23:53:16 -0800 (PST)
-Received: from mail-ed1-f70.google.com (mail-ed1-f70.google.com [209.85.208.70])
+Received: from mail-ed1-f69.google.com (mail-ed1-f69.google.com [209.85.208.69])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by smtp-relay-internal-1.canonical.com (Postfix) with ESMTPS id E3D2F40018
-	for <linux-nfc@lists.01.org>; Wed, 19 Jan 2022 07:53:05 +0000 (UTC)
+	by smtp-relay-internal-1.canonical.com (Postfix) with ESMTPS id E03B840027
+	for <linux-nfc@lists.01.org>; Wed, 19 Jan 2022 07:53:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=canonical.com;
-	s=20210705; t=1642578785;
-	bh=5w/EAxi3BWNa4bEEDcXXXFqwUZVzXL/jpIlNMT11cAw=;
+	s=20210705; t=1642578786;
+	bh=hsf4OWBu8gj1asXGvoAW6jPDrjEeTDLfH6tpVV1berI=;
 	h=From:To:Subject:Date:Message-Id:In-Reply-To:References:
 	 MIME-Version;
-	b=loNBMorjQGultM2jhX+DevSvczJjc9pHvyw7LW99zlDSs4WbZtDdwv0xWDkwupPqN
-	 kNIVEYM3EXkxniRvQzAQOOjE1F0tBZy/XSDOxJk60+B5y26N0Z92VHGvCMFTg5cK3g
-	 s3MwhvFFizTLnZyXB1WPb4ABvZ+H08nvW1DP5FRrs5g8OlNmPe8HwU4revuDSpRxLu
-	 Oj2WHT+fEZzsTag1S4ii5LGCrzFZogKgOMJdQ3Zput2W175jdplFY94zTlfSlKbui+
-	 J4c3OLMlMczOIeqNT/IMCYgnXlMJGBho9slnZPJTGdkx64rvVrl0ZAof/WfBBelkG5
-	 qM6b3vdMMriIA==
-Received: by mail-ed1-f70.google.com with SMTP id a18-20020aa7d752000000b00403d18712beso1465793eds.17
-        for <linux-nfc@lists.01.org>; Tue, 18 Jan 2022 23:53:05 -0800 (PST)
+	b=GSCtUKGASfbtRPDVyA0rTmThe+PRyvirX6vXY5JhIv28katS3/EgnYRHgglCJ02Bx
+	 z4BF9oY5I9BzsIEEG6tx7HuE1CoHOAjfaA6gWcvFdjRouK3VT+uvcWgQJwY36v4LwT
+	 TUjoETmqj18QspSSo4YYsP/TmQ+Mj/0nGf0oUGyUsD2a2Dh+cXRbK5PEA44wLoB0s6
+	 AcorzZcZCdNjP7YtzaNW+uu/Gm6UrkxgfOGxlpm/G5HRjHfcDR/LUhRS0/bfd/DNsN
+	 LSLU9tnEVobjpyhSgR7C4i2brOemkDSuy9waimICV8lq7azEb1Rk0VpkuaMHmrf+iF
+	 hkzRREogM1h7A==
+Received: by mail-ed1-f69.google.com with SMTP id z6-20020a50eb46000000b00403a7687b5bso1500946edp.3
+        for <linux-nfc@lists.01.org>; Tue, 18 Jan 2022 23:53:06 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
         h=x-gm-message-state:from:to:subject:date:message-id:in-reply-to
          :references:mime-version:content-transfer-encoding;
-        bh=5w/EAxi3BWNa4bEEDcXXXFqwUZVzXL/jpIlNMT11cAw=;
-        b=31U6EQ/+XGsF0jwx7OIQ3QqZX6g/kbHReR4AI/0MjqnpIT7dtWq33yNbWG1fasZEv5
-         UiVeZlHEACoH3uCsKHfZe9yHcfum76RpklgR85r5yNMHNx3ifVlNtJerl6g8CUhLL3MR
-         mpcyLlPFQ5AkFb5FeH+/3CSUdGDlpzMtXdIE1PCYa9lsCLRPbPOry7AtmXOzu+buPPge
-         gP9X0R3RiG46BhYbPx/TYXtq1qK5g8pfI6fq4LOU9jk+EtfkL8MqHevSAUhVc1A9rYWb
-         +8kLCD2Cl2GYS58DhOERs0wjYtok9pnHT7bmLah0/vjRRBFARDNK0/pP4kWkRmAwX8oJ
-         pJ9Q==
-X-Gm-Message-State: AOAM530nY8mBkRebq2SKZm2qZFvQgaQMvDt/ICbDiAqGpO049NS0vQfw
-	7h6m1rGH2LRPBU4jcB0YCSAS2mU1PfDQ/bgAF3eIjouTUPXeUdda9MxvdolHBptviFnA/weHW6L
-	N7bPyaMXe+YNdwTw7dR1M8ym/J8VKXhi1Ew==
-X-Received: by 2002:a05:6402:4244:: with SMTP id g4mr6483611edb.271.1642578785494;
-        Tue, 18 Jan 2022 23:53:05 -0800 (PST)
-X-Google-Smtp-Source: ABdhPJxYUDYe5Iu0UOqAPwEgNesa55/g4cd+jnk3TlZFlICHhPfLFfLvKw8cfJ2BVa1of970eRb/Ng==
-X-Received: by 2002:a05:6402:4244:: with SMTP id g4mr6483602edb.271.1642578785369;
-        Tue, 18 Jan 2022 23:53:05 -0800 (PST)
+        bh=hsf4OWBu8gj1asXGvoAW6jPDrjEeTDLfH6tpVV1berI=;
+        b=XbZ1hb19lBJ7FO/hoYZ4HmUUY6auvMnBXqWo+Wv7QVdrPIlEdg05tI82hWz6OQoZI7
+         NO96qQ3Tf0rWh4fBboPG/AxgmqDs7FbIGyj/U4AbVyIk2T5arzoT3uS5cmuK4SjVDq6P
+         b1tZPKwq/36xwb70kR+0HxU6uxazkPLd4FYG3hmff9AFeOP2voun7dTJitltwfR7WzlQ
+         T2hwkCYxILPL0vx19bu7DR8fpV8MkimszwUw+tN4152KtQalbjp1Y+gypsNH2utulX5s
+         IwuVMPcLRUAKIPrnX/mGAJz5J73DDYQ53zYFymS6gxgSQstwbE8vpowIW2D738Ls8drQ
+         D+Mg==
+X-Gm-Message-State: AOAM533Y6FZVYHodFi6nD/aNmP1i7hdV6KeVC4O6GrCQiaoO+r8O2R9D
+	0AFLJ8YScrgiM1dj3GW7CitTOKrgUFjM6cQhJv8qkGhGSxUTVL46nVmL4NHTupHCZxFqBcvbK5O
+	tN3bGCxWucA6yXKyINgknfOfEVSt8gB5MTA==
+X-Received: by 2002:a05:6402:11c9:: with SMTP id j9mr28608488edw.385.1642578786591;
+        Tue, 18 Jan 2022 23:53:06 -0800 (PST)
+X-Google-Smtp-Source: ABdhPJyns4WRsOdrGoSiLkUgMsRyEIUWZN7UKVXPDT+SQgr4x790RZ4Ep5Cqmw1oA9YvBvJZNQYpwg==
+X-Received: by 2002:a05:6402:11c9:: with SMTP id j9mr28608483edw.385.1642578786471;
+        Tue, 18 Jan 2022 23:53:06 -0800 (PST)
 Received: from localhost.localdomain (xdsl-188-155-168-84.adslplus.ch. [188.155.168.84])
-        by smtp.gmail.com with ESMTPSA id w17sm805286edr.68.2022.01.18.23.53.04
+        by smtp.gmail.com with ESMTPSA id w17sm805286edr.68.2022.01.18.23.53.05
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 18 Jan 2022 23:53:04 -0800 (PST)
+        Tue, 18 Jan 2022 23:53:06 -0800 (PST)
 From: Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>
 To: Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>,
 	"David S. Miller" <davem@davemloft.net>,
@@ -62,21 +62,21 @@ To: Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>,
 	linux-nfc@lists.01.org,
 	netdev@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Date: Wed, 19 Jan 2022 08:52:56 +0100
-Message-Id: <20220119075301.7346-2-krzysztof.kozlowski@canonical.com>
+Date: Wed, 19 Jan 2022 08:52:57 +0100
+Message-Id: <20220119075301.7346-3-krzysztof.kozlowski@canonical.com>
 X-Mailer: git-send-email 2.32.0
 In-Reply-To: <20220119075301.7346-1-krzysztof.kozlowski@canonical.com>
 References: <20220119075301.7346-1-krzysztof.kozlowski@canonical.com>
 MIME-Version: 1.0
-Message-ID-Hash: JKFO6SHUZ7O2C2NANO3457O2ACYWKX5T
-X-Message-ID-Hash: JKFO6SHUZ7O2C2NANO3457O2ACYWKX5T
+Message-ID-Hash: 5NDIWKK7DKAURLJOI5YLMJNLFUVKIVD7
+X-Message-ID-Hash: 5NDIWKK7DKAURLJOI5YLMJNLFUVKIVD7
 X-MailFrom: krzysztof.kozlowski@canonical.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency; loop; banned-address; member-moderation; nonmember-moderation; administrivia; implicit-dest; max-recipients; max-size; news-moderation; no-subject; suspicious-header
 X-Mailman-Version: 3.1.1
 Precedence: list
-Subject: [linux-nfc] [PATCH v2 1/6] nfc: llcp: nullify llcp_sock->dev on connect() error paths
+Subject: [linux-nfc] [PATCH v2 2/6] nfc: llcp: simplify llcp_sock_connect() error paths
 List-Id: NFC on Linux <linux-nfc.lists.01.org>
-Archived-At: <https://lists.01.org/hyperkitty/list/linux-nfc@lists.01.org/message/JKFO6SHUZ7O2C2NANO3457O2ACYWKX5T/>
+Archived-At: <https://lists.01.org/hyperkitty/list/linux-nfc@lists.01.org/message/5NDIWKK7DKAURLJOI5YLMJNLFUVKIVD7/>
 List-Archive: <https://lists.01.org/hyperkitty/list/linux-nfc@lists.01.org/>
 List-Help: <mailto:linux-nfc-request@lists.01.org?subject=help>
 List-Post: <mailto:linux-nfc@lists.01.org>
@@ -85,31 +85,42 @@ List-Unsubscribe: <mailto:linux-nfc-leave@lists.01.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-Nullify the llcp_sock->dev on llcp_sock_connect() error paths,
-symmetrically to the code llcp_sock_bind().  The non-NULL value of
-llcp_sock->dev is used in a few places to check whether the socket is
-still valid.
-
-There was no particular issue observed with missing NULL assignment in
-connect() error path, however a similar case - in the bind() error path
-- was triggereable.  That one was fixed in commit 4ac06a1e013c ("nfc:
-fix NULL ptr dereference in llcp_sock_getname() after failed connect"),
-so the change here seems logical as well.
+The llcp_sock_connect() error paths were using a mixed way of central
+exit (goto) and cleanup
 
 Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>
 ---
- net/nfc/llcp_sock.c | 1 +
- 1 file changed, 1 insertion(+)
+ net/nfc/llcp_sock.c | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
 
 diff --git a/net/nfc/llcp_sock.c b/net/nfc/llcp_sock.c
-index 6cfd30fc0798..d951d4f0c87f 100644
+index d951d4f0c87f..a1b245b399f8 100644
 --- a/net/nfc/llcp_sock.c
 +++ b/net/nfc/llcp_sock.c
-@@ -764,6 +764,7 @@ static int llcp_sock_connect(struct socket *sock, struct sockaddr *_addr,
+@@ -712,10 +712,8 @@ static int llcp_sock_connect(struct socket *sock, struct sockaddr *_addr,
+ 	llcp_sock->local = nfc_llcp_local_get(local);
+ 	llcp_sock->ssap = nfc_llcp_get_local_ssap(local);
+ 	if (llcp_sock->ssap == LLCP_SAP_MAX) {
+-		nfc_llcp_local_put(llcp_sock->local);
+-		llcp_sock->local = NULL;
+ 		ret = -ENOMEM;
+-		goto put_dev;
++		goto sock_llcp_put_local;
+ 	}
+ 
+ 	llcp_sock->reserved_ssap = llcp_sock->ssap;
+@@ -760,11 +758,13 @@ static int llcp_sock_connect(struct socket *sock, struct sockaddr *_addr,
+ 
+ sock_llcp_release:
+ 	nfc_llcp_put_ssap(local, llcp_sock->ssap);
++
++sock_llcp_put_local:
+ 	nfc_llcp_local_put(llcp_sock->local);
  	llcp_sock->local = NULL;
++	llcp_sock->dev = NULL;
  
  put_dev:
-+	llcp_sock->dev = NULL;
+-	llcp_sock->dev = NULL;
  	nfc_put_device(dev);
  
  error:
