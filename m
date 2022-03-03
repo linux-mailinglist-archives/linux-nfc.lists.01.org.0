@@ -1,82 +1,86 @@
 Return-Path: <linux-nfc-bounces@lists.01.org>
 X-Original-To: lists+linux-nfc@lfdr.de
 Delivered-To: lists+linux-nfc@lfdr.de
-Received: from ml01.01.org (ml01.01.org [IPv6:2001:19d0:306:5::1])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3922E4CAEA3
-	for <lists+linux-nfc@lfdr.de>; Wed,  2 Mar 2022 20:25:43 +0100 (CET)
+Received: from ml01.01.org (ml01.01.org [198.145.21.10])
+	by mail.lfdr.de (Postfix) with ESMTPS id 083724CBE97
+	for <lists+linux-nfc@lfdr.de>; Thu,  3 Mar 2022 14:13:38 +0100 (CET)
 Received: from ml01.vlan13.01.org (localhost [IPv6:::1])
-	by ml01.01.org (Postfix) with ESMTP id 7E390100F4848;
-	Wed,  2 Mar 2022 11:25:39 -0800 (PST)
+	by ml01.01.org (Postfix) with ESMTP id 8E1FD100EAB65;
+	Thu,  3 Mar 2022 05:13:36 -0800 (PST)
 Received-SPF: Pass (mailfrom) identity=mailfrom; client-ip=185.125.188.122; helo=smtp-relay-internal-0.canonical.com; envelope-from=krzysztof.kozlowski@canonical.com; receiver=<UNKNOWN> 
 Received: from smtp-relay-internal-0.canonical.com (smtp-relay-internal-0.canonical.com [185.125.188.122])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits))
 	(No client certificate requested)
-	by ml01.01.org (Postfix) with ESMTPS id CFFB4100EA925
-	for <linux-nfc@lists.01.org>; Wed,  2 Mar 2022 11:25:37 -0800 (PST)
-Received: from mail-ed1-f69.google.com (mail-ed1-f69.google.com [209.85.208.69])
+	by ml01.01.org (Postfix) with ESMTPS id 7B1E2100EAB4E
+	for <linux-nfc@lists.01.org>; Thu,  3 Mar 2022 05:13:34 -0800 (PST)
+Received: from mail-wm1-f72.google.com (mail-wm1-f72.google.com [209.85.128.72])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by smtp-relay-internal-0.canonical.com (Postfix) with ESMTPS id 5DDC43F1D0
-	for <linux-nfc@lists.01.org>; Wed,  2 Mar 2022 19:25:36 +0000 (UTC)
+	by smtp-relay-internal-0.canonical.com (Postfix) with ESMTPS id 9FCEE3F5FC
+	for <linux-nfc@lists.01.org>; Thu,  3 Mar 2022 13:13:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=canonical.com;
-	s=20210705; t=1646249136;
-	bh=Mdsn7AT474MZc2MQVfRJDSMS8EOfClYXR9EYCiW/6uw=;
-	h=From:To:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version;
-	b=AUCDt5MsPe1PsjaSbSqC0wKPst/OHiR1mFTDwZknPsfCfDn916ACo+WiDg3LUbhvx
-	 dZd6/Pg+5i6ioIBg2Vmo0iSut117ANG+Bx5udlxo1Fw0w6W1mjq62wmXsYBLrTKZsD
-	 z0eNI7a/NpueBLdcZpxghkvOAZWXkVAFUIG1F6hQMpGwMl3lyjNRgAVQJHk7/AHJnj
-	 MOQGDbQZerf8yq2Zn55yQs0ZlhSFSBNHer/c9hTx7546G5clYCgRqQvb3O+8Q9xAzP
-	 sE1fNHrkqFBVneq139nTcS3cBXLdX7/8fviz3fsarIn9NQf7MA2I8k7b1hcH9fnw9/
-	 IIWibeZL7mW+w==
-Received: by mail-ed1-f69.google.com with SMTP id i5-20020a056402054500b00415ce7443f4so576423edx.12
-        for <linux-nfc@lists.01.org>; Wed, 02 Mar 2022 11:25:36 -0800 (PST)
+	s=20210705; t=1646313212;
+	bh=LMY/CePsTOMSqNYl6Ts31E/1/fcnzCoQjKnJ0fOnEQc=;
+	h=Message-ID:Date:MIME-Version:Subject:To:References:From:
+	 In-Reply-To:Content-Type;
+	b=VXC59FZ/yvUOtxhhfQPWntnmeYqNbP8P+qXIxEI5qW3733+/8ivWZlpgMz2l4ePtv
+	 UTbVWg98DmW3aBcnKCd4MxhTie5CL3ZYucFR9kS9zXyrQRBVzJPpeitPQ+MYB6JxZ+
+	 whn1jBPMThw6C/uCMo4ubccxsaYdfw1lxdCiwG3FNKdaqwvuYipDA/LZDFmwhr3kdt
+	 aznJ+Lp1rrXcifz5UntldxdpgdvI8UvAk6SFX8rMfqGKRDO9Lpk8XAzGW6V9NXjAM7
+	 xywO808tYrBbaycSLqy0AyRLMen+0Zc1/r5YCjZ0/uOQJmdOCAYdhSrP6W88cI2RMi
+	 QauhOoCjX3i5A==
+Received: by mail-wm1-f72.google.com with SMTP id 26-20020a05600c22da00b00388307f3503so346925wmg.1
+        for <linux-nfc@lists.01.org>; Thu, 03 Mar 2022 05:13:32 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
-        h=x-gm-message-state:from:to:subject:date:message-id:in-reply-to
-         :references:mime-version:content-transfer-encoding;
-        bh=Mdsn7AT474MZc2MQVfRJDSMS8EOfClYXR9EYCiW/6uw=;
-        b=m676da9QqgG23BXo3KAVyQiqGmSE5CI6NYp7EuC9PqR83TPN14+CAISKzmZfAnC+0t
-         nT3y0uFde2ZUVnkMlEdl56MRwo8nCjPwRAAp/HhbXjf63d5pHDJ+eIlY7LPP2vxHTiyt
-         g253Mg/eATveqvMiXuvtQ2niZFTnGUM1fI2fMpye9Do4G+ejmwikgjXAuYspWpzq+Hqu
-         D5oUnVLB9KuYQUbWDrmlggNcEyqfIHvY52Rp0/u6aJe2EpEKEDM4W/mKYWaNmmd5Wyy7
-         aLT8WCCKsASq3aSOMLQADnvVm/k51940VF/cqIE+6c26DwP6n/wYZuoO2+RjPV5KcHWj
-         OglQ==
-X-Gm-Message-State: AOAM5326du3wo4uaDqBQ+7n1HmWa9VGe/Dwo8cqedN8QEA7+x3HIZgs5
-	f0iMjB6CDm1YXM1ypILPZoEbhJiWZ+AZXUIIkPr/lkfwGoq8CpIePVSv4FplJswmedvtkhbmLvH
-	Rkmm1LWjYA2F/ox0mxb0LH9sVEz+j4LcDUw==
-X-Received: by 2002:a17:906:714c:b0:6cf:4850:52cc with SMTP id z12-20020a170906714c00b006cf485052ccmr24550323ejj.319.1646249136077;
-        Wed, 02 Mar 2022 11:25:36 -0800 (PST)
-X-Google-Smtp-Source: ABdhPJzTh8qQiPVslsguc9Q0e99iiJ94AmhFY0BNCMiQLPiKFvI8B9dasw3D154XCQaRCiddESFGrA==
-X-Received: by 2002:a17:906:714c:b0:6cf:4850:52cc with SMTP id z12-20020a170906714c00b006cf485052ccmr24550313ejj.319.1646249135910;
-        Wed, 02 Mar 2022 11:25:35 -0800 (PST)
-Received: from localhost.localdomain (xdsl-188-155-181-108.adslplus.ch. [188.155.181.108])
-        by smtp.gmail.com with ESMTPSA id i14-20020a50cfce000000b00415b0730921sm1482765edk.42.2022.03.02.11.25.34
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 02 Mar 2022 11:25:34 -0800 (PST)
-From: Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>
-To: Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>,
-	"David S. Miller" <davem@davemloft.net>,
-	Jakub Kicinski <kuba@kernel.org>,
-	linux-nfc@lists.01.org,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Date: Wed,  2 Mar 2022 20:25:23 +0100
-Message-Id: <20220302192523.57444-7-krzysztof.kozlowski@canonical.com>
-X-Mailer: git-send-email 2.32.0
-In-Reply-To: <20220302192523.57444-1-krzysztof.kozlowski@canonical.com>
-References: <20220302192523.57444-1-krzysztof.kozlowski@canonical.com>
+        h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
+         :content-language:to:references:from:in-reply-to
+         :content-transfer-encoding;
+        bh=LMY/CePsTOMSqNYl6Ts31E/1/fcnzCoQjKnJ0fOnEQc=;
+        b=IUwIqLIKe9BMB5Elt66s900SSERWNzxHPbBdqU8lXOU8Hzh7VrrmkxuD0CFUo/QcrY
+         VaDyLDuOWXsApBoIPHx1C4I7sdwby1k9L1moo+O2OKME9bwWgnbBgkxsmJ7ZvlOdUsWq
+         uPjJxoKt880DGfHJbaTkibDJHAra1ylSekBb+u5YdHMiy5cheFgBgnrynUwdndAshgwu
+         GWemDrkqyk5loFUs6+inNesM+GrDvCqGcrMIz/Fba9lLi4NhkMmFZlwn3ed7Z+wgxvy/
+         jfU8GO27puEl7mdd8TxNPfIArz/fwCia2RXkpd2kAdekQpMv/eH6RAVN34Yvg6oZsZq9
+         7usg==
+X-Gm-Message-State: AOAM533bj4OZ/OKMvH7Pr/3Ln9/YQBv1A2MHDClR7fBjlZj1pC4kD6Pu
+	pMSBxcvbmtlyUqpnACp5uUDwzWMVO8IAu99iAXucy0Uq4W/AK9o/tseeYT/HbFWtqM3pQ04dy30
+	1hmOqT/9g7OcwBu10vV4i3l8Zkq4FrqPJHA==
+X-Received: by 2002:a05:600c:1c1c:b0:381:45b4:3f69 with SMTP id j28-20020a05600c1c1c00b0038145b43f69mr3697483wms.86.1646313212176;
+        Thu, 03 Mar 2022 05:13:32 -0800 (PST)
+X-Google-Smtp-Source: ABdhPJzvYjeIPKK1xybBBwrybTxPehOwM+dcpiu2dLD6jZaYYr/U3PXkimjpZxKtXdvaWl32PpTVkA==
+X-Received: by 2002:a05:600c:1c1c:b0:381:45b4:3f69 with SMTP id j28-20020a05600c1c1c00b0038145b43f69mr3697468wms.86.1646313211951;
+        Thu, 03 Mar 2022 05:13:31 -0800 (PST)
+Received: from [192.168.0.137] (xdsl-188-155-181-108.adslplus.ch. [188.155.181.108])
+        by smtp.gmail.com with ESMTPSA id p5-20020a05600c358500b0038167e239a2sm2444025wmq.19.2022.03.03.05.13.30
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 03 Mar 2022 05:13:31 -0800 (PST)
+Message-ID: <92ecef5a-cd8d-09e6-a8af-201e04b251c1@canonical.com>
+Date: Thu, 3 Mar 2022 14:13:30 +0100
 MIME-Version: 1.0
-Message-ID-Hash: PXJF3BI4SSG5VJLOBVL6BM6VGJJ5U5RD
-X-Message-ID-Hash: PXJF3BI4SSG5VJLOBVL6BM6VGJJ5U5RD
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.5.0
+Content-Language: en-US
+To: David Laight <David.Laight@ACULAB.COM>,
+ "David S. Miller" <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>,
+ "linux-nfc@lists.01.org" <linux-nfc@lists.01.org>,
+ "netdev@vger.kernel.org" <netdev@vger.kernel.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+References: <20220302192523.57444-1-krzysztof.kozlowski@canonical.com>
+ <20220302192523.57444-5-krzysztof.kozlowski@canonical.com>
+ <7fc4cb250bb8406cadf80649e366b249@AcuMS.aculab.com>
+From: Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>
+In-Reply-To: <7fc4cb250bb8406cadf80649e366b249@AcuMS.aculab.com>
+Message-ID-Hash: 3NU74QQM5OJFNN34XKWRXZ5VML7W3DU3
+X-Message-ID-Hash: 3NU74QQM5OJFNN34XKWRXZ5VML7W3DU3
 X-MailFrom: krzysztof.kozlowski@canonical.com
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency; loop; banned-address; member-moderation; nonmember-moderation; administrivia; implicit-dest; max-recipients; max-size; news-moderation; no-subject; suspicious-header
 X-Mailman-Version: 3.1.1
 Precedence: list
-Subject: [linux-nfc] [RESEND PATCH v2 6/6] nfc: llcp: Revert "NFC: Keep socket alive until the DISC PDU is actually sent"
+Subject: [linux-nfc] Re: [RESEND PATCH v2 4/6] nfc: llcp: use test_bit()
 List-Id: NFC on Linux <linux-nfc.lists.01.org>
-Archived-At: <https://lists.01.org/hyperkitty/list/linux-nfc@lists.01.org/message/PXJF3BI4SSG5VJLOBVL6BM6VGJJ5U5RD/>
+Archived-At: <https://lists.01.org/hyperkitty/list/linux-nfc@lists.01.org/message/3NU74QQM5OJFNN34XKWRXZ5VML7W3DU3/>
 List-Archive: <https://lists.01.org/hyperkitty/list/linux-nfc@lists.01.org/>
 List-Help: <mailto:linux-nfc-request@lists.01.org?subject=help>
 List-Post: <mailto:linux-nfc@lists.01.org>
@@ -85,70 +89,23 @@ List-Unsubscribe: <mailto:linux-nfc-leave@lists.01.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-This reverts commit 17f7ae16aef1f58bc4af4c7a16b8778a91a30255.
+On 03/03/2022 01:10, David Laight wrote:
+> From: Krzysztof Kozlowski
+>> Sent: 02 March 2022 19:25
+>>
+>> Use test_bit() instead of open-coding it, just like in other places
+>> touching the bitmap.
+> 
+> Except it isn't a bitmap, it is just a structure member that contains bits.
+> So all the other places should be changes to use C shifts and masks (etc).
+> 
 
-The commit brought a new socket state LLCP_DISCONNECTING, which was
-never set, only read, so socket could never set to such state.
+It's not declared as bitmap but it is unsigned long, so an appropriate
+type (and same type) for test_bit.
 
-Remove the dead code.
 
-Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>
----
- net/nfc/llcp.h      | 1 -
- net/nfc/llcp_core.c | 7 -------
- net/nfc/llcp_sock.c | 7 -------
- 3 files changed, 15 deletions(-)
-
-diff --git a/net/nfc/llcp.h b/net/nfc/llcp.h
-index d49d4bf2e37c..c1d9be636933 100644
---- a/net/nfc/llcp.h
-+++ b/net/nfc/llcp.h
-@@ -6,7 +6,6 @@
- enum llcp_state {
- 	LLCP_CONNECTED = 1, /* wait_for_packet() wants that */
- 	LLCP_CONNECTING,
--	LLCP_DISCONNECTING,
- 	LLCP_CLOSED,
- 	LLCP_BOUND,
- 	LLCP_LISTEN,
-diff --git a/net/nfc/llcp_core.c b/net/nfc/llcp_core.c
-index b70d5042bf74..3364caabef8b 100644
---- a/net/nfc/llcp_core.c
-+++ b/net/nfc/llcp_core.c
-@@ -737,13 +737,6 @@ static void nfc_llcp_tx_work(struct work_struct *work)
- 			print_hex_dump_debug("LLCP Tx: ", DUMP_PREFIX_OFFSET,
- 					     16, 1, skb->data, skb->len, true);
- 
--			if (ptype == LLCP_PDU_DISC && sk != NULL &&
--			    sk->sk_state == LLCP_DISCONNECTING) {
--				nfc_llcp_sock_unlink(&local->sockets, sk);
--				sock_orphan(sk);
--				sock_put(sk);
--			}
--
- 			if (ptype == LLCP_PDU_I)
- 				copy_skb = skb_copy(skb, GFP_ATOMIC);
- 
-diff --git a/net/nfc/llcp_sock.c b/net/nfc/llcp_sock.c
-index 5c5705f5028b..4ca35791c93b 100644
---- a/net/nfc/llcp_sock.c
-+++ b/net/nfc/llcp_sock.c
-@@ -641,13 +641,6 @@ static int llcp_sock_release(struct socket *sock)
- 
- 	release_sock(sk);
- 
--	/* Keep this sock alive and therefore do not remove it from the sockets
--	 * list until the DISC PDU has been actually sent. Otherwise we would
--	 * reply with DM PDUs before sending the DISC one.
--	 */
--	if (sk->sk_state == LLCP_DISCONNECTING)
--		return err;
--
- out:
- 	sock_orphan(sk);
- 	sock_put(sk);
--- 
-2.32.0
+Best regards,
+Krzysztof
 _______________________________________________
 Linux-nfc mailing list -- linux-nfc@lists.01.org
 To unsubscribe send an email to linux-nfc-leave@lists.01.org
