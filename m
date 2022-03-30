@@ -2,85 +2,70 @@ Return-Path: <linux-nfc-bounces@lists.01.org>
 X-Original-To: lists+linux-nfc@lfdr.de
 Delivered-To: lists+linux-nfc@lfdr.de
 Received: from ml01.01.org (ml01.01.org [198.145.21.10])
-	by mail.lfdr.de (Postfix) with ESMTPS id 083724CBE97
-	for <lists+linux-nfc@lfdr.de>; Thu,  3 Mar 2022 14:13:38 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 174044EBBE6
+	for <lists+linux-nfc@lfdr.de>; Wed, 30 Mar 2022 09:40:34 +0200 (CEST)
 Received: from ml01.vlan13.01.org (localhost [IPv6:::1])
-	by ml01.01.org (Postfix) with ESMTP id 8E1FD100EAB65;
-	Thu,  3 Mar 2022 05:13:36 -0800 (PST)
-Received-SPF: Pass (mailfrom) identity=mailfrom; client-ip=185.125.188.122; helo=smtp-relay-internal-0.canonical.com; envelope-from=krzysztof.kozlowski@canonical.com; receiver=<UNKNOWN> 
-Received: from smtp-relay-internal-0.canonical.com (smtp-relay-internal-0.canonical.com [185.125.188.122])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits))
+	by ml01.01.org (Postfix) with ESMTP id BD21D100EAB10;
+	Wed, 30 Mar 2022 00:40:31 -0700 (PDT)
+Received-SPF: Pass (mailfrom) identity=mailfrom; client-ip=2a00:1450:4864:20::641; helo=mail-ej1-x641.google.com; envelope-from=krzysztof.kozlowski@linaro.org; receiver=<UNKNOWN> 
+Received: from mail-ej1-x641.google.com (mail-ej1-x641.google.com [IPv6:2a00:1450:4864:20::641])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits))
 	(No client certificate requested)
-	by ml01.01.org (Postfix) with ESMTPS id 7B1E2100EAB4E
-	for <linux-nfc@lists.01.org>; Thu,  3 Mar 2022 05:13:34 -0800 (PST)
-Received: from mail-wm1-f72.google.com (mail-wm1-f72.google.com [209.85.128.72])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-relay-internal-0.canonical.com (Postfix) with ESMTPS id 9FCEE3F5FC
-	for <linux-nfc@lists.01.org>; Thu,  3 Mar 2022 13:13:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=canonical.com;
-	s=20210705; t=1646313212;
-	bh=LMY/CePsTOMSqNYl6Ts31E/1/fcnzCoQjKnJ0fOnEQc=;
-	h=Message-ID:Date:MIME-Version:Subject:To:References:From:
-	 In-Reply-To:Content-Type;
-	b=VXC59FZ/yvUOtxhhfQPWntnmeYqNbP8P+qXIxEI5qW3733+/8ivWZlpgMz2l4ePtv
-	 UTbVWg98DmW3aBcnKCd4MxhTie5CL3ZYucFR9kS9zXyrQRBVzJPpeitPQ+MYB6JxZ+
-	 whn1jBPMThw6C/uCMo4ubccxsaYdfw1lxdCiwG3FNKdaqwvuYipDA/LZDFmwhr3kdt
-	 aznJ+Lp1rrXcifz5UntldxdpgdvI8UvAk6SFX8rMfqGKRDO9Lpk8XAzGW6V9NXjAM7
-	 xywO808tYrBbaycSLqy0AyRLMen+0Zc1/r5YCjZ0/uOQJmdOCAYdhSrP6W88cI2RMi
-	 QauhOoCjX3i5A==
-Received: by mail-wm1-f72.google.com with SMTP id 26-20020a05600c22da00b00388307f3503so346925wmg.1
-        for <linux-nfc@lists.01.org>; Thu, 03 Mar 2022 05:13:32 -0800 (PST)
+	by ml01.01.org (Postfix) with ESMTPS id 98612100EAB0F
+	for <linux-nfc@lists.01.org>; Wed, 30 Mar 2022 00:40:28 -0700 (PDT)
+Received: by mail-ej1-x641.google.com with SMTP id j15so39691688eje.9
+        for <linux-nfc@lists.01.org>; Wed, 30 Mar 2022 00:40:28 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google;
+        h=from:to:cc:subject:date:message-id:mime-version
+         :content-transfer-encoding;
+        bh=+fs03Qe5m2CAu5KA7NU3Z7yweF+5+DwbdVq/GJFIlNE=;
+        b=ex8tbjLk+0Wdtww3/CDPCbeeyLzltz0XLQc/kTGGTDckS/aAdfHU1y7YDh2lCuBufg
+         Ek3B1nIyDJdNsPVUy2NwJrgskAa32uAMMhpUF+ioSNpcoeiIAHavfW2099ojPSgGgGE7
+         3wwUH7K1JfxGG5Oh2XaYKHO6HRUlrl/X+HalWZxsta48unjq55f29E/F+qMNNuJ7eoYl
+         2Oh4jvG+kTw2UxKDpcbRT31SQQrknt0Vr6BpK8XQ5ksZ20VzYu2SILthbcfonJ5y9j7y
+         zdneLGKv9fMRV6s8puMlExF9mMzmdNqwdQKM0fJr9OyZjPVuBcrKUEmVwqQ3UzS2KKhQ
+         gqpQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
-        h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
-         :content-language:to:references:from:in-reply-to
+        h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
          :content-transfer-encoding;
-        bh=LMY/CePsTOMSqNYl6Ts31E/1/fcnzCoQjKnJ0fOnEQc=;
-        b=IUwIqLIKe9BMB5Elt66s900SSERWNzxHPbBdqU8lXOU8Hzh7VrrmkxuD0CFUo/QcrY
-         VaDyLDuOWXsApBoIPHx1C4I7sdwby1k9L1moo+O2OKME9bwWgnbBgkxsmJ7ZvlOdUsWq
-         uPjJxoKt880DGfHJbaTkibDJHAra1ylSekBb+u5YdHMiy5cheFgBgnrynUwdndAshgwu
-         GWemDrkqyk5loFUs6+inNesM+GrDvCqGcrMIz/Fba9lLi4NhkMmFZlwn3ed7Z+wgxvy/
-         jfU8GO27puEl7mdd8TxNPfIArz/fwCia2RXkpd2kAdekQpMv/eH6RAVN34Yvg6oZsZq9
-         7usg==
-X-Gm-Message-State: AOAM533bj4OZ/OKMvH7Pr/3Ln9/YQBv1A2MHDClR7fBjlZj1pC4kD6Pu
-	pMSBxcvbmtlyUqpnACp5uUDwzWMVO8IAu99iAXucy0Uq4W/AK9o/tseeYT/HbFWtqM3pQ04dy30
-	1hmOqT/9g7OcwBu10vV4i3l8Zkq4FrqPJHA==
-X-Received: by 2002:a05:600c:1c1c:b0:381:45b4:3f69 with SMTP id j28-20020a05600c1c1c00b0038145b43f69mr3697483wms.86.1646313212176;
-        Thu, 03 Mar 2022 05:13:32 -0800 (PST)
-X-Google-Smtp-Source: ABdhPJzvYjeIPKK1xybBBwrybTxPehOwM+dcpiu2dLD6jZaYYr/U3PXkimjpZxKtXdvaWl32PpTVkA==
-X-Received: by 2002:a05:600c:1c1c:b0:381:45b4:3f69 with SMTP id j28-20020a05600c1c1c00b0038145b43f69mr3697468wms.86.1646313211951;
-        Thu, 03 Mar 2022 05:13:31 -0800 (PST)
-Received: from [192.168.0.137] (xdsl-188-155-181-108.adslplus.ch. [188.155.181.108])
-        by smtp.gmail.com with ESMTPSA id p5-20020a05600c358500b0038167e239a2sm2444025wmq.19.2022.03.03.05.13.30
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 03 Mar 2022 05:13:31 -0800 (PST)
-Message-ID: <92ecef5a-cd8d-09e6-a8af-201e04b251c1@canonical.com>
-Date: Thu, 3 Mar 2022 14:13:30 +0100
+        bh=+fs03Qe5m2CAu5KA7NU3Z7yweF+5+DwbdVq/GJFIlNE=;
+        b=Lehbnu/k+yAYB9dhcLh5oHT4xl1SducEkU5bg7N7lOEC4H82hqp+/rMkusk0S1s0y/
+         3iMMxlJyilS3zt1MIk5eLgNfZZbkCrGSyqKYLKgXhPBMm3TPKaJvkgAhSaNlUzq1Zhhd
+         qw1g4w3n9aPIvitRD68aXUdiMKnMmbDvjx8XCOFwMRbkhs3NNLoG5fXRP/BDfQzJhJPc
+         75KEs34a/WMHs2QaDiebBDurv2LG4gHPUquJCnAsuEXGqWD2e1xumrlWmT98vFQwFhTE
+         qX4XnNqX93FCDddmtjmf4VGPI9kONUmF2Eani24PQaneI5z6dcqLf6g3Y5nsxK+Cn0l7
+         Edqw==
+X-Gm-Message-State: AOAM5326inIZtEWsw01NRENFZOApHFbbvYGsdR0b7uaH5ac50VuEPiQ5
+	KvSWjJCRq31WDJMKnO4RBpqX/A==
+X-Google-Smtp-Source: ABdhPJyiytUzrzTtKzum6T4/uPQMwS6KDq/FK9+HsYlM+syWEDDFNiRdcVYelGPuda/Y0L8MSc4LVQ==
+X-Received: by 2002:a17:907:971c:b0:6e0:dd95:9fc6 with SMTP id jg28-20020a170907971c00b006e0dd959fc6mr2088118ejc.256.1648626026637;
+        Wed, 30 Mar 2022 00:40:26 -0700 (PDT)
+Received: from localhost.localdomain (xdsl-188-155-201-27.adslplus.ch. [188.155.201.27])
+        by smtp.gmail.com with ESMTPSA id s20-20020a056402015400b00418f9574a36sm9536640edu.73.2022.03.30.00.40.25
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 30 Mar 2022 00:40:26 -0700 (PDT)
+From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+To: linux-samsung-soc@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-nfc@lists.01.org,
+	netdev@vger.kernel.org
+Date: Wed, 30 Mar 2022 09:40:14 +0200
+Message-Id: <20220330074016.12896-1-krzysztof.kozlowski@linaro.org>
+X-Mailer: git-send-email 2.32.0
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.5.0
-Content-Language: en-US
-To: David Laight <David.Laight@ACULAB.COM>,
- "David S. Miller" <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>,
- "linux-nfc@lists.01.org" <linux-nfc@lists.01.org>,
- "netdev@vger.kernel.org" <netdev@vger.kernel.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-References: <20220302192523.57444-1-krzysztof.kozlowski@canonical.com>
- <20220302192523.57444-5-krzysztof.kozlowski@canonical.com>
- <7fc4cb250bb8406cadf80649e366b249@AcuMS.aculab.com>
-From: Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>
-In-Reply-To: <7fc4cb250bb8406cadf80649e366b249@AcuMS.aculab.com>
-Message-ID-Hash: 3NU74QQM5OJFNN34XKWRXZ5VML7W3DU3
-X-Message-ID-Hash: 3NU74QQM5OJFNN34XKWRXZ5VML7W3DU3
-X-MailFrom: krzysztof.kozlowski@canonical.com
+Message-ID-Hash: XD7XCX3GM2EYS6XXSPBUGH2KI3U4FRR7
+X-Message-ID-Hash: XD7XCX3GM2EYS6XXSPBUGH2KI3U4FRR7
+X-MailFrom: krzysztof.kozlowski@linaro.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency; loop; banned-address; member-moderation; nonmember-moderation; administrivia; implicit-dest; max-recipients; max-size; news-moderation; no-subject; suspicious-header
+CC: Rob Herring <robh+dt@kernel.org>, Arnd Bergmann <arnd@arndb.de>, Olof Johansson <olof@lixom.net>, Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>, Krzysztof Kozlowski <krzk@kernel.org>
 X-Mailman-Version: 3.1.1
 Precedence: list
-Subject: [linux-nfc] Re: [RESEND PATCH v2 4/6] nfc: llcp: use test_bit()
+Subject: [linux-nfc] [PATCH 0/2] MAINTAINERS/dt-bindings: changes to my emails
 List-Id: NFC on Linux <linux-nfc.lists.01.org>
-Archived-At: <https://lists.01.org/hyperkitty/list/linux-nfc@lists.01.org/message/3NU74QQM5OJFNN34XKWRXZ5VML7W3DU3/>
+Archived-At: <https://lists.01.org/hyperkitty/list/linux-nfc@lists.01.org/message/XD7XCX3GM2EYS6XXSPBUGH2KI3U4FRR7/>
 List-Archive: <https://lists.01.org/hyperkitty/list/linux-nfc@lists.01.org/>
 List-Help: <mailto:linux-nfc-request@lists.01.org?subject=help>
 List-Post: <mailto:linux-nfc@lists.01.org>
@@ -89,23 +74,123 @@ List-Unsubscribe: <mailto:linux-nfc-leave@lists.01.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-On 03/03/2022 01:10, David Laight wrote:
-> From: Krzysztof Kozlowski
->> Sent: 02 March 2022 19:25
->>
->> Use test_bit() instead of open-coding it, just like in other places
->> touching the bitmap.
-> 
-> Except it isn't a bitmap, it is just a structure member that contains bits.
-> So all the other places should be changes to use C shifts and masks (etc).
-> 
+From: Krzysztof Kozlowski <krzk@kernel.org>
 
-It's not declared as bitmap but it is unsigned long, so an appropriate
-type (and same type) for test_bit.
+Hi,
 
+I can take both patches via my Samsung SoC tree, if that's ok.
 
 Best regards,
 Krzysztof
+
+Krzysztof Kozlowski (2):
+  dt-bindings: update Krzysztof Kozlowski's email
+  MAINTAINERS: update Krzysztof Kozlowski's email to Linaro
+
+ .../clock/samsung,exynos-audss-clock.yaml     |  2 +-
+ .../bindings/clock/samsung,exynos-clock.yaml  |  2 +-
+ .../clock/samsung,exynos-ext-clock.yaml       |  2 +-
+ .../clock/samsung,exynos4412-isp-clock.yaml   |  2 +-
+ .../clock/samsung,exynos5260-clock.yaml       |  2 +-
+ .../clock/samsung,exynos5410-clock.yaml       |  2 +-
+ .../clock/samsung,exynos5433-clock.yaml       |  2 +-
+ .../bindings/clock/samsung,exynos7-clock.yaml |  2 +-
+ .../clock/samsung,exynos7885-clock.yaml       |  2 +-
+ .../clock/samsung,exynos850-clock.yaml        |  2 +-
+ .../bindings/clock/samsung,s2mps11.yaml       |  2 +-
+ .../clock/samsung,s5pv210-audss-clock.yaml    |  2 +-
+ .../bindings/clock/samsung,s5pv210-clock.yaml |  2 +-
+ .../devfreq/event/samsung,exynos-nocp.yaml    |  2 +-
+ .../devfreq/event/samsung,exynos-ppmu.yaml    |  2 +-
+ .../samsung/samsung,exynos-hdmi-ddc.yaml      |  2 +-
+ .../display/samsung/samsung,exynos-hdmi.yaml  |  2 +-
+ .../display/samsung/samsung,exynos-mixer.yaml |  2 +-
+ .../samsung/samsung,exynos5433-decon.yaml     |  2 +-
+ .../samsung/samsung,exynos5433-mic.yaml       |  2 +-
+ .../samsung/samsung,exynos7-decon.yaml        |  2 +-
+ .../display/samsung/samsung,fimd.yaml         |  2 +-
+ .../bindings/extcon/maxim,max77843.yaml       |  2 +-
+ .../bindings/hwmon/lltc,ltc4151.yaml          |  2 +-
+ .../bindings/hwmon/microchip,mcp3021.yaml     |  2 +-
+ .../bindings/hwmon/sensirion,sht15.yaml       |  2 +-
+ .../devicetree/bindings/hwmon/ti,tmp102.yaml  |  2 +-
+ .../devicetree/bindings/hwmon/ti,tmp108.yaml  |  2 +-
+ .../devicetree/bindings/i2c/i2c-exynos5.yaml  |  2 +-
+ .../bindings/i2c/samsung,s3c2410-i2c.yaml     |  2 +-
+ .../samsung,exynos4210-combiner.yaml          |  2 +-
+ .../bindings/leds/maxim,max77693.yaml         |  2 +-
+ .../memory-controllers/brcm,dpfe-cpu.yaml     |  2 +-
+ .../ddr/jedec,lpddr2-timings.yaml             |  2 +-
+ .../memory-controllers/ddr/jedec,lpddr2.yaml  |  2 +-
+ .../ddr/jedec,lpddr3-timings.yaml             |  2 +-
+ .../memory-controllers/ddr/jedec,lpddr3.yaml  |  2 +-
+ .../marvell,mvebu-sdram-controller.yaml       |  2 +-
+ .../qca,ath79-ddr-controller.yaml             |  2 +-
+ .../memory-controllers/renesas,h8300-bsc.yaml |  2 +-
+ .../samsung,exynos5422-dmc.yaml               |  2 +-
+ .../memory-controllers/synopsys,ddrc-ecc.yaml |  2 +-
+ .../memory-controllers/ti,da8xx-ddrctl.yaml   |  2 +-
+ .../bindings/mfd/maxim,max14577.yaml          |  2 +-
+ .../bindings/mfd/maxim,max77686.yaml          |  2 +-
+ .../bindings/mfd/maxim,max77693.yaml          |  2 +-
+ .../bindings/mfd/maxim,max77802.yaml          |  2 +-
+ .../bindings/mfd/maxim,max77843.yaml          |  2 +-
+ .../mfd/samsung,exynos5433-lpass.yaml         |  2 +-
+ .../bindings/mfd/samsung,s2mpa01.yaml         |  2 +-
+ .../bindings/mfd/samsung,s2mps11.yaml         |  2 +-
+ .../bindings/mfd/samsung,s5m8767.yaml         |  2 +-
+ .../bindings/net/nfc/marvell,nci.yaml         |  2 +-
+ .../devicetree/bindings/net/nfc/nxp,nci.yaml  |  2 +-
+ .../bindings/net/nfc/nxp,pn532.yaml           |  2 +-
+ .../bindings/net/nfc/nxp,pn544.yaml           |  2 +-
+ .../bindings/net/nfc/st,st-nci.yaml           |  2 +-
+ .../bindings/net/nfc/st,st21nfca.yaml         |  2 +-
+ .../bindings/net/nfc/st,st95hf.yaml           |  2 +-
+ .../bindings/net/nfc/ti,trf7970a.yaml         |  2 +-
+ .../bindings/phy/samsung,dp-video-phy.yaml    |  2 +-
+ .../bindings/phy/samsung,exynos-hdmi-phy.yaml |  2 +-
+ .../phy/samsung,exynos5250-sata-phy.yaml      |  2 +-
+ .../bindings/phy/samsung,mipi-video-phy.yaml  |  2 +-
+ .../bindings/phy/samsung,usb2-phy.yaml        |  2 +-
+ .../bindings/phy/samsung,usb3-drd-phy.yaml    |  2 +-
+ .../pinctrl/samsung,pinctrl-gpio-bank.yaml    |  2 +-
+ .../pinctrl/samsung,pinctrl-pins-cfg.yaml     |  2 +-
+ .../samsung,pinctrl-wakeup-interrupt.yaml     |  2 +-
+ .../bindings/pinctrl/samsung,pinctrl.yaml     |  2 +-
+ .../bindings/power/supply/maxim,max14577.yaml |  2 +-
+ .../bindings/power/supply/maxim,max77693.yaml |  2 +-
+ .../bindings/regulator/maxim,max14577.yaml    |  2 +-
+ .../bindings/regulator/maxim,max77686.yaml    |  2 +-
+ .../bindings/regulator/maxim,max77693.yaml    |  2 +-
+ .../bindings/regulator/maxim,max77802.yaml    |  2 +-
+ .../bindings/regulator/maxim,max77843.yaml    |  2 +-
+ .../bindings/regulator/maxim,max8952.yaml     |  2 +-
+ .../bindings/regulator/maxim,max8973.yaml     |  2 +-
+ .../bindings/regulator/maxim,max8997.yaml     |  2 +-
+ .../bindings/regulator/samsung,s2mpa01.yaml   |  2 +-
+ .../bindings/regulator/samsung,s2mps11.yaml   |  2 +-
+ .../bindings/regulator/samsung,s2mps13.yaml   |  2 +-
+ .../bindings/regulator/samsung,s2mps14.yaml   |  2 +-
+ .../bindings/regulator/samsung,s2mps15.yaml   |  2 +-
+ .../bindings/regulator/samsung,s2mpu02.yaml   |  2 +-
+ .../bindings/regulator/samsung,s5m8767.yaml   |  2 +-
+ .../bindings/rng/samsung,exynos5250-trng.yaml |  2 +-
+ .../bindings/rng/timeriomem_rng.yaml          |  2 +-
+ .../bindings/soc/samsung/exynos-usi.yaml      |  2 +-
+ .../bindings/sound/samsung,arndale.yaml       |  2 +-
+ .../bindings/sound/samsung,smdk5250.yaml      |  2 +-
+ .../bindings/sound/samsung,snow.yaml          |  2 +-
+ .../bindings/sound/samsung,tm2.yaml           |  2 +-
+ .../spi/samsung,spi-peripheral-props.yaml     |  2 +-
+ .../devicetree/bindings/spi/samsung,spi.yaml  |  2 +-
+ .../thermal/samsung,exynos-thermal.yaml       |  2 +-
+ .../bindings/usb/samsung,exynos-dwc3.yaml     |  2 +-
+ .../bindings/usb/samsung,exynos-usb2.yaml     |  2 +-
+ MAINTAINERS                                   | 36 +++++++++----------
+ 100 files changed, 117 insertions(+), 117 deletions(-)
+
+-- 
+2.32.0
 _______________________________________________
 Linux-nfc mailing list -- linux-nfc@lists.01.org
 To unsubscribe send an email to linux-nfc-leave@lists.01.org
