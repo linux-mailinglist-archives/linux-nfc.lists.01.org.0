@@ -2,75 +2,71 @@ Return-Path: <linux-nfc-bounces@lists.01.org>
 X-Original-To: lists+linux-nfc@lfdr.de
 Delivered-To: lists+linux-nfc@lfdr.de
 Received: from ml01.01.org (ml01.01.org [198.145.21.10])
-	by mail.lfdr.de (Postfix) with ESMTPS id 85B164F165B
-	for <lists+linux-nfc@lfdr.de>; Mon,  4 Apr 2022 15:46:44 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 93B4150863D
+	for <lists+linux-nfc@lfdr.de>; Wed, 20 Apr 2022 12:46:10 +0200 (CEST)
 Received: from ml01.vlan13.01.org (localhost [IPv6:::1])
-	by ml01.01.org (Postfix) with ESMTP id 3DD84100F3FB3;
-	Mon,  4 Apr 2022 06:46:43 -0700 (PDT)
-Received-SPF: Pass (mailfrom) identity=mailfrom; client-ip=2a00:1450:4864:20::633; helo=mail-ej1-x633.google.com; envelope-from=krzysztof.kozlowski@linaro.org; receiver=<UNKNOWN> 
-Received: from mail-ej1-x633.google.com (mail-ej1-x633.google.com [IPv6:2a00:1450:4864:20::633])
+	by ml01.01.org (Postfix) with ESMTP id 5D501100EA91E;
+	Wed, 20 Apr 2022 03:46:08 -0700 (PDT)
+Received-SPF: Pass (mailfrom) identity=mailfrom; client-ip=2a00:1450:4864:20::529; helo=mail-ed1-x529.google.com; envelope-from=krzysztof.kozlowski@linaro.org; receiver=<UNKNOWN> 
+Received: from mail-ed1-x529.google.com (mail-ed1-x529.google.com [IPv6:2a00:1450:4864:20::529])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits))
 	(No client certificate requested)
-	by ml01.01.org (Postfix) with ESMTPS id 1A796100F3FB1
-	for <linux-nfc@lists.01.org>; Mon,  4 Apr 2022 06:46:41 -0700 (PDT)
-Received: by mail-ej1-x633.google.com with SMTP id ot30so10127295ejb.12
-        for <linux-nfc@lists.01.org>; Mon, 04 Apr 2022 06:46:41 -0700 (PDT)
+	by ml01.01.org (Postfix) with ESMTPS id B887E100EBB94
+	for <linux-nfc@lists.01.org>; Wed, 20 Apr 2022 03:46:05 -0700 (PDT)
+Received: by mail-ed1-x529.google.com with SMTP id g20so1729018edw.6
+        for <linux-nfc@lists.01.org>; Wed, 20 Apr 2022 03:46:05 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=linaro.org; s=google;
-        h=message-id:date:mime-version:user-agent:subject:content-language:to
-         :cc:references:from:in-reply-to:content-transfer-encoding;
-        bh=vfQJmcM0qrYi49vcCG2B2KxC0x5r/jsGZIFrh4niQZc=;
-        b=sfdjINLCI7yuAvcOi9KAnb6V86j9QN3KifvcftXLDut+PGBdMIQThW4FvRrmxJqLmd
-         QFcTxZRQ3/UbrId+SsClV+HVS1KzpmLCM2iKMQm+JCVEAxQeVapEVO9WQ+rT8ObVNev7
-         KfCdHN00ZjbcQy9yqhVrf3I2SJ/F+dmwz3zIFy0oqzrcW71CB/ivFoNuFmhqUffhA/tF
-         RSYMJEB6NKp33l3dBxF5Sj1vhQ7Ooe9UViHI7cN2Aihf9Jxvww4j0ktZo9tacyj/mqbn
-         p0hwt93y85vKyrVBkxArcMZb04g9v7UAG9oFrpm5lZHdMCgdetLR7WnUUFPuG30IBR7W
-         Ye7g==
+        h=from:to:subject:date:message-id:mime-version
+         :content-transfer-encoding;
+        bh=5OVcjGSiJ+nlq65WcsbONfbpSCZlHZow1k2gE+HwcCo=;
+        b=pldrgPUIn2R72Z4tJz+rlp+UluL86LT0jyZUo9kf++27hTM0pzPgHXY+I0M40I9NY+
+         eXHUPwO7vQ/zVAdxzXO9RKovW5dOXy0S5vgPrJugzugD/sq0a2wj43vGseINag5cVdUp
+         buPuCcPXISqc1w3yzNrwnzmOwhtZ0oLxlWmhbyJfxD8UXXjuKPksUTMSoVw5W80s0IQg
+         bVQSOTj2RWia9S9xt0eVOxCzR9YWNhIAy7RyNMVAdlrNb1+wXoVQFsKqBO+PyXd6PNNq
+         Eyk0d+inH3oMBNt0rtRAWn9mTvYqYFsYPUvCQfVRZVk4jEt03BzBm1WDPSE9X25GU3F7
+         y5Jw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
-        h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
-         :content-language:to:cc:references:from:in-reply-to
+        h=x-gm-message-state:from:to:subject:date:message-id:mime-version
          :content-transfer-encoding;
-        bh=vfQJmcM0qrYi49vcCG2B2KxC0x5r/jsGZIFrh4niQZc=;
-        b=NGlsJcxGcmkQLMYbSMuhSPaWTuTzd4e13+45w1Reun5YorCi9WBXK9psEgFu+wpk62
-         Ttnwc1PcVhuE3Pu3c/pw0ROWA9wqjKufenKRMUWvJ+O9kasWeLyXBZe8/n4VD1LrdVaC
-         EiBgI/QT9Zge1UzmhEtAKqro4B4WWuZOq7mg6+MBVd3uvqCoeOSq7W0NVNu/ITn3XtJh
-         DdPrk1VYb4LgDKiVDl/rHq4TKQ6iAwgUHplM+veQssUBknmMxnDh1E3cFGQsg3MxuYzj
-         ETc3Le172EgkhbB8r3y30WWwVtVcRwWZYmAAzi1k2UHLlhjwkqong396sNdfIaTXG33A
-         eRtg==
-X-Gm-Message-State: AOAM530gdEzs5KpVOulCICvpi0HG1YZAl2kZXgRw+bdqH42vYG9AptsE
-	HcHAyn3/9qd7zRgC9EtHhMbQzA==
-X-Google-Smtp-Source: ABdhPJz/Fl/ycPt27uPD1jfBCnT7L/KvY41FuL5OomKqLLI6JcbOroETTemTgVbLNByEEPw/1Ty4xQ==
-X-Received: by 2002:a17:907:6d11:b0:6df:f38b:b698 with SMTP id sa17-20020a1709076d1100b006dff38bb698mr48232ejc.711.1649079999583;
-        Mon, 04 Apr 2022 06:46:39 -0700 (PDT)
-Received: from [192.168.0.176] (xdsl-188-155-201-27.adslplus.ch. [188.155.201.27])
-        by smtp.gmail.com with ESMTPSA id ke11-20020a17090798eb00b006e7fbf53398sm697669ejc.129.2022.04.04.06.46.38
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 04 Apr 2022 06:46:39 -0700 (PDT)
-Message-ID: <d470dd28-8084-2cda-10b4-006bb90c552a@linaro.org>
-Date: Mon, 4 Apr 2022 15:46:38 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.7.0
-Content-Language: en-US
-To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
- netdev@vger.kernel.org, linux-samsung-soc@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-nfc@lists.01.org
-References: <20220330074016.12896-1-krzysztof.kozlowski@linaro.org>
- <164907989905.809631.16161802401962719876.b4-ty@linaro.org>
+        bh=5OVcjGSiJ+nlq65WcsbONfbpSCZlHZow1k2gE+HwcCo=;
+        b=fTnyVtizL6AETB8LlC/+4c0n807imIz18qZUbvdJ/sRGT7OaCqQ1JibALD8eNb9tw8
+         imjWP9HctAyoyumtoYhCCYohVGeUydKbqJixWn1RDqqglZZai7fuKdfAE/oj4BgfJT6o
+         5fCpqnaUt+UIyDT54mNJXnWvhXd6NS4enYqv/2bQwSgykeqWpfkji2rkV+D5ciVLeaZ+
+         defdYHbc/PMKCcwfVnl/qCQHIh80PV6yv1RqUdfIk1NWA0exhrzKMxj0Mv6N7/X+fVrX
+         vyhx2eRNxBRzvJ3is95W2v/OYhAI8wuVimIcfess345PFeQgI2H1HvgGAhyyxCb/Q73Z
+         E1xg==
+X-Gm-Message-State: AOAM532L2ObpyOYYccEqJATMOURVbeMEqx9YpSA7+6BbLb4fyDJJRnQu
+	582wa0EOavxWZQEsnTQ1ORqFiQ==
+X-Google-Smtp-Source: ABdhPJw/4gOK7xeclDA9097uwkEU8w5LJ7LCVdGl20UroQC9SxTNcI8HyNfFl0xGksOd2Y3YCOPhbQ==
+X-Received: by 2002:aa7:d059:0:b0:41d:76b4:bcc1 with SMTP id n25-20020aa7d059000000b0041d76b4bcc1mr22299244edo.389.1650451563871;
+        Wed, 20 Apr 2022 03:46:03 -0700 (PDT)
+Received: from localhost.localdomain (xdsl-188-155-176-92.adslplus.ch. [188.155.176.92])
+        by smtp.gmail.com with ESMTPSA id mv12-20020a170907838c00b006e87c0247f4sm6529912ejc.186.2022.04.20.03.46.02
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 20 Apr 2022 03:46:03 -0700 (PDT)
 From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-In-Reply-To: <164907989905.809631.16161802401962719876.b4-ty@linaro.org>
-Message-ID-Hash: LTWINNCN4TIYP64FPTJA4MJTEPPBWSZL
-X-Message-ID-Hash: LTWINNCN4TIYP64FPTJA4MJTEPPBWSZL
+To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
+	"David S. Miller" <davem@davemloft.net>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	linux-nfc@lists.01.org,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Date: Wed, 20 Apr 2022 12:46:01 +0200
+Message-Id: <20220420104601.106540-1-krzysztof.kozlowski@linaro.org>
+X-Mailer: git-send-email 2.32.0
+MIME-Version: 1.0
+Message-ID-Hash: I2YVRUOLNJDDNGFGVR2F27E63YCRVROT
+X-Message-ID-Hash: I2YVRUOLNJDDNGFGVR2F27E63YCRVROT
 X-MailFrom: krzysztof.kozlowski@linaro.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency; loop; banned-address; member-moderation; nonmember-moderation; administrivia; implicit-dest; max-recipients; max-size; news-moderation; no-subject; suspicious-header
-CC: Rob Herring <robh+dt@kernel.org>, Arnd Bergmann <arnd@arndb.de>, Olof Johansson <olof@lixom.net>
 X-Mailman-Version: 3.1.1
 Precedence: list
-Subject: [linux-nfc] Re: [PATCH 0/2] MAINTAINERS/dt-bindings: changes to my emails
+Subject: [linux-nfc] [PATCH] nfc: MAINTAINERS: add Bug entry
 List-Id: NFC on Linux <linux-nfc.lists.01.org>
-Archived-At: <https://lists.01.org/hyperkitty/list/linux-nfc@lists.01.org/message/LTWINNCN4TIYP64FPTJA4MJTEPPBWSZL/>
+Archived-At: <https://lists.01.org/hyperkitty/list/linux-nfc@lists.01.org/message/I2YVRUOLNJDDNGFGVR2F27E63YCRVROT/>
 List-Archive: <https://lists.01.org/hyperkitty/list/linux-nfc@lists.01.org/>
 List-Help: <mailto:linux-nfc-request@lists.01.org?subject=help>
 List-Post: <mailto:linux-nfc@lists.01.org>
@@ -79,26 +75,28 @@ List-Unsubscribe: <mailto:linux-nfc-leave@lists.01.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-On 04/04/2022 15:45, Krzysztof Kozlowski wrote:
-> On Wed, 30 Mar 2022 09:40:14 +0200, Krzysztof Kozlowski wrote:
->> From: Krzysztof Kozlowski <krzk@kernel.org>
->>
->> Hi,
->>
->> I can take both patches via my Samsung SoC tree, if that's ok.
->>
->> Best regards,
->> Krzysztof
->>
->> [...]
-> 
-> Applied, thanks!
+Add a Bug section, indicating preferred mailing method for bug reports,
+to NFC Subsystem entry.
 
-Applied to fixes, as Rob asked for.
+Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+---
+ MAINTAINERS | 1 +
+ 1 file changed, 1 insertion(+)
 
-
-Best regards,
-Krzysztof
+diff --git a/MAINTAINERS b/MAINTAINERS
+index 2d746723306a..1786cbdd43a2 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -13842,6 +13842,7 @@ M:	Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+ L:	linux-nfc@lists.01.org (subscribers-only)
+ L:	netdev@vger.kernel.org
+ S:	Maintained
++B:	mailto:linux-nfc@lists.01.org
+ F:	Documentation/devicetree/bindings/net/nfc/
+ F:	drivers/nfc/
+ F:	include/linux/platform_data/nfcmrvl.h
+-- 
+2.32.0
 _______________________________________________
 Linux-nfc mailing list -- linux-nfc@lists.01.org
 To unsubscribe send an email to linux-nfc-leave@lists.01.org
