@@ -2,66 +2,72 @@ Return-Path: <linux-nfc-bounces@lists.01.org>
 X-Original-To: lists+linux-nfc@lfdr.de
 Delivered-To: lists+linux-nfc@lfdr.de
 Received: from ml01.01.org (ml01.01.org [IPv6:2001:19d0:306:5::1])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4C85953A4AE
-	for <lists+linux-nfc@lfdr.de>; Wed,  1 Jun 2022 14:16:53 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9A0EB54047A
+	for <lists+linux-nfc@lfdr.de>; Tue,  7 Jun 2022 19:13:47 +0200 (CEST)
 Received: from ml01.vlan13.01.org (localhost [IPv6:::1])
-	by ml01.01.org (Postfix) with ESMTP id 16F1B100EBB97;
-	Wed,  1 Jun 2022 05:16:50 -0700 (PDT)
-Received-SPF: Pass (mailfrom) identity=mailfrom; client-ip=2a00:1450:4864:20::62a; helo=mail-ej1-x62a.google.com; envelope-from=krzysztof.kozlowski@linaro.org; receiver=<UNKNOWN> 
-Received: from mail-ej1-x62a.google.com (mail-ej1-x62a.google.com [IPv6:2a00:1450:4864:20::62a])
+	by ml01.01.org (Postfix) with ESMTP id 8F8F7100F2275;
+	Tue,  7 Jun 2022 10:13:44 -0700 (PDT)
+Received-SPF: Pass (mailfrom) identity=mailfrom; client-ip=2a00:1450:4864:20::62d; helo=mail-ej1-x62d.google.com; envelope-from=krzysztof.kozlowski@linaro.org; receiver=<UNKNOWN> 
+Received: from mail-ej1-x62d.google.com (mail-ej1-x62d.google.com [IPv6:2a00:1450:4864:20::62d])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits))
 	(No client certificate requested)
-	by ml01.01.org (Postfix) with ESMTPS id B3AA5100EBB94
-	for <linux-nfc@lists.01.org>; Wed,  1 Jun 2022 05:16:47 -0700 (PDT)
-Received: by mail-ej1-x62a.google.com with SMTP id jx22so3308561ejb.12
-        for <linux-nfc@lists.01.org>; Wed, 01 Jun 2022 05:16:47 -0700 (PDT)
+	by ml01.01.org (Postfix) with ESMTPS id 08A50100EB856
+	for <linux-nfc@lists.01.org>; Tue,  7 Jun 2022 10:13:41 -0700 (PDT)
+Received: by mail-ej1-x62d.google.com with SMTP id s12so29318492ejx.3
+        for <linux-nfc@lists.01.org>; Tue, 07 Jun 2022 10:13:41 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=linaro.org; s=google;
-        h=from:to:cc:subject:date:message-id:mime-version
-         :content-transfer-encoding;
-        bh=jGHsmoEGs1YcLx746B4x1wjMz+Zlwyazt35/LAVEprc=;
-        b=C/SOI37/fvg0u0KX3OdBH01KN8yx0KaASMRV23K2khdqGs2NHtGlCIBuAjx0LaBfrp
-         BJU2+ghB5MvSpUpKTsFbEXG+mMTf1ZakSdPtJQUvixqe79BGe96AhokGAKMuP+kDzemT
-         xgLNT4uLDtSYEeW+XVl66vGPWGv0lHkXfJ3wJBzkDPOdQNVZ25qX5EMSGSs/Bz9u3IXf
-         EmMGQjQYMHSP91b0Op7M7GD/wbbX+SolZRIfy58OEwjM9T7zrbjKd02yDhArTEHXII7w
-         HMuY8nr628sKO60DL32sCuv6trx4awrlJWTPj5C1tc3QsdqzD1QoVUFWtYkPKz8tdOqp
-         IG1w==
+        h=message-id:date:mime-version:user-agent:subject:content-language:to
+         :cc:references:from:in-reply-to:content-transfer-encoding;
+        bh=l5jecJ7m6j6+wfJuaqL9TGi12DzOxHHnCuf6mP4CPsk=;
+        b=w7M+C0ahijC0B5bCeZUW56ccB+U14/4XaFNlbPajEWNY4D3QmZd+Z/NAU9yzJyYr4U
+         R7Jx/ojQ8aPKjojbyH/h1fab4Md0weTfxuTxVCpLeZVanf2ezcYP0pfFLiNtfQjfXuQ4
+         jLSq1U4egGPuSPIiN4zbA8XSua49XD0PMrAsJ0eapthyJQSSuHJWohuQBjrJSDZxaojC
+         V6U+tchZeJ+U9/fISn3ka080i+l4dupD0mPfUZ8+fjI1mXJ2bWHreq9cESDHxTSuz2uT
+         1fBFpmEaljN9m2CUBO8zQ5kHPGdGaeZ39kt+ioHEXadSFWbhxev4cYsEbLoCZZCMRUg5
+         hkkA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
-        h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+        h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
+         :content-language:to:cc:references:from:in-reply-to
          :content-transfer-encoding;
-        bh=jGHsmoEGs1YcLx746B4x1wjMz+Zlwyazt35/LAVEprc=;
-        b=7diHQXtb8lDrN3ZvylGpLMbMlmnOoyn4RO6NsdwNaF+W31wuc1Hf19o2sZdUSr4vTG
-         nx3XDOYnD4xNfnz/y9nf+ECrgXRSk6fV9BJD0EySafc3RZzJ2cP/IPgTAx1fk0zA2us/
-         hLKaA5lWNAMwCRt07Epg5MSC7eZvzNa3+vvudRR/obwPQWYm4T10r0Q/hGvccuvz4cy3
-         dzp4LCOQcN7YQ4TSCIhPqvHPhDBgdZo79h7q4Dowv4weOs/PZYtahhPj0wlJzR4yAJ5W
-         jH8q2hGrivdcl3/QpEnkVmTpzp7TNTaz/Bt5Z5SfCk/EUOFd7pBKPmUeX9PxhAdMLZod
-         8dNQ==
-X-Gm-Message-State: AOAM530Q3yBxa0QM6KXf0GusfXAFpkIdWf289Ipg4L5zaVNR7gcQIUKy
-	Wri8U8C+VcA4os7SngBAiWLmI8O6P1EF9qvd
-X-Google-Smtp-Source: ABdhPJxTMsR2+eZ9xgbXPmPnF0EO1QUXXvEj2Tpue64B7M4OGJ4E31qiijTO03NeC/HIshbxXzYqiA==
-X-Received: by 2002:a17:907:7ea5:b0:6ff:1a57:28de with SMTP id qb37-20020a1709077ea500b006ff1a5728demr28004381ejc.60.1654085805086;
-        Wed, 01 Jun 2022 05:16:45 -0700 (PDT)
-Received: from localhost.localdomain (xdsl-188-155-176-92.adslplus.ch. [188.155.176.92])
-        by smtp.gmail.com with ESMTPSA id w24-20020a17090633d800b006febc1e9fc8sm655673eja.47.2022.06.01.05.16.44
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 01 Jun 2022 05:16:44 -0700 (PDT)
-From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-To: linux-nfc@lists.01.org
-Date: Wed,  1 Jun 2022 14:16:34 +0200
-Message-Id: <20220601121634.192225-1-krzysztof.kozlowski@linaro.org>
-X-Mailer: git-send-email 2.34.1
+        bh=l5jecJ7m6j6+wfJuaqL9TGi12DzOxHHnCuf6mP4CPsk=;
+        b=hGRSuxBquQFHm9NqN0eUPDx27vmBSQ0icfBUVD8OqR/TM6X9oC/quyDNufYKH+F3YH
+         xuZ3Aq+67jiLIfjACXru9x5vWFKtS5RgU+oeTUAeLBDrDKiyFUXKErEQzPBl+mOmqrCj
+         A+wWcS1tYm0r8Fg42D0AYVTZRK8rTm5DtvOMXrYTgRxltrh8Q8SDcLyoOlBwDmDB2hQV
+         mwwC0vLh1RX6N1+Pv7aaUsCZz+kl48kYRUgvIoVTX2q9rlMBgQClcUwG2ov/eQ9ebgZ/
+         vh36q6ubbdpxH1aHow4caxSK3dbEhf2Hl/SkWSf0bldUwtQzJims+vlI4Fo6mBIjRKWJ
+         ec7g==
+X-Gm-Message-State: AOAM531fW9op6COVw4x9s1vLvLExRqOkn6zhLkMLJ36uuG0sqGFRHPyl
+	DkuesK21q2Lslek3LjSz8UQO3A==
+X-Google-Smtp-Source: ABdhPJyW10sSpBHf1hhEgmGHXRYXoBPu1ntTLE8Y/VNzIW34xyZ5qg5+Mno2iViaMjRzgjN9HrJCdQ==
+X-Received: by 2002:a17:906:7944:b0:6da:b834:2f3e with SMTP id l4-20020a170906794400b006dab8342f3emr28510928ejo.353.1654622019855;
+        Tue, 07 Jun 2022 10:13:39 -0700 (PDT)
+Received: from [192.168.0.186] (xdsl-188-155-176-92.adslplus.ch. [188.155.176.92])
+        by smtp.gmail.com with ESMTPSA id a23-20020aa7cf17000000b0042dc882c823sm10738047edy.70.2022.06.07.10.13.38
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 07 Jun 2022 10:13:39 -0700 (PDT)
+Message-ID: <e24f904b-0eaa-dd48-2647-8aaee510beca@linaro.org>
+Date: Tue, 7 Jun 2022 19:13:37 +0200
 MIME-Version: 1.0
-Message-ID-Hash: VZG74EXAG3WYQRTU3FPKUSQ7UVJ7LIKH
-X-Message-ID-Hash: VZG74EXAG3WYQRTU3FPKUSQ7UVJ7LIKH
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.10.0
+Content-Language: en-US
+To: Martin Faltesek <mfaltesek@google.com>, kuba@kernel.org
+References: <20220607025729.1673212-1-mfaltesek@google.com>
+ <20220607025729.1673212-2-mfaltesek@google.com>
+From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+In-Reply-To: <20220607025729.1673212-2-mfaltesek@google.com>
+Message-ID-Hash: HKM3GJLDD3MDA76I4Y54EIHLERW7F6H7
+X-Message-ID-Hash: HKM3GJLDD3MDA76I4Y54EIHLERW7F6H7
 X-MailFrom: krzysztof.kozlowski@linaro.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency; loop; banned-address; member-moderation; nonmember-moderation; administrivia; implicit-dest; max-recipients; max-size; news-moderation; no-subject; suspicious-header
-CC: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+CC: christophe.ricard@gmail.com, gregkh@linuxfoundation.org, groeck@google.com, jordy@pwning.systems, krzk@kernel.org, martin.faltesek@gmail.com, netdev@vger.kernel.org, linux-nfc@lists.01.org, wklin@google.com, theflamefire89@gmail.com, stable@vger.kernel.org
 X-Mailman-Version: 3.1.1
 Precedence: list
-Subject: [linux-nfc] [neard][PATCH] ci: build on newest Ubuntu Jammy Jellyfish (22.04)
+Subject: [linux-nfc] Re: [PATCH net v3 1/3] nfc: st21nfca: fix incorrect validating logic in EVT_TRANSACTION
 List-Id: NFC on Linux <linux-nfc.lists.01.org>
-Archived-At: <https://lists.01.org/hyperkitty/list/linux-nfc@lists.01.org/message/VZG74EXAG3WYQRTU3FPKUSQ7UVJ7LIKH/>
+Archived-At: <https://lists.01.org/hyperkitty/list/linux-nfc@lists.01.org/message/HKM3GJLDD3MDA76I4Y54EIHLERW7F6H7/>
 List-Archive: <https://lists.01.org/hyperkitty/list/linux-nfc@lists.01.org/>
 List-Help: <mailto:linux-nfc-request@lists.01.org?subject=help>
 List-Post: <mailto:linux-nfc@lists.01.org>
@@ -70,61 +76,34 @@ List-Unsubscribe: <mailto:linux-nfc-leave@lists.01.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-Add building under CI on Ubuntu Jammy Jellyfish (22.04).
+On 07/06/2022 04:57, Martin Faltesek wrote:
+> The first validation check for EVT_TRANSACTION has two different checks
+> tied together with logical AND. One is a check for minimum packet length,
+> and the other is for a valid aid_tag. If either condition is true (fails),
+> then an error should be triggered.  The fix is to change && to ||.
+> 
+> Fixes: 26fc6c7f02cb ("NFC: st21nfca: Add HCI transaction event support")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Martin Faltesek <mfaltesek@google.com>
+> ---
+>  drivers/nfc/st21nfca/se.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
 
-Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
----
- .github/workflows/ci.yml | 21 +++++++++++++++++++++
- 1 file changed, 21 insertions(+)
+Please add Acked-by/Reviewed-by tags when posting new versions. However,
+there's no need to repost patches *only* to add the tags. The upstream
+maintainer will do that for acks received on the version they apply.
 
-diff --git a/.github/workflows/ci.yml b/.github/workflows/ci.yml
-index 1759d6571e74..2adf6f102d36 100644
---- a/.github/workflows/ci.yml
-+++ b/.github/workflows/ci.yml
-@@ -34,6 +34,7 @@ jobs:
-           - fedora:latest
-           - fedora:35
-           - fedora:34
-+          - ubuntu:jammy
-           - ubuntu:impish
-           - ubuntu:hirsute
-           - ubuntu:focal
-@@ -177,6 +178,20 @@ jobs:
-             variant: sanitizers
- 
-           # Ubuntu 32-bit builds
-+          - container: "ubuntu:jammy"
-+            arch: i386
-+            compiler: gcc -m32
-+            cross_compile: i686-linux-gnu
-+            mode: maintainer
-+            variant: i386
-+
-+          - container: "ubuntu:jammy"
-+            arch: i386
-+            compiler: gcc -m32
-+            cross_compile: i686-linux-gnu
-+            mode: no-maintainer
-+            variant: i386
-+
-           - container: "ubuntu:impish"
-             arch: i386
-             compiler: gcc -m32
-@@ -220,6 +235,12 @@ jobs:
-             variant: i386
- 
-           # Ubuntu GCC sanitizer builds
-+          - container: "ubuntu:jammy"
-+            arch: x86-64
-+            compiler: gcc
-+            mode: maintainer
-+            variant: sanitizers
-+
-           - container: "ubuntu:impish"
-             arch: x86-64
-             compiler: gcc
--- 
-2.34.1
+https://elixir.bootlin.com/linux/v5.17/source/Documentation/process/submitting-patches.rst#L540
+
+If a tag was not added on purpose, please state why and what changed.
+
+
+
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+
+
+Best regards,
+Krzysztof
 _______________________________________________
 Linux-nfc mailing list -- linux-nfc@lists.01.org
 To unsubscribe send an email to linux-nfc-leave@lists.01.org
