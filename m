@@ -2,72 +2,71 @@ Return-Path: <linux-nfc-bounces@lists.01.org>
 X-Original-To: lists+linux-nfc@lfdr.de
 Delivered-To: lists+linux-nfc@lfdr.de
 Received: from ml01.01.org (ml01.01.org [198.145.21.10])
-	by mail.lfdr.de (Postfix) with ESMTPS id E432154278A
-	for <lists+linux-nfc@lfdr.de>; Wed,  8 Jun 2022 09:10:03 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 52C3555B57E
+	for <lists+linux-nfc@lfdr.de>; Mon, 27 Jun 2022 05:05:12 +0200 (CEST)
 Received: from ml01.vlan13.01.org (localhost [IPv6:::1])
-	by ml01.01.org (Postfix) with ESMTP id 44F1A100EA2C9;
-	Wed,  8 Jun 2022 00:10:01 -0700 (PDT)
-Received-SPF: Pass (mailfrom) identity=mailfrom; client-ip=2a00:1450:4864:20::52c; helo=mail-ed1-x52c.google.com; envelope-from=krzysztof.kozlowski@linaro.org; receiver=<UNKNOWN> 
-Received: from mail-ed1-x52c.google.com (mail-ed1-x52c.google.com [IPv6:2a00:1450:4864:20::52c])
+	by ml01.01.org (Postfix) with ESMTP id C7A5B100EA101;
+	Sun, 26 Jun 2022 20:04:47 -0700 (PDT)
+Received-SPF: Pass (mailfrom) identity=mailfrom; client-ip=209.85.218.41; helo=mail-ej1-f41.google.com; envelope-from=krzysztof.kozlowski@linaro.org; receiver=<UNKNOWN> 
+Received: from mail-ej1-f41.google.com (mail-ej1-f41.google.com [209.85.218.41])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits))
 	(No client certificate requested)
-	by ml01.01.org (Postfix) with ESMTPS id A56AD100EAB62
-	for <linux-nfc@lists.01.org>; Wed,  8 Jun 2022 00:09:59 -0700 (PDT)
-Received: by mail-ed1-x52c.google.com with SMTP id w27so25774297edl.7
-        for <linux-nfc@lists.01.org>; Wed, 08 Jun 2022 00:09:59 -0700 (PDT)
+	by ml01.01.org (Postfix) with ESMTPS id 3A526100E6C29
+	for <linux-nfc@lists.01.org>; Sun, 26 Jun 2022 13:02:20 -0700 (PDT)
+Received: by mail-ej1-f41.google.com with SMTP id h23so14899499ejj.12
+        for <linux-nfc@lists.01.org>; Sun, 26 Jun 2022 13:02:20 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=linaro.org; s=google;
         h=message-id:date:mime-version:user-agent:subject:content-language:to
          :cc:references:from:in-reply-to:content-transfer-encoding;
-        bh=4VhB2e/ltpu1xO6FxebSIJdavw/FcgMQSIeYIdUzE8E=;
-        b=LB8glNF1OZD8rR7O+PhXb+revMGeyvo2TrVT9fhvVjTttyEoABo26rnt0n/EjhhSxT
-         gN3sLTTgCcsakc/Vkd2HAoa793GrCgXy+ybkcUfkL3hJ5M3/ciuvSp4INRP9MLSB+Jtg
-         jsFQVBHwyqqrjqdLSXWImg0nbS5Hgf5fW3/Wtw9T32lYnJeJ/AiA0WTuxAkiCJtEPTkV
-         2K3x6A/JhFBgdFWLf97Ez7n5yiN7bhSf+wHfh6YsahQ8QrYh6bMYvNOPTCGHX8sqFVkz
-         z3v/tn0QCMmB3w5iFGVHqFl4jgd9XFzGAXh9QQgRdttu5dXck1LPPY19NitDuEMCMc9G
-         YV4g==
+        bh=/dHdhk9iSqnCzmK8wQDYGABZ8GvQS0ONofRd5NT5Ei4=;
+        b=GgfhNWvWw7MYFIu+a9jPtPG2t0BzcvYNpIHFK72XmfTMDjXUeLDWa/QX9bm5Ivx1WQ
+         9gBjCy5nNc95xBhXP2U5KgNYU6jHA0HCNzBTCZ+ER/Qo+Iw1/KsXoarIaZ1wLQVP6R72
+         BfLjlvgS7wD2XzLcsXTPQ6Xk54ev7jsytuQA20iKSsgz5eW6s2cFUKG6iAvJ38K5vmVi
+         BC1Z4JIgoUrlMCXDGsTdyt5YaeRensip/iZSaWdfS0qyquTL5dZi7Dqmxcd7vNOpYvr6
+         beGJryK3qiK+wiK2pFaErPZq7XL/6q56xDCJ2agYXvmQ1GJCCXM+OA233kmc65Gxvrzw
+         YwFQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20210112;
         h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
          :content-language:to:cc:references:from:in-reply-to
          :content-transfer-encoding;
-        bh=4VhB2e/ltpu1xO6FxebSIJdavw/FcgMQSIeYIdUzE8E=;
-        b=iE4DcYOIzd9CuXr6uXM/CPJ6wqP5WpgS/OiEEOK+8EzFUJrtv7RKmjUNh1MAgaZvm4
-         fis4Wsid+IyKGc/1UgD2pj7wsAESwW8sk1DAhV+t/J1GxWzQfs57iCKie4yDE058I387
-         dnYwnVkC8G9RnhaVCqsSku+gfxCDt7wv7nJErbeUvoNJzvds6xOswfL5/RvaDdY52ZHK
-         rygFoT99fK9q0xU/lozCeRYnoVTrVQIBV0U2selfAnGRU2pRJeFXGrJFQnbmEGJyIAyS
-         KD0HPsReNSpyKsMCh6tuF4xTXIaKonMl+Ncy3+mpHLUsNu2U+dKyy4HRClcgs5RpjpcW
-         6fJg==
-X-Gm-Message-State: AOAM531z7bDL+JqOe1FAdfiQybegQI138WoRIQMcLPQsUNTAikH+ukzK
-	A7kj9ExITtRhdEmsbwtRCTkx6A==
-X-Google-Smtp-Source: ABdhPJyHF7hM8V6O84F0LFPlhTciyOv7byFP2rtEm5inGFYWa9ZRBeTODiIowgOO0jIDtMk+cgWVvA==
-X-Received: by 2002:aa7:d9d9:0:b0:42d:f9e4:49e0 with SMTP id v25-20020aa7d9d9000000b0042df9e449e0mr37174658eds.299.1654672197861;
-        Wed, 08 Jun 2022 00:09:57 -0700 (PDT)
-Received: from [192.168.0.188] (xdsl-188-155-176-92.adslplus.ch. [188.155.176.92])
-        by smtp.gmail.com with ESMTPSA id m11-20020a056402050b00b0042dd7e13391sm11673670edv.45.2022.06.08.00.09.56
+        bh=/dHdhk9iSqnCzmK8wQDYGABZ8GvQS0ONofRd5NT5Ei4=;
+        b=s4FnRUTZDtJPxntUQSwvE8a/taHoJI8BNr/bqBuHr1yCVmYnQK6G2uaoI6A48eA5db
+         F/W9Lo7RKgGx2FOCxynfWWDgoKlWoYaABqysJw0lCsAWO+dBkkupEjyAapgFNEYt6Kae
+         g8utOZI78eILz9Jw85+nBkNnDxuwMyGZuZ8dDJlJ5LJcJay4JILQWq0MfnvneMZ9ZcLl
+         K/kQ7VFfMjzlBYIwDDkiy1GuvTR92GinwxTEcPcMhBHRFYJGCvxbXYQpKBQs1gz1nU/D
+         XhQWRhKlrXmc0W8Y0GOPF1wsI8V6SOvgvtyONucExTgjJXNmgbG5KUNexgdVfxdbQbm5
+         L9eg==
+X-Gm-Message-State: AJIora9sOhOdD7rY5kLb0q1RyfHwMEI1datCQp0q2gtDD9f2h5ZVI2nO
+	HfwE+9b3crugVBQyQUYAR3N72g==
+X-Google-Smtp-Source: AGRyM1t9NeUDMF6za5hKlOFTVIoS0uVollNBtYIZoGH9DQtIvuLwltJirMTqp1+X3zUOea8cICce7g==
+X-Received: by 2002:a17:907:1c0b:b0:711:cc52:2920 with SMTP id nc11-20020a1709071c0b00b00711cc522920mr9371914ejc.301.1656273678091;
+        Sun, 26 Jun 2022 13:01:18 -0700 (PDT)
+Received: from [192.168.0.245] (xdsl-188-155-176-92.adslplus.ch. [188.155.176.92])
+        by smtp.gmail.com with ESMTPSA id q14-20020a1709066ace00b00722e603c39asm4182115ejs.31.2022.06.26.13.01.17
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 08 Jun 2022 00:09:57 -0700 (PDT)
-Message-ID: <9d387882-3c9a-5056-9ee3-81ab6ea0a9a6@linaro.org>
-Date: Wed, 8 Jun 2022 09:09:55 +0200
+        Sun, 26 Jun 2022 13:01:17 -0700 (PDT)
+Message-ID: <6f338cbb-9602-fe28-74ed-98bd8f110c6c@linaro.org>
+Date: Sun, 26 Jun 2022 22:01:16 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
  Thunderbird/91.10.0
 Content-Language: en-US
-To: Martin Faltesek <mfaltesek@google.com>, kuba@kernel.org
-References: <20220607025729.1673212-1-mfaltesek@google.com>
- <20220607025729.1673212-4-mfaltesek@google.com>
+To: Michael Walle <michael@walle.cc>
+References: <20220626200039.4062784-1-michael@walle.cc>
 From: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-In-Reply-To: <20220607025729.1673212-4-mfaltesek@google.com>
-Message-ID-Hash: E2AVN3WQPY6O7DODNBOMZVT6PLG63DH7
-X-Message-ID-Hash: E2AVN3WQPY6O7DODNBOMZVT6PLG63DH7
+In-Reply-To: <20220626200039.4062784-1-michael@walle.cc>
+Message-ID-Hash: 7YVHMAZH3WRM6NPLVTSKORAIWMLAUTJS
+X-Message-ID-Hash: 7YVHMAZH3WRM6NPLVTSKORAIWMLAUTJS
 X-MailFrom: krzysztof.kozlowski@linaro.org
 X-Mailman-Rule-Misses: dmarc-mitigation; no-senders; approved; emergency; loop; banned-address; member-moderation; nonmember-moderation; administrivia; implicit-dest; max-recipients; max-size; news-moderation; no-subject; suspicious-header
-CC: christophe.ricard@gmail.com, gregkh@linuxfoundation.org, groeck@google.com, jordy@pwning.systems, krzk@kernel.org, martin.faltesek@gmail.com, netdev@vger.kernel.org, linux-nfc@lists.01.org, wklin@google.com, theflamefire89@gmail.com, stable@vger.kernel.org
+CC: linux-kernel@vger.kernel.org, linux-nfc@lists.01.org, netdev@vger.kernel.org
 X-Mailman-Version: 3.1.1
 Precedence: list
-Subject: [linux-nfc] Re: [PATCH net v3 3/3] nfc: st21nfca: fix incorrect sizing calculations in EVT_TRANSACTION
+Subject: [linux-nfc] Re: [PATCH] MAINTAINERS: nfc: drop Charles Gorand from NXP-NCI
 List-Id: NFC on Linux <linux-nfc.lists.01.org>
-Archived-At: <https://lists.01.org/hyperkitty/list/linux-nfc@lists.01.org/message/E2AVN3WQPY6O7DODNBOMZVT6PLG63DH7/>
+Archived-At: <https://lists.01.org/hyperkitty/list/linux-nfc@lists.01.org/message/7YVHMAZH3WRM6NPLVTSKORAIWMLAUTJS/>
 List-Archive: <https://lists.01.org/hyperkitty/list/linux-nfc@lists.01.org/>
 List-Help: <mailto:linux-nfc-request@lists.01.org?subject=help>
 List-Post: <mailto:linux-nfc@lists.01.org>
@@ -76,33 +75,14 @@ List-Unsubscribe: <mailto:linux-nfc-leave@lists.01.org>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-On 07/06/2022 04:57, Martin Faltesek wrote:
-> The transaction buffer is allocated by using the size of the packet buf,
-> and subtracting two which seem intended to remove the two tags which are
-> not present in the target structure. This calculation leads to under
-> counting memory because of differences between the packet contents and the
-> target structure. The aid_len field is a u8 in the packet, but a u32 in
-> the structure, resulting in at least 3 bytes always being under counted.
-> Further, the aid data is a variable length field in the packet, but fixed
-> in the structure, so if this field is less than the max, the difference is
-> added to the under counting.
+On 26/06/2022 22:00, Michael Walle wrote:
+> Mails to Charles get an auto reply, that he is no longer working at
+> Eff'Innov technologies. Drop the entry and mark the driver as orphaned.
 > 
-> The last validation check for transaction->params_len is also incorrect
-> since it employs the same accounting error.
-> 
-> To fix, perform validation checks progressively to safely reach the
-> next field, to determine the size of both buffers and verify both tags.
-> Once all validation checks pass, allocate the buffer and copy the data.
-> This eliminates freeing memory on the error path, as those checks are
-> moved ahead of memory allocation.
-> 
-> Fixes: 26fc6c7f02cb ("NFC: st21nfca: Add HCI transaction event support")
-> Fixes: 4fbcc1a4cb20 ("nfc: st21nfca: Fix potential buffer overflows in EVT_TRANSACTION")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Martin Faltesek <mfaltesek@google.com>
-> ---
+> Signed-off-by: Michael Walle <michael@walle.cc>
 
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+
+Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
 
 
 Best regards,
